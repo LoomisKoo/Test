@@ -6,123 +6,57 @@
     android:layout_height="match_parent"
     tools:context=".activity.MainActivity">
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="0dp"
-        android:layout_height="116dp"
-        android:text="test"
-        app:layout_constraintBaseline_toBaselineOf="@+id/button4"
-        app:layout_constraintEnd_toStartOf="@+id/button4"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintHorizontal_chainStyle="spread"
-        app:layout_constraintHorizontal_weight="1"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/button4"
-        android:layout_width="188dp"
-        android:layout_height="116dp"
-        android:layout_marginTop="52dp"
-        android:text="test"
-        app:layout_constraintEnd_toStartOf="@+id/button5"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintHorizontal_weight="2"
-        app:layout_constraintStart_toEndOf="@+id/button"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
-
-
-    <Button
-        android:id="@+id/button5"
-        android:layout_width="0dp"
-        android:layout_height="116dp"
-        android:text="test"
-        app:layout_constraintBaseline_toBaselineOf="@+id/button4"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintHorizontal_weight="1"
-        app:layout_constraintStart_toEndOf="@+id/button4" />
-
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="wrap_content"
-        android:layout_height="128dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:text="test"
-        app:layout_constraintBaseline_toBaselineOf="@+id/textView4"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="176dp"
-        android:layout_height="128dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:gravity="center"
-        android:text="test"
-        app:layout_constraintEnd_toStartOf="@+id/button2"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/button3"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/button3"
-        android:layout_width="88dp"
-        android:layout_height="128dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:text="test"
-        app:layout_constraintBaseline_toBaselineOf="@+id/textView4"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/button19"
-        android:layout_width="0dp"
-        android:layout_height="49dp"
-        android:text="A"
-        app:layout_constraintBaseline_toBaselineOf="@+id/button20"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/button20"
-        app:layout_constraintHorizontal_chainStyle="spread_inside"
-        app:layout_constraintHorizontal_weight="3"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/button20"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:text="B"
-        app:layout_constraintEnd_toStartOf="@+id/button18"
-        app:layout_constraintHorizontal_weight="2"
-        app:layout_constraintStart_toEndOf="@+id/button19"
-        app:layout_constraintTop_toBottomOf="@+id/button4" />
-
-    <Button
-        android:id="@+id/button18"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="C"
-        app:layout_constraintBaseline_toBaselineOf="@+id/button20"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_weight="3"
-        app:layout_constraintStart_toEndOf="@+id/button20" />
-
-    <Button
-        android:id="@+id/button21"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="Button"
+    <FrameLayout
+        android:id="@+id/content_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/bottomBar" />
+    <!--
+    bb_tabXmlResource：
+    设置标签的 xml 资源标识，在 res/xml/ 目录下。
+    bb_tabletMode：
+    是否是平板模式。true：是；false：不是。
+    bb_behavior：（三种模式）
+    shifting: 选定的标签比其他的更宽。
+    shy: 将 Bottombar 放在 Coordinatorlayout 它会自动隐藏在滚动！（需要特定的布局）
+    underNavbar: 正常模式（默认）。
+    bb_inActiveTabAlpha：
+    没选中时标签的透明度，icon 和 titiles 有用。（取值：0-1）
+    bb_activeTabAlpha：
+    选中时标签的透明度，与上一个相对应。（取值：0-1）
+    bb_inActiveTabColor：
+    没选时标签的颜色，icon 和 titiles 有用。
+    bb_activeTabColor：
+    选中时标签的颜色，与一个相对应。
+    bb_badgeBackgroundColor：
+    设置 Badges 的背景色，就是右上角显示数字那个。
+    bb_badgesHideWhenActive：
+    小红点是否隐藏，默认为 true 隐藏。就是右上角显示数字那个。
+    bb_titleTextAppearance：
+    利用 style 重新设置自定的格式，例如：大小、加粗等。
+    bb_titleTypeFace：
+    设置自定的字体, 例： app:bb_titleTypeFace="fonts/MySuperDuperFont.ttf"。
+    将字体放在 src/main/assets/fonts/MySuperDuperFont.ttf 路径下，
+    只需要写 fonts/MySuperDuperFont.ttf 即可，将自动填充。
+    bb_showShadow：
+    控制阴影是否显示或隐藏，类似于蒙板，默认为true。
+    -->
+    <com.roughike.bottombar.BottomBar
+        android:id="@+id/bottomBar"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        app:bb_behavior="shifting"
+        app:bb_tabXmlResource="@xml/bottom_bar_menu"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.513"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button20"
-        app:layout_constraintVertical_bias="0.457" />
+        app:layout_constraintStart_toStartOf="parent" />
 
+    <android.support.v4.view.ViewPager
+        android:id="@+id/view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </android.support.v4.view.ViewPager>
 
 </android.support.constraint.ConstraintLayout>
