@@ -115,6 +115,7 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
      * @return
      */
     public abstract int bindLayout();
+
     /**
      * [绑定菜单]
      *
@@ -281,6 +282,5 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
     public void setSteepStatusBar(boolean isSetStatusBar) {
         this.isSetStatusBar = isSetStatusBar;
     }
-
 
 }
