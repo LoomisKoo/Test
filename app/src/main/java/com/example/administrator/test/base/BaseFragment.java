@@ -1,28 +1,19 @@
 package com.example.administrator.test.base;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
-import android.content.pm.ActivityInfo;
 import android.os.Bundle;
-import android.os.Parcelable;
-import android.support.annotation.CallSuper;
 import android.support.annotation.DrawableRes;
-import android.support.annotation.IdRes;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewParent;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-
+/**
+ * @author
+ */
 public class BaseFragment extends Fragment {
 
     private Context context;
@@ -39,8 +30,9 @@ public class BaseFragment extends Fragment {
 
     public static BaseFragment newInstance() {
         synchronized (BaseFragment.class) {
-            if (null == instance)
+            if (null == instance) {
                 new BaseFragment();
+            }
         }
         return instance;
     }
@@ -63,7 +55,9 @@ public class BaseFragment extends Fragment {
     }
 
     protected void initRegister() {
-        if (null == mClickListener) initClickListener();
+        if (null == mClickListener) {
+            initClickListener();
+        }
 
     }
 
@@ -99,7 +93,9 @@ public class BaseFragment extends Fragment {
 
     @Override
     public Context getContext() {
-        if (null == context) context = getActivity();
+        if (null == context) {
+            context = getActivity();
+        }
         return context;
     }
 
@@ -109,7 +105,9 @@ public class BaseFragment extends Fragment {
      * @return
      */
     public BaseActivity getBaseActivity() {
-        if (null == baseActivity) baseActivity = (BaseActivity) getActivity();
+        if (null == baseActivity) {
+            baseActivity = (BaseActivity) getActivity();
+        }
         return baseActivity;
     }
 
@@ -137,16 +135,7 @@ public class BaseFragment extends Fragment {
      * @param msg
      */
     public void showLongToast(String msg) {
-//        getBaseActivity().showLongToast(msg);
-    }
-
-    /**
-     * 显示长时间Toast
-     *
-     * @param msg
-     */
-    public void showLongToast(String msg, int code) {
-//        getBaseActivity().showLongToast(msg, code);
+        getBaseActivity().showLongToast(msg);
     }
 
     /**
@@ -155,7 +144,7 @@ public class BaseFragment extends Fragment {
      * @param resId
      */
     public void showLongToast(@StringRes int resId) {
-//        getBaseActivity().showLongToast(resId);
+        getBaseActivity().showLongToast(resId);
     }
 
     /**
@@ -170,59 +159,12 @@ public class BaseFragment extends Fragment {
     /**
      * 显示Toast
      *
-     * @param msg
-     */
-    public void showToast(int code, String msg) {
-        getBaseActivity().showToast(code, msg);
-    }
-
-    /**
-     * 显示Toast
-     *
      * @param resId
      */
     public void showToast(@StringRes int resId) {
         getBaseActivity().showToast(resId);
     }
 
-    /**
-     * 显示Toast
-     *
-     * @param resId
-     */
-    public void showToast(@StringRes int resId, int code) {
-        showToast(code, getResources().getString(resId));
-    }
-
-    /**
-     * show the progress dialog
-     * <p/>
-     * the dialog can cancle when touched outside the window
-     * and with the{@link KeyEvent#KEYCODE_BACK BACK} key
-     *
-     * @param msg
-     */
-    public void showProgress(String msg) {
-        getBaseActivity().showProgress(msg, false, true);
-    }
-
-    /**
-     * show the progress dialog
-     *
-     * @param msg                    msg
-     * @param touchOutsideCancleable the dialog should be canceled when touched outside the window.
-     * @param cancleable             this dialog is cancelable with the {@link KeyEvent#KEYCODE_BACK BACK} key.
-     */
-    public void showProgress(String msg, boolean touchOutsideCancleable, boolean cancleable) {
-        getBaseActivity().showProgress(msg, touchOutsideCancleable, cancleable);
-    }
-
-    /**
-     * hide the progress dialog
-     */
-    public void hideProgress() {
-        getBaseActivity().hideProgress();
-    }
 
     /**
      * 设置标题栏左导航按钮图标
@@ -280,28 +222,17 @@ public class BaseFragment extends Fragment {
 //        getBaseActivity().setToolBarTitle(resId);
     }
 
-    @Override
-    public boolean onToolBarLeftItemClick(View view) {
-        return false;
-    }
-
-    @Override
-    public boolean onToolBarRightItemClick(View view) {
-        return false;
-    }
-
-    @Override
-    public boolean onToolBarRight2ItemClick(View view) {
-        return false;
-    }
-
     /**
      * 设置点击监听器
      *
      * @param view
      */
     public void setClickListener(View view) {
-        if (null == mClickListener) initClickListener();
-        if (null != view)
+        if (null == mClickListener) {
+            initClickListener();
+        }
+        if (null != view) {
             view.setOnClickListener(mClickListener);
+        }
     }
+}

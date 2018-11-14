@@ -1,8 +1,6 @@
 package com.example.administrator.test.activity;
 
 import android.content.Context;
-import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
@@ -10,6 +8,9 @@ import com.alibaba.android.arouter.launcher.ARouter;
 import com.example.administrator.test.R;
 import com.example.administrator.test.base.BaseActivity;
 
+/**
+ * @author
+ */
 public class MainActivity extends BaseActivity {
 
     @Override
@@ -58,7 +59,6 @@ public class MainActivity extends BaseActivity {
         switch (menuId) {
             case R.id.action_search:
                 ARouter.getInstance().build("/com/Activity1").navigation();
-//                startActivity(new Intent(MainActivity.this,SecondActivity.class));
                 break;
             case R.id.action_notification:
                 showToast("Notification");

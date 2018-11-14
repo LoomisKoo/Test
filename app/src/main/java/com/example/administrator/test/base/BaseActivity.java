@@ -7,6 +7,7 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.StringRes;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -268,6 +269,24 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
      */
     protected void showLongToast(String msg) {
         Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
+    }
+
+    /**
+     * 显示Toast
+     *
+     * @param resId
+     */
+    public void showToast(@StringRes int resId) {
+        Toast.makeText(this, getResources().getString(resId), Toast.LENGTH_SHORT).show();
+    }
+
+    /**
+     * 显示长时间Toast
+     *
+     * @param resId
+     */
+    public void showLongToast(@StringRes int resId) {
+        Toast.makeText(this, getResources().getString(resId), Toast.LENGTH_LONG).show();
     }
 
 
