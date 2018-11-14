@@ -3,6 +3,7 @@ package com.example.administrator.test;
 import android.app.Application;
 
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.blankj.utilcode.util.Utils;
 
 public class TestApplication extends Application {
     @Override
@@ -14,5 +15,7 @@ public class TestApplication extends Application {
         ARouter.openDebug();
         // 尽可能早，推荐在Application中初始化
         ARouter.init(this);
+
+        Utils.init(this);
     }
 }

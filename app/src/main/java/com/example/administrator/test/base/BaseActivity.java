@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.drawable.Drawable;
-import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.StringRes;
@@ -17,6 +16,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Toast;
 
+import com.blankj.utilcode.util.ActivityUtils;
 import com.example.administrator.test.R;
 
 public abstract class BaseActivity extends AppCompatActivity implements View.OnClickListener {

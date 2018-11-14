@@ -3,8 +3,10 @@ package com.example.administrator.test.activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.bumptech.glide.Glide;
 import com.example.administrator.test.R;
 import com.example.administrator.test.base.BaseActivity;
 
@@ -14,6 +16,7 @@ import com.example.administrator.test.base.BaseActivity;
 
 @Route(path = "/com/Activity1")
 public class SecondActivity extends BaseActivity {
+    private ImageView imageView;
     @Override
     public void widgetClick(View v) {
 
@@ -41,7 +44,7 @@ public class SecondActivity extends BaseActivity {
 
     @Override
     public void initView(Bundle savedInstanceState) {
-
+        imageView = findViewById(R.id.imageView);
     }
 
     @Override

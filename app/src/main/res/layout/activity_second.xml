@@ -40,5 +40,17 @@
         app:layout_constraintHorizontal_weight="3"
         app:layout_constraintStart_toEndOf="@+id/button20" />
 
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="384dp"
+        android:layout_height="259dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button20"
+        app:srcCompat="@android:drawable/ic_notification_clear_all"
+        tools:srcCompat="@tools:sample/backgrounds/scenic" />
+
 
 </android.support.constraint.ConstraintLayout>
