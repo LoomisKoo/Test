@@ -3,13 +3,14 @@ package com.example.administrator.test.base;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -61,12 +62,15 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
         }
 
         setContentView(R.layout.layout_base);
+
         mToolbar = findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
+
         mToolbar.setOnMenuItemClickListener(menuItem -> {
             onMenuClickListener(menuItem.getItemId());
             return true;
         });
+
         mContextView = getLayoutInflater().inflate(bindLayout(), findViewById(R.id.root_layout_ll));
 //        //触摸关闭键盘
 //        mContextView.setOnTouchListener((view, motionEvent) -> {
@@ -147,6 +151,8 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
 
     /**
      * [按钮监听回调]
+     *
+     * @param menuId
      */
     public abstract void onMenuClickListener(int menuId);
 
@@ -255,6 +261,15 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
     }
 
+    /**
+     * [简化Toast]
+     *
+     * @param msg
+     */
+    protected void showLongToast(String msg) {
+        Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
+    }
+
 
     /**
      * [是否允许屏幕旋转]
@@ -282,5 +297,33 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
     public void setSteepStatusBar(boolean isSetStatusBar) {
         this.isSetStatusBar = isSetStatusBar;
     }
+
+    /**
+     * 设置toolbar的子标题
+     *
+     * @param subtitle
+     */
+    public void setSubtitle(String subtitle) {
+        mToolbar.setSubtitle(subtitle);
+    }
+
+    /**
+     * 设置toolbar的标题
+     *
+     * @param title
+     */
+    public void setTitle(String title) {
+        mToolbar.setTitle(title);
+    }
+
+    /**
+     * 设置toolbar的logo
+     *
+     * @param logo
+     */
+    public void setLogo(Drawable logo) {
+        mToolbar.setLogo(logo);
+    }
+
 
 }
