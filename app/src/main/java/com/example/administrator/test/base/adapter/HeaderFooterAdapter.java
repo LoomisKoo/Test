@@ -1,4 +1,4 @@
-package com.example.administrator.test.base;
+package com.example.administrator.test.base.adapter;
 
 import android.content.Context;
 import com.alibaba.android.vlayout.LayoutHelper;
@@ -6,7 +6,7 @@ import com.alibaba.android.vlayout.layout.LinearLayoutHelper;
 
 import java.util.ArrayList;
 
-class HeaderFooterAdapter<G> extends QuickDelegateAdapter<G> {
+public class HeaderFooterAdapter<G> extends QuickDelegateAdapter<G> {
     HeaderFooterViewModel model;
     int viewType;
 

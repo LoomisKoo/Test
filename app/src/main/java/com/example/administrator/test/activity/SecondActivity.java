@@ -8,9 +8,9 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.vlayout.LayoutHelper;
 import com.alibaba.android.vlayout.layout.LinearLayoutHelper;
 import com.example.administrator.test.R;
-import com.example.administrator.test.base.BaseViewHolder;
-import com.example.administrator.test.base.ListActivity;
-import com.example.administrator.test.base.QuickDelegateAdapter;
+import com.example.administrator.test.base.adapter.BaseViewHolder;
+import com.example.administrator.test.base.activity.ListActivity;
+import com.example.administrator.test.base.adapter.QuickDelegateAdapter;
 import com.example.administrator.test.entity.testEntity;
 
 import java.util.ArrayList;
@@ -30,7 +30,7 @@ public class SecondActivity extends ListActivity {
     }
 
     @Override
-    public void initParms(Bundle parms) {
+    public void initParameter(Bundle parms) {
 
     }
 

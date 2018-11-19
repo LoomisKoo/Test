@@ -1,4 +1,4 @@
-package com.example.administrator.test.base;
+package com.example.administrator.test.base.activity;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -12,6 +12,9 @@ import android.widget.TextView;
 import com.alibaba.android.vlayout.DelegateAdapter;
 import com.alibaba.android.vlayout.VirtualLayoutManager;
 import com.example.administrator.test.R;
+import com.example.administrator.test.base.adapter.HeaderFooterAdapter;
+import com.example.administrator.test.base.adapter.HeaderFooterViewModel;
+import com.example.administrator.test.base.adapter.QuickDelegateAdapter;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.constant.RefreshState;
 
@@ -37,7 +40,7 @@ public abstract class ListActivity<T> extends BaseActivity {
     }
 
     @Override
-    public void initParms(Bundle parms) {
+    public void initParameter(Bundle parameter) {
 
     }
 

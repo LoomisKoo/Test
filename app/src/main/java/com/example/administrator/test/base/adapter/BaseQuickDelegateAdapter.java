@@ -1,4 +1,4 @@
-package com.example.administrator.test.base;
+package com.example.administrator.test.base.adapter;
 
 
 import android.content.Context;

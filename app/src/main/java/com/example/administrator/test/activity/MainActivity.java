@@ -1,19 +1,15 @@
 package com.example.administrator.test.activity;
 
-import android.app.FragmentManager;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 
 import com.alibaba.android.arouter.launcher.ARouter;
-import com.blankj.utilcode.util.LogUtils;
 import com.example.administrator.test.R;
-import com.example.administrator.test.annotations.SingleClick;
-import com.example.administrator.test.base.BaseActivity;
+import com.example.administrator.test.base.activity.BaseActivity;
 import com.example.administrator.test.fragment.Fragment1;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.BottomBarTab;
@@ -42,7 +38,7 @@ public class MainActivity extends BaseActivity {
     }
 
     @Override
-    public void initParms(Bundle parms) {
+    public void initParameter(Bundle parms) {
 
     }
 

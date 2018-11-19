@@ -1,4 +1,4 @@
-package com.example.administrator.test.base;
+package com.example.administrator.test.base.activity;
 
 import android.content.Context;
 import android.content.Intent;
@@ -16,7 +16,6 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Toast;
 
-import com.blankj.utilcode.util.ActivityUtils;
 import com.example.administrator.test.R;
 
 public abstract class BaseActivity extends AppCompatActivity implements View.OnClickListener {
@@ -53,7 +52,7 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
 
         Log.d(TAG, "BaseActivity-->onCreate()");
         Bundle bundle = getIntent().getExtras();
-        initParms(bundle);
+        initParameter(bundle);
 
         if (mAllowFullScreen) {
             requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -105,7 +104,7 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
      *
      * @param parms
      */
-    public abstract void initParms(Bundle parms);
+    public abstract void initParameter(Bundle parms);
 
     /**
      * [绑定视图]

@@ -1,4 +1,4 @@
-package com.example.administrator.test.base;
+package com.example.administrator.test.base.adapter;
 
 import android.annotation.TargetApi;
 import android.content.Context;

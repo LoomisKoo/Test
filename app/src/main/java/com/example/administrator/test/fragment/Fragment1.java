@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.example.administrator.test.R;
-import com.example.administrator.test.base.BaseFragment;
+import com.example.administrator.test.base.fragment.BaseFragment;
 import com.example.administrator.test.util.OnMultiClickListener;
 import com.orhanobut.logger.Logger;
 
