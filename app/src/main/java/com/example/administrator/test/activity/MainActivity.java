@@ -77,8 +77,7 @@ public class MainActivity extends BaseActivity {
     public void onMenuClickListener(int menuId) {
         switch (menuId) {
             case R.id.action_search:
-                LogUtils.i("==============================");
-//                ARouter.getInstance().build("/com/Activity1").navigation();
+                ARouter.getInstance().build("/com/SecondActivity").navigation();
                 break;
             case R.id.action_notification:
                 showToast("Notification");
