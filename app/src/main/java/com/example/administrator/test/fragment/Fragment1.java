@@ -5,6 +5,8 @@ import android.view.View;
 
 import com.example.administrator.test.R;
 import com.example.administrator.test.base.BaseFragment;
+import com.example.administrator.test.util.OnMultiClickListener;
+import com.orhanobut.logger.Logger;
 
 public class Fragment1 extends BaseFragment {
     @Override
@@ -14,7 +16,13 @@ public class Fragment1 extends BaseFragment {
 
     @Override
     protected void init(View view) {
-
+        view.findViewById(R.id.button2).setOnClickListener(new OnMultiClickListener() {
+            @Override
+            public void onMultiClick(View v) {
+                String userName = "test----------------------------------------------------------";
+                Logger.i(userName);
+            }
+        });
     }
 
     @Override

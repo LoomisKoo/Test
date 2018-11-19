@@ -10,7 +10,9 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.blankj.utilcode.util.LogUtils;
 import com.example.administrator.test.R;
+import com.example.administrator.test.annotations.SingleClick;
 import com.example.administrator.test.base.BaseActivity;
 import com.example.administrator.test.fragment.Fragment1;
 import com.roughike.bottombar.BottomBar;
@@ -26,7 +28,6 @@ import java.util.List;
 public class MainActivity extends BaseActivity {
     private BottomBar mBottomBar;
     private BottomBarTab nearby;
-    private Fragment1 fragment1;
     private List<Fragment> fragments;
     private ViewPager viewPager;
 
@@ -76,7 +77,8 @@ public class MainActivity extends BaseActivity {
     public void onMenuClickListener(int menuId) {
         switch (menuId) {
             case R.id.action_search:
-                ARouter.getInstance().build("/com/Activity1").navigation();
+                LogUtils.i("==============================");
+//                ARouter.getInstance().build("/com/Activity1").navigation();
                 break;
             case R.id.action_notification:
                 showToast("Notification");
@@ -136,12 +138,13 @@ public class MainActivity extends BaseActivity {
             if (newTabId == R.id.tab_restaurants) {
                 // ......
                 // 返回 true 。代表：这里我处理了，你不用管了。
-                return true;
+                return false;
             }
 
             return false;
         });
     }
+
 
     private void initViewPager() {
         fragments = new ArrayList<>();

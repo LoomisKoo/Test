@@ -4,6 +4,10 @@ import android.app.Application;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.blankj.utilcode.util.Utils;
+import com.orhanobut.logger.AndroidLogAdapter;
+import com.orhanobut.logger.FormatStrategy;
+import com.orhanobut.logger.Logger;
+import com.orhanobut.logger.PrettyFormatStrategy;
 
 public class TestApplication extends Application {
     @Override
@@ -17,5 +21,19 @@ public class TestApplication extends Application {
         ARouter.init(this);
 
         Utils.init(this);
+        initLogger();
+    }
+
+    private void initLogger() {
+//        FormatStrategy formatStrategy = PrettyFormatStrategy.newBuilder()
+//                .showThreadInfo(false)  // 是否显示线程信息，默认为ture
+//                .methodCount(0)         // 显示的方法行数，默认为2
+//                .methodOffset(7)        // 隐藏内部方法调用到偏移量，默认为5
+////                .logStrategy(customLog) // 更改要打印的日志策略。
+//                .tag("My custom tag")   // 每个日志的全局标记。默认PRETTY_LOGGER
+//                .build();
+//
+//        Logger.addLogAdapter(new AndroidLogAdapter(formatStrategy));
+        Logger.addLogAdapter(new AndroidLogAdapter());
     }
 }
