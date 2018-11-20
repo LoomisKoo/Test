@@ -15,12 +15,18 @@ import android.view.Menu;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.administrator.test.R;
+import com.example.administrator.test.util.OnMultiClickListener;
 
+/**
+ * @author koo
+ */
 public abstract class BaseActivity extends AppCompatActivity implements View.OnClickListener {
     Toolbar mToolbar;
+    private TextView tvCenterTitle;
     /**
      * 是否沉浸状态栏
      **/
@@ -64,26 +70,46 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
 
         setContentView(R.layout.layout_base);
 
-        mToolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(mToolbar);
+        initToolbar();
 
-        mToolbar.setOnMenuItemClickListener(menuItem -> {
-            onMenuClickListener(menuItem.getItemId());
-            return true;
-        });
-        View v = findViewById(R.id.root_layout_ll);
         mContextView = getLayoutInflater().inflate(bindLayout(), findViewById(R.id.root_layout_ll));
-//        //触摸关闭键盘
-//        mContextView.setOnTouchListener((view, motionEvent) -> {
-////            KeyBoardUtil.hideSoftKeyboard(NavigationActivity.this);
-//            return false;
-//        });
+
         if (!isAllowScreenRoate) {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         }
         initView(savedInstanceState);
         setListener();
         doBusiness(this);
+    }
+
+    /**
+     * 初始化toolbar
+     */
+    private void initToolbar() {
+        mToolbar = findViewById(R.id.toolbar);
+        tvCenterTitle = findViewById(R.id.tv_title);
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setHomeButtonEnabled(getHomeButtonEnabled());
+        getSupportActionBar().setDisplayHomeAsUpEnabled(getDisplayHomeAsUpEnabled());
+        mToolbar.setOnMenuItemClickListener(menuItem -> {
+            onMenuClickListener(menuItem.getItemId());
+            return true;
+        });
+
+        mToolbar.setNavigationOnClickListener(new OnMultiClickListener() {
+            @Override
+            public void onMultiClick(View v) {
+                OnNavigationOnClick();
+            }
+        });
+    }
+
+    protected boolean getHomeButtonEnabled() {
+        return false;
+    }
+
+    protected boolean getDisplayHomeAsUpEnabled() {
+        return true;
     }
 
     /**
@@ -134,6 +160,12 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
      * @param savedInstanceState
      */
     public abstract void initView(Bundle savedInstanceState);
+
+    /**
+     * [toolbar点击回调]
+     */
+    protected void OnNavigationOnClick() {
+    }
 
     /**
      * [绑定控件]
@@ -335,8 +367,26 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
      *
      * @param title
      */
-    public void setTitle(String title) {
+    public void setToobarTitle(String title) {
         mToolbar.setTitle(title);
+    }
+
+    /**
+     * 设置toolbar的子标题
+     *
+     * @param subtitleId
+     */
+    public void setToobarSubTitle(int subtitleId) {
+        mToolbar.setSubtitle(subtitleId);
+    }
+
+    /**
+     * 设置toolbar的标题
+     *
+     * @param titleId
+     */
+    public void setToobarTitle(int titleId) {
+        mToolbar.setTitle(titleId);
     }
 
     /**
@@ -344,9 +394,75 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
      *
      * @param logo
      */
-    public void setLogo(Drawable logo) {
+    public void setToolbarLogo(Drawable logo) {
         mToolbar.setLogo(logo);
     }
 
+    /**
+     * 是否显示中心标题
+     *
+     * @param isShowCenterTitle
+     */
+    public void showCenterTitle(boolean isShowCenterTitle) {
+        if (isShowCenterTitle) {
+            tvCenterTitle.setVisibility(View.VISIBLE);
+        } else {
+            tvCenterTitle.setVisibility(View.GONE);
+        }
+    }
 
+
+    /**
+     * 设置中心标题size
+     *
+     * @param titleSize
+     */
+    public void setCenterTitleSize(int titleSize) {
+        tvCenterTitle.setTextSize(titleSize);
+    }
+
+    /**
+     * 设置中心标题
+     *
+     * @param title
+     */
+    public void setCenterTitle(String title) {
+        tvCenterTitle.setText(title);
+    }
+
+    /**
+     * 设置中心标题
+     *
+     * @param titleId
+     */
+    public void setCenterTitle(int titleId) {
+        tvCenterTitle.setText(titleId);
+    }
+
+    /**
+     * 设置title color
+     *
+     * @param color
+     */
+    public void setBarTitleColor(int color) {
+        mToolbar.setTitleTextColor(color);
+    }
+
+    /**
+     * 设置返回按钮样式
+     *
+     * @param icon
+     */
+    public void setBarNaviIcon(int icon) {
+        mToolbar.setNavigationIcon(icon);
+    }
+
+    /**
+     * 设置返回按钮样式
+     *
+     * @param icon
+     */
+    public void setBarNaviIcon(Drawable icon) {
+        mToolbar.setNavigationIcon(icon);
+    }
 }

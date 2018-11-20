@@ -65,6 +65,11 @@ public class SecondActivityBase extends BaseListActivity {
     }
 
     @Override
+    protected int getBottomLayId() {
+        return super.getBottomLayId();
+    }
+
+    @Override
     protected void getData(int page, int pageSize) {
         List<TestEntity> testEntityList = new ArrayList<>();
         testEntityList.add(new TestEntity("test1"));

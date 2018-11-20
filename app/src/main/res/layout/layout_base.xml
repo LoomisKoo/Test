@@ -12,26 +12,26 @@
         android:layout_width="match_parent"
         android:layout_height="53dp"
         android:background="@color/colorPrimary"
-        android:visibility="visible"
         app:layout_constraintBottom_toTopOf="@id/root_layout_ll"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_chainStyle="packed"
-        app:logo="@mipmap/ic_launcher"
         app:popupTheme="@style/ToolbarPopupTheme"
-        app:subtitle="Title"
-        app:title="Subtitle"
+        app:subtitle="小标题"
+        app:title="大标题"
         app:titleTextColor="@color/white">
 
         <TextView
             android:id="@+id/tv_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="标题"
+            android:layout_gravity="center"
+            android:text="中心标题"
             android:textColor="@color/white"
-            android:textSize="14sp" />
+            android:textSize="20sp"
+            android:visibility="gone" />
     </android.support.v7.widget.Toolbar>
 
     <LinearLayout

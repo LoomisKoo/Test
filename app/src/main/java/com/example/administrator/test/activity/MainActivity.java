@@ -60,9 +60,9 @@ public class MainActivity extends BaseActivity {
     @Override
     public void initView(Bundle savedInstanceState) {
         initViewPager();
-        initToolbar();
+        initTopBar();
+        initBottomBar();
     }
-
 
     @Override
     public void setListener() {
@@ -89,10 +89,21 @@ public class MainActivity extends BaseActivity {
 
     }
 
+    @Override
+    protected boolean getDisplayHomeAsUpEnabled() {
+        return false;
+    }
+
+    private void initTopBar() {
+        setTitle("大标题");
+        setSubtitle("subtitle");
+        setTitle("title");
+    }
+
     /**
-     * 初始化toolbar
+     * 初始化BottomBar
      */
-    private void initToolbar() {
+    private void initBottomBar() {
         mBottomBar = findViewById(R.id.bottomBar);
         mBottomBar.setOnTabSelectListener(tabId -> {
             if (tabId == R.id.tab_favorites) {

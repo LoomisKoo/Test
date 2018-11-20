@@ -10,7 +10,7 @@
         android:id="@+id/content_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/bottomBar" />
+        android:layout_above="@id/bottomBar" />
     <!--
     bb_tabXmlResource：
     设置标签的 xml 资源标识，在 res/xml/ 目录下。

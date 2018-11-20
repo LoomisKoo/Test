@@ -1,5 +1,6 @@
 package com.example.administrator.test.activity;
 
+import android.os.Bundle;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.example.administrator.test.R;
 import com.example.administrator.test.base.activity.BaseTabActivity;
@@ -16,7 +17,7 @@ import java.util.ArrayList;
 public class TabActivity extends BaseTabActivity {
     @Override
     public int bindLayout() {
-        return R.layout.layout_base_tab_list;
+        return R.layout.layout_base_tab;
     }
 
     @Override
@@ -31,6 +32,12 @@ public class TabActivity extends BaseTabActivity {
         title.add("title2");
         title.add("title3");
         return title;
+    }
+
+    @Override
+    public void initView(Bundle savedInstanceState) {
+        super.initView(savedInstanceState);
+        initToolbar();
     }
 
     @Override
@@ -54,5 +61,21 @@ public class TabActivity extends BaseTabActivity {
         viewList.add(new TestListView(this, 2));
 
         return viewList;
+    }
+
+    @Override
+    public void OnNavigationOnClick() {
+        finish();
+    }
+
+    /**
+     * 初始化toolbar
+     */
+    private void initToolbar() {
+        setSubtitle("subTitle");
+        setToobarTitle("title");
+        setCenterTitle("中心大标题");
+        setBarNaviIcon(getResources().getDrawable(R.mipmap.ic_back_black));
+        showCenterTitle(true);
     }
 }
