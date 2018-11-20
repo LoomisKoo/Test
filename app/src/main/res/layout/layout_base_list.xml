@@ -2,56 +2,61 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/base_list_mainLay"
+    android:id="@+id/base_pager_list_root"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
     <LinearLayout
-        android:id="@+id/base_list_topLay"
+        android:id="@+id/base_pager_list_topLay"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/base_pager_list_refreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_above="@id/base_pager_list_bottomLay"
+        android:layout_below="@id/base_pager_list_topLay"
+        app:layout_constraintBottom_toTopOf="@+id/base_pager_list_bottomLay"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/base_pager_list_topLay">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/base_pager_list_rv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
+    <TextView
+        android:id="@+id/base_pager_list_empty_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/base_pager_list_topLay"
+        android:layout_centerHorizontal="true"
+        android:drawableTop="@mipmap/ic_recents"
+        android:drawablePadding="20dp"
+        android:gravity="center"
+        android:text="列表为空"
+        android:textSize="30sp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@id/base_list_bottomLay"
-        app:layout_constraintTop_toBottomOf="@id/base_list_topLay">
-
-        <com.scwang.smartrefresh.layout.SmartRefreshLayout
-            android:id="@+id/act_nav_list_refreshLayout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/base_list_rv"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-        </com.scwang.smartrefresh.layout.SmartRefreshLayout>
-
-        <TextView
-            android:id="@+id/base_list_empty_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:drawableTop="@mipmap/ic_recents"
-            android:drawablePadding="10dp"
-            android:gravity="center"
-            android:visibility="invisible" />
-    </FrameLayout>
-
     <LinearLayout
-        android:id="@+id/base_list_bottomLay"
+        android:id="@+id/base_pager_list_bottomLay"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent" />
 </android.support.constraint.ConstraintLayout>

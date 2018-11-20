@@ -3,9 +3,16 @@ package com.example.administrator.test.base.adapter;
 import android.content.Context;
 import com.alibaba.android.vlayout.LayoutHelper;
 import com.alibaba.android.vlayout.layout.LinearLayoutHelper;
+import com.example.administrator.test.base.adapter.BaseViewHolder;
+import com.example.administrator.test.base.adapter.HeaderFooterViewModel;
+import com.example.administrator.test.base.adapter.QuickDelegateAdapter;
 
 import java.util.ArrayList;
 
+/**
+ * @author
+ * @param <G>
+ */
 public class HeaderFooterAdapter<G> extends QuickDelegateAdapter<G> {
     HeaderFooterViewModel model;
     int viewType;
@@ -17,7 +24,7 @@ public class HeaderFooterAdapter<G> extends QuickDelegateAdapter<G> {
     }
 
     @Override
-    protected void onSetItemData(BaseViewHolder holder, G item, int viewType,int position) {
+    protected void onSetItemData(BaseViewHolder holder, G item, int viewType, int position) {
         model.setData(holder, item);
     }
 

@@ -10,6 +10,11 @@ import com.alibaba.android.vlayout.DelegateAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author koo
+ * @param <T>
+ * @param <H>
+ */
 public abstract class BaseQuickDelegateAdapter<T, H extends BaseViewHolder> extends DelegateAdapter.Adapter {
 //    protected static final String TAG = BaseQuickDelegateAdapter.class.getSimpleName();
 

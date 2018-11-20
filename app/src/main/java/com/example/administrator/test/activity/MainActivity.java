@@ -38,7 +38,7 @@ public class MainActivity extends BaseActivity {
     }
 
     @Override
-    public void initParameter(Bundle parms) {
+    public void initParameter(Bundle parameter) {
 
     }
 
@@ -73,7 +73,7 @@ public class MainActivity extends BaseActivity {
     public void onMenuClickListener(int menuId) {
         switch (menuId) {
             case R.id.action_search:
-                ARouter.getInstance().build("/com/SecondActivity").navigation();
+                ARouter.getInstance().build("/com/TabActivity").navigation();
                 break;
             case R.id.action_notification:
                 showToast("Notification");

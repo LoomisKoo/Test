@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-public abstract class ListActivity<T> extends BaseActivity {
+public abstract class BaseListActivity<T> extends BaseActivity {
     protected int page = 1;
     protected int pageSize = 20;
     SmartRefreshLayout refreshLayout;
@@ -30,7 +30,7 @@ public abstract class ListActivity<T> extends BaseActivity {
     protected QuickDelegateAdapter<T> adapter;
     HeaderFooterViewModel headerViewModel, footerViewModel;
     protected LinearLayout topLay, bottomLay;
-    protected ConstraintLayout mainLay;
+    protected ConstraintLayout rootLay;
     protected TextView emptyTv;
     protected VirtualLayoutManager layoutManager;
 
@@ -61,12 +61,12 @@ public abstract class ListActivity<T> extends BaseActivity {
 
     @Override
     public void initView(Bundle savedInstanceState) {
-        emptyTv = findViewById(R.id.base_list_empty_tv);
-        mainLay = findViewById(R.id.base_list_mainLay);
-        topLay = findViewById(R.id.base_list_topLay);
-        bottomLay = findViewById(R.id.base_list_bottomLay);
-        recyclerView = findViewById(R.id.base_list_rv);
-        refreshLayout = findViewById(R.id.act_nav_list_refreshLayout);
+        emptyTv = findViewById(R.id.base_pager_list_empty_tv);
+        rootLay = findViewById(R.id.base_pager_list_root);
+        topLay = findViewById(R.id.base_pager_list_topLay);
+        bottomLay = findViewById(R.id.base_pager_list_bottomLay);
+        recyclerView = findViewById(R.id.base_pager_list_rv);
+        refreshLayout = findViewById(R.id.base_pager_list_refreshLayout);
         refreshLayout.setOnRefreshListener(refreshLayout -> refresh());
         refreshLayout.setOnLoadmoreListener(refreshLayout -> loadMore());
         refreshLayout.autoRefresh();
@@ -202,7 +202,7 @@ public abstract class ListActivity<T> extends BaseActivity {
     }
 
     protected void setRootBackground(int color) {
-        mainLay.setBackgroundColor(color);
+        rootLay.setBackgroundColor(color);
     }
 
     protected void setLoadMoreEnable(boolean enable) {

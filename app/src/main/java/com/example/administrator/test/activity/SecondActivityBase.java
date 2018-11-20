@@ -9,9 +9,9 @@ import com.alibaba.android.vlayout.LayoutHelper;
 import com.alibaba.android.vlayout.layout.LinearLayoutHelper;
 import com.example.administrator.test.R;
 import com.example.administrator.test.base.adapter.BaseViewHolder;
-import com.example.administrator.test.base.activity.ListActivity;
+import com.example.administrator.test.base.activity.BaseListActivity;
 import com.example.administrator.test.base.adapter.QuickDelegateAdapter;
-import com.example.administrator.test.entity.testEntity;
+import com.example.administrator.test.entity.TestEntity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,8 +21,8 @@ import java.util.List;
  * @author
  */
 
-@Route(path = "/com/SecondActivity")
-public class SecondActivity extends ListActivity {
+@Route(path = "/com/SecondActivityBase")
+public class SecondActivityBase extends BaseListActivity {
 
     @Override
     public void widgetClick(View v) {
@@ -30,7 +30,7 @@ public class SecondActivity extends ListActivity {
     }
 
     @Override
-    public void initParameter(Bundle parms) {
+    public void initParameter(Bundle parameter) {
 
     }
 
@@ -66,19 +66,19 @@ public class SecondActivity extends ListActivity {
 
     @Override
     protected void getData(int page, int pageSize) {
-        List<testEntity> testEntityList = new ArrayList<>();
-        testEntityList.add(new testEntity("test1"));
-        testEntityList.add(new testEntity("test2"));
-        testEntityList.add(new testEntity("test3"));
+        List<TestEntity> testEntityList = new ArrayList<>();
+        testEntityList.add(new TestEntity("test1"));
+        testEntityList.add(new TestEntity("test2"));
+        testEntityList.add(new TestEntity("test3"));
         adapter.replaceAll(testEntityList);
         stopRefresh();
     }
 
     @Override
     protected QuickDelegateAdapter getAdapter() {
-        return new QuickDelegateAdapter<testEntity>(this, R.layout.item_test) {
+        return new QuickDelegateAdapter<TestEntity>(this, R.layout.item_test) {
             @Override
-            protected void onSetItemData(BaseViewHolder holder, testEntity item, int viewType, int position) {
+            protected void onSetItemData(BaseViewHolder holder, TestEntity item, int viewType, int position) {
                 holder.setText(R.id.textView, item.getName());
                 System.out.println();
             }

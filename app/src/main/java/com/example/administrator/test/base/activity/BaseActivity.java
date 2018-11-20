@@ -3,6 +3,7 @@ package com.example.administrator.test.base.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -70,7 +71,7 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
             onMenuClickListener(menuItem.getItemId());
             return true;
         });
-
+        View v = findViewById(R.id.root_layout_ll);
         mContextView = getLayoutInflater().inflate(bindLayout(), findViewById(R.id.root_layout_ll));
 //        //触摸关闭键盘
 //        mContextView.setOnTouchListener((view, motionEvent) -> {
@@ -102,9 +103,9 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
     /**
      * [初始化参数]
      *
-     * @param parms
+     * @param parameter
      */
-    public abstract void initParameter(Bundle parms);
+    public abstract void initParameter(Bundle parameter);
 
     /**
      * [绑定视图]
@@ -195,7 +196,11 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
 
     @Override
     public boolean onCreatePanelMenu(int featureId, Menu menu) {
-        getMenuInflater().inflate(bindMenu(), menu);
+        try {
+            getMenuInflater().inflate(bindMenu(), menu);
+        } catch (Resources.NotFoundException e) {
+            e.printStackTrace();
+        }
         return true;
     }
 
