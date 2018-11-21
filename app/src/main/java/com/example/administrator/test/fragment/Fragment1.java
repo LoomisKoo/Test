@@ -1,7 +1,9 @@
 package com.example.administrator.test.fragment;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.example.administrator.test.R;
@@ -35,6 +37,9 @@ public class Fragment1 extends BaseFragment implements TestContract.View {
                 presenter.calculate(1, 100);
             }
         });
+
+        //生命周期回调给 presenter
+        getLifecycle().addObserver(presenter);
     }
 
     @Override
@@ -46,4 +51,10 @@ public class Fragment1 extends BaseFragment implements TestContract.View {
     public void addResult(double result) {
         button.setText("" + result);
     }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        return super.onCreateView(inflater, container, savedInstanceState);
+    }
+
 }

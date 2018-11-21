@@ -60,7 +60,7 @@ public class SecondActivityBase extends BaseListActivity {
     }
 
     @Override
-    public void doBusiness(Context mContext) {
+    public void onEvent(Context mContext) {
 
     }
 

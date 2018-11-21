@@ -121,7 +121,7 @@ public abstract class BaseListActivity<T> extends BaseActivity {
     }
 
     @Override
-    public void doBusiness(Context mContext) {
+    public void onEvent(Context mContext) {
 
     }
 

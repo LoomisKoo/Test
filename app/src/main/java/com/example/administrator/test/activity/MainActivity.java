@@ -85,7 +85,7 @@ public class MainActivity extends BaseActivity {
     }
 
     @Override
-    public void doBusiness(Context mContext) {
+    public void onEvent(Context mContext) {
 
     }
 
@@ -98,6 +98,7 @@ public class MainActivity extends BaseActivity {
         setTitle("大标题");
         setSubtitle("subtitle");
         setTitle("title");
+        setSteepStatusBar(true);
     }
 
     /**

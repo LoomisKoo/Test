@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -30,7 +31,7 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
     /**
      * 是否沉浸状态栏
      **/
-    private boolean isSetStatusBar = false;
+    private boolean isSetStatusBar = true;
     /**
      * 是否允许全屏
      **/
@@ -64,22 +65,21 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
         if (mAllowFullScreen) {
             requestWindowFeature(Window.FEATURE_NO_TITLE);
         }
+
+        setContentView(R.layout.layout_base);
+        mContextView = getLayoutInflater().inflate(bindLayout(), findViewById(R.id.root_layout_ll));
+        initToolbar();
+        setListener();
+
+        initView(savedInstanceState);
         if (isSetStatusBar) {
             steepStatusBar();
         }
-
-        setContentView(R.layout.layout_base);
-
-        initToolbar();
-
-        mContextView = getLayoutInflater().inflate(bindLayout(), findViewById(R.id.root_layout_ll));
-
         if (!isAllowScreenRoate) {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         }
-        initView(savedInstanceState);
-        setListener();
-        doBusiness(this);
+
+        onEvent(this);
     }
 
     /**
@@ -116,13 +116,24 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
      * [沉浸状态栏]
      */
     private void steepStatusBar() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            // 透明状态栏
-            getWindow().addFlags(
-                    WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            // 透明导航栏
-            getWindow().addFlags(
-                    WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+        setStatusBarFullTransparent();
+    }
+    /**
+     * 全透状态栏
+     */
+    protected void setStatusBarFullTransparent() {
+        if (Build.VERSION.SDK_INT >= 21) {
+            //21表示5.0
+            Window window = getWindow();
+            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                    | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.setStatusBarColor(Color.TRANSPARENT);
+        } else if (Build.VERSION.SDK_INT >= 19) {//19表示4.4
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            //虚拟键盘也透明
+            //getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
         }
     }
 
@@ -199,7 +210,7 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
      *
      * @param mContext
      */
-    public abstract void doBusiness(Context mContext);
+    public abstract void onEvent(Context mContext);
 
 
     /**

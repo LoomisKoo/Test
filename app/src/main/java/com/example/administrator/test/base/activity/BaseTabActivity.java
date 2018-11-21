@@ -109,7 +109,7 @@ public abstract class BaseTabActivity extends BaseActivity {
     }
 
     @Override
-    public void doBusiness(Context mContext) {
+    public void onEvent(Context mContext) {
 
     }
 
