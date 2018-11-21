@@ -20,14 +20,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.administrator.test.R;
+import com.example.administrator.test.mvp.base.IBasePresenter;
 import com.example.administrator.test.util.OnMultiClickListener;
 
 /**
  * @author koo
  */
-public abstract class BaseActivity extends AppCompatActivity implements View.OnClickListener {
+public abstract class BaseActivity <P extends IBasePresenter>extends AppCompatActivity implements View.OnClickListener {
     Toolbar mToolbar;
     private TextView tvCenterTitle;
+    protected P presenter;
     /**
      * 是否沉浸状态栏
      **/
@@ -70,6 +72,7 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
         mContextView = getLayoutInflater().inflate(bindLayout(), findViewById(R.id.root_layout_ll));
         initToolbar();
         setListener();
+        presenter = createPresenter();
 
         initView(savedInstanceState);
         if (isSetStatusBar) {
@@ -171,6 +174,8 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
      * @param savedInstanceState
      */
     public abstract void initView(Bundle savedInstanceState);
+
+    protected abstract P createPresenter();
 
     /**
      * [toolbar点击回调]

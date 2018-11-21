@@ -8,11 +8,15 @@ import android.widget.Button;
 
 import com.example.administrator.test.R;
 import com.example.administrator.test.base.fragment.BaseFragment;
+import com.example.administrator.test.mvp.base.IBaseModel;
 import com.example.administrator.test.mvp.contract.TestContract;
 import com.example.administrator.test.mvp.model.TestModel;
+import com.example.administrator.test.mvp.presenter.GetBookPresenter;
 import com.example.administrator.test.mvp.presenter.TestPresenter;
 import com.example.administrator.test.util.OnMultiClickListener;
 import com.orhanobut.logger.Logger;
+
+import rx.Subscription;
 
 public class Fragment1 extends BaseFragment implements TestContract.View {
     private TestContract.Presenter presenter;
@@ -35,6 +39,8 @@ public class Fragment1 extends BaseFragment implements TestContract.View {
                 String userName = "test----------------------------------------------------------";
                 Logger.i(userName);
                 presenter.calculate(1, 100);
+                GetBookPresenter getBookPresenter = new GetBookPresenter();
+                getBookPresenter.getSearchBooks();
             }
         });
 
@@ -57,4 +63,23 @@ public class Fragment1 extends BaseFragment implements TestContract.View {
         return super.onCreateView(inflater, container, savedInstanceState);
     }
 
+    @Override
+    public void showLoading() {
+
+    }
+
+    @Override
+    public void hideLoading() {
+
+    }
+
+    @Override
+    public void showError(String msg) {
+
+    }
+
+    @Override
+    public void onErrorCode(IBaseModel model) {
+
+    }
 }

@@ -7,6 +7,7 @@ import com.example.administrator.test.base.activity.BaseTabActivity;
 import com.example.administrator.test.base.baseinterface.ITabPagerView;
 import com.example.administrator.test.entity.TestEntity;
 import com.example.administrator.test.listview.TestListView;
+import com.example.administrator.test.mvp.base.IBasePresenter;
 
 import java.util.ArrayList;
 
@@ -38,6 +39,11 @@ public class TabActivity extends BaseTabActivity {
     public void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
         initToolbar();
+    }
+
+    @Override
+    protected IBasePresenter createPresenter() {
+        return null;
     }
 
     @Override

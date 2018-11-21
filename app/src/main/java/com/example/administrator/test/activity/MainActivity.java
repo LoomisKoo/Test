@@ -11,6 +11,12 @@ import com.alibaba.android.arouter.launcher.ARouter;
 import com.example.administrator.test.R;
 import com.example.administrator.test.base.activity.BaseActivity;
 import com.example.administrator.test.fragment.Fragment1;
+import com.example.administrator.test.mvp.base.IBaseModel;
+import com.example.administrator.test.mvp.base.IBasePresenter;
+import com.example.administrator.test.mvp.contract.TestContract;
+import com.example.administrator.test.mvp.model.TestModel;
+import com.example.administrator.test.mvp.presenter.GetBookPresenter;
+import com.example.administrator.test.mvp.presenter.TestPresenter;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.BottomBarTab;
 
@@ -21,11 +27,12 @@ import java.util.List;
 /**
  * @author
  */
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity implements TestContract.View {
     private BottomBar mBottomBar;
     private BottomBarTab nearby;
     private List<Fragment> fragments;
     private ViewPager viewPager;
+    private TestModel model;
 
     @Override
     public void widgetClick(View v) {
@@ -62,6 +69,13 @@ public class MainActivity extends BaseActivity {
         initViewPager();
         initTopBar();
         initBottomBar();
+    }
+
+    @Override
+    protected IBasePresenter createPresenter() {
+        model = new TestModel();
+        GetBookPresenter getBookPresenter = new GetBookPresenter();
+        return getBookPresenter;
     }
 
     @Override
@@ -186,5 +200,30 @@ public class MainActivity extends BaseActivity {
             public void onPageScrollStateChanged(int state) {
             }
         });
+    }
+
+    @Override
+    public void addResult(double result) {
+
+    }
+
+    @Override
+    public void showLoading() {
+
+    }
+
+    @Override
+    public void hideLoading() {
+
+    }
+
+    @Override
+    public void showError(String msg) {
+
+    }
+
+    @Override
+    public void onErrorCode(IBaseModel model) {
+
     }
 }

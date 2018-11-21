@@ -12,6 +12,7 @@ import com.example.administrator.test.base.adapter.BaseViewHolder;
 import com.example.administrator.test.base.activity.BaseListActivity;
 import com.example.administrator.test.base.adapter.QuickDelegateAdapter;
 import com.example.administrator.test.entity.TestEntity;
+import com.example.administrator.test.mvp.base.IBasePresenter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,6 +48,11 @@ public class SecondActivityBase extends BaseListActivity {
     @Override
     public void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
+    }
+
+    @Override
+    protected IBasePresenter createPresenter() {
+        return null;
     }
 
     @Override
