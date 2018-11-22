@@ -16,8 +16,6 @@ import com.example.administrator.test.mvp.presenter.TestPresenter;
 import com.example.administrator.test.util.OnMultiClickListener;
 import com.orhanobut.logger.Logger;
 
-import rx.Subscription;
-
 public class Fragment1 extends BaseFragment implements TestContract.View {
     private TestContract.Presenter presenter;
     private TestModel model;
@@ -40,7 +38,7 @@ public class Fragment1 extends BaseFragment implements TestContract.View {
                 Logger.i(userName);
                 presenter.calculate(1, 100);
                 GetBookPresenter getBookPresenter = new GetBookPresenter();
-                getBookPresenter.getSearchBooks();
+                getBookPresenter.getData();
             }
         });
 

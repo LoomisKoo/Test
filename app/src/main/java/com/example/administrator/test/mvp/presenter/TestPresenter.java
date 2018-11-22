@@ -3,6 +3,7 @@ package com.example.administrator.test.mvp.presenter;
 import android.arch.lifecycle.Lifecycle;
 import android.arch.lifecycle.LifecycleOwner;
 
+import com.example.administrator.test.mvp.base.BasePresenter;
 import com.example.administrator.test.mvp.contract.TestContract;
 import com.orhanobut.logger.Logger;
 
@@ -11,7 +12,7 @@ import org.jetbrains.annotations.NotNull;
 /**
  * @author koo
  */
-public class TestPresenter implements TestContract.Presenter {
+public class TestPresenter extends BasePresenter implements TestContract.Presenter {
     private TestContract.Model model;
     private TestContract.View view;
 
