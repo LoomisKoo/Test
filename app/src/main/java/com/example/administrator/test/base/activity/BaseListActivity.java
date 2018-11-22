@@ -61,12 +61,12 @@ public abstract class BaseListActivity<T> extends BaseActivity {
 
     @Override
     public void initView(Bundle savedInstanceState) {
-        emptyTv = findViewById(R.id.base_pager_list_empty_tv);
-        rootLay = findViewById(R.id.base_pager_list_root);
-        topLay = findViewById(R.id.base_pager_list_topLay);
-        bottomLay = findViewById(R.id.base_pager_list_bottomLay);
-        recyclerView = findViewById(R.id.base_pager_list_rv);
-        refreshLayout = findViewById(R.id.base_pager_list_refreshLayout);
+        emptyTv = (TextView) findViewById(R.id.base_pager_list_empty_tv);
+        rootLay = (ConstraintLayout) findViewById(R.id.base_pager_list_root);
+        topLay = (LinearLayout) findViewById(R.id.base_pager_list_topLay);
+        bottomLay = (LinearLayout) findViewById(R.id.base_pager_list_bottomLay);
+        recyclerView = (RecyclerView) findViewById(R.id.base_pager_list_rv);
+        refreshLayout = (SmartRefreshLayout) findViewById(R.id.base_pager_list_refreshLayout);
         refreshLayout.setOnRefreshListener(refreshLayout -> refresh());
         refreshLayout.setOnLoadmoreListener(refreshLayout -> loadMore());
         refreshLayout.autoRefresh();

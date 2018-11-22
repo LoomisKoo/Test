@@ -15,7 +15,7 @@ import io.reactivex.schedulers.Schedulers;
 /**
  * @author koo
  */
-public interface  IBasePresenter extends LifecycleObserver {
+public interface  IBasePresenter {
 //    public V baseView;
 //
 //    public IBasePresenter(V baseView) {
@@ -49,65 +49,5 @@ public interface  IBasePresenter extends LifecycleObserver {
 //            compositeDisposable.dispose();
 //        }
 //    }
-
-
-    /**
-     * Activity的onCreate
-     *
-     * @param owner
-     */
-    @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
-    abstract void onCreate(@NotNull LifecycleOwner owner);
-
-    /**
-     * Activity的onStart
-     *
-     * @param owner
-     */
-    @OnLifecycleEvent(Lifecycle.Event.ON_START)
-    abstract void onStart(@NotNull LifecycleOwner owner);
-
-    /**
-     * Activity的onResume
-     *
-     * @param owner
-     */
-    @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
-    abstract void onResume(@NotNull LifecycleOwner owner);
-
-    /**
-     * Activity的onPause
-     *
-     * @param owner
-     */
-    @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
-    abstract void onPause(@NotNull LifecycleOwner owner);
-
-    /**
-     * Activity的onStop
-     *
-     * @param owner
-     */
-    @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
-    abstract void onStop(@NotNull LifecycleOwner owner);
-
-    /**
-     * Activity的onStop
-     *
-     * @param owner
-     */
-    @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
-    abstract void onDestroy(@NotNull LifecycleOwner owner);
-
-    /**
-     * Activity的生命周期改变
-     *
-     * @param owner
-     * @param event
-     */
-    @OnLifecycleEvent(Lifecycle.Event.ON_ANY)
-    abstract void onLifecycleChanged(@NotNull LifecycleOwner owner,
-                                     @NotNull Lifecycle.Event event);
-
 
 }

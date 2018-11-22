@@ -1,20 +1,18 @@
 package com.example.administrator.test.mvp.presenter;
 
 import android.annotation.SuppressLint;
-import android.arch.lifecycle.Lifecycle;
-import android.arch.lifecycle.LifecycleOwner;
-
 import com.example.administrator.test.http.AppConfigUtil;
 import com.example.administrator.test.http.HttpCallback;
 import com.example.administrator.test.http.HttpUtil;
 import com.example.administrator.test.mvp.base.BasePresenter;
 import com.example.administrator.test.mvp.contract.GetBookContract;
 
-import org.jetbrains.annotations.NotNull;
-
 import io.reactivex.Observable;
 import okhttp3.ResponseBody;
 
+/**
+ * @author koo
+ */
 public class GetBookPresenter extends BasePresenter implements GetBookContract.Presenter {
 
     public GetBookPresenter() {
@@ -43,38 +41,4 @@ public class GetBookPresenter extends BasePresenter implements GetBookContract.P
 
     }
 
-    @Override
-    public void onCreate(@NotNull LifecycleOwner owner) {
-
-    }
-
-    @Override
-    public void onStart(@NotNull LifecycleOwner owner) {
-
-    }
-
-    @Override
-    public void onResume(@NotNull LifecycleOwner owner) {
-
-    }
-
-    @Override
-    public void onPause(@NotNull LifecycleOwner owner) {
-
-    }
-
-    @Override
-    public void onStop(@NotNull LifecycleOwner owner) {
-
-    }
-
-    @Override
-    public void onDestroy(@NotNull LifecycleOwner owner) {
-
-    }
-
-    @Override
-    public void onLifecycleChanged(@NotNull LifecycleOwner owner, Lifecycle.@NotNull Event event) {
-
-    }
 }

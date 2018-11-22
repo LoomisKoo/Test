@@ -14,6 +14,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
@@ -23,13 +24,17 @@ import com.example.administrator.test.R;
 import com.example.administrator.test.mvp.base.IBasePresenter;
 import com.example.administrator.test.util.OnMultiClickListener;
 
+import me.imid.swipebacklayout.lib.SwipeBackLayout;
+import me.imid.swipebacklayout.lib.app.SwipeBackActivity;
+
 /**
  * @author koo
  */
-public abstract class BaseActivity <P extends IBasePresenter>extends AppCompatActivity implements View.OnClickListener {
-    Toolbar mToolbar;
+public abstract class BaseActivity<P extends IBasePresenter> extends SwipeBackActivity implements View.OnClickListener {
+    private Toolbar mToolbar;
     private TextView tvCenterTitle;
     protected P presenter;
+    private SwipeBackLayout backLayout;
     /**
      * 是否沉浸状态栏
      **/
@@ -69,12 +74,14 @@ public abstract class BaseActivity <P extends IBasePresenter>extends AppCompatAc
         }
 
         setContentView(R.layout.layout_base);
-        mContextView = getLayoutInflater().inflate(bindLayout(), findViewById(R.id.root_layout_ll));
+        mContextView = getLayoutInflater().inflate(bindLayout(), (ViewGroup) findViewById(R.id.root_layout_ll));
         initToolbar();
         setListener();
         presenter = createPresenter();
-
+        initSwipeLayout();
         initView(savedInstanceState);
+
+
         if (isSetStatusBar) {
             steepStatusBar();
         }
@@ -86,11 +93,21 @@ public abstract class BaseActivity <P extends IBasePresenter>extends AppCompatAc
     }
 
     /**
+     * 初始化滑动布局
+     */
+    private void initSwipeLayout() {
+        //滑动退出布局
+        backLayout = getSwipeBackLayout();
+        backLayout.setEnabled(true);
+        backLayout.setEdgeTrackingEnabled(SwipeBackLayout.EDGE_LEFT);
+    }
+
+    /**
      * 初始化toolbar
      */
     private void initToolbar() {
-        mToolbar = findViewById(R.id.toolbar);
-        tvCenterTitle = findViewById(R.id.tv_title);
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        tvCenterTitle = (TextView) findViewById(R.id.tv_title);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setHomeButtonEnabled(getHomeButtonEnabled());
         getSupportActionBar().setDisplayHomeAsUpEnabled(getDisplayHomeAsUpEnabled());
@@ -121,6 +138,7 @@ public abstract class BaseActivity <P extends IBasePresenter>extends AppCompatAc
     private void steepStatusBar() {
         setStatusBarFullTransparent();
     }
+
     /**
      * 全透状态栏
      */
@@ -427,6 +445,28 @@ public abstract class BaseActivity <P extends IBasePresenter>extends AppCompatAc
         }
     }
 
+    /**
+     * 设置侧边滑动模式
+     *
+     * @param mode SwipeBackLayout.EDGE_ALL     设置为向所有方向都可以滑动
+     *             SwipeBackLayout.EDGE_LEFT    设置为向左滑动
+     *             SwipeBackLayout.EDGE_RIGHT   设置为向右滑动
+     *             SwipeBackLayout.EDGE_BOTTOM  设置为向下滑动
+     */
+    public void setEdgeTrackingMode(int mode) {
+        ////设置为向所有方向都可以滑动
+        backLayout.setEdgeTrackingEnabled(mode);
+    }
+
+    /**
+     * 设置是否支持侧边滑动退出
+     *
+     * @param enable
+     */
+    public void setEnableGesture(boolean enable) {
+        //设置为不能滑动
+        backLayout.setEnableGesture(enable);
+    }
 
     /**
      * 设置中心标题size

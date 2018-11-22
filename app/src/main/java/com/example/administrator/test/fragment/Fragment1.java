@@ -17,8 +17,6 @@ import com.example.administrator.test.util.OnMultiClickListener;
 import com.orhanobut.logger.Logger;
 
 public class Fragment1 extends BaseFragment implements TestContract.View {
-    private TestContract.Presenter presenter;
-    private TestModel model;
     Button button;
 
     @Override
@@ -28,22 +26,20 @@ public class Fragment1 extends BaseFragment implements TestContract.View {
 
     @Override
     protected void init(View view) {
-        model = new TestModel();
-        presenter = new TestPresenter(model, this);
+
         button = view.findViewById(R.id.button2);
         button.setOnClickListener(new OnMultiClickListener() {
             @Override
             public void onMultiClick(View v) {
                 String userName = "test----------------------------------------------------------";
                 Logger.i(userName);
-                presenter.calculate(1, 100);
                 GetBookPresenter getBookPresenter = new GetBookPresenter();
                 getBookPresenter.getData();
+                //生命周期回调给 presenter
+                getLifecycle().addObserver(getBookPresenter);
             }
         });
 
-        //生命周期回调给 presenter
-        getLifecycle().addObserver(presenter);
     }
 
     @Override

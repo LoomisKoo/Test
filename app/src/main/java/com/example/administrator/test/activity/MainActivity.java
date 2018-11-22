@@ -8,6 +8,7 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.blankj.utilcode.util.ActivityUtils;
 import com.example.administrator.test.R;
 import com.example.administrator.test.base.activity.BaseActivity;
 import com.example.administrator.test.fragment.Fragment1;
@@ -69,6 +70,7 @@ public class MainActivity extends BaseActivity implements TestContract.View {
         initViewPager();
         initTopBar();
         initBottomBar();
+        setEnableGesture(false);
     }
 
     @Override
@@ -116,10 +118,10 @@ public class MainActivity extends BaseActivity implements TestContract.View {
     }
 
     /**
-     * 初始化BottomBar
+     * 初始化BottomBar {@link com.example.administrator.test.DataBinderMapperImpl}
      */
     private void initBottomBar() {
-        mBottomBar = findViewById(R.id.bottomBar);
+        mBottomBar = (BottomBar) findViewById(R.id.bottomBar);
         mBottomBar.setOnTabSelectListener(tabId -> {
             if (tabId == R.id.tab_favorites) {
                 // 选择指定 id 的标签
@@ -166,7 +168,6 @@ public class MainActivity extends BaseActivity implements TestContract.View {
         });
     }
 
-
     private void initViewPager() {
         fragments = new ArrayList<>();
         fragments.add(new Fragment1());
@@ -174,7 +175,7 @@ public class MainActivity extends BaseActivity implements TestContract.View {
         fragments.add(new Fragment1());
         fragments.add(new Fragment1());
         fragments.add(new Fragment1());
-        viewPager = findViewById(R.id.view_pager);
+        viewPager = (ViewPager) findViewById(R.id.view_pager);
         viewPager.setAdapter(new FragmentStatePagerAdapter(getSupportFragmentManager()) {
             @Override
             public Fragment getItem(int position) {
@@ -225,5 +226,9 @@ public class MainActivity extends BaseActivity implements TestContract.View {
     @Override
     public void onErrorCode(IBaseModel model) {
 
+    }
+
+
+    private void testUtils(){
     }
 }

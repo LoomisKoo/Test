@@ -51,7 +51,7 @@ public abstract class BaseTabActivity extends BaseActivity {
 
     @Override
     public void initView(Bundle savedInstanceState) {
-        tabLayout = findViewById(R.id.act_nav_tab_pager_tl_tab);
+        tabLayout = (TabLayout) findViewById(R.id.act_nav_tab_pager_tl_tab);
         tabTitles = getTabTitles();
         viewList = getViewList();
         if (tabTitles == null || viewList == null) {
@@ -78,7 +78,7 @@ public abstract class BaseTabActivity extends BaseActivity {
             }
         });
 
-        viewPager = findViewById(R.id.act_nav_tab_pager_vp);
+        viewPager = (ViewPager) findViewById(R.id.act_nav_tab_pager_vp);
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
