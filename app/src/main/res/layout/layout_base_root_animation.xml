@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:layout_editor_absoluteY="25dp">
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="83dp"
+            android:background="@color/colorPrimary"
+            android:fitsSystemWindows="true"
+            app:layout_scrollFlags="scroll|enterAlways|enterAlwaysCollapsed"
+            app:popupTheme="@style/ToolbarPopupTheme"
+            app:subtitle="小标题"
+            app:title="大标题"
+            app:titleTextColor="@color/white">
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="中心标题"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:visibility="gone" />
+        </android.support.v7.widget.Toolbar>
+    </android.support.design.widget.AppBarLayout>
+
+    <LinearLayout
+        android:id="@+id/root_layout_ll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#cccccc"
+        android:orientation="vertical"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+    </LinearLayout>
+</android.support.design.widget.CoordinatorLayout>

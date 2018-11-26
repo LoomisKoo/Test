@@ -1,12 +1,16 @@
 package com.example.administrator.test.base.activity;
 
+import android.animation.ObjectAnimator;
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.DrawableRes;
+import android.support.annotation.RequiresApi;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.view.animation.OvershootInterpolator;
+import android.view.animation.AccelerateInterpolator;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -23,9 +27,9 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+import jp.wasabeef.recyclerview.adapters.AnimationAdapter;
 import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter;
 import jp.wasabeef.recyclerview.animators.SlideInLeftAnimator;
-import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
 
 /**
  * @param <T>
@@ -73,6 +77,11 @@ public abstract class BaseListActivity<T> extends BaseActivity {
     }
 
     @Override
+    protected int getRootLayoutId() {
+        return R.layout.layout_base_root_animation;
+    }
+
+    @Override
     public void initView(Bundle savedInstanceState) {
         emptyTv = (TextView) findViewById(R.id.base_pager_list_empty_tv);
         rootLay = (ConstraintLayout) findViewById(R.id.base_pager_list_root);
@@ -107,12 +116,13 @@ public abstract class BaseListActivity<T> extends BaseActivity {
 
 
         //增加动画
-        ScaleInAnimationAdapter animationAdapter=new ScaleInAnimationAdapter(delegateAdapter);
+
+        AnimationAdapter animationAdapter = new ScaleInAnimationAdapter(delegateAdapter);
+        animationAdapter.setFirstOnly(false);
         animationAdapter.setDuration(300);
-        recyclerView.setAdapter(animationAdapter);
         //删除动画
-        SlideInLeftAnimator animator=new SlideInLeftAnimator();
-        animator.setInterpolator(new OvershootInterpolator());
+        SlideInLeftAnimator animator = new SlideInLeftAnimator();
+        animator.setInterpolator(new AccelerateInterpolator());
         recyclerView.setItemAnimator(animator);
         recyclerView.getItemAnimator().setRemoveDuration(300);
 
@@ -133,24 +143,13 @@ public abstract class BaseListActivity<T> extends BaseActivity {
 
         delegateAdapter.setAdapters(adapters);
 
-//        recyclerView.setItemAnimator(new SlideInLeftAnimator());
-//        SlideInUpAnimator animator = new SlideInUpAnimator(new OvershootInterpolator(1f));
-//        recyclerView.setItemAnimator(animator);
-
-//        recyclerView.getItemAnimator().setAddDuration(1000);
-//        recyclerView.getItemAnimator().setRemoveDuration(1000);
-//        recyclerView.getItemAnimator().setMoveDuration(1000);
-//        recyclerView.getItemAnimator().setChangeDuration(1000);
 
     }
 
-    private void refreshAnimation() {
-
-    }
-
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     public void setListener() {
-
     }
 
     @Override
@@ -283,4 +282,28 @@ public abstract class BaseListActivity<T> extends BaseActivity {
     protected abstract void getData(int page, int pageSize);
 
     protected abstract QuickDelegateAdapter getAdapter();
+
+
+    private ObjectAnimator animtor;
+
+    /**
+     * ToolBar显示隐藏动画
+     *
+     * @param direction
+     */
+    public void toobarAnim(int direction) {
+        //开始新的动画之前要先取消以前的动画
+        if (animtor != null && animtor.isRunning()) {
+            animtor.cancel();
+        }
+        //toolbar.getTranslationY()获取的是Toolbar距离自己顶部的距离
+        float translationY = mToolbar.getTranslationY();
+        if (direction == 0) {
+            animtor = ObjectAnimator.ofFloat(mToolbar, "translationY", translationY, 0);
+        } else if (direction == 1) {
+            animtor = ObjectAnimator.ofFloat(mToolbar, "translationY", translationY, -mToolbar.getHeight());
+        }
+        animtor.start();
+    }
+
 }

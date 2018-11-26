@@ -9,9 +9,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.ColorRes;
-import android.support.annotation.DrawableRes;
 import android.support.annotation.StringRes;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -75,14 +73,14 @@ public abstract class BaseActivity<P extends IBasePresenter> extends SwipeBackAc
             requestWindowFeature(Window.FEATURE_NO_TITLE);
         }
 
-        setContentView(R.layout.layout_base);
+        setContentView(getRootLayoutId());
         mContextView = getLayoutInflater().inflate(bindLayout(), (ViewGroup) findViewById(R.id.root_layout_ll));
         initToolbar();
-        setListener();
+
         presenter = createPresenter();
         initSwipeLayout();
         initView(savedInstanceState);
-
+        setListener();
 
         if (isSetStatusBar) {
             steepStatusBar();
@@ -534,5 +532,14 @@ public abstract class BaseActivity<P extends IBasePresenter> extends SwipeBackAc
 
     public void setToolBarBackgroundResource(@ColorRes int resource) {
         mToolbar.setBackgroundResource(resource);
+    }
+
+    /**
+     * 获取根布局
+     * @return R.layout.layout_base_root(toolbar不会根据列表滑动而滑动)
+     *         R.layout.layout_base_root_animation(toolbar会根据列表滑动而滑动)
+     */
+    protected int getRootLayoutId() {
+        return R.layout.layout_base_root;
     }
 }
