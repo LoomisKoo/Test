@@ -4,11 +4,15 @@ package com.example.administrator.test.base.adapter;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
+import android.view.ViewPropertyAnimator;
+import android.view.animation.OvershootInterpolator;
 
 import com.alibaba.android.vlayout.DelegateAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import jp.wasabeef.recyclerview.internal.ViewHelper;
 
 /**
  * @author koo

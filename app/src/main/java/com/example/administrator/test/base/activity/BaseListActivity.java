@@ -6,6 +6,7 @@ import android.support.annotation.DrawableRes;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.animation.OvershootInterpolator;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -22,6 +23,14 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter;
+import jp.wasabeef.recyclerview.animators.SlideInLeftAnimator;
+import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
+
+/**
+ * @param <T>
+ * @author koo
+ */
 public abstract class BaseListActivity<T> extends BaseActivity {
     protected int page = 1;
     protected int pageSize = 20;
@@ -33,6 +42,10 @@ public abstract class BaseListActivity<T> extends BaseActivity {
     protected ConstraintLayout rootLay;
     protected TextView emptyTv;
     protected VirtualLayoutManager layoutManager;
+
+
+    private int distance;
+    private boolean visible = true;
 
     @Override
     public void widgetClick(View v) {
@@ -92,7 +105,18 @@ public abstract class BaseListActivity<T> extends BaseActivity {
 
         final DelegateAdapter delegateAdapter = new DelegateAdapter(layoutManager, true);
 
-        recyclerView.setAdapter(delegateAdapter);
+
+        //增加动画
+        ScaleInAnimationAdapter animationAdapter=new ScaleInAnimationAdapter(delegateAdapter);
+        animationAdapter.setDuration(300);
+        recyclerView.setAdapter(animationAdapter);
+        //删除动画
+        SlideInLeftAnimator animator=new SlideInLeftAnimator();
+        animator.setInterpolator(new OvershootInterpolator());
+        recyclerView.setItemAnimator(animator);
+        recyclerView.getItemAnimator().setRemoveDuration(300);
+
+        recyclerView.setAdapter(animationAdapter);
 
         final List<DelegateAdapter.Adapter> adapters = new LinkedList<>();
         headerViewModel = getHeaderView();
@@ -108,6 +132,20 @@ public abstract class BaseListActivity<T> extends BaseActivity {
         }
 
         delegateAdapter.setAdapters(adapters);
+
+//        recyclerView.setItemAnimator(new SlideInLeftAnimator());
+//        SlideInUpAnimator animator = new SlideInUpAnimator(new OvershootInterpolator(1f));
+//        recyclerView.setItemAnimator(animator);
+
+//        recyclerView.getItemAnimator().setAddDuration(1000);
+//        recyclerView.getItemAnimator().setRemoveDuration(1000);
+//        recyclerView.getItemAnimator().setMoveDuration(1000);
+//        recyclerView.getItemAnimator().setChangeDuration(1000);
+
+    }
+
+    private void refreshAnimation() {
+
     }
 
     @Override
@@ -200,6 +238,39 @@ public abstract class BaseListActivity<T> extends BaseActivity {
         list.add(footerViewModel.object);
         return new HeaderFooterAdapter(this, 120, footerViewModel.layoutId, footerViewModel, list);
     }
+
+    private double mDistanceY;
+
+    /**
+     * toolbar动画
+     */
+    private void setToolBarAnimation() {
+        //        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+        //            @Override
+        //            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+        //                //滑动的距离
+        //                mDistanceY += dy;
+        //                //toolbar的高度
+        //                int toolbarHeight = getToolBarBottom();
+        //
+        //                //当滑动的距离 <= toolbar高度的时候，改变Toolbar背景色的透明度，达到渐变的效果
+        //                if (mDistanceY <= toolbarHeight) {
+        //                    float scale = (float) mDistanceY / toolbarHeight;
+        //                    float alpha = scale * 255;
+        //                    setToolBarBackgroundColor(Color.argb((int) alpha, 128, 0, 0));
+        //                } else {
+        //                    //上述虽然判断了滑动距离与toolbar高度相等的情况，但是实际测试时发现，标题栏的背景色
+        //                    //很少能达到完全不透明的情况，所以这里又判断了滑动距离大于toolbar高度的情况，
+        //                    //将标题栏的颜色设置为完全不透明状态
+        ////                    setToolBarBackgroundResource(R.color.colorPrimary);
+        //                }
+        //
+        //            }
+        //        });
+
+
+    }
+
 
     protected void setRootBackground(int color) {
         rootLay.setBackgroundColor(color);

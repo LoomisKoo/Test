@@ -92,6 +92,7 @@ public class MainActivity extends BaseActivity implements TestContract.View {
                 ARouter.getInstance().build("/com/TabActivity").navigation();
                 break;
             case R.id.action_notification:
+                ARouter.getInstance().build("/com/ListActivity").navigation();
                 showToast("Notification");
                 break;
 

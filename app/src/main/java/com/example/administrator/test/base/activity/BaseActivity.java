@@ -8,6 +8,8 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.ColorRes;
+import android.support.annotation.DrawableRes;
 import android.support.annotation.StringRes;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -31,7 +33,7 @@ import me.imid.swipebacklayout.lib.app.SwipeBackActivity;
  * @author koo
  */
 public abstract class BaseActivity<P extends IBasePresenter> extends SwipeBackActivity implements View.OnClickListener {
-    private Toolbar mToolbar;
+    protected Toolbar mToolbar;
     private TextView tvCenterTitle;
     protected P presenter;
     private SwipeBackLayout backLayout;
@@ -520,5 +522,17 @@ public abstract class BaseActivity<P extends IBasePresenter> extends SwipeBackAc
      */
     public void setBarNaviIcon(Drawable icon) {
         mToolbar.setNavigationIcon(icon);
+    }
+
+    public int getToolBarBottom() {
+        return mToolbar.getBottom();
+    }
+
+    public void setToolBarBackgroundColor(int color) {
+        mToolbar.setBackgroundColor(color);
+    }
+
+    public void setToolBarBackgroundResource(@ColorRes int resource) {
+        mToolbar.setBackgroundResource(resource);
     }
 }
