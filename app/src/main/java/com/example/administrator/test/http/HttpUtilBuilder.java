@@ -49,7 +49,7 @@ public class HttpUtilBuilder<T> {
     private void buildRetrofit() {
         if (null == retrofit) {
             retrofit = new Retrofit.Builder()
-                    .baseUrl(AppConfigUtil.baseUrl)
+                    .baseUrl(AppConfigUtil.PLAY_ANDROID_BASE_URL)
                     // 支持RxJava平台
                     .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                     .addConverterFactory(GsonConverterFactory.create())

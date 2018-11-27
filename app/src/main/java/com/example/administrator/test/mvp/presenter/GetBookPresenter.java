@@ -21,7 +21,7 @@ public class GetBookPresenter extends BasePresenter implements GetBookContract.P
     @SuppressLint("CheckResult")
     @Override
     public void getData() {
-        Observable<ResponseBody> observable = HttpUtil.getInstance().getService().getGetData(AppConfigUtil.url);
+        Observable<ResponseBody> observable = HttpUtil.getInstance().getService().getData(AppConfigUtil.url);
         HttpUtil.query(observable, new HttpCallback<ResponseBody>() {
             @Override
             public void onSuccess(ResponseBody result) {

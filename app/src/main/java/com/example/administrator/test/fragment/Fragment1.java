@@ -20,12 +20,12 @@ public class Fragment1 extends BaseFragment implements TestContract.View {
     Button button;
 
     @Override
-    protected int setView() {
+    protected int setContentLayout() {
         return R.layout.fragment_1;
     }
 
     @Override
-    protected void init(View view) {
+    protected void initView(View view) {
 
         button = view.findViewById(R.id.button2);
         button.setOnClickListener(new OnMultiClickListener() {
@@ -44,7 +44,7 @@ public class Fragment1 extends BaseFragment implements TestContract.View {
 
     @Override
     protected void initData(Bundle savedInstanceState) {
-
+        System.out.println("");
     }
 
     @Override

@@ -13,6 +13,9 @@ public interface GetBookContract {
     }
 
     interface Presenter extends IBasePresenter {
+        /**
+         *
+         */
         void getData();
     }
 }

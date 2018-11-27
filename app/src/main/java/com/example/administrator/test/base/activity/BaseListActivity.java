@@ -290,6 +290,10 @@ public abstract class BaseListActivity<T> extends BaseActivity {
         isShowDefaultDivider = showDefaultDivider;
     }
 
+    /**
+     * 是否显示recycleView的增删动画
+     * @param showRvAnimation
+     */
     public void setShowRvAnimation(boolean showRvAnimation) {
         isShowRvAnimation = showRvAnimation;
     }

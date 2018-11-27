@@ -7,5 +7,5 @@ public class AppConfigUtil {
     public static String url = baseUrl + "mobile/get?phone=18856907654&key=5778e9d9cf089fc3b093b162036fc0e1";
 
 
-    public final static String API_WAN_ANDROID = "http://www.wanandroid.com/";
+    public final static String PLAY_ANDROID_BASE_URL = "http://www.wanandroid.com";
 }

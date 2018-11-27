@@ -16,10 +16,22 @@ public abstract class BaseFragment extends Fragment {
 
     protected BaseActivity mActivity;
 
-    protected abstract int setView();
+    /**
+     * 设置内容布局
+     * @return
+     */
+    protected abstract int setContentLayout();
 
-    protected abstract void init(View view);
+    /**
+     * 初始化View
+     * @param view
+     */
+    protected abstract void initView(View view);
 
+    /**
+     * 初始化数据
+     * @param savedInstanceState
+     */
     protected abstract void initData(Bundle savedInstanceState);
 
     @Override
@@ -36,13 +48,13 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(setView(), container, false);
+        return inflater.inflate(setContentLayout(), container, false);
     }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        init(view);
+        initView(view);
     }
 
     @Override

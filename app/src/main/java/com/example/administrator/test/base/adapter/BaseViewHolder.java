@@ -22,7 +22,7 @@ import android.widget.ProgressBar;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
-import com.example.administrator.test.viewHolder.ViewHolderInterface;
+import com.example.administrator.test.viewholder.ViewHolderInterface;
 
 public class BaseViewHolder extends RecyclerView.ViewHolder implements ViewHolderInterface {
     protected Context context;

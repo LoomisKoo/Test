@@ -1,4 +1,4 @@
-package com.example.administrator.test.viewHolder;
+package com.example.administrator.test.viewholder;
 
 import android.content.Context;
 import android.view.View;

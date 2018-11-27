@@ -21,7 +21,7 @@ import okhttp3.ResponseBody;
  */
 public abstract class BasePresenter implements LifecycleObserver {
     protected void getData(Map<String, String> map, HttpCallback<ResponseBody> callback) {
-        Observable<ResponseBody> observable = HttpUtil.getInstance().getService().getGetData(AppConfigUtil.url);
+        Observable<ResponseBody> observable = HttpUtil.getInstance().getService().getData(AppConfigUtil.url);
         HttpUtil.query(observable, callback);
     }
 

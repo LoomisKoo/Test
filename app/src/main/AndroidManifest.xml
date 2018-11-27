@@ -29,10 +29,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".base.activity.BaseActivity"></activity>
-        <activity android:name=".activity.SecondActivityBase"></activity>
-        <activity android:name=".activity.TabActivity"></activity>
-        <activity android:name=".activity.ListActivity"></activity>
+        <activity android:name=".base.activity.BaseActivity" />
+        <activity android:name=".activity.SecondActivityBase" />
+        <activity android:name=".activity.TabActivity" />
+        <activity android:name=".activity.ListActivity" />
+
     </application>
 
 </manifest>

@@ -8,18 +8,15 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 
 import com.alibaba.android.arouter.launcher.ARouter;
-import com.blankj.utilcode.util.ActivityUtils;
 import com.example.administrator.test.R;
 import com.example.administrator.test.base.activity.BaseActivity;
 import com.example.administrator.test.fragment.Fragment1;
+import com.example.administrator.test.fragment.PlayFragment;
 import com.example.administrator.test.mvp.base.IBaseModel;
 import com.example.administrator.test.mvp.base.IBasePresenter;
 import com.example.administrator.test.mvp.contract.TestContract;
-import com.example.administrator.test.mvp.model.TestModel;
 import com.example.administrator.test.mvp.presenter.GetBookPresenter;
-import com.example.administrator.test.mvp.presenter.TestPresenter;
 import com.roughike.bottombar.BottomBar;
-import com.roughike.bottombar.BottomBarTab;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +29,6 @@ public class MainActivity extends BaseActivity implements TestContract.View {
     private BottomBar mBottomBar;
     private List<Fragment> fragments;
     private ViewPager viewPager;
-    private TestModel model;
 
     @Override
     public void widgetClick(View v) {
@@ -84,7 +80,7 @@ public class MainActivity extends BaseActivity implements TestContract.View {
 
     @Override
     protected IBasePresenter createPresenter() {
-        model = new TestModel();
+//        model = new TestModel();
         GetBookPresenter getBookPresenter = new GetBookPresenter();
         return getBookPresenter;
     }
@@ -172,7 +168,7 @@ public class MainActivity extends BaseActivity implements TestContract.View {
 
     private void initViewPager() {
         fragments = new ArrayList<>();
-        fragments.add(new Fragment1());
+        fragments.add(new PlayFragment());
         fragments.add(new Fragment1());
         fragments.add(new Fragment1());
         viewPager = (ViewPager) findViewById(R.id.view_pager);
