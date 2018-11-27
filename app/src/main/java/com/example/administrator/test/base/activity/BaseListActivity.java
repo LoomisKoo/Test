@@ -1,6 +1,5 @@
 package com.example.administrator.test.base.activity;
 
-import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Build;
@@ -47,10 +46,6 @@ public abstract class BaseListActivity<T> extends BaseActivity {
     protected TextView emptyTv;
     protected VirtualLayoutManager layoutManager;
 
-
-    private int distance;
-    private boolean visible = true;
-
     @Override
     public void widgetClick(View v) {
 
@@ -67,7 +62,7 @@ public abstract class BaseListActivity<T> extends BaseActivity {
     }
 
     @Override
-    public int bindLayout() {
+    public int bindContentLayout() {
         return R.layout.layout_base_list;
     }
 
@@ -77,8 +72,8 @@ public abstract class BaseListActivity<T> extends BaseActivity {
     }
 
     @Override
-    protected int getRootLayoutId() {
-        return R.layout.layout_base_root_animation;
+    protected boolean isToolBarAnimation() {
+        return true;
     }
 
     @Override
@@ -238,39 +233,6 @@ public abstract class BaseListActivity<T> extends BaseActivity {
         return new HeaderFooterAdapter(this, 120, footerViewModel.layoutId, footerViewModel, list);
     }
 
-    private double mDistanceY;
-
-    /**
-     * toolbar动画
-     */
-    private void setToolBarAnimation() {
-        //        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-        //            @Override
-        //            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-        //                //滑动的距离
-        //                mDistanceY += dy;
-        //                //toolbar的高度
-        //                int toolbarHeight = getToolBarBottom();
-        //
-        //                //当滑动的距离 <= toolbar高度的时候，改变Toolbar背景色的透明度，达到渐变的效果
-        //                if (mDistanceY <= toolbarHeight) {
-        //                    float scale = (float) mDistanceY / toolbarHeight;
-        //                    float alpha = scale * 255;
-        //                    setToolBarBackgroundColor(Color.argb((int) alpha, 128, 0, 0));
-        //                } else {
-        //                    //上述虽然判断了滑动距离与toolbar高度相等的情况，但是实际测试时发现，标题栏的背景色
-        //                    //很少能达到完全不透明的情况，所以这里又判断了滑动距离大于toolbar高度的情况，
-        //                    //将标题栏的颜色设置为完全不透明状态
-        ////                    setToolBarBackgroundResource(R.color.colorPrimary);
-        //                }
-        //
-        //            }
-        //        });
-
-
-    }
-
-
     protected void setRootBackground(int color) {
         rootLay.setBackgroundColor(color);
     }
@@ -282,28 +244,5 @@ public abstract class BaseListActivity<T> extends BaseActivity {
     protected abstract void getData(int page, int pageSize);
 
     protected abstract QuickDelegateAdapter getAdapter();
-
-
-    private ObjectAnimator animtor;
-
-    /**
-     * ToolBar显示隐藏动画
-     *
-     * @param direction
-     */
-    public void toobarAnim(int direction) {
-        //开始新的动画之前要先取消以前的动画
-        if (animtor != null && animtor.isRunning()) {
-            animtor.cancel();
-        }
-        //toolbar.getTranslationY()获取的是Toolbar距离自己顶部的距离
-        float translationY = mToolbar.getTranslationY();
-        if (direction == 0) {
-            animtor = ObjectAnimator.ofFloat(mToolbar, "translationY", translationY, 0);
-        } else if (direction == 1) {
-            animtor = ObjectAnimator.ofFloat(mToolbar, "translationY", translationY, -mToolbar.getHeight());
-        }
-        animtor.start();
-    }
 
 }

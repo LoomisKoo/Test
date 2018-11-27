@@ -56,8 +56,18 @@ public class MainActivity extends BaseActivity implements TestContract.View {
     }
 
     @Override
-    public int bindLayout() {
+    public int bindContentLayout() {
         return R.layout.activity_main;
+    }
+
+    @Override
+    public int bindTopLayout() {
+        return 0;
+    }
+
+    @Override
+    public int bindBottomLayout() {
+        return 0;
     }
 
     @Override
@@ -119,7 +129,7 @@ public class MainActivity extends BaseActivity implements TestContract.View {
     }
 
     /**
-     * 初始化BottomBar {@link com.example.administrator.test.DataBinderMapperImpl}
+     * 初始化BottomBar
      */
     private void initBottomBar() {
         mBottomBar = (BottomBar) findViewById(R.id.bottomBar);

@@ -17,8 +17,18 @@ import java.util.ArrayList;
 @Route(path = "/com/TabActivity")
 public class TabActivity extends BaseTabActivity {
     @Override
-    public int bindLayout() {
+    public int bindContentLayout() {
         return R.layout.layout_base_tab;
+    }
+
+    @Override
+    public int bindTopLayout() {
+        return 0;
+    }
+
+    @Override
+    public int bindBottomLayout() {
+        return 0;
     }
 
     @Override
@@ -79,7 +89,7 @@ public class TabActivity extends BaseTabActivity {
      */
     private void initToolbar() {
         setSubtitle("subTitle");
-        setToobarTitle("title");
+        setTooBarTitle("title");
         setCenterTitle("中心大标题");
         setBarNaviIcon(getResources().getDrawable(R.mipmap.ic_back_black));
         showCenterTitle(true);

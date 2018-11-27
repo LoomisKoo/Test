@@ -41,6 +41,16 @@ public class SecondActivityBase extends BaseListActivity {
     }
 
     @Override
+    public int bindTopLayout() {
+        return 0;
+    }
+
+    @Override
+    public int bindBottomLayout() {
+        return 0;
+    }
+
+    @Override
     public int bindMenu() {
         return R.menu.base_toolbar_menu;
     }

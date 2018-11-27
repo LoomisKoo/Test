@@ -73,8 +73,7 @@ public abstract class BaseActivity<P extends IBasePresenter> extends SwipeBackAc
             requestWindowFeature(Window.FEATURE_NO_TITLE);
         }
 
-        setContentView(getRootLayoutId());
-        mContextView = getLayoutInflater().inflate(bindLayout(), (ViewGroup) findViewById(R.id.root_layout_ll));
+        initMainLayout();
         initToolbar();
 
         presenter = createPresenter();
@@ -90,6 +89,23 @@ public abstract class BaseActivity<P extends IBasePresenter> extends SwipeBackAc
         }
 
         onEvent(this);
+    }
+
+    /**
+     * 初始化主布局
+     */
+    private void initMainLayout() {
+        setContentView(getRootLayoutId());
+
+        if (0 != bindContentLayout()) {
+            getLayoutInflater().inflate(bindContentLayout(), (ViewGroup) findViewById(R.id.content_layout_ll));
+        }
+        if (0 != bindTopLayout()) {
+            getLayoutInflater().inflate(bindTopLayout(), (ViewGroup) findViewById(R.id.top_layout_ll));
+        }
+        if (0 != bindBottomLayout()) {
+            getLayoutInflater().inflate(bindBottomLayout(), (ViewGroup) findViewById(R.id.bottom_layout_ll));
+        }
     }
 
     /**
@@ -173,11 +189,25 @@ public abstract class BaseActivity<P extends IBasePresenter> extends SwipeBackAc
     public abstract View bindView();
 
     /**
-     * [绑定布局]
+     * [绑定内容布局]
      *
      * @return
      */
-    public abstract int bindLayout();
+    public abstract int bindContentLayout();
+
+    /**
+     * [绑定顶部布局]
+     *
+     * @return
+     */
+    public abstract int bindTopLayout();
+
+    /**
+     * [绑定底部布局]
+     *
+     * @return
+     */
+    public abstract int bindBottomLayout();
 
     /**
      * [绑定菜单]
@@ -401,7 +431,7 @@ public abstract class BaseActivity<P extends IBasePresenter> extends SwipeBackAc
      *
      * @param title
      */
-    public void setToobarTitle(String title) {
+    public void setTooBarTitle(String title) {
         mToolbar.setTitle(title);
     }
 
@@ -419,7 +449,7 @@ public abstract class BaseActivity<P extends IBasePresenter> extends SwipeBackAc
      *
      * @param titleId
      */
-    public void setToobarTitle(int titleId) {
+    public void setTooBarTitle(int titleId) {
         mToolbar.setTitle(titleId);
     }
 
@@ -536,10 +566,24 @@ public abstract class BaseActivity<P extends IBasePresenter> extends SwipeBackAc
 
     /**
      * 获取根布局
+     *
      * @return R.layout.layout_base_root(toolbar不会根据列表滑动而滑动)
-     *         R.layout.layout_base_root_animation(toolbar会根据列表滑动而滑动)
+     * R.layout.layout_base_root_animation(toolbar会根据列表滑动而滑动)
      */
-    protected int getRootLayoutId() {
+    private int getRootLayoutId() {
+        if (isToolBarAnimation()) {
+            return R.layout.layout_base_root_animation;
+        }
         return R.layout.layout_base_root;
     }
+
+    /**
+     * 是否使用toolbar动画布局
+     *
+     * @return
+     */
+    protected boolean isToolBarAnimation() {
+        return false;
+    }
+
 }

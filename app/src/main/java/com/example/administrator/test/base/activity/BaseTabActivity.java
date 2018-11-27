@@ -40,7 +40,7 @@ public abstract class BaseTabActivity extends BaseActivity {
     }
 
     @Override
-    public int bindLayout() {
+    public int bindContentLayout() {
         return 0;
     }
 

@@ -7,20 +7,13 @@
 
     tools:layout_editor_absoluteY="25dp">
 
-    <android.support.v7.widget.Toolbar
-        android:fitsSystemWindows="true"
-        xmlns:android="http://schemas.android.com/apk/res/android"
+    <android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="83dp"
         android:background="@color/colorPrimary"
-        app:layout_constraintBottom_toTopOf="@id/root_layout_ll"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_chainStyle="packed"
+        android:fitsSystemWindows="true"
         app:popupTheme="@style/ToolbarPopupTheme"
         app:subtitle="小标题"
         app:title="大标题"
@@ -38,12 +31,35 @@
     </android.support.v7.widget.Toolbar>
 
     <LinearLayout
-        android:id="@+id/root_layout_ll"
+        android:id="@+id/top_layout_ll"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar">
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/content_layout_ll"
+        android:layout_width="360dp"
         android:layout_height="0dp"
         android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_layout_ll"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/top_layout_ll">
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/bottom_layout_ll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbar">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
 
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>
