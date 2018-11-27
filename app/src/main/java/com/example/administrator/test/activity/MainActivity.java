@@ -30,7 +30,6 @@ import java.util.List;
  */
 public class MainActivity extends BaseActivity implements TestContract.View {
     private BottomBar mBottomBar;
-    private BottomBarTab nearby;
     private List<Fragment> fragments;
     private ViewPager viewPager;
     private TestModel model;
@@ -133,28 +132,20 @@ public class MainActivity extends BaseActivity implements TestContract.View {
      */
     private void initBottomBar() {
         mBottomBar = (BottomBar) findViewById(R.id.bottomBar);
+        //已小红点形式显示新消息数量
+        mBottomBar.getTabWithId(R.id.tab_discover).setBadgeCount(5);
+
         mBottomBar.setOnTabSelectListener(tabId -> {
-            if (tabId == R.id.tab_favorites) {
-                // 选择指定 id 的标签
-                nearby = mBottomBar.getTabWithId(R.id.tab_nearby);
-                nearby.setBadgeCount(5);
-            }
 
             switch (tabId) {
-                case R.id.tab_recents:
+                case R.id.tab_discover:
                     viewPager.setCurrentItem(0);
                     break;
-                case R.id.tab_favorites:
+                case R.id.tab_friends:
                     viewPager.setCurrentItem(1);
                     break;
-                case R.id.tab_nearby:
+                case R.id.tab_music:
                     viewPager.setCurrentItem(2);
-                    break;
-                case R.id.tab_friends:
-                    viewPager.setCurrentItem(3);
-                    break;
-                case R.id.tab_restaurants:
-                    viewPager.setCurrentItem(4);
                     break;
                 default:
                     break;
@@ -162,14 +153,14 @@ public class MainActivity extends BaseActivity implements TestContract.View {
         });
 
         mBottomBar.setOnTabReselectListener(tabId -> {
-            if (tabId == R.id.tab_favorites) {
+            if (tabId == R.id.tab_discover) {
                 // 已经选择了这个标签，又点击一次。即重选。
-                nearby.removeBadge();
+                mBottomBar.getTabWithId(R.id.tab_discover).removeBadge();
             }
         });
         mBottomBar.setTabSelectionInterceptor((oldTabId, newTabId) -> {
             // 点击无效
-            if (newTabId == R.id.tab_restaurants) {
+            if (newTabId == R.id.tab_music) {
                 // ......
                 // 返回 true 。代表：这里我处理了，你不用管了。
                 return false;
@@ -181,8 +172,6 @@ public class MainActivity extends BaseActivity implements TestContract.View {
 
     private void initViewPager() {
         fragments = new ArrayList<>();
-        fragments.add(new Fragment1());
-        fragments.add(new Fragment1());
         fragments.add(new Fragment1());
         fragments.add(new Fragment1());
         fragments.add(new Fragment1());
@@ -239,7 +228,4 @@ public class MainActivity extends BaseActivity implements TestContract.View {
 
     }
 
-
-    private void testUtils(){
-    }
 }

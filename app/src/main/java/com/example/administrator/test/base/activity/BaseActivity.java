@@ -132,6 +132,8 @@ public abstract class BaseActivity<P extends IBasePresenter> extends SwipeBackAc
             return true;
         });
 
+        mToolbar.setBackgroundResource(R.color.tool_bar_base_background);
+
         mToolbar.setNavigationOnClickListener(new OnMultiClickListener() {
             @Override
             public void onMultiClick(View v) {

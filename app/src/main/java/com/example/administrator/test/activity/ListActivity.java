@@ -68,6 +68,17 @@ public class ListActivity extends BaseListActivity<TestEntity> {
     }
 
     @Override
+    public int bindTopLayout() {
+        return 0;
+    }
+
+    @Override
+    public int bindBottomLayout() {
+        return 0;
+    }
+
+
+    @Override
     protected IBasePresenter createPresenter() {
         return null;
     }
