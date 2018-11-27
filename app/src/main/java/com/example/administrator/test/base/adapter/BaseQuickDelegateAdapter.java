@@ -4,26 +4,19 @@ package com.example.administrator.test.base.adapter;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
-import android.view.ViewPropertyAnimator;
-import android.view.animation.OvershootInterpolator;
 
 import com.alibaba.android.vlayout.DelegateAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import jp.wasabeef.recyclerview.internal.ViewHelper;
-
 /**
- * @author koo
  * @param <T>
  * @param <H>
+ * @author koo
  */
 public abstract class BaseQuickDelegateAdapter<T, H extends BaseViewHolder> extends DelegateAdapter.Adapter {
-//    protected static final String TAG = BaseQuickDelegateAdapter.class.getSimpleName();
-
     protected final Context context;
-
 
     protected final List<T> data;
 
@@ -42,7 +35,9 @@ public abstract class BaseQuickDelegateAdapter<T, H extends BaseViewHolder> exte
     }
 
     public T getItem(int position) {
-        if (position >= data.size() || -1 == position) return null;
+        if (position >= data.size() || -1 == position) {
+            return null;
+        }
         return data.get(position);
     }
 
@@ -60,7 +55,7 @@ public abstract class BaseQuickDelegateAdapter<T, H extends BaseViewHolder> exte
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         final H viewHolder = (H) holder;
         T item = getItem(position);
-        onSetItemData(viewHolder, item, getItemViewType(position),position);
+        onSetItemData(viewHolder, item, getItemViewType(position), position);
     }
 
     public List<T> getData() {
@@ -135,5 +130,5 @@ public abstract class BaseQuickDelegateAdapter<T, H extends BaseViewHolder> exte
 
     protected abstract RecyclerView.ViewHolder onGetViewHolder(ViewGroup parent, int viewType);
 
-    protected abstract void onSetItemData(H holder, T item, int viewType,int position);
+    protected abstract void onSetItemData(H holder, T item, int viewType, int position);
 }

@@ -23,6 +23,7 @@ import com.example.administrator.test.base.adapter.HeaderFooterAdapter;
 import com.example.administrator.test.base.adapter.HeaderFooterViewModel;
 import com.example.administrator.test.base.adapter.QuickDelegateAdapter;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.constant.RefreshState;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -92,6 +93,7 @@ public abstract class BaseListFragment<T> extends BaseFragment {
         layoutManager = new VirtualLayoutManager(getContext());
 
         recyclerView.setLayoutManager(layoutManager);
+
         final RecyclerView.RecycledViewPool viewPool = new RecyclerView.RecycledViewPool();
 
         recyclerView.setRecycledViewPool(viewPool);
@@ -120,8 +122,6 @@ public abstract class BaseListFragment<T> extends BaseFragment {
         }
 
         delegateAdapter.setAdapters(adapters);
-
-
     }
 
     protected DelegateAdapter.Adapter getHeadViewAdapter() {
@@ -205,6 +205,7 @@ public abstract class BaseListFragment<T> extends BaseFragment {
 
     /**
      * 显示空列表提示
+     *
      * @param text
      * @param resId
      */
@@ -216,6 +217,7 @@ public abstract class BaseListFragment<T> extends BaseFragment {
 
     /**
      * 检查列表是否为空
+     *
      * @param text
      * @param resId
      */
@@ -236,6 +238,17 @@ public abstract class BaseListFragment<T> extends BaseFragment {
         isShowDefaultDivider = showDefaultDivider;
     }
 
+    protected boolean isRefreshFinish() {
+        return refreshLayout.getState() == RefreshState.None;
+    }
+
+    protected void stopRefresh() {
+        if (refreshLayout.isRefreshing()) {
+            refreshLayout.finishRefresh();
+        } else if (refreshLayout.isLoading()) {
+            refreshLayout.finishLoadmore();
+        }
+    }
     /**
      * 是否显示recycleView的增删动画
      *
@@ -279,7 +292,11 @@ public abstract class BaseListFragment<T> extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(setContentLayout(), container, false);
+        if (0 != setContentLayout()) {
+            return inflater.inflate(setContentLayout(), container, false);
+        }
+        return null;
+
     }
 
     @Override

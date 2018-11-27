@@ -46,7 +46,6 @@ public abstract class BaseListActivity<T> extends BaseActivity {
     protected LinearLayout topLay, bottomLay;
     protected ConstraintLayout rootLay;
     protected TextView emptyTv;
-    protected VirtualLayoutManager layoutManager;
     /**
      * 是否显示recycleView自带的分割线
      */
@@ -109,7 +108,7 @@ public abstract class BaseListActivity<T> extends BaseActivity {
     }
 
     private void initRecycleView() {
-        layoutManager = new VirtualLayoutManager(this);
+       final VirtualLayoutManager layoutManager = new VirtualLayoutManager(this);
 
         recyclerView.setLayoutManager(layoutManager);
         final RecyclerView.RecycledViewPool viewPool = new RecyclerView.RecycledViewPool();
@@ -140,7 +139,6 @@ public abstract class BaseListActivity<T> extends BaseActivity {
         }
 
         delegateAdapter.setAdapters(adapters);
-
 
     }
 

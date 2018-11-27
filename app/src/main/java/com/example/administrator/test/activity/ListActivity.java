@@ -69,6 +69,7 @@ public class ListActivity extends BaseListActivity<TestEntity> {
             @Override
             protected void onSetItemData(BaseViewHolder holder, TestEntity item, int viewType, int position) {
                 holder.setData(item);
+                System.out.println("=====");
             }
 
             @Override

@@ -1,5 +1,6 @@
 package com.example.administrator.test.mvp.contract;
 
+import com.example.administrator.test.entity.view.PlayAndroidViewEntity;
 import com.example.administrator.test.http.HttpCallback;
 import com.example.administrator.test.mvp.base.IBasePresenter;
 
@@ -21,7 +22,7 @@ public interface PlayAndroidContract {
     interface View {
         void showLoading();
         void hideLoading();
-        void onSuccess(ResponseBody responseBody);
+        void onSuccess(PlayAndroidViewEntity playAndroidViewEntity);
         void onError(String msg);
         void onComplete();
     }
