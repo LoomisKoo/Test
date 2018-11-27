@@ -1,5 +1,6 @@
 package com.example.administrator.test.activity;
 
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
 
@@ -23,6 +24,11 @@ import java.util.ArrayList;
 
 @Route(path = "/com/ListActivity")
 public class ListActivity extends BaseListActivity<TestEntity> {
+    @Override
+    public void initView(Bundle savedInstanceState) {
+        super.initView(savedInstanceState);
+    }
+
     @Override
     protected void getData(int page, int pageSize) {
         stopRefresh();

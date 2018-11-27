@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.RequiresApi;
 import android.support.constraint.ConstraintLayout;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
@@ -37,14 +39,23 @@ import jp.wasabeef.recyclerview.animators.SlideInLeftAnimator;
 public abstract class BaseListActivity<T> extends BaseActivity {
     protected int page = 1;
     protected int pageSize = 20;
-    SmartRefreshLayout refreshLayout;
+    protected SmartRefreshLayout refreshLayout;
     protected RecyclerView recyclerView;
     protected QuickDelegateAdapter<T> adapter;
-    HeaderFooterViewModel headerViewModel, footerViewModel;
+    protected HeaderFooterViewModel headerViewModel, footerViewModel;
     protected LinearLayout topLay, bottomLay;
     protected ConstraintLayout rootLay;
     protected TextView emptyTv;
     protected VirtualLayoutManager layoutManager;
+    /**
+     * 是否显示recycleView自带的分割线
+     */
+    private boolean isShowDefaultDivider = false;
+
+    /**
+     * 是否显示recycleView的item增删动画
+     */
+    private boolean isShowRvAnimation = true;
 
     @Override
     public void widgetClick(View v) {
@@ -109,18 +120,8 @@ public abstract class BaseListActivity<T> extends BaseActivity {
 
         final DelegateAdapter delegateAdapter = new DelegateAdapter(layoutManager, true);
 
+        setRecyclerViewAnimation(delegateAdapter);
 
-        //增加动画
-        AnimationAdapter animationAdapter = new ScaleInAnimationAdapter(delegateAdapter);
-        animationAdapter.setFirstOnly(false);
-        animationAdapter.setDuration(300);
-        //删除动画
-        SlideInLeftAnimator animator = new SlideInLeftAnimator();
-        animator.setInterpolator(new AccelerateInterpolator());
-        recyclerView.setItemAnimator(animator);
-        recyclerView.getItemAnimator().setRemoveDuration(300);
-
-        recyclerView.setAdapter(animationAdapter);
 
         final List<DelegateAdapter.Adapter> adapters = new LinkedList<>();
         headerViewModel = getHeaderView();
@@ -134,10 +135,46 @@ public abstract class BaseListActivity<T> extends BaseActivity {
         if (footerViewModel != null) {
             adapters.add(getFooterViewAdapter());
         }
+        if (isShowDefaultDivider) {
+            recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
+        }
 
         delegateAdapter.setAdapters(adapters);
 
 
+    }
+
+    /**
+     * 设置recycleView的item增删动画
+     *
+     * @param delegateAdapter
+     */
+    private void setRecyclerViewAnimation(DelegateAdapter delegateAdapter) {
+        if (isShowRvAnimation) {
+            //增加动画
+            AnimationAdapter animationAdapter = new ScaleInAnimationAdapter(delegateAdapter);
+            animationAdapter.setFirstOnly(false);
+            animationAdapter.setDuration(300);
+            //删除动画
+            SlideInLeftAnimator animator = new SlideInLeftAnimator();
+            animator.setInterpolator(new AccelerateInterpolator());
+            recyclerView.setItemAnimator(animator);
+            recyclerView.getItemAnimator().setRemoveDuration(300);
+
+            recyclerView.setAdapter(animationAdapter);
+        } else {
+            recyclerView.setAdapter(delegateAdapter);
+        }
+    }
+
+    /**
+     * 添加自定义分割线
+     * @param drawableRes
+     */
+    public void addCustomDivider(@DrawableRes int drawableRes) {
+        DividerItemDecoration divider = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
+        divider.setDrawable(ContextCompat.getDrawable(this, drawableRes));
+        recyclerView.addItemDecoration(divider);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -244,4 +281,16 @@ public abstract class BaseListActivity<T> extends BaseActivity {
 
     protected abstract QuickDelegateAdapter getAdapter();
 
+    /**
+     * 是否显示recycleView自带的分割线
+     *
+     * @param showDefaultDivider
+     */
+    public void showDefaultDivider(boolean showDefaultDivider) {
+        isShowDefaultDivider = showDefaultDivider;
+    }
+
+    public void setShowRvAnimation(boolean showRvAnimation) {
+        isShowRvAnimation = showRvAnimation;
+    }
 }
