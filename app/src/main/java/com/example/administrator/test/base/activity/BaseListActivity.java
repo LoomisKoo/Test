@@ -111,7 +111,6 @@ public abstract class BaseListActivity<T> extends BaseActivity {
 
 
         //增加动画
-
         AnimationAdapter animationAdapter = new ScaleInAnimationAdapter(delegateAdapter);
         animationAdapter.setFirstOnly(false);
         animationAdapter.setDuration(300);

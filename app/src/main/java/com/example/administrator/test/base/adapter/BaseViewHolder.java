@@ -22,7 +22,9 @@ import android.widget.ProgressBar;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
-public class BaseViewHolder extends RecyclerView.ViewHolder {
+import com.example.administrator.test.viewHolder.ViewHolderInterface;
+
+public class BaseViewHolder extends RecyclerView.ViewHolder implements ViewHolderInterface {
     protected Context context;
     /**
      * Views indexed with their IDs
@@ -473,5 +475,10 @@ public class BaseViewHolder extends RecyclerView.ViewHolder {
             views.put(viewId, view);
         }
         return (T) view;
+    }
+
+    @Override
+    public void setData(Object data) {
+
     }
 }
