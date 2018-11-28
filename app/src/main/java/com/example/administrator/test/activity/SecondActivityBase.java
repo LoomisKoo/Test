@@ -20,7 +20,7 @@ import java.util.List;
 
 
 /**
- * @author
+ * @author koo
  */
 
 @Route(path = ArouterHelper.ROUTE_ACTIVITY_SECOND_ACTIVITY)
@@ -102,7 +102,6 @@ public class SecondActivityBase extends BaseListActivity {
             @Override
             protected void onSetItemData(BaseViewHolder holder, TestEntity item, int viewType, int position) {
                 holder.setText(R.id.textView, item.getName());
-                System.out.println();
             }
 
 

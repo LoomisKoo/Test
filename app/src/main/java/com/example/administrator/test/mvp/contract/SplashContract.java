@@ -81,7 +81,10 @@ public interface SplashContract {
         void onDestroy();
     }
 
-    interface callBack {
+    /**
+     * 回调接口
+     */
+    interface CallBack {
         /**
          * 广告倒计时回调
          *

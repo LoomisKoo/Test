@@ -28,7 +28,13 @@ import com.example.administrator.test.util.OnMultiClickListener;
  * @Version: 1.0
  */
 public class SplashActivity extends BaseActivity<SplashPresenter> implements SplashContract.View {
+    /**
+     * 开屏广告的imageView
+     */
     private ImageView ivAD;
+    /**
+     * 开屏广告的 跳过 按钮
+     */
     private Button btnSkip;
     /**
      * 倒计时结束秒数
@@ -76,6 +82,7 @@ public class SplashActivity extends BaseActivity<SplashPresenter> implements Spl
         hideToolBar();
         setRootLayoutBackGround(getResources().getColor(R.color.activity_root_layout_background));
         setContentView(R.layout.activiyt_welcome);
+
         ivAD = (ImageView) findViewById(R.id.welcome_ad_iv);
         btnSkip = (Button) findViewById(R.id.welcome_btn_skip);
         presenter.showWelcome();
@@ -88,6 +95,7 @@ public class SplashActivity extends BaseActivity<SplashPresenter> implements Spl
 
     @Override
     public void setListener() {
+        //点击跳过开屏广告
         btnSkip.setOnClickListener(new OnMultiClickListener() {
             @Override
             public void onMultiClick(View v) {
@@ -109,6 +117,7 @@ public class SplashActivity extends BaseActivity<SplashPresenter> implements Spl
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        //释放资源
         presenter.onDestroy();
     }
 
@@ -122,9 +131,10 @@ public class SplashActivity extends BaseActivity<SplashPresenter> implements Spl
 
     @Override
     public void countDownAD(long countDown) {
+        //开屏广告倒计时
         String skip = "跳过（" + countDown + ")";
         btnSkip.setText(skip);
-
+        //倒计时为 0 则跳转主页面
         if (COUNTDOWN_END_SECOND == countDown) {
             startMainActivity();
         }
@@ -135,6 +145,7 @@ public class SplashActivity extends BaseActivity<SplashPresenter> implements Spl
      */
     private void startMainActivity() {
         ARouter.getInstance().build(ArouterHelper.ROUTE_ACTIVITY_MAIN).navigation();
+        //跳转动画
         overridePendingTransition(R.anim.screen_zoom_in, R.anim.screen_zoom_out);
         finish();
     }

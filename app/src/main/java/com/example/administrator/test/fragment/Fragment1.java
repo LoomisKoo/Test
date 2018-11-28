@@ -10,9 +10,6 @@ import com.example.administrator.test.R;
 import com.example.administrator.test.base.fragment.BaseFragment;
 import com.example.administrator.test.mvp.base.IBaseModel;
 import com.example.administrator.test.mvp.contract.TestContract;
-import com.example.administrator.test.mvp.model.TestModel;
-import com.example.administrator.test.mvp.presenter.GetBookPresenter;
-import com.example.administrator.test.mvp.presenter.TestPresenter;
 import com.example.administrator.test.util.OnMultiClickListener;
 import com.orhanobut.logger.Logger;
 
@@ -31,12 +28,6 @@ public class Fragment1 extends BaseFragment implements TestContract.View {
         button.setOnClickListener(new OnMultiClickListener() {
             @Override
             public void onMultiClick(View v) {
-                String userName = "test----------------------------------------------------------";
-                Logger.i(userName);
-                GetBookPresenter getBookPresenter = new GetBookPresenter();
-                getBookPresenter.getData();
-                //生命周期回调给 presenter
-                getLifecycle().addObserver(getBookPresenter);
             }
         });
 
@@ -44,7 +35,6 @@ public class Fragment1 extends BaseFragment implements TestContract.View {
 
     @Override
     protected void initData(Bundle savedInstanceState) {
-        System.out.println("");
     }
 
     @Override

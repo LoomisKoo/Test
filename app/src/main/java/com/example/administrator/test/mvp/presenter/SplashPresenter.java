@@ -17,7 +17,7 @@ import com.example.administrator.test.mvp.model.SplashModel;
  * @UpdateRemark: 更新说明
  * @Version: 1.0
  */
-public class SplashPresenter implements SplashContract.Presenter, SplashContract.callBack {
+public class SplashPresenter implements SplashContract.Presenter, SplashContract.CallBack {
     private SplashContract.View view;
     private SplashModel model;
 

@@ -30,7 +30,7 @@ public class SplashModel implements SplashContract.Model {
 
     private Disposable welcomeDisposable;
     private Disposable countDownDisposable;
-    private SplashContract.callBack callBack;
+    private SplashContract.CallBack CallBack;
     private Context context;
     /**
      * 欢迎页显示时间
@@ -54,9 +54,9 @@ public class SplashModel implements SplashContract.Model {
     private static final int AD_COUNTDOWN_PERIOD_SECOND = 1;
 
 
-    public SplashModel(Context context, SplashContract.callBack callBack) {
+    public SplashModel(Context context, SplashContract.CallBack CallBack) {
         this.context = context;
-        this.callBack = callBack;
+        this.CallBack = CallBack;
     }
 
     @Override
@@ -77,13 +77,13 @@ public class SplashModel implements SplashContract.Model {
 
                     @Override
                     public void onError(Throwable e) {
-                        callBack.finishShowWelcome();
+                        CallBack.finishShowWelcome();
                     }
 
                     @Override
                     public void onComplete() {
                         closeTimer();
-                        callBack.finishShowWelcome();
+                        CallBack.finishShowWelcome();
                     }
                 });
     }
@@ -96,7 +96,7 @@ public class SplashModel implements SplashContract.Model {
     @Override
     public void countDownAD() {
         countDownDisposable = Observable.intervalRange(AD_COUNTDOWN_START_SECOND, AD_COUNTDOWN_END_SECOND, AD_COUNTDOWN_DELAY_SECOND, AD_COUNTDOWN_PERIOD_SECOND, TimeUnit.SECONDS).subscribe(aLong -> {
-            ((Activity) context).runOnUiThread(() -> callBack.countDown(convertCountDownTime(aLong)));
+            ((Activity) context).runOnUiThread(() -> CallBack.countDown(convertCountDownTime(aLong)));
         });
 
 

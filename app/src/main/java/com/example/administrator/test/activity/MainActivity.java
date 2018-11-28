@@ -13,10 +13,7 @@ import com.example.administrator.test.R;
 import com.example.administrator.test.base.activity.BaseActivity;
 import com.example.administrator.test.fragment.Fragment1;
 import com.example.administrator.test.fragment.PlayFragment;
-import com.example.administrator.test.mvp.base.IBaseModel;
 import com.example.administrator.test.mvp.base.IBasePresenter;
-import com.example.administrator.test.mvp.contract.TestContract;
-import com.example.administrator.test.mvp.presenter.GetBookPresenter;
 import com.example.administrator.test.util.ArouterHelper;
 import com.roughike.bottombar.BottomBar;
 
@@ -28,7 +25,7 @@ import java.util.List;
  * @author
  */
 @Route(path = ArouterHelper.ROUTE_ACTIVITY_MAIN)
-public class MainActivity extends BaseActivity implements TestContract.View {
+public class MainActivity extends BaseActivity {
     private BottomBar mBottomBar;
     private List<Fragment> fragments;
     private ViewPager viewPager;
@@ -83,9 +80,7 @@ public class MainActivity extends BaseActivity implements TestContract.View {
 
     @Override
     protected IBasePresenter createPresenter() {
-//        model = new TestModel();
-        GetBookPresenter getBookPresenter = new GetBookPresenter();
-        return getBookPresenter;
+        return null;
     }
 
     @Override
@@ -127,6 +122,44 @@ public class MainActivity extends BaseActivity implements TestContract.View {
     }
 
     /**
+     * 初始化ViewPager
+     */
+    private void initViewPager() {
+        fragments = new ArrayList<>();
+        fragments.add(new PlayFragment());
+        fragments.add(new Fragment1());
+        fragments.add(new Fragment1());
+        viewPager = (ViewPager) findViewById(R.id.view_pager);
+
+        viewPager.setAdapter(new FragmentStatePagerAdapter(getSupportFragmentManager()) {
+            @Override
+            public Fragment getItem(int position) {
+                return fragments.get(position);
+            }
+
+            @Override
+            public int getCount() {
+                return fragments.size();
+            }
+        });
+
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                mBottomBar.selectTabAtPosition(position, true);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+            }
+        });
+    }
+
+    /**
      * 初始化BottomBar
      */
     private void initBottomBar() {
@@ -157,6 +190,7 @@ public class MainActivity extends BaseActivity implements TestContract.View {
                 mBottomBar.getTabWithId(R.id.tab_discover).removeBadge();
             }
         });
+
         mBottomBar.setTabSelectionInterceptor((oldTabId, newTabId) -> {
             // 点击无效
             if (newTabId == R.id.tab_music) {
@@ -167,64 +201,6 @@ public class MainActivity extends BaseActivity implements TestContract.View {
 
             return false;
         });
-    }
-
-    private void initViewPager() {
-        fragments = new ArrayList<>();
-        fragments.add(new PlayFragment());
-        fragments.add(new Fragment1());
-        fragments.add(new Fragment1());
-        viewPager = (ViewPager) findViewById(R.id.view_pager);
-        viewPager.setAdapter(new FragmentStatePagerAdapter(getSupportFragmentManager()) {
-            @Override
-            public Fragment getItem(int position) {
-                return fragments.get(position);
-            }
-
-            @Override
-            public int getCount() {
-                return fragments.size();
-            }
-        });
-        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-                mBottomBar.selectTabAtPosition(position, true);
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-            }
-        });
-    }
-
-    @Override
-    public void addResult(double result) {
-
-    }
-
-    @Override
-    public void showLoading() {
-
-    }
-
-    @Override
-    public void hideLoading() {
-
-    }
-
-    @Override
-    public void showError(String msg) {
-
-    }
-
-    @Override
-    public void onErrorCode(IBaseModel model) {
-
     }
 
 }
