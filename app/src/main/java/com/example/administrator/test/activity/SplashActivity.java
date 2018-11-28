@@ -81,7 +81,7 @@ public class SplashActivity extends BaseActivity<SplashPresenter> implements Spl
         //隐藏toolbar、把背景设透明，显示出欢迎页
         hideToolBar();
         setRootLayoutBackGround(getResources().getColor(R.color.activity_root_layout_background));
-        setContentView(R.layout.activiyt_welcome);
+        setContentView(R.layout.activiyt_splash);
 
         ivAD = (ImageView) findViewById(R.id.welcome_ad_iv);
         btnSkip = (Button) findViewById(R.id.welcome_btn_skip);

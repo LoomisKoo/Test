@@ -90,7 +90,7 @@ public class SplashModel implements SplashContract.Model {
 
     @Override
     public int getLocalADResID() {
-        return R.mipmap.ic_restaurants;
+        return R.mipmap.ad_eiffel_tower;
     }
 
     @Override

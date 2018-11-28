@@ -4,20 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@mipmap/ic_recents"
+    android:background="@mipmap/bg_splash"
     android:gravity="bottom"
     android:orientation="vertical">
 
     <ImageView
+        android:scaleType="fitXY"
         android:id="@+id/welcome_ad_iv"
-        android:layout_width="360dp"
-        android:layout_height="567dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_launcher_background" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:visibility="gone"
