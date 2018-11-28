@@ -17,7 +17,6 @@ public class TestViewHolder extends BaseViewHolder {
         super(context, itemView);
     }
 
-    @Override
     public void setData(Object data) {
         setText(R.id.textView, ((TestEntity) data).getName());
     }

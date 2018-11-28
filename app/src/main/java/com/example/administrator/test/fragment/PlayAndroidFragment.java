@@ -1,9 +1,6 @@
 package com.example.administrator.test.fragment;
 
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
-import android.support.annotation.MainThread;
 import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
 
@@ -18,7 +15,7 @@ import com.example.administrator.test.http.HttpRequestType;
 import com.example.administrator.test.mvp.contract.PlayAndroidContract;
 import com.example.administrator.test.mvp.model.PlayAndroidModel;
 import com.example.administrator.test.mvp.presenter.PlayAndroidPresenter;
-import com.example.administrator.test.viewholder.PlayAndroidHeadViewHolder;
+import com.example.administrator.test.viewholder.PlayAndroidBannerViewHolder;
 
 import java.util.ArrayList;
 
@@ -40,9 +37,8 @@ public class PlayAndroidFragment extends BaseListFragment implements PlayAndroid
 
     @Override
     protected void getData(int page, int pageSize) {
-        stopRefresh();
-        playAndroidPresenter = new PlayAndroidPresenter(this, new PlayAndroidModel());
         playAndroidPresenter.getBannerImg();
+        playAndroidPresenter.getArticleList();
     }
 
     @Override
@@ -50,7 +46,7 @@ public class PlayAndroidFragment extends BaseListFragment implements PlayAndroid
         return new QuickDelegateAdapter<PlayAndroidViewEntity>(getContext(), R.layout.header_play_android) {
             @Override
             protected void onSetItemData(BaseViewHolder holder, PlayAndroidViewEntity item, int viewType, int position) {
-                holder.setData(item);
+                ((PlayAndroidBannerViewHolder) holder).setData(item);
             }
 
             @Override
@@ -62,7 +58,7 @@ public class PlayAndroidFragment extends BaseListFragment implements PlayAndroid
             public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
                 switch (viewType) {
                     case HttpRequestType.REQUEST_TYPE_BANNER:
-                        return new PlayAndroidHeadViewHolder(getContext(), parent, R.layout.header_play_android);
+                        return new PlayAndroidBannerViewHolder(getContext(), parent, R.layout.header_play_android);
                     default:
                         break;
                 }
@@ -78,48 +74,35 @@ public class PlayAndroidFragment extends BaseListFragment implements PlayAndroid
 
     @Override
     protected void initData(Bundle savedInstanceState) {
-
+        playAndroidPresenter = new PlayAndroidPresenter(this, new PlayAndroidModel());
     }
 
     @Override
     public void showLoading() {
-
+//        refresh();
     }
 
     @Override
     public void hideLoading() {
-
+        stopRefresh();
     }
 
     @Override
     public void onSuccess(PlayAndroidViewEntity playAndroidViewEntity) {
-
-        Message message = handler.obtainMessage();
-        message.obj = playAndroidViewEntity;
-        handler.sendMessage(message);
+        ArrayList<PlayAndroidViewEntity> playAndroidViewEntities = new ArrayList<>();
+        playAndroidViewEntities.add(playAndroidViewEntity);
+        adapter.replaceAll(playAndroidViewEntities);
     }
 
     @Override
     public void onError(String msg) {
-
+        stopRefresh();
+        checkEmpty("加载失败，请拉下重试！", R.mipmap.ic_load_err);
     }
 
     @Override
     public void onComplete() {
-
+        stopRefresh();
+        checkEmpty("加载失败，请拉下重试！", R.mipmap.ic_load_err);
     }
-
-
-    Handler handler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-            PlayAndroidViewEntity playAndroidViewEntity = (PlayAndroidViewEntity) msg.obj;
-            ArrayList<PlayAndroidViewEntity> playAndroidViewEntities = new ArrayList<>();
-            playAndroidViewEntities.add(playAndroidViewEntity);
-
-            adapter.replaceAll(playAndroidViewEntities);
-        }
-    };
-
 }

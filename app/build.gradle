@@ -64,12 +64,8 @@ dependencies {
     implementation 'me.imid.swipebacklayout.lib:library:1.1.0'
     //AOP
     implementation 'org.aspectj:aspectjrt:1.8.9'
-    //vlayotu
-//    implementation 'com.alibaba.android:vlayout:1.2.6'
-    //阿里巴巴扩展列表
-    api('com.alibaba.android:vlayout:1.2.6@aar') {
-        transitive = true
-    }
+    //阿里巴巴扩展列表 vlayotu   因1.2.8版本不调用onbindViewHolder() 所以暂时使用1.2.6
+    implementation 'com.alibaba.android:vlayout:1.2.6'
     //SmartRefreshLayout
     implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.4-7'
     //cardview

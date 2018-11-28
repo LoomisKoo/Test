@@ -42,7 +42,34 @@ public class PlayAndroidPresenter implements PlayAndroidContract.Presenter {
 
             @Override
             public void onError(String msg) {
-                System.out.println(msg);
+                view.onError(msg);
+            }
+
+            @Override
+            public void onComplete() {
+                view.onComplete();
+            }
+        });
+    }
+
+    @Override
+    public void getArticleList() {
+        model.getArticleList(new HttpCallback<ResponseBody>() {
+            @Override
+            public void onSuccess(ResponseBody result) {
+                try {
+                    String strResult = result.string();
+                    System.out.println(strResult);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+//                playAndroidViewEntity = new PlayAndroidViewEntity(bannerEntity, HttpRequestType.REQUEST_TYPE_BANNER);
+//                view.onSuccess(playAndroidViewEntity);
+            }
+
+            @Override
+            public void onError(String msg) {
+
             }
 
             @Override

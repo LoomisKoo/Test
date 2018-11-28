@@ -13,9 +13,14 @@ import okhttp3.ResponseBody;
 public class PlayAndroidModel implements PlayAndroidContract.Model {
 
     @Override
-    public ResponseBody getBannerImg(HttpCallback httpCallback) {
+    public void getBannerImg(HttpCallback httpCallback) {
         Observable<ResponseBody> observable = HttpUtil.getInstance().getService().getBanerImg();
         HttpUtil.query(observable, httpCallback);
-        return null;
+    }
+
+    @Override
+    public void getArticleList(HttpCallback httpCallback) {
+        Observable<ResponseBody> observable = HttpUtil.getInstance().getService().getBanerImg();
+        HttpUtil.query(observable, httpCallback);
     }
 }

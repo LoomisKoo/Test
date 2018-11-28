@@ -24,7 +24,10 @@ import android.widget.TextView;
 
 import com.example.administrator.test.viewholder.ViewHolderInterface;
 
-public class BaseViewHolder extends RecyclerView.ViewHolder implements ViewHolderInterface {
+/**
+ * @author koo
+ */
+public class BaseViewHolder extends RecyclerView.ViewHolder {
     protected Context context;
     /**
      * Views indexed with their IDs
@@ -475,10 +478,5 @@ public class BaseViewHolder extends RecyclerView.ViewHolder implements ViewHolde
             views.put(viewId, view);
         }
         return (T) view;
-    }
-
-    @Override
-    public void setData(Object data) {
-
     }
 }

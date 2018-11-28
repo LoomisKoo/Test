@@ -68,8 +68,6 @@ public class ListActivity extends BaseListActivity<TestEntity> {
         return new QuickDelegateAdapter<TestEntity>(this, 0) {
             @Override
             protected void onSetItemData(BaseViewHolder holder, TestEntity item, int viewType, int position) {
-                holder.setData(item);
-                System.out.println("=====");
             }
 
             @Override
