@@ -187,7 +187,7 @@ public abstract class BaseListActivity<T> extends BaseActivity {
     }
 
     @Override
-    public void onEvent(Context mContext) {
+    public void initData(Context mContext) {
 
     }
 

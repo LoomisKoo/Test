@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 
+import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.example.administrator.test.R;
 import com.example.administrator.test.base.activity.BaseActivity;
@@ -16,6 +17,7 @@ import com.example.administrator.test.mvp.base.IBaseModel;
 import com.example.administrator.test.mvp.base.IBasePresenter;
 import com.example.administrator.test.mvp.contract.TestContract;
 import com.example.administrator.test.mvp.presenter.GetBookPresenter;
+import com.example.administrator.test.util.ArouterHelper;
 import com.roughike.bottombar.BottomBar;
 
 import java.util.ArrayList;
@@ -25,6 +27,7 @@ import java.util.List;
 /**
  * @author
  */
+@Route(path = ArouterHelper.ROUTE_ACTIVITY_MAIN)
 public class MainActivity extends BaseActivity implements TestContract.View {
     private BottomBar mBottomBar;
     private List<Fragment> fragments;
@@ -94,10 +97,10 @@ public class MainActivity extends BaseActivity implements TestContract.View {
     public void onMenuClickListener(int menuId) {
         switch (menuId) {
             case R.id.action_search:
-                ARouter.getInstance().build("/com/TabActivity").navigation();
+                ARouter.getInstance().build(ArouterHelper.ROUTE_ACTIVITY_TAB_ACTIVITY).navigation();
                 break;
             case R.id.action_notification:
-                ARouter.getInstance().build("/com/ListActivity").navigation();
+                ARouter.getInstance().build(ArouterHelper.ROUTE_ACTIVITY_LIST_ACTIVITY).navigation();
                 showToast("Notification");
                 break;
 
@@ -107,7 +110,7 @@ public class MainActivity extends BaseActivity implements TestContract.View {
     }
 
     @Override
-    public void onEvent(Context mContext) {
+    public void initData(Context mContext) {
 
     }
 

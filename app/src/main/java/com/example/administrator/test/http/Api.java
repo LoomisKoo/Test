@@ -2,7 +2,6 @@ package com.example.administrator.test.http;
 
 import io.reactivex.Observable;
 import okhttp3.ResponseBody;
-import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
@@ -31,5 +30,5 @@ public interface Api {
      * @param cid  体系id
      */
     @GET("article/list/{page}/json")
-    rx.Observable<ResponseBody> getHomeList(@Path("page") int page, @Query("cid") Integer cid);
+    Observable<ResponseBody> getHomeList(@Path("page") int page, @Query("cid") Integer cid);
 }

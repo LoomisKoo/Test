@@ -13,6 +13,7 @@ import com.example.administrator.test.base.activity.BaseListActivity;
 import com.example.administrator.test.base.adapter.QuickDelegateAdapter;
 import com.example.administrator.test.entity.TestEntity;
 import com.example.administrator.test.mvp.base.IBasePresenter;
+import com.example.administrator.test.util.ArouterHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +23,7 @@ import java.util.List;
  * @author
  */
 
-@Route(path = "/com/SecondActivityBase")
+@Route(path = ArouterHelper.ROUTE_ACTIVITY_SECOND_ACTIVITY)
 public class SecondActivityBase extends BaseListActivity {
 
     @Override
@@ -76,7 +77,7 @@ public class SecondActivityBase extends BaseListActivity {
     }
 
     @Override
-    public void onEvent(Context mContext) {
+    public void initData(Context mContext) {
 
     }
 

@@ -32,4 +32,9 @@ public class PlayNavigationFragment extends BaseFragment {
     protected void initData(Bundle savedInstanceState) {
 
     }
+
+    @Override
+    protected Object getPresenter() {
+        return null;
+    }
 }

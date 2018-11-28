@@ -88,7 +88,7 @@ public abstract class BaseActivity<P extends IBasePresenter> extends SwipeBackAc
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         }
 
-        onEvent(this);
+        initData(this);
     }
 
     /**
@@ -265,7 +265,7 @@ public abstract class BaseActivity<P extends IBasePresenter> extends SwipeBackAc
      *
      * @param mContext
      */
-    public abstract void onEvent(Context mContext);
+    public abstract void initData(Context mContext);
 
 
     /**
@@ -546,6 +546,19 @@ public abstract class BaseActivity<P extends IBasePresenter> extends SwipeBackAc
     }
 
     /**
+     * 设置根背景颜色
+     *
+     * @param color
+     */
+    public void setRootLayoutBackGround(int color) {
+        findViewById(R.id.base_root_layout).setBackgroundColor(color);
+    }
+
+    public void hideToolBar() {
+        mToolbar.setVisibility(View.GONE);
+    }
+
+    /**
      * 设置返回按钮样式
      *
      * @param icon
@@ -564,6 +577,11 @@ public abstract class BaseActivity<P extends IBasePresenter> extends SwipeBackAc
 
     public void setToolBarBackgroundResource(@ColorRes int resource) {
         mToolbar.setBackgroundResource(resource);
+    }
+
+    public void setToolBarVisible(boolean isVisible) {
+        if (isVisible) {
+        }
     }
 
     /**

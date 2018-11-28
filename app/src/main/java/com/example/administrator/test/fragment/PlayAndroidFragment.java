@@ -32,13 +32,12 @@ import java.util.ArrayList;
  * @UpdateRemark: 更新说明
  * @Version: 1.0
  */
-public class PlayAndroidFragment extends BaseListFragment implements PlayAndroidContract.View {
-    private PlayAndroidPresenter playAndroidPresenter;
+public class PlayAndroidFragment extends BaseListFragment<PlayAndroidViewEntity, PlayAndroidPresenter> implements PlayAndroidContract.View {
 
     @Override
     protected void getData(int page, int pageSize) {
-        playAndroidPresenter.getBannerImg();
-        playAndroidPresenter.getArticleList();
+        presenter.getBannerImg();
+        presenter.getArticleList();
     }
 
     @Override
@@ -74,7 +73,11 @@ public class PlayAndroidFragment extends BaseListFragment implements PlayAndroid
 
     @Override
     protected void initData(Bundle savedInstanceState) {
-        playAndroidPresenter = new PlayAndroidPresenter(this, new PlayAndroidModel());
+    }
+
+    @Override
+    protected PlayAndroidPresenter getPresenter() {
+        return new PlayAndroidPresenter(this, new PlayAndroidModel());
     }
 
     @Override

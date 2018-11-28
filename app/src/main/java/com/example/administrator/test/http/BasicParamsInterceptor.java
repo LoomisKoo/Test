@@ -33,7 +33,7 @@ public class BasicParamsInterceptor implements Interceptor {
 
         Request request = chain.request();
         Request.Builder requestBuilder = request.newBuilder();
-//        TCAgent.onEvent(EWGShopApp.getInstance(), request.url().toString());
+//        TCAgent.initData(EWGShopApp.getInstance(), request.url().toString());
         // process header params inject
         Headers.Builder headerBuilder = request.headers().newBuilder();
         if (headerParamsMap.size() > 0) {

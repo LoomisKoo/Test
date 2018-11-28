@@ -12,7 +12,8 @@ import com.example.administrator.test.base.activity.BaseActivity;
 /**
  * @author
  */
-public abstract class BaseFragment extends Fragment {
+public abstract class BaseFragment<P> extends Fragment {
+   protected P presenter;
 
     protected BaseActivity mActivity;
 
@@ -36,6 +37,12 @@ public abstract class BaseFragment extends Fragment {
      * @param savedInstanceState
      */
     protected abstract void initData(Bundle savedInstanceState);
+
+    /**
+     * 获取presenter实例
+     * @return
+     */
+    protected abstract P getPresenter();
 
     @Override
     public void onAttach(Activity activity) {
@@ -66,6 +73,7 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        presenter = getPresenter();
         initData(savedInstanceState);
     }
 

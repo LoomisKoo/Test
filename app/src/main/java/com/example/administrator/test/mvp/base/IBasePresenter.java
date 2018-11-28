@@ -7,10 +7,6 @@ import android.arch.lifecycle.OnLifecycleEvent;
 
 import org.jetbrains.annotations.NotNull;
 
-import io.reactivex.Observable;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.schedulers.Schedulers;
 
 /**
  * @author koo

@@ -36,7 +36,8 @@ import jp.wasabeef.recyclerview.animators.SlideInLeftAnimator;
 /**
  * @author koo
  */
-public abstract class BaseListFragment<T> extends BaseFragment {
+public abstract class BaseListFragment<T,P> extends BaseFragment<P> {
+
 
     protected BaseActivity mActivity;
     protected int page = 1;
@@ -269,14 +270,6 @@ public abstract class BaseListFragment<T> extends BaseFragment {
     protected abstract void getData(int page, int pageSize);
 
     protected abstract QuickDelegateAdapter getAdapter();
-
-    /**
-     * 初始化数据
-     *
-     * @param savedInstanceState
-     */
-    @Override
-    protected abstract void initData(Bundle savedInstanceState);
 
     @Override
     public void onAttach(Activity activity) {

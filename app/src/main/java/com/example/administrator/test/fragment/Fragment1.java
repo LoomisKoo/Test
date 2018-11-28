@@ -48,6 +48,11 @@ public class Fragment1 extends BaseFragment implements TestContract.View {
     }
 
     @Override
+    protected Object getPresenter() {
+        return null;
+    }
+
+    @Override
     public void addResult(double result) {
         button.setText("" + result);
     }

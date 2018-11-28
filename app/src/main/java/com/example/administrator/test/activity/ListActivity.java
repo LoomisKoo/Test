@@ -8,6 +8,7 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.vlayout.LayoutHelper;
 import com.alibaba.android.vlayout.layout.LinearLayoutHelper;
 import com.example.administrator.test.R;
+import com.example.administrator.test.util.ArouterHelper;
 import com.example.administrator.test.viewholder.Test2ViewHolder;
 import com.example.administrator.test.viewholder.TestViewHolder;
 import com.example.administrator.test.base.activity.BaseListActivity;
@@ -22,7 +23,7 @@ import java.util.ArrayList;
  * @author koo
  */
 
-@Route(path = "/com/ListActivity")
+@Route(path = ArouterHelper.ROUTE_ACTIVITY_LIST_ACTIVITY)
 public class ListActivity extends BaseListActivity<TestEntity> {
     @Override
     public void initView(Bundle savedInstanceState) {

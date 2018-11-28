@@ -41,6 +41,11 @@ public class PlayFragment extends BaseFragment {
 
     }
 
+    @Override
+    protected Object getPresenter() {
+        return null;
+    }
+
     /**
      * 初始化fragment列表
      */

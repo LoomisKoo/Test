@@ -1,6 +1,7 @@
 package com.example.administrator.test.activity;
 
 import android.os.Bundle;
+
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.example.administrator.test.R;
 import com.example.administrator.test.base.activity.BaseTabActivity;
@@ -8,13 +9,14 @@ import com.example.administrator.test.base.baseinterface.ITabPagerView;
 import com.example.administrator.test.entity.TestEntity;
 import com.example.administrator.test.listview.TestListView;
 import com.example.administrator.test.mvp.base.IBasePresenter;
+import com.example.administrator.test.util.ArouterHelper;
 
 import java.util.ArrayList;
 
 /**
  * @author koo
  */
-@Route(path = "/com/TabActivity")
+@Route(path = ArouterHelper.ROUTE_ACTIVITY_TAB_ACTIVITY)
 public class TabActivity extends BaseTabActivity {
     @Override
     public int bindContentLayout() {
