@@ -3,29 +3,23 @@ package com.example.administrator.test.activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
 
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.bumptech.glide.Glide;
 import com.example.administrator.test.R;
 import com.example.administrator.test.base.activity.BaseActivity;
-import com.example.administrator.test.mvp.base.IBasePresenter;
 import com.example.administrator.test.mvp.contract.SplashContract;
+import com.example.administrator.test.mvp.presenter.SplashPresenter;
 import com.example.administrator.test.util.ArouterHelper;
-
-import java.util.List;
-import java.util.concurrent.TimeUnit;
-
-import io.reactivex.Observable;
-import io.reactivex.Observer;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
-
+import com.example.administrator.test.util.OnMultiClickListener;
 
 /**
  * @ProjectName: Test
  * @Package: com.example.administrator.test.activity
  * @ClassName: SplashActivity
- * @Description: java类作用描述  该activity比较简单，所以不采用mvp模式
+ * @Description: java类作用描述   显示欢迎页、广告页
  * @Author: koo
  * @CreateDate: 2018/11/28 11:28 AM
  * @UpdateUser:
@@ -33,9 +27,13 @@ import io.reactivex.schedulers.Schedulers;
  * @UpdateRemark: 更新说明
  * @Version: 1.0
  */
-public class SplashActivity extends BaseActivity implements SplashContract.View {
-    private Disposable mDisposable;
-    private static final int SHOW_WELCOME_TIME_SECOND = 3;
+public class SplashActivity extends BaseActivity<SplashPresenter> implements SplashContract.View {
+    private ImageView ivAD;
+    private Button btnSkip;
+    /**
+     * 倒计时结束秒数
+     */
+    private static final int COUNTDOWN_END_SECOND = 0;
 
     @Override
     public void widgetClick(View v) {
@@ -77,21 +75,25 @@ public class SplashActivity extends BaseActivity implements SplashContract.View 
         //隐藏toolbar、把背景设透明，显示出欢迎页
         hideToolBar();
         setRootLayoutBackGround(getResources().getColor(R.color.activity_root_layout_background));
-
-        final View view = View.inflate(this, R.layout.activiyt_welcome, null);
-        setContentView(view);
-
-        welcome();
+        setContentView(R.layout.activiyt_welcome);
+        ivAD = (ImageView) findViewById(R.id.welcome_ad_iv);
+        btnSkip = (Button) findViewById(R.id.welcome_btn_skip);
+        presenter.showWelcome();
     }
 
     @Override
-    protected IBasePresenter createPresenter() {
-        return null;
+    protected SplashPresenter createPresenter() {
+        return new SplashPresenter(this, this);
     }
 
     @Override
     public void setListener() {
-
+        btnSkip.setOnClickListener(new OnMultiClickListener() {
+            @Override
+            public void onMultiClick(View v) {
+                startMainActivity();
+            }
+        });
     }
 
     @Override
@@ -104,54 +106,36 @@ public class SplashActivity extends BaseActivity implements SplashContract.View 
 
     }
 
-
     @Override
-    public void showLocalAD(List<String> localADPath) {
-
+    protected void onDestroy() {
+        super.onDestroy();
+        presenter.onDestroy();
     }
 
     @Override
-    public void showWelcome() {
-
+    public void showLocalAD(int imgRes) {
+        ivAD.setVisibility(View.VISIBLE);
+        btnSkip.setVisibility(View.VISIBLE);
+        presenter.countDownAD();
+        Glide.with(this).load(imgRes).into(ivAD);
     }
 
-    private void welcome() {
-        Observable.timer(SHOW_WELCOME_TIME_SECOND, TimeUnit.SECONDS)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<Long>() {
+    @Override
+    public void countDownAD(long countDown) {
+        String skip = "跳过（" + countDown + ")";
+        btnSkip.setText(skip);
 
-                    @Override
-                    public void onSubscribe(Disposable d) {
-                        mDisposable = d;
-                    }
-
-                    @Override
-                    public void onNext(Long value) {
-
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-
-                    }
-
-                    @Override
-                    public void onComplete() {
-                        closeTimer();
-                        ARouter.getInstance().build(ArouterHelper.ROUTE_ACTIVITY_MAIN).navigation();
-                        overridePendingTransition(R.anim.screen_zoom_in, R.anim.screen_zoom_out);
-                        finish();
-                    }
-                });
+        if (COUNTDOWN_END_SECOND == countDown) {
+            startMainActivity();
+        }
     }
 
     /**
-     * 关闭定时器
+     * 跳转主页面
      */
-    public void closeTimer() {
-        if (mDisposable != null) {
-            mDisposable.dispose();
-        }
+    private void startMainActivity() {
+        ARouter.getInstance().build(ArouterHelper.ROUTE_ACTIVITY_MAIN).navigation();
+        overridePendingTransition(R.anim.screen_zoom_in, R.anim.screen_zoom_out);
+        finish();
     }
 }

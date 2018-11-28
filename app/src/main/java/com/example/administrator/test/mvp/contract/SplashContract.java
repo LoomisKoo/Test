@@ -1,6 +1,10 @@
 package com.example.administrator.test.mvp.contract;
 
-import java.util.List;
+import android.support.annotation.DrawableRes;
+
+import com.example.administrator.test.mvp.base.IBasePresenter;
+
+import io.reactivex.Observer;
 
 /**
  * @ProjectName: Test
@@ -23,21 +27,39 @@ public interface SplashContract {
 
         /**
          * 显示广告（本地图片）
+         *
+         * @return
          */
-        void getLocalADPath();
+        int getLocalADResID();
+
+        /**
+         * 广告倒计时
+         */
+        void countDownAD();
+
+        /**
+         * 无用的时候释放资源等
+         */
+        void onDestroy();
     }
 
     interface View {
         /**
          * 显示本地广告
-         * @param localADPath
+         *
+         * @param imgRes
          */
-        void showLocalAD(List<String> localADPath);
+        void showLocalAD(@DrawableRes int imgRes);
 
-        void showWelcome();
+        /**
+         * 广告倒计时
+         * @param countDown
+         */
+        void countDownAD(long countDown);
+
     }
 
-    interface Presenter {
+    interface Presenter extends IBasePresenter {
         /**
          * 显示欢迎页
          */
@@ -47,5 +69,30 @@ public interface SplashContract {
          * 显示广告（本地图片）
          */
         void showLocalAD();
+
+        /**
+         * 广告倒计时
+         */
+        void countDownAD();
+
+        /**
+         * 无用的时候释放资源等
+         */
+        void onDestroy();
+    }
+
+    interface callBack {
+        /**
+         * 广告倒计时回调
+         *
+         * @param second
+         */
+        void countDown(long second);
+
+        /**
+         * 完成欢迎页显示
+         */
+        void finishShowWelcome();
+
     }
 }
