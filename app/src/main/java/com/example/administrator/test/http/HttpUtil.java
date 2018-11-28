@@ -12,7 +12,7 @@ import io.reactivex.schedulers.Schedulers;
  * @author koo
  */
 public class HttpUtil {
-    private Api api;
+    private Api                  api;
     private HttpUtilBuilder<Api> httpUtilBuilder;
 
     private static class HttpUtilSingleton {
@@ -31,6 +31,9 @@ public class HttpUtil {
         return api == null ? api = httpUtilBuilder.getService() : api;
     }
 
+    /**
+     * 重置
+     */
     public void resetService() {
         httpUtilBuilder.resetBaseUrl(AppConfigUtil.baseUrl);
         api = httpUtilBuilder.getService();
@@ -39,33 +42,33 @@ public class HttpUtil {
 
     public static <T> void query(Observable<T> observable, HttpCallback<T> callBack) {
         observable.subscribeOn(Schedulers.newThread())
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<T>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
+                  .subscribeOn(Schedulers.io())
+                  .observeOn(AndroidSchedulers.mainThread())
+                  .subscribe(new Observer<T>() {
+                      @Override
+                      public void onSubscribe(Disposable d) {
 
-                    }
+                      }
 
-                    @Override
-                    public void onNext(T t) {
-                        callBack.onSuccess(t);
-                    }
+                      @Override
+                      public void onNext(T t) {
+                          callBack.onSuccess(t);
+                      }
 
-                    @SuppressLint("CheckResult")
-                    @Override
-                    public void onError(Throwable e) {
-                        observable.unsubscribeOn(AndroidSchedulers.mainThread());
-                        callBack.onError(e.toString());
-                    }
+                      @SuppressLint("CheckResult")
+                      @Override
+                      public void onError(Throwable e) {
+                          observable.unsubscribeOn(AndroidSchedulers.mainThread());
+                          callBack.onError(e.toString());
+                      }
 
-                    @SuppressLint("CheckResult")
-                    @Override
-                    public void onComplete() {
-                        observable.unsubscribeOn(AndroidSchedulers.mainThread());
-                        callBack.onComplete();
-                    }
-                });
+                      @SuppressLint("CheckResult")
+                      @Override
+                      public void onComplete() {
+                          observable.unsubscribeOn(AndroidSchedulers.mainThread());
+                          callBack.onComplete();
+                      }
+                  });
 
     }
 }

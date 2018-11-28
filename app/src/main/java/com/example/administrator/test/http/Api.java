@@ -7,6 +7,9 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 import retrofit2.http.Url;
 
+/**
+ * @author koo
+ */
 public interface Api {
     /**
      * @param url

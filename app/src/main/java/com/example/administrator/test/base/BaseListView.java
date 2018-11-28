@@ -22,19 +22,21 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * @author koo
  * @param <T>
+ * @author koo
  */
 public abstract class BaseListView<T> extends LinearLayout {
-    public boolean isInited = false;
-    protected int page = 1;
-    protected int pageSize = 20;
-    SmartRefreshLayout refreshLayout;
-    protected RecyclerView recyclerView;
+    public    boolean isInited = false;
+    protected int     page     = 1;
+    protected int     pageSize = 20;
+
     protected QuickDelegateAdapter<T> adapter;
-    HeaderFooterViewModel headerViewModel, footerViewModel;
-    LinearLayout topLay, bottomLay;
-    protected TextView emptyTv;
+    protected HeaderFooterViewModel   headerViewModel, footerViewModel;
+
+    protected LinearLayout topLay, bottomLay;
+    protected TextView           emptyTv;
+    protected RecyclerView       recyclerView;
+    protected SmartRefreshLayout refreshLayout;
 
     public BaseListView(Context context) {
         super(context);
@@ -142,7 +144,7 @@ public abstract class BaseListView<T> extends LinearLayout {
 
     class HeaderFooterAdapter<G> extends QuickDelegateAdapter<G> {
         HeaderFooterViewModel model;
-        int viewType;
+        int                   viewType;
 
         private HeaderFooterAdapter(Context context, int viewType, int layoutResId, HeaderFooterViewModel footerViewModel, ArrayList list) {
             super(context, layoutResId, list);
@@ -170,7 +172,8 @@ public abstract class BaseListView<T> extends LinearLayout {
     protected void stopRefresh() {
         if (refreshLayout.isRefreshing()) {
             refreshLayout.finishRefresh();
-        } else if (refreshLayout.isLoading()) {
+        }
+        else if (refreshLayout.isLoading()) {
             refreshLayout.finishLoadmore();
         }
     }

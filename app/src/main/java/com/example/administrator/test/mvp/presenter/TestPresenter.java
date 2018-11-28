@@ -14,7 +14,7 @@ import org.jetbrains.annotations.NotNull;
  */
 public class TestPresenter extends BasePresenter implements TestContract.Presenter {
     private TestContract.Model model;
-    private TestContract.View view;
+    private TestContract.View  view;
 
     public TestPresenter(TestContract.Model model, TestContract.View view) {
         this.model = model;

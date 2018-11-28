@@ -12,6 +12,10 @@ public interface TestContract {
     }
 
     interface View extends IBaseView {
+        /**
+         *
+         * @param result
+         */
         void addResult(double result);
     }
 

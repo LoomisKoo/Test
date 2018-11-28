@@ -5,7 +5,6 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="@mipmap/bg_splash"
-    android:gravity="bottom"
     android:orientation="vertical">
 
     <ImageView

@@ -1,5 +1,8 @@
 package com.example.administrator.test.mvp.base;
 
+/**
+ * @author koo
+ */
 public interface IBaseView {
     /**
      * 显示dialog
@@ -9,7 +12,6 @@ public interface IBaseView {
     /**
      * 隐藏 dialog
      */
-
     void hideLoading();
 
     /**

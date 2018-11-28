@@ -10,10 +10,10 @@ public class TesttttBean implements Serializable {
      * error_code : 0
      */
 
-    private String resultcode;
-    private String reason;
+    private String     resultcode;
+    private String     reason;
     private ResultBean result;
-    private int error_code;
+    private int        error_code;
 
     public String getResultcode() {
         return resultcode;

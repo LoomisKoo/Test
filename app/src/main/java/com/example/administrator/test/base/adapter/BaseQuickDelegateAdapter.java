@@ -54,7 +54,7 @@ public abstract class BaseQuickDelegateAdapter<T, H extends BaseViewHolder> exte
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         final H viewHolder = (H) holder;
-        T item = getItem(position);
+        T       item       = getItem(position);
         onSetItemData(viewHolder, item, getItemViewType(position), position);
     }
 

@@ -9,8 +9,8 @@ public class JokeBean {
      * result : {"data":[{"content":"一男子跟朋友走在路上，突然发现五个女人正在围殴其丈母娘！　　朋友见状，忙问男子：\u201c你还不赶紧上去帮忙？！\u201d　　男子镇定地说：\u201c不用，五个人足够了！\u201d","hashId":"0a8b6fdd70daa311aa82a771132d9895","unixtime":1487980430,"updatetime":"2017-02-25 07:53:50"}]}
      */
 
-    private int error_code;
-    private String reason;
+    private int        error_code;
+    private String     reason;
     private ResultBean result;
 
     public int getError_code() {
@@ -58,7 +58,7 @@ public class JokeBean {
 
             private String content;
             private String hashId;
-            private int unixtime;
+            private int    unixtime;
             private String updatetime;
 
             public String getContent() {

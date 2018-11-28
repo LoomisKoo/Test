@@ -17,12 +17,15 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 import okio.Buffer;
 
+/**
+ * @author koo
+ */
 public class BasicParamsInterceptor implements Interceptor {
 
-    Map<String, String> queryParamsMap = new HashMap<>();
-    Map<String, String> paramsMap = new HashMap<>();
-    Map<String, String> headerParamsMap = new HashMap<>();
-    List<String> headerLinesList = new ArrayList<>();
+    private Map<String, String> queryParamsMap  = new HashMap<>();
+    private Map<String, String> paramsMap       = new HashMap<>();
+    private Map<String, String> headerParamsMap = new HashMap<>();
+    private List<String>        headerLinesList = new ArrayList<>();
 
     private BasicParamsInterceptor() {
 
@@ -31,7 +34,7 @@ public class BasicParamsInterceptor implements Interceptor {
     @Override
     public Response intercept(Chain chain) throws IOException {
 
-        Request request = chain.request();
+        Request         request        = chain.request();
         Request.Builder requestBuilder = request.newBuilder();
 //        TCAgent.initData(EWGShopApp.getInstance(), request.url().toString());
         // process header params inject
@@ -71,11 +74,12 @@ public class BasicParamsInterceptor implements Interceptor {
                     formBodyBuilder.add((String) entry.getKey(), (String) entry.getValue());
                 }
             }
-            RequestBody formBody = formBodyBuilder.build();
-            String postBodyString = bodyToString(request.body());
+            RequestBody formBody       = formBodyBuilder.build();
+            String      postBodyString = bodyToString(request.body());
             postBodyString += ((postBodyString.length() > 0) ? "&" : "") + bodyToString(formBody);
             requestBuilder.post(RequestBody.create(MediaType.parse("application/x-www-form-urlencoded;charset=UTF-8"), postBodyString));
-        } else {    // can't inject into body, then inject into url
+        }
+        else {    // can't inject into body, then inject into url
             injectParamsIntoUrl(request, requestBuilder, paramsMap);
         }
 
@@ -99,15 +103,17 @@ public class BasicParamsInterceptor implements Interceptor {
 
     private static String bodyToString(final RequestBody request) {
         try {
-            final RequestBody copy = request;
-            final Buffer buffer = new Buffer();
+            final RequestBody copy   = request;
+            final Buffer      buffer = new Buffer();
             if (copy != null) {
                 copy.writeTo(buffer);
-            } else {
+            }
+            else {
                 return "";
             }
             return buffer.readUtf8();
-        } catch (final IOException e) {
+        }
+        catch (final IOException e) {
             return "did not work";
         }
     }

@@ -66,11 +66,6 @@ public interface SplashContract {
         void showWelcome();
 
         /**
-         * 显示广告（本地图片）
-         */
-        void showLocalAD();
-
-        /**
          * 广告倒计时
          */
         void countDownAD();
@@ -88,9 +83,9 @@ public interface SplashContract {
         /**
          * 广告倒计时回调
          *
-         * @param second
+         * @param countDown
          */
-        void countDown(long second);
+        void countDown(long countDown);
 
         /**
          * 完成欢迎页显示

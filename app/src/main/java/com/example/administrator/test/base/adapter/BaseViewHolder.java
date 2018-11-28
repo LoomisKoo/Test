@@ -28,7 +28,7 @@ import com.example.administrator.test.viewholder.ViewHolderInterface;
  * @author koo
  */
 public class BaseViewHolder extends RecyclerView.ViewHolder {
-    protected Context context;
+    protected     Context           context;
     /**
      * Views indexed with their IDs
      */
@@ -180,7 +180,8 @@ public class BaseViewHolder extends RecyclerView.ViewHolder {
     public BaseViewHolder setAlpha(int viewId, float value) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
             retrieveView(viewId).setAlpha(value);
-        } else {
+        }
+        else {
             // Pre-honeycomb hack to set Alpha value
             AlphaAnimation alpha = new AlphaAnimation(value, value);
             alpha.setDuration(0);
@@ -432,7 +433,6 @@ public class BaseViewHolder extends RecyclerView.ViewHolder {
     }
 
     /**
-     *
      * @param viewId
      * @param drawable
      * @return

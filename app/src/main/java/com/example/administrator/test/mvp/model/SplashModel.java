@@ -28,30 +28,30 @@ import io.reactivex.schedulers.Schedulers;
  */
 public class SplashModel implements SplashContract.Model {
 
-    private Disposable welcomeDisposable;
-    private Disposable countDownDisposable;
-    private SplashContract.CallBack CallBack;
-    private Context context;
+    private              Disposable              welcomeDisposable;
+    private              Disposable              countDownDisposable;
+    private              SplashContract.CallBack CallBack;
+    private              Context                 context;
     /**
      * 欢迎页显示时间
      */
-    private static final int SHOW_WELCOME_TIME_SECOND = 3;
+    private static final int                     SHOW_WELCOME_TIME_SECOND   = 3;
     /**
      * 广告倒计时开始时间（秒）
      */
-    private static final int AD_COUNTDOWN_START_SECOND = 1;
+    private static final int                     AD_COUNTDOWN_START_SECOND  = 1;
     /**
      * 广告倒计时结束时间（秒）
      */
-    private static final int AD_COUNTDOWN_END_SECOND = 6;
+    private static final int                     AD_COUNTDOWN_END_SECOND    = 6;
     /**
      * 广告倒计时延迟时间（秒）
      */
-    private static final int AD_COUNTDOWN_DELAY_SECOND = 0;
+    private static final int                     AD_COUNTDOWN_DELAY_SECOND  = 0;
     /**
      * 广告倒计时间隔时间（秒）
      */
-    private static final int AD_COUNTDOWN_PERIOD_SECOND = 1;
+    private static final int                     AD_COUNTDOWN_PERIOD_SECOND = 1;
 
 
     public SplashModel(Context context, SplashContract.CallBack CallBack) {
@@ -62,30 +62,30 @@ public class SplashModel implements SplashContract.Model {
     @Override
     public void showWelcome() {
         Observable.timer(SHOW_WELCOME_TIME_SECOND, TimeUnit.SECONDS)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<Long>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-                        welcomeDisposable = d;
-                    }
+                  .subscribeOn(Schedulers.io())
+                  .observeOn(AndroidSchedulers.mainThread())
+                  .subscribe(new Observer<Long>() {
+                      @Override
+                      public void onSubscribe(Disposable d) {
+                          welcomeDisposable = d;
+                      }
 
-                    @Override
-                    public void onNext(Long aLong) {
+                      @Override
+                      public void onNext(Long aLong) {
 
-                    }
+                      }
 
-                    @Override
-                    public void onError(Throwable e) {
-                        CallBack.finishShowWelcome();
-                    }
+                      @Override
+                      public void onError(Throwable e) {
+                          CallBack.finishShowWelcome();
+                      }
 
-                    @Override
-                    public void onComplete() {
-                        closeTimer();
-                        CallBack.finishShowWelcome();
-                    }
-                });
+                      @Override
+                      public void onComplete() {
+                          closeTimer();
+                          CallBack.finishShowWelcome();
+                      }
+                  });
     }
 
     @Override

@@ -16,10 +16,10 @@ import java.util.ArrayList;
  * @author koo
  */
 public class PlayFragment extends BaseFragment {
-    private ArrayList<String> mTitleList = new ArrayList<>(3);
-    private ArrayList<Fragment> fragments = new ArrayList<>(3);
-    private ViewPager viewPager;
-    private BottomBar mBottomBar;
+    private ArrayList<String>   mTitleList = new ArrayList<>(3);
+    private ArrayList<Fragment> fragments  = new ArrayList<>(3);
+    private ViewPager           viewPager;
+    private BottomBar           mBottomBar;
 
     @Override
     protected int setContentLayout() {

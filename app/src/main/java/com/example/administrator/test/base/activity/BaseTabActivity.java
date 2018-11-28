@@ -18,10 +18,10 @@ import java.util.ArrayList;
  * @author koo
  */
 public abstract class BaseTabActivity extends BaseActivity {
-    protected TabLayout tabLayout;
-    ArrayList<String> tabTitles;
-    ViewPager viewPager;
-    BasePagerAdapter adapter;
+    protected TabLayout                tabLayout;
+    protected ArrayList<String>        tabTitles;
+    protected ViewPager                viewPager;
+    protected BasePagerAdapter         adapter;
     protected ArrayList<ITabPagerView> viewList;
 
     @Override

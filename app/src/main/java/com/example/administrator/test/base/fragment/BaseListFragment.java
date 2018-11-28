@@ -36,19 +36,22 @@ import jp.wasabeef.recyclerview.animators.SlideInLeftAnimator;
 /**
  * @author koo
  */
-public abstract class BaseListFragment<T,P> extends BaseFragment<P> {
+public abstract class BaseListFragment<T, P> extends BaseFragment<P> {
 
+
+    protected int page     = 1;
+    protected int pageSize = 20;
+
+    protected RecyclerView            recyclerView;
+    protected QuickDelegateAdapter<T> adapter;
+    protected HeaderFooterViewModel   headerViewModel, footerViewModel;
 
     protected BaseActivity mActivity;
-    protected int page = 1;
-    protected int pageSize = 20;
-    protected SmartRefreshLayout refreshLayout;
-    protected RecyclerView recyclerView;
-    protected QuickDelegateAdapter<T> adapter;
-    protected HeaderFooterViewModel headerViewModel, footerViewModel;
+
+    protected TextView     emptyTv;
     protected LinearLayout topLay, bottomLay;
-    protected ConstraintLayout rootLay;
-    protected TextView emptyTv;
+    protected ConstraintLayout     rootLay;
+    protected SmartRefreshLayout   refreshLayout;
     protected VirtualLayoutManager layoutManager;
 
     /**
@@ -155,7 +158,8 @@ public abstract class BaseListFragment<T,P> extends BaseFragment<P> {
             recyclerView.getItemAnimator().setRemoveDuration(300);
 
             recyclerView.setAdapter(animationAdapter);
-        } else {
+        }
+        else {
             recyclerView.setAdapter(delegateAdapter);
         }
     }
@@ -225,7 +229,8 @@ public abstract class BaseListFragment<T,P> extends BaseFragment<P> {
     public void checkEmpty(String text, @DrawableRes int resId) {
         if (adapter.getItemCount() == 0) {
             showEmptyView(text, resId);
-        } else {
+        }
+        else {
             hideEmptyView();
         }
     }
@@ -246,10 +251,12 @@ public abstract class BaseListFragment<T,P> extends BaseFragment<P> {
     protected void stopRefresh() {
         if (refreshLayout.isRefreshing()) {
             refreshLayout.finishRefresh();
-        } else if (refreshLayout.isLoading()) {
+        }
+        else if (refreshLayout.isLoading()) {
             refreshLayout.finishLoadmore();
         }
     }
+
     /**
      * 是否显示recycleView的增删动画
      *

@@ -21,7 +21,8 @@ public class SingleClickAspect {
      * 定义切点，标记切点为所有被@SingleClick注解的方法
      */
     @Pointcut("execution(@me.baron.test.annotation.SingleClick * *(..))")
-    public void methodAnnotated() {}
+    public void methodAnnotated() {
+    }
 
     /**
      * 定义一个切面方法，包裹切点方法
@@ -41,7 +42,7 @@ public class SingleClickAspect {
         }
         // 取出方法的注解
         MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
-        Method method = methodSignature.getMethod();
+        Method          method          = methodSignature.getMethod();
         if (!method.isAnnotationPresent(SingleClick.class)) {
             return;
         }

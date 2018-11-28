@@ -3,24 +3,24 @@ package com.example.administrator.test.mvp.base;
 import java.io.Serializable;
 
 public class IBaseModel<T> implements Serializable {
-    private int errcode;
-    private String errmsg;
-    private T result;
+    private int    errCode;
+    private String errMsg;
+    private T      result;
 
-    public int getErrcode() {
-        return errcode;
+    public int getErrCode() {
+        return errCode;
     }
 
-    public void setErrcode(int errcode) {
-        this.errcode = errcode;
+    public void setErrCode(int errCode) {
+        this.errCode = errCode;
     }
 
-    public String getErrmsg() {
-        return errmsg;
+    public String getErrMsg() {
+        return errMsg;
     }
 
-    public void setErrmsg(String errmsg) {
-        this.errmsg = errmsg;
+    public void setErrMsg(String errMsg) {
+        this.errMsg = errMsg;
     }
 
     public T getResult() {

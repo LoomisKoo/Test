@@ -4,10 +4,17 @@ import android.support.annotation.LayoutRes;
 
 import com.example.administrator.test.base.adapter.BaseViewHolder;
 
+/**
+ * @author koo
+ */
 public abstract class HeaderFooterViewModel {
-    //数据对象
+    /**
+     * 数据对象
+     */
     public Object object;
-    //布局资源id
+    /**
+     * 布局资源id
+     */
     public @LayoutRes
     int layoutId;
 
@@ -16,5 +23,10 @@ public abstract class HeaderFooterViewModel {
         this.object = object;
     }
 
+    /**
+     * 设置数据源
+     * @param viewHolder
+     * @param object
+     */
     public abstract void setData(BaseViewHolder viewHolder, Object object);
 }

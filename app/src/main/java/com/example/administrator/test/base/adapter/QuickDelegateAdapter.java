@@ -7,8 +7,8 @@ import android.view.ViewGroup;
 import java.util.List;
 
 /**
- * @author  koo
  * @param <T>
+ * @author koo
  */
 public abstract class QuickDelegateAdapter<T> extends BaseQuickDelegateAdapter<T, BaseViewHolder> {
     protected final int layoutResId;

@@ -37,19 +37,22 @@ import jp.wasabeef.recyclerview.animators.SlideInLeftAnimator;
  * @author koo
  */
 public abstract class BaseListActivity<T> extends BaseActivity {
-    protected int page = 1;
+    protected int page     = 1;
     protected int pageSize = 20;
-    protected SmartRefreshLayout refreshLayout;
-    protected RecyclerView recyclerView;
+
+    protected RecyclerView            recyclerView;
     protected QuickDelegateAdapter<T> adapter;
-    protected HeaderFooterViewModel headerViewModel, footerViewModel;
-    protected LinearLayout topLay, bottomLay;
-    protected ConstraintLayout rootLay;
-    protected TextView emptyTv;
+    protected HeaderFooterViewModel   headerViewModel, footerViewModel;
+
+    protected SmartRefreshLayout refreshLayout;
+    protected LinearLayout       topLay;
+    protected LinearLayout       bottomLay;
+    protected ConstraintLayout   rootLay;
+    protected TextView           emptyTv;
     /**
      * 是否显示recycleView自带的分割线
      */
-    private boolean isShowDefaultDivider = false;
+    private   boolean            isShowDefaultDivider = false;
 
     /**
      * 是否显示recycleView的item增删动画
@@ -108,7 +111,7 @@ public abstract class BaseListActivity<T> extends BaseActivity {
     }
 
     private void initRecycleView() {
-       final VirtualLayoutManager layoutManager = new VirtualLayoutManager(this);
+        final VirtualLayoutManager layoutManager = new VirtualLayoutManager(this);
 
         recyclerView.setLayoutManager(layoutManager);
         final RecyclerView.RecycledViewPool viewPool = new RecyclerView.RecycledViewPool();
@@ -160,13 +163,15 @@ public abstract class BaseListActivity<T> extends BaseActivity {
             recyclerView.getItemAnimator().setRemoveDuration(300);
 
             recyclerView.setAdapter(animationAdapter);
-        } else {
+        }
+        else {
             recyclerView.setAdapter(delegateAdapter);
         }
     }
 
     /**
      * 添加自定义分割线
+     *
      * @param drawableRes
      */
     public void addCustomDivider(@DrawableRes int drawableRes) {
@@ -198,7 +203,8 @@ public abstract class BaseListActivity<T> extends BaseActivity {
     protected void stopRefresh() {
         if (refreshLayout.isRefreshing()) {
             refreshLayout.finishRefresh();
-        } else if (refreshLayout.isLoading()) {
+        }
+        else if (refreshLayout.isLoading()) {
             refreshLayout.finishLoadmore();
         }
     }
@@ -226,7 +232,8 @@ public abstract class BaseListActivity<T> extends BaseActivity {
     public void checkEmpty(String text, @DrawableRes int resId) {
         if (adapter.getItemCount() == 0) {
             showEmptyView(text, resId);
-        } else {
+        }
+        else {
             hideEmptyView();
         }
     }
@@ -290,6 +297,7 @@ public abstract class BaseListActivity<T> extends BaseActivity {
 
     /**
      * 是否显示recycleView的增删动画
+     *
      * @param showRvAnimation
      */
     public void setShowRvAnimation(boolean showRvAnimation) {

@@ -41,9 +41,9 @@ public class DecimalUtils {
      * @return 格式化后的小数
      */
     public static String formatDecimalWithZero(float f, int newScale) {
-        BigDecimal b = new BigDecimal(Float.toString(f));
-        double d = b.doubleValue();
-        String pattern = "0.";
+        BigDecimal b       = new BigDecimal(Float.toString(f));
+        double     d       = b.doubleValue();
+        String     pattern = "0.";
         for (int i = 0; i < newScale; i++) {
             pattern += "0";
         }

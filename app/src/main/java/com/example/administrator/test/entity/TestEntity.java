@@ -2,15 +2,15 @@ package com.example.administrator.test.entity;
 
 public class TestEntity {
     private String name;
-    private long id;
-    private int type;
+    private long   id;
+    private int    type;
 
     public TestEntity(String name) {
         type = 0;
         this.name = name;
     }
 
-    public TestEntity(String name,int type) {
+    public TestEntity(String name, int type) {
         this.type = type;
         this.name = name;
     }

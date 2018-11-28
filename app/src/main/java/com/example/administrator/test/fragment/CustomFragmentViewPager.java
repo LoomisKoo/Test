@@ -21,7 +21,7 @@ import java.util.List;
  */
 public class CustomFragmentViewPager extends FragmentPagerAdapter {
 
-    private List<?> mFragment;
+    private List<?>      mFragment;
     private List<String> mTitleList;
 
     /**
@@ -64,7 +64,8 @@ public class CustomFragmentViewPager extends FragmentPagerAdapter {
     public CharSequence getPageTitle(int position) {
         if (mTitleList != null && position < mTitleList.size()) {
             return mTitleList.get(position);
-        } else {
+        }
+        else {
             return "";
         }
     }

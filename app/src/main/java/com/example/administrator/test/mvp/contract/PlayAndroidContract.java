@@ -17,6 +17,7 @@ public interface PlayAndroidContract {
          * @param httpCallback 回调
          */
         void getBannerImg(HttpCallback httpCallback);
+
         /**
          * 获取日常文章列表
          *

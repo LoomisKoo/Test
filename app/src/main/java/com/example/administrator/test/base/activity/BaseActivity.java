@@ -31,30 +31,30 @@ import me.imid.swipebacklayout.lib.app.SwipeBackActivity;
  * @author koo
  */
 public abstract class BaseActivity<P extends IBasePresenter> extends SwipeBackActivity implements View.OnClickListener {
-    protected Toolbar mToolbar;
-    private TextView tvCenterTitle;
-    protected P presenter;
-    private SwipeBackLayout backLayout;
+    protected       Toolbar         mToolbar;
+    private         TextView        tvCenterTitle;
+    protected       P               presenter;
+    private         SwipeBackLayout backLayout;
     /**
      * 是否沉浸状态栏
      **/
-    private boolean isSetStatusBar = true;
+    private         boolean         isSetStatusBar     = true;
     /**
      * 是否允许全屏
      **/
-    private boolean mAllowFullScreen = true;
+    private         boolean         mAllowFullScreen   = true;
     /**
      * 是否禁止旋转屏幕
      **/
-    private boolean isAllowScreenRoate = false;
+    private         boolean         isAllowScreenRoate = false;
     /**
      * 当前Activity渲染的视图View
      **/
-    private View mContextView = null;
+    private         View            mContextView       = null;
     /**
      * 日志输出标志
      **/
-    protected final String TAG = this.getClass().getSimpleName();
+    protected final String          TAG                = this.getClass().getSimpleName();
 
     /**
      * View点击
@@ -166,10 +166,11 @@ public abstract class BaseActivity<P extends IBasePresenter> extends SwipeBackAc
             Window window = getWindow();
             window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
             window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                    | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
+                                                                | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             window.setStatusBarColor(Color.TRANSPARENT);
-        } else if (Build.VERSION.SDK_INT >= 19) {//19表示4.4
+        }
+        else if (Build.VERSION.SDK_INT >= 19) {//19表示4.4
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
             //虚拟键盘也透明
             //getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
@@ -296,7 +297,8 @@ public abstract class BaseActivity<P extends IBasePresenter> extends SwipeBackAc
     public boolean onCreatePanelMenu(int featureId, Menu menu) {
         try {
             getMenuInflater().inflate(bindMenu(), menu);
-        } catch (Resources.NotFoundException e) {
+        }
+        catch (Resources.NotFoundException e) {
             e.printStackTrace();
         }
         return true;
@@ -472,7 +474,8 @@ public abstract class BaseActivity<P extends IBasePresenter> extends SwipeBackAc
     public void showCenterTitle(boolean isShowCenterTitle) {
         if (isShowCenterTitle) {
             tvCenterTitle.setVisibility(View.VISIBLE);
-        } else {
+        }
+        else {
             tvCenterTitle.setVisibility(View.GONE);
         }
     }

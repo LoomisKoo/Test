@@ -8,6 +8,9 @@ import com.example.administrator.test.R;
 import com.example.administrator.test.base.adapter.BaseViewHolder;
 import com.example.administrator.test.entity.TestEntity;
 
+/**
+ * @author koo
+ */
 public class Test2ViewHolder extends BaseViewHolder {
     public Test2ViewHolder(Context context, ViewGroup parent, int layoutId) {
         super(context, parent, layoutId);

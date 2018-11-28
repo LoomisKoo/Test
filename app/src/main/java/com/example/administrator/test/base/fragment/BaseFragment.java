@@ -13,7 +13,7 @@ import com.example.administrator.test.base.activity.BaseActivity;
  * @author
  */
 public abstract class BaseFragment<P> extends Fragment {
-   protected P presenter;
+    protected P presenter;
 
     protected BaseActivity mActivity;
 
@@ -40,6 +40,7 @@ public abstract class BaseFragment<P> extends Fragment {
 
     /**
      * 获取presenter实例
+     *
      * @return
      */
     protected abstract P getPresenter();

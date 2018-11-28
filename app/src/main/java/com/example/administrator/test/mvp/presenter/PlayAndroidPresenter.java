@@ -15,7 +15,7 @@ import okhttp3.ResponseBody;
  * @author koo
  */
 public class PlayAndroidPresenter implements PlayAndroidContract.Presenter {
-    private PlayAndroidContract.View view;
+    private PlayAndroidContract.View  view;
     private PlayAndroidContract.Model model;
 
     private PlayAndroidViewEntity playAndroidViewEntity;
@@ -33,7 +33,8 @@ public class PlayAndroidPresenter implements PlayAndroidContract.Presenter {
                 BannerEntity bannerEntity = null;
                 try {
                     bannerEntity = JSON.parseObject(result.string(), BannerEntity.class);
-                } catch (IOException e) {
+                }
+                catch (IOException e) {
                     e.printStackTrace();
                 }
                 playAndroidViewEntity = new PlayAndroidViewEntity(bannerEntity, HttpRequestType.REQUEST_TYPE_BANNER);
@@ -60,7 +61,8 @@ public class PlayAndroidPresenter implements PlayAndroidContract.Presenter {
                 try {
                     String strResult = result.string();
                     System.out.println(strResult);
-                } catch (IOException e) {
+                }
+                catch (IOException e) {
                     e.printStackTrace();
                 }
 //                playAndroidViewEntity = new PlayAndroidViewEntity(bannerEntity, HttpRequestType.REQUEST_TYPE_BANNER);

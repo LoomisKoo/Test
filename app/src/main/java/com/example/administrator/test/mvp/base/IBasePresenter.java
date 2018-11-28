@@ -11,7 +11,7 @@ import org.jetbrains.annotations.NotNull;
 /**
  * @author koo
  */
-public interface  IBasePresenter {
+public interface IBasePresenter {
 //    public V baseView;
 //
 //    public IBasePresenter(V baseView) {

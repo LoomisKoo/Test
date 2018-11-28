@@ -26,9 +26,9 @@ import java.util.List;
  */
 @Route(path = ArouterHelper.ROUTE_ACTIVITY_MAIN)
 public class MainActivity extends BaseActivity {
-    private BottomBar mBottomBar;
+    private BottomBar      mBottomBar;
     private List<Fragment> fragments;
-    private ViewPager viewPager;
+    private ViewPager      viewPager;
 
     @Override
     public void widgetClick(View v) {

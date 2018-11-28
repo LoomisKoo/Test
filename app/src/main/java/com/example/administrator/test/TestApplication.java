@@ -9,6 +9,9 @@ import com.orhanobut.logger.FormatStrategy;
 import com.orhanobut.logger.Logger;
 import com.orhanobut.logger.PrettyFormatStrategy;
 
+/**
+ * @author koo
+ */
 public class TestApplication extends Application {
     @Override
     public void onCreate() {

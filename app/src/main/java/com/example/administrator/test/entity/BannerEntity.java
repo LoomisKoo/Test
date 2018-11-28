@@ -22,8 +22,8 @@ public class BannerEntity {
      * errorMsg :
      */
 
-    private int errorCode;
-    private String errorMsg;
+    private int            errorCode;
+    private String         errorMsg;
     private List<DataBean> data;
 
     public int getErrorCode() {
@@ -63,12 +63,12 @@ public class BannerEntity {
          */
 
         private String desc;
-        private int id;
+        private int    id;
         private String imagePath;
-        private int isVisible;
-        private int order;
+        private int    isVisible;
+        private int    order;
         private String title;
-        private int type;
+        private int    type;
         private String url;
 
         public String getDesc() {

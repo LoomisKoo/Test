@@ -33,7 +33,7 @@ public class BankCardUtil {
      * ，新发的非银联标准卡使用旧的联网通用银联标识)、 卡号前6位为622126至622925之一的银行卡，是中国银行卡产业共有的民族品牌。
      */
     // BIN号
-    private final static String[] BANKBIN = {"621098", "622150", "622151",
+    private final static String[] BANKBIN  = {"621098", "622150", "622151",
             "622181", "622188", "955100", "621095", "620062", "621285",
             "621798", "621799", "621797", "620529", "622199", "621096",
             "621622", "623219", "621674", "623218", "621599", "370246",
@@ -664,7 +664,7 @@ public class BankCardUtil {
      */
     public static boolean checkBankCard(String cardId) {
         char bit = getBankCardCheckCode(cardId
-                .substring(0, cardId.length() - 1));
+                                                .substring(0, cardId.length() - 1));
         if (bit == 'N') {
             return false;
         }
@@ -685,8 +685,8 @@ public class BankCardUtil {
             // 如果传的不是数据返回N
             return 'N';
         }
-        char[] chs = nonCheckCodeCardId.trim().toCharArray();
-        int luhmSum = 0;
+        char[] chs     = nonCheckCodeCardId.trim().toCharArray();
+        int    luhmSum = 0;
         for (int i = chs.length - 1, j = 0; i >= 0; i--, j++) {
             int k = chs[i] - '0';
             if (j % 2 == 0) {

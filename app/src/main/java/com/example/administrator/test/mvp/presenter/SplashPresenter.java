@@ -19,9 +19,9 @@ import com.example.administrator.test.mvp.model.SplashModel;
  */
 public class SplashPresenter implements SplashContract.Presenter, SplashContract.CallBack {
     private SplashContract.View view;
-    private SplashModel model;
+    private SplashModel         model;
 
-    public SplashPresenter(Context context,SplashContract.View view) {
+    public SplashPresenter(Context context, SplashContract.View view) {
         this.view = view;
         this.model = new SplashModel(context, this);
     }
@@ -30,11 +30,6 @@ public class SplashPresenter implements SplashContract.Presenter, SplashContract
     @Override
     public void showWelcome() {
         model.showWelcome();
-    }
-
-    @Override
-    public void showLocalAD() {
-
     }
 
     @Override

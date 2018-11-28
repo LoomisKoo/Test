@@ -9,7 +9,7 @@ import java.util.List;
 
 public class GankIoDataBean implements Serializable {
 
-    private boolean error;
+    private boolean          error;
     /**
      * _id : 5832662b421aa929b0f34e99
      * createdAt : 2016-11-21T11:12:43.567Z
@@ -26,15 +26,15 @@ public class GankIoDataBean implements Serializable {
     private List<ResultBean> results;
 
     public static class ResultBean implements Serializable {
-        private String _id;
-        private String createdAt;
-        private String desc;
-        private String publishedAt;
-        private String source;
-        private String type;
-        private String url;
-        private boolean used;
-        private String who;
+        private String       _id;
+        private String       createdAt;
+        private String       desc;
+        private String       publishedAt;
+        private String       source;
+        private String       type;
+        private String       url;
+        private boolean      used;
+        private String       who;
         private List<String> images;
 
         public String get_id() {

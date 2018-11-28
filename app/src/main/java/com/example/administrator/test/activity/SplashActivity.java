@@ -31,15 +31,15 @@ public class SplashActivity extends BaseActivity<SplashPresenter> implements Spl
     /**
      * 开屏广告的imageView
      */
-    private ImageView ivAD;
+    private              ImageView ivAD;
     /**
      * 开屏广告的 跳过 按钮
      */
-    private Button btnSkip;
+    private              Button    btnSkip;
     /**
      * 倒计时结束秒数
      */
-    private static final int COUNTDOWN_END_SECOND = 0;
+    private static final int       COUNTDOWN_END_SECOND = 0;
 
     @Override
     public void widgetClick(View v) {
@@ -132,7 +132,7 @@ public class SplashActivity extends BaseActivity<SplashPresenter> implements Spl
     @Override
     public void countDownAD(long countDown) {
         //开屏广告倒计时
-        String skip = "跳过（" + countDown + ")";
+        String skip = "跳过（" + countDown + "）";
         btnSkip.setText(skip);
         //倒计时为 0 则跳转主页面
         if (COUNTDOWN_END_SECOND == countDown) {

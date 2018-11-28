@@ -1,7 +1,5 @@
 package com.example.administrator.test.entity.view;
 
-import com.example.administrator.test.entity.BannerEntity;
-
 /**
  * @ProjectName: Test
  * @Package: com.example.administrator.test.entity

@@ -9,15 +9,19 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+/**
+ * @param <T>
+ * @author koo
+ */
 public class HttpUtilBuilder<T> {
 
-    private final int DEFAULT_TIMEOUT = 50;
-    private T api;
-    private Class<T> clazz;
-    private Retrofit retrofit;
-    private String baseUrl;
-    private Interceptor interceptor;
-    private OkHttpClient client;
+    private final int          DEFAULT_TIMEOUT = 50;
+    private       T            api;
+    private       Class<T>     clazz;
+    private       Retrofit     retrofit;
+    private       String       baseUrl;
+    private       Interceptor  interceptor;
+    private       OkHttpClient client;
 
     public HttpUtilBuilder(Class<T> clazz, String baseUrl, Interceptor interceptor) {
         this.clazz = clazz;
@@ -39,9 +43,9 @@ public class HttpUtilBuilder<T> {
         // .cache(cache)
 
         builder.connectTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS)
-                .readTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS)
-                .writeTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS)
-                .retryOnConnectionFailure(true);
+               .readTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS)
+               .writeTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS)
+               .retryOnConnectionFailure(true);
         client = builder.build();
         buildRetrofit();
     }
