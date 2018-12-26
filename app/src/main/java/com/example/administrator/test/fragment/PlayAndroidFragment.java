@@ -48,8 +48,10 @@ public class PlayAndroidFragment extends BaseListFragment<PlayAndroidViewEntity,
 
     @Override
     protected void getData(int page, int pageSize) {
-        adapter.clear();
-        presenter.getBannerImg();
+        if (1 == page) {
+            presenter.getBannerImg();
+        }
+        presenter.getArticleList(page);
     }
 
     @Override
@@ -119,16 +121,14 @@ public class PlayAndroidFragment extends BaseListFragment<PlayAndroidViewEntity,
                         return new PlayAndroidBannerViewHolder(getContext(), parent, R.layout.header_play_android);
                     case HttpRequestType.REQUEST_TYPE_ARTICEL_LIST:
                         PlayAndroidArticleListVH vh = new PlayAndroidArticleListVH(getContext(), parent, R.layout.play_android_item_article);
-                        vh.itemView.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                int position = recyclerView.getChildAdapterPosition(v);
+                        vh.itemView.setOnClickListener(v -> {
+                            int position = recyclerView.getChildAdapterPosition(v);
 
-                                PlayAndroidViewEntity entity = adapter.getData().get(position);
-                                if (entity.getViewType() == HttpRequestType.REQUEST_TYPE_ARTICEL_LIST) {
-                                    ArticleListEntity.DataBean.ArticleInfoBean bean = (ArticleListEntity.DataBean.ArticleInfoBean) entity.getData();
-                                    ARouter.getInstance().build(ArouterHelper.ROUTE_ACTIVITY_WEB).withString("title", "TestTitle").withString("url", bean.getLink()).navigation();
-                                }
+                            PlayAndroidViewEntity entity = adapter.getData().get(position);
+                            if (entity.getViewType() == HttpRequestType.REQUEST_TYPE_ARTICEL_LIST) {
+                                ArticleListEntity.DataBean.ArticleInfoBean bean  = (ArticleListEntity.DataBean.ArticleInfoBean) entity.getData();
+                                String                                     title = bean.getTitle();
+                                ARouter.getInstance().build(ArouterHelper.ROUTE_ACTIVITY_WEB).withString("title", title).withString("url", bean.getLink()).navigation();
                             }
                         });
                         return vh;
@@ -142,9 +142,7 @@ public class PlayAndroidFragment extends BaseListFragment<PlayAndroidViewEntity,
             public int getItemViewType(int position) {
                 return getItem(position).getViewType();
             }
-        }
-
-                ;
+        };
     }
 
     @Override
@@ -168,15 +166,7 @@ public class PlayAndroidFragment extends BaseListFragment<PlayAndroidViewEntity,
 
     @Override
     public void onSuccess(PlayAndroidViewEntity playAndroidViewEntity) {
-        int viewType = playAndroidViewEntity.getViewType();
-        switch (viewType) {
-            case HttpRequestType.REQUEST_TYPE_BANNER:
-                //先加载完banner数据再加载文章数据
-                presenter.getArticleList(0);
-                break;
-            default:
-                break;
-        }
+        stopRefresh();
         ArrayList<PlayAndroidViewEntity> playAndroidViewEntities = new ArrayList<>();
         playAndroidViewEntities.add(playAndroidViewEntity);
         adapter.addAll(playAndroidViewEntities);
@@ -192,25 +182,5 @@ public class PlayAndroidFragment extends BaseListFragment<PlayAndroidViewEntity,
     public void onComplete() {
         stopRefresh();
         checkEmpty("加载失败，请拉下重试！", R.mipmap.ic_load_err);
-    }
-
-    @Override
-    public void onCollectSuccess() {
-
-    }
-
-    @Override
-    public void onCollectFails() {
-
-    }
-
-    @Override
-    public void onUnCollectSuccess() {
-
-    }
-
-    @Override
-    public void onUnCollectFails() {
-
     }
 }

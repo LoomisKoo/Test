@@ -4,9 +4,11 @@ import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.example.administrator.test.R;
 import com.example.administrator.test.base.adapter.BaseViewHolder;
 import com.example.administrator.test.entity.BannerEntity;
+import com.example.administrator.test.util.ArouterHelper;
 import com.example.administrator.test.util.GlideImageLoader;
 import com.orhanobut.logger.Logger;
 import com.youth.banner.Banner;
@@ -29,7 +31,7 @@ import java.util.List;
  * @Version: 1.0
  */
 public class PlayAndroidBannerViewHolder extends BaseViewHolder {
-    private Banner         banner;
+    private Banner banner;
 
     public PlayAndroidBannerViewHolder(Context context, ViewGroup parent, int layoutId) {
         super(context, parent, layoutId);
@@ -70,6 +72,9 @@ public class PlayAndroidBannerViewHolder extends BaseViewHolder {
         banner.setIndicatorGravity(BannerConfig.CENTER)
               //以上内容都可写成链式布局，这是轮播图的监听。比较重要。方法在下面。
               .setOnBannerListener(position -> {
+                  String title = entity.get(position).getTitle();
+                  String url = entity.get(position).getUrl();
+                  ARouter.getInstance().build(ArouterHelper.ROUTE_ACTIVITY_WEB).withString("title", title).withString("url", url).navigation();
 
               })
               //必须最后调用的方法，启动轮播图。

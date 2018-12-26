@@ -2,6 +2,7 @@ package com.example.administrator.test.activity;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
@@ -118,11 +119,6 @@ public class WebActivity extends BaseActivity {
 
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        return super.onOptionsItemSelected(item);
-    }
-
     private void initTitle() {
 //        StatusBarUtil.setColor(this, CommonUtils.getColor(R.color.colorTheme), 0);
         mProgressBar = (ProgressBar) findViewById(R.id.pb_progress);
@@ -192,4 +188,57 @@ public class WebActivity extends BaseActivity {
 //        webView.addJavascriptInterface(new ImageClickInterface(this), "injectedObject");
 //        webView.setWebViewClient(new MyWebViewClient(this));
     }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                // 返回键
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    finishAfterTransition();
+                }
+                else {
+                    finish();
+                }
+                break;
+//            case R.id.actionbar_share:
+//                // 分享到
+//                String shareText = mWebChromeClient.getTitle() + webView.getUrl() + "（分享自云阅）";
+//                ShareUtils.share(WebViewActivity.this, shareText);
+//                break;
+//            case R.id.actionbar_cope:
+//                // 复制链接
+//                BaseTools.copy(webView.getUrl());
+//                ToastUtil.showToast("复制成功");
+//                break;
+//            case R.id.actionbar_open:
+//                // 打开链接
+//                BaseTools.openLink(WebViewActivity.this, webView.getUrl());
+//                break;
+//            case R.id.actionbar_webview_refresh:
+//                // 刷新页面
+//                if (webView != null) {
+//                    webView.reload();
+//                }
+//                break;
+//            case R.id.actionbar_collect:
+//                // 添加到收藏
+//                if (UserUtil.isLogin(webView.getContext())) {
+//                    if (SPUtils.getBoolean(Constants.IS_FIRST_COLLECTURL, true)) {
+//                        DialogBuild.show(webView, "网址不同于文章，相同网址可多次进行收藏，且不会显示收藏状态。", "知道了", (DialogInterface.OnClickListener) (dialog, which) -> {
+//                            SPUtils.putBoolean(Constants.IS_FIRST_COLLECTURL, false);
+//                            collectUrl();
+//                        });
+//                    } else {
+//                        collectUrl();
+//                    }
+//                }
+//                break;
+            default:
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
 }

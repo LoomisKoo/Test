@@ -54,14 +54,6 @@ public interface PlayAndroidContract {
 
         void onComplete();
 
-        void onCollectSuccess();
-
-        void onCollectFails();
-
-        void onUnCollectSuccess();
-
-        void onUnCollectFails();
-
     }
 
     interface Presenter extends IBasePresenter {
