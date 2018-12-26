@@ -35,7 +35,12 @@ public class HttpUtilBuilder<T> {
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
         builder.addInterceptor(interceptor);
         if (true) {
-            HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
+            HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor(message -> {
+                //打印格式化的Json数据
+                JsonLogFormat.setIsLog(true);
+                JsonLogFormat.setLogtag("httpLog");
+                JsonLogFormat.json(message);
+            });
             loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
             builder.addInterceptor(loggingInterceptor);
         }

@@ -51,6 +51,9 @@ dependencies {
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.30'
     //RecycleView动画库
     implementation 'jp.wasabeef:recyclerview-animators:2.2.3'
+    //RecycleView侧滑菜单
+    implementation 'com.yanzhenjie:recyclerview-swipe:1.2.0'
+
     //列表动画库
     implementation 'com.nineoldandroids:library:2.4.0'
     //log打印框架

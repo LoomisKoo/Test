@@ -5,16 +5,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.example.administrator.test.R;
 import com.example.administrator.test.base.fragment.BaseFragment;
 import com.example.administrator.test.mvp.base.IBaseModel;
 import com.example.administrator.test.mvp.contract.TestContract;
 import com.example.administrator.test.util.OnMultiClickListener;
+import com.example.administrator.test.weidge.CustomTextView;
 import com.orhanobut.logger.Logger;
 
 public class Fragment1 extends BaseFragment implements TestContract.View {
     Button button;
+    private CustomTextView customTextView;
 
     @Override
     protected int setContentLayout() {
@@ -30,6 +33,8 @@ public class Fragment1 extends BaseFragment implements TestContract.View {
             public void onMultiClick(View v) {
             }
         });
+//        customTextView = view.findViewById(R.id.customTextView);
+//        initView();
 
     }
 
@@ -70,5 +75,33 @@ public class Fragment1 extends BaseFragment implements TestContract.View {
     @Override
     public void onErrorCode(IBaseModel model) {
 
+    }
+
+    private void initView() {
+        customTextView.setLeftImg(getContext().getResources().getDrawable(R.mipmap.ic_launcher_round))
+                      .setRightImg(getContext().getResources().getDrawable(R.mipmap.ic_launcher))
+                      .setLeftTv("代码添加", "#c95fdc")
+                      .setRightTv("代码添加", "#4be1c3")
+                      .setCenterTv("代码", null)
+                      .setLeftTopTv("上", null)
+                      .setLeftBottomTv("下", null)
+                      .setBottomLine("#1587e7")
+                      .setCustomTvBackground("#4dacff");
+        customTextView.setOnTextViewClickListener(new CustomTextView.OnTextViewClickListener() {
+            @Override
+            public void OnLeftImgClick() {
+                Toast.makeText(getContext(), "左边图片", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void OnRightImgClick() {
+                Toast.makeText(getContext(), "右边图片", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void OnTextViewClick() {
+                Toast.makeText(getContext(), "布局", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

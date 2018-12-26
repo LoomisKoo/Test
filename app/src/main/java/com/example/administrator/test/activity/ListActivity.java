@@ -1,7 +1,9 @@
 package com.example.administrator.test.activity;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.view.ViewGroup;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
@@ -16,6 +18,8 @@ import com.example.administrator.test.base.adapter.BaseViewHolder;
 import com.example.administrator.test.base.adapter.QuickDelegateAdapter;
 import com.example.administrator.test.entity.TestEntity;
 import com.example.administrator.test.mvp.base.IBasePresenter;
+import com.yanzhenjie.recyclerview.swipe.SwipeItemClickListener;
+import com.yanzhenjie.recyclerview.swipe.SwipeMenuItem;
 
 import java.util.ArrayList;
 
@@ -62,6 +66,8 @@ public class ListActivity extends BaseListActivity<TestEntity> {
         testEntities.add(new TestEntity("test1", 1));
         testEntities.add(new TestEntity("test1"));
         adapter.replaceAll(testEntities);
+
+
     }
 
     @Override
@@ -119,5 +125,26 @@ public class ListActivity extends BaseListActivity<TestEntity> {
     @Override
     public void OnNavigationOnClick() {
         finish();
+    }
+
+    @Override
+    protected void initRecycleView() {
+        initSwipeRV();
+        recyclerView.setSwipeItemClickListener((itemView, position) -> recyclerView.smoothOpenRightMenu(position));
+        super.initRecycleView();
+    }
+
+    private void initSwipeRV() {
+        recyclerView.setSwipeMenuCreator((leftMenu, rightMenu, position) -> {
+            int height = ViewGroup.LayoutParams.MATCH_PARENT;
+            SwipeMenuItem deleteItem = new SwipeMenuItem(ListActivity.this).setBackground(R.drawable.gray_radius)
+                                                                           .setText("删除")
+                                                                           // 图标。
+                                                                           .setImage(R.mipmap.ic_launcher)
+                                                                           .setTextColor(Color.WHITE)
+                                                                           .setWidth(400)
+                                                                           .setHeight(height);
+            rightMenu.addMenuItem(deleteItem);// 添加菜单到右侧。
+        });
     }
 }

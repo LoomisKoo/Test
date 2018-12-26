@@ -23,6 +23,7 @@ import com.example.administrator.test.base.adapter.HeaderFooterViewModel;
 import com.example.administrator.test.base.adapter.QuickDelegateAdapter;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.constant.RefreshState;
+import com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -40,7 +41,7 @@ public abstract class BaseListActivity<T> extends BaseActivity {
     protected int page     = 1;
     protected int pageSize = 20;
 
-    protected RecyclerView            recyclerView;
+    protected SwipeMenuRecyclerView   recyclerView;
     protected QuickDelegateAdapter<T> adapter;
     protected HeaderFooterViewModel   headerViewModel, footerViewModel;
 
@@ -95,7 +96,7 @@ public abstract class BaseListActivity<T> extends BaseActivity {
         rootLay = (ConstraintLayout) findViewById(R.id.base_pager_list_root);
         topLay = (LinearLayout) findViewById(R.id.base_pager_list_topLay);
         bottomLay = (LinearLayout) findViewById(R.id.base_pager_list_bottomLay);
-        recyclerView = (RecyclerView) findViewById(R.id.base_pager_list_rv);
+        recyclerView = (SwipeMenuRecyclerView) findViewById(R.id.base_pager_list_rv);
         refreshLayout = (SmartRefreshLayout) findViewById(R.id.base_pager_list_refreshLayout);
         refreshLayout.setOnRefreshListener(refreshLayout -> refresh());
         refreshLayout.setOnLoadmoreListener(refreshLayout -> loadMore());
@@ -110,7 +111,7 @@ public abstract class BaseListActivity<T> extends BaseActivity {
         initRecycleView();
     }
 
-    private void initRecycleView() {
+    protected void initRecycleView() {
         final VirtualLayoutManager layoutManager = new VirtualLayoutManager(this);
 
         recyclerView.setLayoutManager(layoutManager);

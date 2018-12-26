@@ -2,7 +2,9 @@ package com.example.administrator.test.fragment;
 
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.alibaba.android.vlayout.LayoutHelper;
 import com.alibaba.android.vlayout.layout.LinearLayoutHelper;
@@ -16,6 +18,7 @@ import com.example.administrator.test.mvp.contract.PlayAndroidContract;
 import com.example.administrator.test.mvp.model.PlayAndroidModel;
 import com.example.administrator.test.mvp.presenter.PlayAndroidPresenter;
 import com.example.administrator.test.viewholder.PlayAndroidBannerViewHolder;
+import com.example.administrator.test.weidge.CustomTextView;
 
 import java.util.ArrayList;
 
@@ -34,10 +37,16 @@ import java.util.ArrayList;
  */
 public class PlayAndroidFragment extends BaseListFragment<PlayAndroidViewEntity, PlayAndroidPresenter> implements PlayAndroidContract.View {
 
+
     @Override
     protected void getData(int page, int pageSize) {
         presenter.getBannerImg();
         presenter.getArticleList();
+    }
+
+    @Override
+    protected void initView(View view) {
+        super.initView(view);
     }
 
     @Override
@@ -108,4 +117,7 @@ public class PlayAndroidFragment extends BaseListFragment<PlayAndroidViewEntity,
         stopRefresh();
         checkEmpty("加载失败，请拉下重试！", R.mipmap.ic_load_err);
     }
+
+
+
 }

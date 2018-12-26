@@ -35,7 +35,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
-        <android.support.v7.widget.RecyclerView
+        <com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView
             android:id="@+id/base_pager_list_rv"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
