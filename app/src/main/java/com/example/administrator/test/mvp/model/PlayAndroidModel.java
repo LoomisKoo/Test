@@ -14,13 +14,31 @@ public class PlayAndroidModel implements PlayAndroidContract.Model {
 
     @Override
     public void getBannerImg(HttpCallback httpCallback) {
-        Observable<ResponseBody> observable = HttpUtil.getInstance().getService().getBanerImg();
+        Observable<ResponseBody> observable = HttpUtil.getInstance().getService().getBannerImg();
         HttpUtil.query(observable, httpCallback);
     }
 
     @Override
-    public void getArticleList(HttpCallback httpCallback) {
-        Observable<ResponseBody> observable = HttpUtil.getInstance().getService().getBanerImg();
+    public void getArticleList(int page, Integer cid, HttpCallback httpCallback) {
+        Observable<ResponseBody> observable = HttpUtil.getInstance().getService().getArticleList(page, cid);
+        HttpUtil.query(observable, httpCallback);
+    }
+
+    @Override
+    public void collectArticle(int articleID, HttpCallback httpCallback) {
+        Observable<ResponseBody> observable = HttpUtil.getInstance().getService().collectArticle(articleID);
+        HttpUtil.query(observable, httpCallback);
+    }
+
+    @Override
+    public void unCollectArticle(int articleID, HttpCallback httpCallback) {
+        Observable<ResponseBody> observable = HttpUtil.getInstance().getService().unCollectArticleOrigin(articleID);
+        HttpUtil.query(observable, httpCallback);
+    }
+
+    @Override
+    public void unCollectArticle(int originId, int id, HttpCallback httpCallback) {
+        Observable<ResponseBody> observable = HttpUtil.getInstance().getService().unCollectArticle(id, originId);
         HttpUtil.query(observable, httpCallback);
     }
 }

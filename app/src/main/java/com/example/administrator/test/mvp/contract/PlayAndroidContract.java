@@ -1,8 +1,10 @@
 package com.example.administrator.test.mvp.contract;
 
+import com.example.administrator.test.entity.ArticleListEntity;
 import com.example.administrator.test.entity.view.PlayAndroidViewEntity;
 import com.example.administrator.test.http.HttpCallback;
 import com.example.administrator.test.mvp.base.IBasePresenter;
+import com.example.administrator.test.mvp.presenter.PlayAndroidPresenter;
 
 import okhttp3.ResponseBody;
 
@@ -23,7 +25,17 @@ public interface PlayAndroidContract {
          *
          * @param httpCallback 回调
          */
-        void getArticleList(HttpCallback httpCallback);
+        void getArticleList(int page, Integer cid, HttpCallback httpCallback);
+
+        void collectArticle(int articleID, HttpCallback httpCallback);
+
+        void unCollectArticle(int articleID, HttpCallback httpCallback);
+
+        /**
+         * @param originId 如果是收藏列表的话就是原始文章的id，如果是站外文章就是-1
+         * @param id       bean里的id
+         */
+        void unCollectArticle(int originId, int id, HttpCallback httpCallback);
     }
 
     interface View {
@@ -31,16 +43,42 @@ public interface PlayAndroidContract {
 
         void hideLoading();
 
+        /**
+         * banner图请求成功回调
+         *
+         * @param playAndroidViewEntity
+         */
         void onSuccess(PlayAndroidViewEntity playAndroidViewEntity);
 
         void onError(String msg);
 
         void onComplete();
+
+        void onCollectSuccess();
+
+        void onCollectFails();
+
+        void onUnCollectSuccess();
+
+        void onUnCollectFails();
+
     }
 
     interface Presenter extends IBasePresenter {
         void getBannerImg();
 
-        void getArticleList();
+        void getArticleList(int page);
+
+        void collectArticle(int articleID, PlayAndroidPresenter.CallBack callBack);
+
+        void unCollectArticle(int articleID, PlayAndroidPresenter.CallBack callBack);
+
+        /**
+         * @param isCollectList 是否是收藏列表
+         * @param originId      如果是收藏列表的话就是原始文章的id，如果是站外文章就是-1
+         * @param id            bean里的id
+         */
+        void unCollectArticle(boolean isCollectList, int originId, int id, PlayAndroidPresenter.CallBack callBack);
+
     }
 }

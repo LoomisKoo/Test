@@ -44,8 +44,8 @@ public class PlayAndroidBannerViewHolder extends BaseViewHolder {
         super(context, itemView);
     }
 
-    public void setData(PlayAndroidViewEntity data) {
-        startBanner(((BannerEntity) data.getData()).getData());
+    public void setData(BannerEntity data) {
+        startBanner(data.getData());
     }
 
 

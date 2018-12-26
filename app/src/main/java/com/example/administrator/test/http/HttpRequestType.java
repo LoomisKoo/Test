@@ -13,5 +13,6 @@ package com.example.administrator.test.http;
  * @Version: 1.0
  */
 public class HttpRequestType {
-    public static final int REQUEST_TYPE_BANNER = 0;
+    public static final int REQUEST_TYPE_BANNER       = 0;
+    public static final int REQUEST_TYPE_ARTICEL_LIST = 1;
 }

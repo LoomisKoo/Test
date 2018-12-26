@@ -96,6 +96,9 @@ public abstract class BaseListFragment<T, P> extends BaseFragment<P> {
     private void initRecycleView() {
         layoutManager = new VirtualLayoutManager(getContext());
 
+        //添加Android自带的分割线
+        recyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
+
         recyclerView.setLayoutManager(layoutManager);
 
         final RecyclerView.RecycledViewPool viewPool = new RecyclerView.RecycledViewPool();

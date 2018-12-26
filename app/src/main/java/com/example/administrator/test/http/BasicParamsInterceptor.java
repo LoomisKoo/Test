@@ -1,6 +1,9 @@
 package com.example.administrator.test.http;
 
+import android.util.Log;
+
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -8,19 +11,23 @@ import java.util.List;
 import java.util.Map;
 
 import okhttp3.FormBody;
-import okhttp3.Headers;
 import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
 import okhttp3.MediaType;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
+import okhttp3.ResponseBody;
 import okio.Buffer;
+
+import static okhttp3.internal.Util.UTF_8;
 
 /**
  * @author koo
  */
 public class BasicParamsInterceptor implements Interceptor {
+
+    public static String TAG = "httpLog";
 
     private Map<String, String> queryParamsMap  = new HashMap<>();
     private Map<String, String> paramsMap       = new HashMap<>();
@@ -34,61 +41,66 @@ public class BasicParamsInterceptor implements Interceptor {
     @Override
     public Response intercept(Chain chain) throws IOException {
 
-        Request         request        = chain.request();
-        Request.Builder requestBuilder = request.newBuilder();
-//        TCAgent.initData(EWGShopApp.getInstance(), request.url().toString());
-        // process header params inject
-        Headers.Builder headerBuilder = request.headers().newBuilder();
-        if (headerParamsMap.size() > 0) {
-            Iterator iterator = headerParamsMap.entrySet().iterator();
-            while (iterator.hasNext()) {
-                Map.Entry entry = (Map.Entry) iterator.next();
-                headerBuilder.add((String) entry.getKey(), (String) entry.getValue());
-            }
-        }
+        //这个chain里面包含了request和response，要什么都可以从这里拿
+        Request request = chain.request();
+        //请求发起的时间
+        long t1 = System.nanoTime();
 
-        if (headerLinesList.size() > 0) {
-            for (String line : headerLinesList) {
-                headerBuilder.add(line);
-            }
-        }
-
-        requestBuilder.headers(headerBuilder.build());
-        // process header params end
-
-
-        // process queryParams inject whatever it's GET or POST
-        if (queryParamsMap.size() > 0) {
-            injectParamsIntoUrl(request, requestBuilder, queryParamsMap);
-        }
-        // process header params end
-
-
-        // process post body inject
-        if (request.method().equals("POST") && request.body().contentType().subtype().equals("x-www-form-urlencoded")) {
-            FormBody.Builder formBodyBuilder = new FormBody.Builder();
-            if (paramsMap.size() > 0) {
-                Iterator iterator = paramsMap.entrySet().iterator();
-                while (iterator.hasNext()) {
-                    Map.Entry entry = (Map.Entry) iterator.next();
-                    formBodyBuilder.add((String) entry.getKey(), (String) entry.getValue());
+        String method = request.method();
+        printParams(request.body());
+        if ("POST".equals(method)) {
+            StringBuilder sb = new StringBuilder();
+            if (request.body() instanceof FormBody) {
+                FormBody body = (FormBody) request.body();
+                for (int i = 0; i < body.size(); i++) {
+                    sb.append(body.encodedName(i) + "=" + body.encodedValue(i) + ",");
                 }
+                sb.delete(sb.length() - 1, sb.length());
+                Log.i(TAG, String.format("发送请求 %s on %s %n%s %nRequestParams:{%s}",
+                                         request.url(), chain.connection(), request.headers(), sb.toString()));
             }
-            RequestBody formBody       = formBodyBuilder.build();
-            String      postBodyString = bodyToString(request.body());
-            postBodyString += ((postBodyString.length() > 0) ? "&" : "") + bodyToString(formBody);
-            requestBuilder.post(RequestBody.create(MediaType.parse("application/x-www-form-urlencoded;charset=UTF-8"), postBodyString));
         }
-        else {    // can't inject into body, then inject into url
-            injectParamsIntoUrl(request, requestBuilder, paramsMap);
+        else {
+            Log.i(TAG, String.format("发送请求 %s on %s%n%s",
+                                     request.url(), chain.connection(), request.headers()));
         }
 
-        request = requestBuilder.build();
-        return chain.proceed(request);
+        Response response = chain.proceed(request);
+        //收到响应的时间
+        long         t2           = System.nanoTime();
+        ResponseBody responseBody = response.peekBody(1024 * 1024);
+        JsonLogFormat.setIsLog(true);
+        JsonLogFormat.setLogtag("httpLog");
+        JsonLogFormat.json(responseBody.string());
+
+        Log.i(TAG, "请求时间：" + (t2 - t1) / 1e6d + "ms");
+
+        return response;
+    }
+
+    private void printParams(RequestBody body) {
+        if (null == body) {
+            return;
+        }
+        Buffer buffer = new Buffer();
+        try {
+            body.writeTo(buffer);
+            Charset   charset     = Charset.forName("UTF-8");
+            MediaType contentType = body.contentType();
+            if (contentType != null) {
+                charset = contentType.charset(UTF_8);
+            }
+            String params = buffer.readString(charset);
+            Log.e(TAG, "请求参数： | " + params);
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     // func to inject params into url
-    private void injectParamsIntoUrl(Request request, Request.Builder requestBuilder, Map<String, String> paramsMap) {
+    private void injectParamsIntoUrl(Request request, Request.Builder
+            requestBuilder, Map<String, String> paramsMap) {
         HttpUrl.Builder httpUrlBuilder = request.url().newBuilder();
         if (paramsMap.size() > 0) {
             Iterator iterator = paramsMap.entrySet().iterator();
