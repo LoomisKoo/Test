@@ -6,9 +6,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.alibaba.android.vlayout.LayoutHelper;
 import com.alibaba.android.vlayout.layout.LinearLayoutHelper;
 import com.blankj.utilcode.util.ToastUtils;
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.listener.OnItemChildClickListener;
 import com.example.administrator.test.R;
 import com.example.administrator.test.base.adapter.BaseViewHolder;
 import com.example.administrator.test.base.adapter.QuickDelegateAdapter;
@@ -20,6 +23,7 @@ import com.example.administrator.test.http.HttpRequestType;
 import com.example.administrator.test.mvp.contract.PlayAndroidContract;
 import com.example.administrator.test.mvp.model.PlayAndroidModel;
 import com.example.administrator.test.mvp.presenter.PlayAndroidPresenter;
+import com.example.administrator.test.util.ArouterHelper;
 import com.example.administrator.test.viewholder.PlayAndroidArticleListVH;
 import com.example.administrator.test.viewholder.PlayAndroidBannerViewHolder;
 
@@ -114,7 +118,20 @@ public class PlayAndroidFragment extends BaseListFragment<PlayAndroidViewEntity,
                     case HttpRequestType.REQUEST_TYPE_BANNER:
                         return new PlayAndroidBannerViewHolder(getContext(), parent, R.layout.header_play_android);
                     case HttpRequestType.REQUEST_TYPE_ARTICEL_LIST:
-                        return new PlayAndroidArticleListVH(getContext(), parent, R.layout.play_android_item_article);
+                        PlayAndroidArticleListVH vh = new PlayAndroidArticleListVH(getContext(), parent, R.layout.play_android_item_article);
+                        vh.itemView.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                int position = recyclerView.getChildAdapterPosition(v);
+
+                                PlayAndroidViewEntity entity = adapter.getData().get(position);
+                                if (entity.getViewType() == HttpRequestType.REQUEST_TYPE_ARTICEL_LIST) {
+                                    ArticleListEntity.DataBean.ArticleInfoBean bean = (ArticleListEntity.DataBean.ArticleInfoBean) entity.getData();
+                                    ARouter.getInstance().build(ArouterHelper.ROUTE_ACTIVITY_WEB).withString("title", "TestTitle").withString("url", bean.getLink()).navigation();
+                                }
+                            }
+                        });
+                        return vh;
                     default:
                         break;
                 }
@@ -125,7 +142,9 @@ public class PlayAndroidFragment extends BaseListFragment<PlayAndroidViewEntity,
             public int getItemViewType(int position) {
                 return getItem(position).getViewType();
             }
-        };
+        }
+
+                ;
     }
 
     @Override

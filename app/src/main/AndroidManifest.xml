@@ -33,6 +33,7 @@
         <activity android:name=".activity.SecondActivityBase" />
         <activity android:name=".activity.TabActivity" />
         <activity android:name=".activity.ListActivity" />
+        <activity android:name=".activity.WebActivity" />
 
     </application>
 

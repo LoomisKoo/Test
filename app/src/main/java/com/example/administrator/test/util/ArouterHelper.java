@@ -17,4 +17,5 @@ public class ArouterHelper {
     public final static String ROUTE_ACTIVITY_SECOND_ACTIVITY = "/koo/SecondActivity";
     public final static String ROUTE_ACTIVITY_TAB_ACTIVITY    = "/koo/TabActivity";
     public final static String ROUTE_ACTIVITY_LIST_ACTIVITY   = "/koo/ListActivity";
+    public final static String ROUTE_ACTIVITY_WEB   = "/koo/web";
 }

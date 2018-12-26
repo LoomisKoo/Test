@@ -8,4 +8,7 @@
 
     <color name="tool_bar_base_background">#5a93d4</color>
     <color name="activity_root_layout_background">#00000000</color>
+
+    <!--水波纹或5.0以下选择器颜色-->
+    <color name="tabBackground">#777D7D7D</color>
 </resources>

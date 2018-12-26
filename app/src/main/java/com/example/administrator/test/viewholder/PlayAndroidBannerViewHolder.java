@@ -3,14 +3,11 @@ package com.example.administrator.test.viewholder;
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.example.administrator.test.R;
 import com.example.administrator.test.base.adapter.BaseViewHolder;
 import com.example.administrator.test.entity.BannerEntity;
-import com.example.administrator.test.entity.view.PlayAndroidViewEntity;
 import com.example.administrator.test.util.GlideImageLoader;
-import com.example.administrator.test.weidge.CustomTextView;
 import com.orhanobut.logger.Logger;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
