@@ -47,8 +47,9 @@ public class BasicParamsInterceptor implements Interceptor {
         long t1 = System.nanoTime();
 
         String method = request.method();
-        printParams(request.body());
+
         if ("POST".equals(method)) {
+
             StringBuilder sb = new StringBuilder();
             if (request.body() instanceof FormBody) {
                 FormBody body = (FormBody) request.body();
@@ -191,6 +192,5 @@ public class BasicParamsInterceptor implements Interceptor {
         public BasicParamsInterceptor build() {
             return interceptor;
         }
-
     }
 }

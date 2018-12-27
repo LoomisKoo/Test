@@ -21,9 +21,9 @@ import com.example.administrator.test.R;
 import com.example.administrator.test.base.adapter.HeaderFooterAdapter;
 import com.example.administrator.test.base.adapter.HeaderFooterViewModel;
 import com.example.administrator.test.base.adapter.QuickDelegateAdapter;
+import com.koo.loomis.swiperecyclerview.SwipeMenuRecyclerView;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.constant.RefreshState;
-import com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView;
 
 import java.util.ArrayList;
 import java.util.LinkedList;

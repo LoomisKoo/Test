@@ -39,15 +39,6 @@ public interface Api {
     Observable<ResponseBody> getArticleList(@Path("page") int page, @Query("cid") Integer cid);
 
     /**
-     * 玩安卓，文章列表、知识体系下的文章
-     *
-     * @param page 页码，从0开始
-     * @param cid  体系id
-     */
-    @GET("article/list/{page}/json")
-    Observable<ResponseBody> getHomeList(@Path("page") int page, @Query("cid") Integer cid);
-
-    /**
      * 收藏本站文章，errorCode返回0为成功
      *
      * @param id 文章id

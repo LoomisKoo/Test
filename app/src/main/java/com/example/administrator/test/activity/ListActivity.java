@@ -18,8 +18,7 @@ import com.example.administrator.test.base.adapter.BaseViewHolder;
 import com.example.administrator.test.base.adapter.QuickDelegateAdapter;
 import com.example.administrator.test.entity.TestEntity;
 import com.example.administrator.test.mvp.base.IBasePresenter;
-import com.yanzhenjie.recyclerview.swipe.SwipeItemClickListener;
-import com.yanzhenjie.recyclerview.swipe.SwipeMenuItem;
+import com.koo.loomis.swiperecyclerview.SwipeMenuItem;
 
 import java.util.ArrayList;
 
