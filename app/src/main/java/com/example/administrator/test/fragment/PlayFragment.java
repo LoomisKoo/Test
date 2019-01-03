@@ -17,12 +17,19 @@ import java.util.ArrayList;
  */
 public class PlayFragment extends BaseFragment {
     /**
-     * viewpager缓存数量
+     * viewpager数量
      */
-    private static final int VIEW_PAGER_OFFSCREEN_PAGE_LIMIT = 3;
+    private static final int VIEW_PAGER_COUNT = 3;
 
-    private ArrayList<String>   mTitleList = new ArrayList<>(3);
-    private ArrayList<Fragment> fragments  = new ArrayList<>(3);
+    /**
+     * viewpager下标
+     */
+    private static final int VIEW_PAGER_PAGE_1 = 0;
+    private static final int VIEW_PAGER_PAGE_2 = 1;
+    private static final int VIEW_PAGER_PAGE_3 = 2;
+
+    private ArrayList<String>   mTitleList = new ArrayList<>(VIEW_PAGER_COUNT);
+    private ArrayList<Fragment> fragments  = new ArrayList<>(VIEW_PAGER_COUNT);
     private ViewPager           viewPager;
     private BottomBar           mBottomBar;
 
@@ -69,7 +76,7 @@ public class PlayFragment extends BaseFragment {
 
     private void initViewPager(View view) {
         viewPager = view.findViewById(R.id.view_pager);
-        viewPager.setOffscreenPageLimit(VIEW_PAGER_OFFSCREEN_PAGE_LIMIT);
+        viewPager.setOffscreenPageLimit(VIEW_PAGER_COUNT);
         viewPager.setAdapter(new FragmentStatePagerAdapter(getChildFragmentManager()) {
             @Override
             public Fragment getItem(int position) {
@@ -114,13 +121,13 @@ public class PlayFragment extends BaseFragment {
 
             switch (tabId) {
                 case R.id.tab_discover:
-                    viewPager.setCurrentItem(0);
+                    viewPager.setCurrentItem(VIEW_PAGER_PAGE_1);
                     break;
                 case R.id.tab_friends:
-                    viewPager.setCurrentItem(1);
+                    viewPager.setCurrentItem(VIEW_PAGER_PAGE_2);
                     break;
                 case R.id.tab_music:
-                    viewPager.setCurrentItem(2);
+                    viewPager.setCurrentItem(VIEW_PAGER_PAGE_3);
                     break;
                 default:
                     break;
