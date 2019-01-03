@@ -26,9 +26,13 @@ import java.util.List;
  */
 @Route(path = ArouterHelper.ROUTE_ACTIVITY_MAIN)
 public class MainActivity extends BaseActivity {
-    private BottomBar      mBottomBar;
-    private List<Fragment> fragments;
-    private ViewPager      viewPager;
+    /**
+     * viewpager缓存数量
+     */
+    private static final int            VIEW_PAGER_OFFSCREEN_PAGE_LIMIT = 3;
+    private              BottomBar      mBottomBar;
+    private              List<Fragment> fragments;
+    private              ViewPager      viewPager;
 
     @Override
     public void widgetClick(View v) {
@@ -130,6 +134,7 @@ public class MainActivity extends BaseActivity {
         fragments.add(new Fragment1());
         fragments.add(new Fragment1());
         viewPager = (ViewPager) findViewById(R.id.view_pager);
+        viewPager.setOffscreenPageLimit(VIEW_PAGER_OFFSCREEN_PAGE_LIMIT);
 
         viewPager.setAdapter(new FragmentStatePagerAdapter(getSupportFragmentManager()) {
             @Override

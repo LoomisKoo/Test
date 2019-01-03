@@ -16,10 +16,16 @@ import java.util.ArrayList;
  * @author koo
  */
 public class PlayFragment extends BaseFragment {
+    /**
+     * viewpager缓存数量
+     */
+    private static final int VIEW_PAGER_OFFSCREEN_PAGE_LIMIT = 3;
+
     private ArrayList<String>   mTitleList = new ArrayList<>(3);
     private ArrayList<Fragment> fragments  = new ArrayList<>(3);
     private ViewPager           viewPager;
     private BottomBar           mBottomBar;
+
 
     @Override
     protected int setContentLayout() {
@@ -38,7 +44,6 @@ public class PlayFragment extends BaseFragment {
     @Override
     protected void initData(Bundle savedInstanceState) {
 
-
     }
 
     @Override
@@ -51,6 +56,8 @@ public class PlayFragment extends BaseFragment {
      */
     private void initFragmentList() {
         mTitleList.clear();
+        fragments.clear();
+
         mTitleList.add("玩安卓");
         mTitleList.add("知识体系");
         mTitleList.add("导航数据");
@@ -62,6 +69,7 @@ public class PlayFragment extends BaseFragment {
 
     private void initViewPager(View view) {
         viewPager = view.findViewById(R.id.view_pager);
+        viewPager.setOffscreenPageLimit(VIEW_PAGER_OFFSCREEN_PAGE_LIMIT);
         viewPager.setAdapter(new FragmentStatePagerAdapter(getChildFragmentManager()) {
             @Override
             public Fragment getItem(int position) {
@@ -81,7 +89,10 @@ public class PlayFragment extends BaseFragment {
 
             @Override
             public void onPageSelected(int position) {
-                mBottomBar.selectTabAtPosition(position, true);
+                System.out.println("position：" + position);
+                if (mBottomBar.getTabCount() - 1 >= position) {
+                    mBottomBar.selectTabAtPosition(position, true);
+                }
             }
 
             @Override

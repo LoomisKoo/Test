@@ -144,6 +144,7 @@ public class SplashActivity extends BaseActivity<SplashPresenter> implements Spl
      * 跳转主页面
      */
     private void startMainActivity() {
+        System.out.println("startMainActivity");
         ARouter.getInstance().build(ArouterHelper.ROUTE_ACTIVITY_MAIN).navigation();
         //跳转动画
         overridePendingTransition(R.anim.screen_zoom_in, R.anim.screen_zoom_out);

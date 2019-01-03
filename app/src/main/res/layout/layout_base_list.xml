@@ -35,7 +35,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
-        <com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView
+        <com.koo.loomis.swiperecyclerview.SwipeMenuRecyclerView
             android:id="@+id/base_pager_list_rv"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />

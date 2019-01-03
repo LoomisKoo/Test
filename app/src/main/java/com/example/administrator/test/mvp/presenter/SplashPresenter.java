@@ -39,7 +39,7 @@ public class SplashPresenter implements SplashContract.Presenter, SplashContract
 
     @Override
     public void onDestroy() {
-
+        model.onDestroy();
     }
 
     @Override
