@@ -17,28 +17,39 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <android.support.v7.widget.Toolbar xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/title_tool_bar"
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/appbar"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="#ff3d3d"
-            app:contentInsetStartWithNavigation="0dp"
-            app:layout_scrollFlags="enterAlways|scroll"
-            app:navigationContentDescription="返回"
-            app:navigationIcon="@mipmap/icon_back"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+            android:layout_height="wrap_content"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
-            <TextView
-                android:id="@+id/tv_gun_title"
+            <android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ellipsize="marquee"
-                android:singleLine="true"
-                android:textColor="@color/white"
-                android:textSize="18sp"
-                android:visibility="visible" />
+                android:layout_height="83dp"
+                android:background="@color/tool_bar_base_background"
+                android:fitsSystemWindows="true"
+                app:layout_scrollFlags="scroll|enterAlways|enterAlwaysCollapsed"
+                app:popupTheme="@style/ToolbarPopupTheme"
+                app:subtitle=""
+                app:title=""
+                app:titleTextColor="@color/white">
 
-        </android.support.v7.widget.Toolbar>
+                <TextView
+                    android:id="@+id/tv_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="40dp"
+                    android:ellipsize="marquee"
+                    android:gravity="center"
+                    android:singleLine="true"
+                    android:text="中心标题"
+                    android:textColor="@color/white"
+                    android:textSize="20sp" />
+            </android.support.v7.widget.Toolbar>
+        </android.support.design.widget.AppBarLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"

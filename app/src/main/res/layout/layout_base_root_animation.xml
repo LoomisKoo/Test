@@ -24,8 +24,8 @@
             android:fitsSystemWindows="true"
             app:layout_scrollFlags="scroll|enterAlways|enterAlwaysCollapsed"
             app:popupTheme="@style/ToolbarPopupTheme"
-            app:subtitle="小标题"
-            app:title="大标题"
+            app:subtitle=""
+            app:title=""
             app:titleTextColor="@color/white">
 
             <TextView
@@ -35,8 +35,7 @@
                 android:layout_gravity="center"
                 android:text="中心标题"
                 android:textColor="@color/white"
-                android:textSize="20sp"
-                android:visibility="gone" />
+                android:textSize="20sp" />
         </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
 

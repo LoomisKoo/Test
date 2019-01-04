@@ -23,6 +23,7 @@ import com.example.administrator.test.R;
 import com.example.administrator.test.base.activity.BaseActivity;
 import com.example.administrator.test.mvp.base.IBasePresenter;
 import com.example.administrator.test.util.ArouterHelper;
+import com.example.administrator.test.util.OnMultiClickListener;
 
 /**
  * @ProjectName: Test
@@ -43,7 +44,6 @@ public class WebActivity extends BaseActivity {
     private WebView     webView;
     // 全屏时视频加载view
     private FrameLayout videoFullView;
-    private Toolbar     mTitleToolBar;
     //TODO 加载视频相关
 //    private MyWebChromeClient mWebChromeClient;
     // title
@@ -124,23 +124,56 @@ public class WebActivity extends BaseActivity {
         mProgressBar = (ProgressBar) findViewById(R.id.pb_progress);
         webView = (WebView) findViewById(R.id.webview_detail);
         videoFullView = (FrameLayout) findViewById(R.id.video_fullView);
-        mTitleToolBar = (Toolbar) findViewById(R.id.title_tool_bar);
-        tvGunTitle = (TextView) findViewById(R.id.tv_gun_title);
+        tvGunTitle = (TextView) findViewById(R.id.tv_title);
 
-        initToolBar();
+        initToolbar();
     }
 
-    private void initToolBar() {
-        setSupportActionBar(mTitleToolBar);
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            //去除默认Title显示
-            actionBar.setDisplayShowTitleEnabled(false);
-        }
-        mTitleToolBar.setOverflowIcon(ContextCompat.getDrawable(this, R.mipmap.actionbar_more));
+//    private void initToolBar() {
+//        setSupportActionBar(mTitleToolBar);
+//        ActionBar actionBar = getSupportActionBar();
+//        if (actionBar != null) {
+//            //去除默认Title显示
+//            actionBar.setDisplayShowTitleEnabled(false);
+//        }
+//        setSupportActionBar(mToolbar);
+//        getSupportActionBar().setHomeButtonEnabled(getHomeButtonEnabled());
+//        getSupportActionBar().setDisplayHomeAsUpEnabled(getDisplayHomeAsUpEnabled());
+//
+//        mTitleToolBar.setOverflowIcon(ContextCompat.getDrawable(this, R.mipmap.actionbar_more));
+//        tvGunTitle.postDelayed(() -> tvGunTitle.setSelected(true), 1900);
+//        tvGunTitle.setText(title);
+//        setTitle(title);
+//    }
+
+    /**
+     * 初始化toolbar
+     */
+    private void initToolbar() {
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setHomeButtonEnabled(getHomeButtonEnabled());
+        getSupportActionBar().setDisplayHomeAsUpEnabled(getDisplayHomeAsUpEnabled());
+        mToolbar.setOnMenuItemClickListener(menuItem -> {
+            onMenuClickListener(menuItem.getItemId());
+            return true;
+        });
+
+        mToolbar.setBackgroundResource(R.color.tool_bar_base_background);
+
+        mToolbar.setNavigationOnClickListener(new OnMultiClickListener() {
+            @Override
+            public void onMultiClick(View v) {
+               finish();
+            }
+        });
+        mToolbar.setOverflowIcon(ContextCompat.getDrawable(this, R.mipmap.actionbar_more));
+        setTitle("");
+        setSubtitle("");
+//        setTitle(title);
         tvGunTitle.postDelayed(() -> tvGunTitle.setSelected(true), 1900);
         tvGunTitle.setText(title);
-        setTitle(title);
+//        setTitle(title);
     }
 
     @SuppressLint("SetJavaScriptEnabled")
