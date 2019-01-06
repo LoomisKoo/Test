@@ -132,7 +132,7 @@ public class SplashActivity extends BaseActivity<SplashPresenter> implements Spl
     @Override
     public void countDownAD(long countDown) {
         //开屏广告倒计时
-        String skip = "跳过（" + countDown + "）";
+        String skip = String.format(getString(R.string.splash_skip), countDown);
         btnSkip.setText(skip);
         //倒计时为 0 则跳转主页面
         if (COUNTDOWN_END_SECOND == countDown) {
@@ -144,7 +144,6 @@ public class SplashActivity extends BaseActivity<SplashPresenter> implements Spl
      * 跳转主页面
      */
     private void startMainActivity() {
-        System.out.println("startMainActivity");
         ARouter.getInstance().build(ArouterHelper.ROUTE_ACTIVITY_MAIN).navigation();
         //跳转动画
         overridePendingTransition(R.anim.screen_zoom_in, R.anim.screen_zoom_out);

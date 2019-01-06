@@ -14,5 +14,5 @@ package com.example.administrator.test.http;
  */
 public class HttpRequestType {
     public static final int REQUEST_TYPE_BANNER       = 0;
-    public static final int REQUEST_TYPE_ARTICEL_LIST = 1;
+    public static final int REQUEST_TYPE_ARTICLE_LIST = 1;
 }

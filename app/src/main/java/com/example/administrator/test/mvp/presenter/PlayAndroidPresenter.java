@@ -67,7 +67,7 @@ public class PlayAndroidPresenter implements PlayAndroidContract.Presenter {
 
                     List<ArticleListEntity.DataBean.ArticleInfoBean> entityList = articleListEntity.getData().getArticleListBean();
                     for (ArticleListEntity.DataBean.ArticleInfoBean entity : entityList) {
-                        playAndroidViewEntity = new PlayAndroidViewEntity(entity, HttpRequestType.REQUEST_TYPE_ARTICEL_LIST);
+                        playAndroidViewEntity = new PlayAndroidViewEntity(entity, HttpRequestType.REQUEST_TYPE_ARTICLE_LIST);
                         view.onSuccess(playAndroidViewEntity);
                     }
                 }

@@ -1,3 +1,30 @@
 <resources>
     <string name="app_name">Test</string>
+    <!--*******************各个页面*******************-->
+    <!--主页-->
+    <string name="main_title">主页</string>
+    <string name="main_subtitle">subtitle</string>
+    <!--开屏页-->
+    <string name="splash_skip">跳过（%1$d）</string>
+
+    <!--****安卓资料****-->
+    <!--安卓资料fragment-->
+    <string name="android_data_play_android">玩安卓</string>
+    <string name="android_data_knowledge_system">知识体系</string>
+    <string name="android_data_navigation">导航数据</string>
+    <!--玩安卓-->
+    <string name="play_android_collection_successfully">收藏成功</string>
+    <string name="play_android_collection_failed">收藏失败</string>
+    <string name="play_android_cancel_collection_successfully">取消收藏成功</string>
+    <string name="play_android_cancel_collection_failed">取消收藏失败</string>
+
+
+
+
+    <!--*******************共同*******************-->
+    <!--列表空状态-->
+    <string name="common_empty_list_load_failed">加载失败，请拉下重试！</string>
+    <!--Log相关-->
+
+
 </resources>

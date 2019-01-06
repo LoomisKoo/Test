@@ -4,14 +4,11 @@ import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.alibaba.android.vlayout.LayoutHelper;
 import com.alibaba.android.vlayout.layout.LinearLayoutHelper;
 import com.blankj.utilcode.util.ToastUtils;
-import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.chad.library.adapter.base.listener.OnItemChildClickListener;
 import com.example.administrator.test.R;
 import com.example.administrator.test.base.adapter.BaseViewHolder;
 import com.example.administrator.test.base.adapter.QuickDelegateAdapter;
@@ -28,7 +25,6 @@ import com.example.administrator.test.viewholder.PlayAndroidArticleListVH;
 import com.example.administrator.test.viewholder.PlayAndroidBannerViewHolder;
 
 import java.util.ArrayList;
-import java.util.List;
 
 
 /**
@@ -68,7 +64,7 @@ public class PlayAndroidFragment extends BaseListFragment<PlayAndroidViewEntity,
                     case HttpRequestType.REQUEST_TYPE_BANNER:
                         ((PlayAndroidBannerViewHolder) holder).setData((BannerEntity) item.getData());
                         break;
-                    case HttpRequestType.REQUEST_TYPE_ARTICEL_LIST:
+                    case HttpRequestType.REQUEST_TYPE_ARTICLE_LIST:
                         ((PlayAndroidArticleListVH) holder).setData((ArticleListEntity.DataBean.ArticleInfoBean) item.getData());
                         holder.setOnClickListener(R.id.cbCollect, v -> {
                             ArticleListEntity.DataBean.ArticleInfoBean bean = (ArticleListEntity.DataBean.ArticleInfoBean) item.getData();
@@ -76,13 +72,13 @@ public class PlayAndroidFragment extends BaseListFragment<PlayAndroidViewEntity,
                                 presenter.unCollectArticle(bean.getId(), new PlayAndroidPresenter.CallBack() {
                                     @Override
                                     public void onSuccess() {
-                                        ToastUtils.showShort("取消收藏成功");
+                                        ToastUtils.showShort(getString(R.string.play_android_cancel_collection_successfully));
                                         bean.setCollect(false);
                                     }
 
                                     @Override
                                     public void onError() {
-                                        ToastUtils.showShort("取消收藏失败");
+                                        ToastUtils.showShort(getString(R.string.play_android_cancel_collection_failed));
                                     }
                                 });
                             }
@@ -90,13 +86,13 @@ public class PlayAndroidFragment extends BaseListFragment<PlayAndroidViewEntity,
                                 presenter.collectArticle(bean.getId(), new PlayAndroidPresenter.CallBack() {
                                     @Override
                                     public void onSuccess() {
-                                        ToastUtils.showShort("收藏成功");
+                                        ToastUtils.showShort(getString(R.string.play_android_collection_successfully));
                                         bean.setCollect(true);
                                     }
 
                                     @Override
                                     public void onError() {
-                                        ToastUtils.showShort("收藏失败");
+                                        ToastUtils.showShort(getString(R.string.play_android_collection_failed));
                                     }
                                 });
                             }
@@ -119,13 +115,13 @@ public class PlayAndroidFragment extends BaseListFragment<PlayAndroidViewEntity,
                 switch (viewType) {
                     case HttpRequestType.REQUEST_TYPE_BANNER:
                         return new PlayAndroidBannerViewHolder(getContext(), parent, R.layout.header_play_android);
-                    case HttpRequestType.REQUEST_TYPE_ARTICEL_LIST:
+                    case HttpRequestType.REQUEST_TYPE_ARTICLE_LIST:
                         PlayAndroidArticleListVH vh = new PlayAndroidArticleListVH(getContext(), parent, R.layout.play_android_item_article);
                         vh.itemView.setOnClickListener(v -> {
                             int position = recyclerView.getChildAdapterPosition(v);
 
                             PlayAndroidViewEntity entity = adapter.getData().get(position);
-                            if (entity.getViewType() == HttpRequestType.REQUEST_TYPE_ARTICEL_LIST) {
+                            if (entity.getViewType() == HttpRequestType.REQUEST_TYPE_ARTICLE_LIST) {
                                 ArticleListEntity.DataBean.ArticleInfoBean bean  = (ArticleListEntity.DataBean.ArticleInfoBean) entity.getData();
                                 String                                     title = bean.getTitle();
                                 ARouter.getInstance().build(ArouterHelper.ROUTE_ACTIVITY_WEB).withString("title", title).withString("url", bean.getLink()).navigation();
@@ -175,12 +171,12 @@ public class PlayAndroidFragment extends BaseListFragment<PlayAndroidViewEntity,
     @Override
     public void onError(String msg) {
         stopRefresh();
-        checkEmpty("加载失败，请拉下重试！", R.mipmap.ic_load_err);
+        checkEmpty(getString(R.string.common_empty_list_load_failed), R.mipmap.ic_load_err);
     }
 
     @Override
     public void onComplete() {
         stopRefresh();
-        checkEmpty("加载失败，请拉下重试！", R.mipmap.ic_load_err);
+        checkEmpty(getString(R.string.common_empty_list_load_failed), R.mipmap.ic_load_err);
     }
 }

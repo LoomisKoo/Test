@@ -139,7 +139,7 @@ public class ListActivity extends BaseListActivity<TestEntity> {
             SwipeMenuItem deleteItem = new SwipeMenuItem(ListActivity.this).setBackground(R.drawable.gray_radius)
                                                                            .setText("删除")
                                                                            // 图标。
-                                                                           .setImage(R.mipmap.ic_launcher)
+                                                                           .setImage(R.mipmap.ic_bottom_bar_discover)
                                                                            .setTextColor(Color.WHITE)
                                                                            .setWidth(400)
                                                                            .setHeight(height);

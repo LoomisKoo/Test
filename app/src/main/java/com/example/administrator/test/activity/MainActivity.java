@@ -100,7 +100,6 @@ public class MainActivity extends BaseActivity {
                 break;
             case R.id.action_notification:
                 ARouter.getInstance().build(ArouterHelper.ROUTE_ACTIVITY_LIST_ACTIVITY).navigation();
-                showToast("Notification");
                 break;
 
             default:
@@ -119,9 +118,8 @@ public class MainActivity extends BaseActivity {
     }
 
     private void initTopBar() {
-        setTitle("大标题");
-        setSubtitle("subtitle");
-        setTitle("title");
+        setTitle(getString(R.string.main_title));
+        setSubtitle(getString(R.string.main_subtitle));
         setSteepStatusBar(true);
     }
 

@@ -21,19 +21,23 @@ import org.json.JSONObject;
 public class JsonLogFormat {
     private static boolean isLogger = true;
 
-    // 打印标签
-    private static String logtag = "logtag";
+    /**
+     * 打印标签
+     */
+    private static String TAG = "JsonFormat";
 
     /**
      * 点击跳转到类的关键字  eclipse是 at android studio是☞.(任意文字加.)
      */
-    private static       String jumpKeyWord   = "  ☞. ";
+    private static       String jumpKeyWord    = "  ☞. ";
     /**
-     * logcat在实现上对于message的内存分配大概,2k左右, 所以超过的内容都直接被丢弃,设置文本长度超过LOG_MAXLENGTH分多条打印
+     * logcat在实现上对于message的内存分配大概,2k左右, 所以超过的内容都直接被丢弃,设置文本长度超过LOG_MAX_LENGTH分多条打印
      */
-    private final static int    LOG_MAXLENGTH = 2048;
+    private final static int    LOG_MAX_LENGTH = 2048;
 
-    // 记录上次的logLocation
+    /**
+     * 记录上次的logLocation
+     */
     private static String lastLogMethod = "";
 
 
@@ -44,13 +48,13 @@ public class JsonLogFormat {
      */
     public static void i(String text) {
         if (isLogger) {
-            Log.i(logtag, logContent(text) + logLocation(0));
+            Log.i(TAG, logContent(text) + logLocation(0));
         }
     }
 
     public static void i(String text, int index) {
         if (isLogger) {
-            Log.i(logtag, logContent(text) + logLocation(index));
+            Log.i(TAG, logContent(text) + logLocation(index));
         }
     }
 
@@ -62,7 +66,7 @@ public class JsonLogFormat {
      */
     public static void e(String text) {
         if (isLogger) {
-            Log.e(logtag, logContent(text) + logLocation(0));
+            Log.e(TAG, logContent(text) + logLocation(0));
         }
     }
 
@@ -74,7 +78,7 @@ public class JsonLogFormat {
      */
     public static void e(String msg, Exception e) {
         if (isLogger) {
-            Log.e(logtag, msg + logLocation(0), e);
+            Log.e(TAG, msg + logLocation(0), e);
         }
     }
 
@@ -97,8 +101,8 @@ public class JsonLogFormat {
      */
     public static void json(String prefix, String json) {
         if (isLogger) {
-            String text = prefix + fomatJson(json);
-            Log.i(logtag, logContent(text) + logLocation(0));
+            String text = prefix + formatJson(json);
+            Log.i(TAG, logContent(text) + logLocation(0));
         }
     }
 
@@ -109,34 +113,34 @@ public class JsonLogFormat {
      * @return
      */
     private static String logContent(String text) {
-        if (text.length() < 50) {// 内容长度不超过50，前面加空格加到50
-            int minLeng = 50 - text.length();
-            // Log.i(logtag, "leng========" + leng + "   " + text.length());
-            if (minLeng > 0) {
+        // 内容长度不超过50，前面加空格加到50
+        if (text.length() < 50) {
+            int minLength = 50 - text.length();
+            if (minLength > 0) {
                 StringBuilder stringBuilder = new StringBuilder();
-                for (int i = 0; i < minLeng; i++) {
+                for (int i = 0; i < minLength; i++) {
                     stringBuilder.append(" ");
                 }
                 text = text + stringBuilder.toString();
             }
         }
-        else if (text.length() > LOG_MAXLENGTH) {// 内容超过logcat单条打印上限，分批打印
-            //Log.i(logtag, "text长度=========" + text.length());
-            int logTime = text.length() / LOG_MAXLENGTH;
+        // 内容超过logcat单条打印上限，分批打印
+        else if (text.length() > LOG_MAX_LENGTH) {
+            int logTime = text.length() / LOG_MAX_LENGTH;
             for (int i = 0; i < logTime; i++) {
-                String leng = text.substring(i * LOG_MAXLENGTH, (i + 1)
-                        * LOG_MAXLENGTH);
+                String length = text.substring(i * LOG_MAX_LENGTH, (i + 1)
+                        * LOG_MAX_LENGTH);
                 // 提示
                 if (i == 0) {
-                    Log.i(logtag, "打印分" + logTime + "条显示 :" + leng);
+                    Log.i(TAG, "打印分" + logTime + "条显示 :" + length);
                 }
                 else {
-                    Log.i(logtag, "接上条↑" + leng);
+                    Log.i(TAG, "接上条↑" + length);
                 }
 
             }
             text = "接上条↑"
-                    + text.substring(logTime * LOG_MAXLENGTH, text.length());
+                    + text.substring(logTime * LOG_MAX_LENGTH, text.length());
         }
         return text;
     }
@@ -151,8 +155,6 @@ public class JsonLogFormat {
         StringBuilder     stringBuilder = new StringBuilder();
         stringBuilder.append(jumpKeyWord).append(" (").append(logStackTrace.getFileName())
                      .append(":").append(logStackTrace.getLineNumber() + ")");
-        // Log.i(logtag, "leng========" + stringBuilder + "   " +
-        // lastLogMethod);
         if (stringBuilder.toString().equals(lastLogMethod)) {
             stringBuilder = new StringBuilder("");
         }
@@ -169,7 +171,7 @@ public class JsonLogFormat {
      * @param jsonStr
      * @return
      */
-    private static String fomatJson(String jsonStr) {
+    private static String formatJson(String jsonStr) {
         try {
             jsonStr = jsonStr.trim();
             if (jsonStr.startsWith("{")) {
@@ -196,7 +198,6 @@ public class JsonLogFormat {
         StackTraceElement logTackTraces = null;
         StackTraceElement[] stackTraces = Thread.currentThread()
                                                 .getStackTrace();
-        // Log.i(logtag, JSONSerializer.toJson(stackTraces));
         for (int i = 0; i < stackTraces.length; i++) {
             StackTraceElement stackTrace = stackTraces[i];
             if (stackTrace.getClassName().equals(JsonLogFormat.class.getName())) {
@@ -208,8 +209,8 @@ public class JsonLogFormat {
         return logTackTraces;
     }
 
-    public static void setLogtag(String logtag) {
-        JsonLogFormat.logtag = logtag;
+    public static void setTAG(String TAG) {
+        JsonLogFormat.TAG = TAG;
     }
 
     public static void setIsLog(boolean isLogger) {

@@ -39,20 +39,31 @@ import com.example.administrator.test.util.OnMultiClickListener;
  */
 @Route(path = ArouterHelper.ROUTE_ACTIVITY_WEB)
 public class WebActivity extends BaseActivity {
-    // 进度条
+    /**
+     * 进度条
+     */
     private ProgressBar mProgressBar;
     private WebView     webView;
-    // 全屏时视频加载view
+    /**
+     * 全屏时视频加载view
+     */
     private FrameLayout videoFullView;
     //TODO 加载视频相关
 //    private MyWebChromeClient mWebChromeClient;
-    // title
+
+    /**
+     * title
+     */
     @Autowired
     String title;
-    // 网页链接
+    /**
+     * 网页链接
+     */
     @Autowired
     String url;
-    // 可滚动的title 使用简单 没有渐变效果，文字两旁有阴影
+    /**
+     * 可滚动的title 使用简单 没有渐变效果，文字两旁有阴影
+     */
     private TextView tvGunTitle;
 
     @Override
@@ -120,7 +131,6 @@ public class WebActivity extends BaseActivity {
     }
 
     private void initTitle() {
-//        StatusBarUtil.setColor(this, CommonUtils.getColor(R.color.colorTheme), 0);
         mProgressBar = (ProgressBar) findViewById(R.id.pb_progress);
         webView = (WebView) findViewById(R.id.webview_detail);
         videoFullView = (FrameLayout) findViewById(R.id.video_fullView);
@@ -128,23 +138,6 @@ public class WebActivity extends BaseActivity {
 
         initToolbar();
     }
-
-//    private void initToolBar() {
-//        setSupportActionBar(mTitleToolBar);
-//        ActionBar actionBar = getSupportActionBar();
-//        if (actionBar != null) {
-//            //去除默认Title显示
-//            actionBar.setDisplayShowTitleEnabled(false);
-//        }
-//        setSupportActionBar(mToolbar);
-//        getSupportActionBar().setHomeButtonEnabled(getHomeButtonEnabled());
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(getDisplayHomeAsUpEnabled());
-//
-//        mTitleToolBar.setOverflowIcon(ContextCompat.getDrawable(this, R.mipmap.actionbar_more));
-//        tvGunTitle.postDelayed(() -> tvGunTitle.setSelected(true), 1900);
-//        tvGunTitle.setText(title);
-//        setTitle(title);
-//    }
 
     /**
      * 初始化toolbar
@@ -164,7 +157,7 @@ public class WebActivity extends BaseActivity {
         mToolbar.setNavigationOnClickListener(new OnMultiClickListener() {
             @Override
             public void onMultiClick(View v) {
-               finish();
+                finish();
             }
         });
         mToolbar.setOverflowIcon(ContextCompat.getDrawable(this, R.mipmap.actionbar_more));

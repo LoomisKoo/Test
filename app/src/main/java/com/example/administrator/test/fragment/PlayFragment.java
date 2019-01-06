@@ -65,9 +65,9 @@ public class PlayFragment extends BaseFragment {
         mTitleList.clear();
         fragments.clear();
 
-        mTitleList.add("玩安卓");
-        mTitleList.add("知识体系");
-        mTitleList.add("导航数据");
+        mTitleList.add(getString(R.string.android_data_play_android));
+        mTitleList.add(getString(R.string.android_data_knowledge_system));
+        mTitleList.add(getString(R.string.android_data_navigation));
 
         fragments.add(new PlayAndroidFragment());
         fragments.add(new Fragment1());

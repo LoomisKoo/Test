@@ -27,7 +27,8 @@ import static okhttp3.internal.Util.UTF_8;
  */
 public class BasicParamsInterceptor implements Interceptor {
 
-    public static String TAG = "httpLog";
+    public static final String TAG = "httpLog";
+    public static final String POST = "POST";
 
     private Map<String, String> queryParamsMap  = new HashMap<>();
     private Map<String, String> paramsMap       = new HashMap<>();
@@ -48,8 +49,7 @@ public class BasicParamsInterceptor implements Interceptor {
 
         String method = request.method();
 
-        if ("POST".equals(method)) {
-
+        if (POST.equals(method)) {
             StringBuilder sb = new StringBuilder();
             if (request.body() instanceof FormBody) {
                 FormBody body = (FormBody) request.body();
@@ -57,7 +57,7 @@ public class BasicParamsInterceptor implements Interceptor {
                     sb.append(body.encodedName(i) + "=" + body.encodedValue(i) + ",");
                 }
                 sb.delete(sb.length() - 1, sb.length());
-                Log.i(TAG, String.format("发送请求 %s on %s %n%s %nRequestParams:{%s}",
+                Log.i(TAG, String.format("发送请求 %s on %s %n%s %n RequestParams:{%s}",
                                          request.url(), chain.connection(), request.headers(), sb.toString()));
             }
         }
@@ -71,9 +71,8 @@ public class BasicParamsInterceptor implements Interceptor {
         long         t2           = System.nanoTime();
         ResponseBody responseBody = response.peekBody(1024 * 1024);
         JsonLogFormat.setIsLog(true);
-        JsonLogFormat.setLogtag("httpLog");
+        JsonLogFormat.setTAG(TAG);
         JsonLogFormat.json(responseBody.string());
-
         Log.i(TAG, "请求时间：" + (t2 - t1) / 1e6d + "ms");
 
         return response;
