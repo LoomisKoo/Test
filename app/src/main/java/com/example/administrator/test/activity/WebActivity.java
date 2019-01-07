@@ -2,11 +2,9 @@ package com.example.administrator.test.activity;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
@@ -134,7 +132,7 @@ public class WebActivity extends BaseActivity {
         mProgressBar = (ProgressBar) findViewById(R.id.pb_progress);
         webView = (WebView) findViewById(R.id.webview_detail);
         videoFullView = (FrameLayout) findViewById(R.id.video_fullView);
-        tvGunTitle = (TextView) findViewById(R.id.tv_title);
+        tvGunTitle = (TextView) findViewById(R.id.base_root_title_tv);
 
         initToolbar();
     }

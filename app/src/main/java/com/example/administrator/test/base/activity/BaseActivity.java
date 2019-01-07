@@ -9,7 +9,11 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.ColorRes;
+import android.support.annotation.DrawableRes;
 import android.support.annotation.StringRes;
+import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -31,6 +35,8 @@ import me.imid.swipebacklayout.lib.app.SwipeBackActivity;
  * @author koo
  */
 public abstract class BaseActivity<P extends IBasePresenter> extends SwipeBackActivity implements View.OnClickListener {
+    protected       DrawerLayout    drawerlayout;
+    protected       NavigationView  navView;
     protected       Toolbar         mToolbar;
     private         TextView        tvCenterTitle;
     protected       P               presenter;
@@ -75,6 +81,9 @@ public abstract class BaseActivity<P extends IBasePresenter> extends SwipeBackAc
         initMainLayout();
         initToolbar();
 
+        drawerlayout = (DrawerLayout) findViewById(R.id.base_root_dl);
+        navView = (NavigationView) findViewById(R.id.base_root_nav_view);
+
         presenter = createPresenter();
         initSwipeLayout();
         initView(savedInstanceState);
@@ -100,10 +109,10 @@ public abstract class BaseActivity<P extends IBasePresenter> extends SwipeBackAc
             getLayoutInflater().inflate(bindContentLayout(), (ViewGroup) findViewById(R.id.content_layout_ll));
         }
         if (0 != bindTopLayout()) {
-            getLayoutInflater().inflate(bindTopLayout(), (ViewGroup) findViewById(R.id.top_layout_ll));
+            getLayoutInflater().inflate(bindTopLayout(), (ViewGroup) findViewById(R.id.base_root_top_layout_ll));
         }
         if (0 != bindBottomLayout()) {
-            getLayoutInflater().inflate(bindBottomLayout(), (ViewGroup) findViewById(R.id.bottom_layout_ll));
+            getLayoutInflater().inflate(bindBottomLayout(), (ViewGroup) findViewById(R.id.base_root_bottom_layout_ll));
         }
     }
 
@@ -122,7 +131,8 @@ public abstract class BaseActivity<P extends IBasePresenter> extends SwipeBackAc
      */
     private void initToolbar() {
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
-        tvCenterTitle = (TextView) findViewById(R.id.tv_title);
+        mToolbar.setTitle("");
+        tvCenterTitle = (TextView) findViewById(R.id.base_root_title_tv);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setHomeButtonEnabled(getHomeButtonEnabled());
         getSupportActionBar().setDisplayHomeAsUpEnabled(getDisplayHomeAsUpEnabled());
@@ -439,6 +449,14 @@ public abstract class BaseActivity<P extends IBasePresenter> extends SwipeBackAc
     }
 
     /**
+     * 设置toolBar左边图标
+     * @param resId
+     */
+    public void setNavigationIcon(@DrawableRes int resId) {
+        mToolbar.setNavigationIcon(resId);
+    }
+
+    /**
      * 设置toolbar的子标题
      *
      * @param subtitleId
@@ -553,7 +571,7 @@ public abstract class BaseActivity<P extends IBasePresenter> extends SwipeBackAc
      * @param color
      */
     public void setRootLayoutBackGround(int color) {
-        findViewById(R.id.base_root_layout).setBackgroundColor(color);
+        findViewById(R.id.base_root_cl).setBackgroundColor(color);
     }
 
     public void hideToolBar() {
@@ -608,4 +626,11 @@ public abstract class BaseActivity<P extends IBasePresenter> extends SwipeBackAc
         return false;
     }
 
+    /**
+     * 打开侧边菜单
+     */
+    protected void openDrawer() {
+        // 开启菜单
+        drawerlayout.openDrawer(GravityCompat.START);
+    }
 }

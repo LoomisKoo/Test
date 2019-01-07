@@ -37,7 +37,7 @@
                 app:titleTextColor="@color/white">
 
                 <TextView
-                    android:id="@+id/tv_title"
+                    android:id="@+id/base_root_title_tv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -45,7 +45,7 @@
                     android:ellipsize="marquee"
                     android:gravity="center"
                     android:singleLine="true"
-                    android:text="中心标题"
+                    android:text=""
                     android:textColor="@color/white"
                     android:textSize="20sp" />
             </android.support.v7.widget.Toolbar>

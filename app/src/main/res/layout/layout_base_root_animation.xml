@@ -2,7 +2,7 @@
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/base_root_layout"
+    android:id="@+id/base_root_cl"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
@@ -29,11 +29,11 @@
             app:titleTextColor="@color/white">
 
             <TextView
-                android:id="@+id/tv_title"
+                android:id="@+id/base_root_title_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="中心标题"
+                android:text=""
                 android:textColor="@color/white"
                 android:textSize="20sp" />
         </android.support.v7.widget.Toolbar>
@@ -45,14 +45,14 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        app:layout_constraintBottom_toTopOf="@id/bottom_layout_ll"
+        app:layout_constraintBottom_toTopOf="@id/base_root_bottom_layout_ll"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/bottom_layout_ll"
+        android:id="@+id/base_root_bottom_layout_ll"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"

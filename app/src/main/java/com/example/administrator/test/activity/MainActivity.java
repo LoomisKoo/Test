@@ -1,11 +1,15 @@
 package com.example.administrator.test.activity;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
+import android.util.TypedValue;
 import android.view.View;
+import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
@@ -79,7 +83,9 @@ public class MainActivity extends BaseActivity {
         initViewPager();
         initTopBar();
         initBottomBar();
+        initDrawerLayout();
         setEnableGesture(false);
+
     }
 
     @Override
@@ -117,10 +123,86 @@ public class MainActivity extends BaseActivity {
         return false;
     }
 
+    @Override
+    protected void OnNavigationOnClick() {
+        super.OnNavigationOnClick();
+        drawerlayout.openDrawer(GravityCompat.START);
+    }
+
     private void initTopBar() {
-        setTitle(getString(R.string.main_title));
-        setSubtitle(getString(R.string.main_subtitle));
+        setNavigationIcon(R.mipmap.toolbar_menu);
         setSteepStatusBar(true);
+    }
+
+    /**
+     * inflateHeaderView 进来的布局要宽一些
+     */
+    private void initDrawerLayout() {
+        navView.inflateHeaderView(R.layout.layout_main_draw_view);
+        View headerView = navView.getHeaderView(0);
+        //夜间模式
+//        bind.dayNightSwitch.setChecked(SPUtils.getNightMode());
+        //TODO 设置头像和等级
+//        ImageLoadUtil.displayCircle(bind.ivAvatar, ConstantsImageUrl.IC_AVATAR);
+        TextView homePageTv, downLoadTv, feedBackTv, aboutTv, loginTv, collectionTv, exitTv;
+        homePageTv = headerView.findViewById(R.id.project_home_page_tv);
+        downLoadTv = headerView.findViewById(R.id.down_load_tv);
+        feedBackTv = headerView.findViewById(R.id.feed_back_tv);
+        aboutTv = headerView.findViewById(R.id.about_tv);
+        loginTv = headerView.findViewById(R.id.login_tv);
+        collectionTv = headerView.findViewById(R.id.collection_tv);
+
+        exitTv = headerView.findViewById(R.id.exit_tv);
+        //项目主页
+        homePageTv.setOnClickListener(v -> {
+            showToast("项目主页");
+        });
+        //扫码下载
+        downLoadTv.setOnClickListener(v -> {
+            showToast("扫码下载");
+        });
+        //问题反馈
+        feedBackTv.setOnClickListener(v -> {
+            showToast("问题反馈");
+        });
+        //关于
+        aboutTv.setOnClickListener(v -> {
+            showToast("关于");
+        });
+        //登录
+        loginTv.setOnClickListener(v -> {
+            showToast("登录");
+        });
+        //我的收藏
+        collectionTv.setOnClickListener(v -> {
+            showToast("我的收藏");
+        });
+        //退出应用
+        exitTv.setOnClickListener(v -> {
+            showToast("退出应用");
+        });
+
+        setDrawerLayoutIconSize(homePageTv);
+        setDrawerLayoutIconSize(downLoadTv);
+        setDrawerLayoutIconSize(feedBackTv);
+        setDrawerLayoutIconSize(aboutTv);
+        setDrawerLayoutIconSize(loginTv);
+        setDrawerLayoutIconSize(collectionTv);
+        setDrawerLayoutIconSize(exitTv);
+    }
+
+    /**
+     * 设置侧边菜单栏的菜单图标大小
+     *
+     * @param textView
+     */
+    private void setDrawerLayoutIconSize(TextView textView) {
+        Drawable drawable = textView.getCompoundDrawablesRelative()[0];
+        //第一0是距左边距离，第二0是距上边距离，30、35分别是长宽
+        int drawableSize = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 20, getResources().getDisplayMetrics());
+        drawable.setBounds(0, 0, drawableSize, drawableSize);
+        //只放左边
+        textView.setCompoundDrawables(drawable, null, null, null);
     }
 
     /**

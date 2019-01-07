@@ -18,9 +18,6 @@
     <string name="play_android_cancel_collection_successfully">取消收藏成功</string>
     <string name="play_android_cancel_collection_failed">取消收藏失败</string>
 
-
-
-
     <!--*******************共同*******************-->
     <!--列表空状态-->
     <string name="common_empty_list_load_failed">加载失败，请拉下重试！</string>
