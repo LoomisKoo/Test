@@ -61,7 +61,7 @@
         android:drawablePadding="10dp"
         android:gravity="center_vertical"
         android:paddingStart="10dp"
-        android:text="项目主页"
+        android:text="@string/drawer_layout_project_home_page"
         android:textColor="@color/black"
         android:textSize="17sp"
 
@@ -86,7 +86,7 @@
         android:drawablePadding="10dp"
         android:gravity="center_vertical"
         android:paddingStart="10dp"
-        android:text="扫码下载"
+        android:text="@string/drawer_layout_down_load"
         android:textColor="@color/black"
         android:textSize="17sp"
 
@@ -113,7 +113,7 @@
         android:drawablePadding="10dp"
         android:gravity="center_vertical"
         android:paddingStart="10dp"
-        android:text="问题反馈"
+        android:text="@string/drawer_layout_feed_back"
         android:textColor="@color/black"
         android:textSize="17sp"
 
@@ -138,7 +138,7 @@
         android:drawablePadding="10dp"
         android:gravity="center_vertical"
         android:paddingStart="10dp"
-        android:text="关于"
+        android:text="@string/drawer_layout_about"
         android:textColor="@color/black"
         android:textSize="17sp"
 
@@ -163,7 +163,7 @@
         android:drawablePadding="10dp"
         android:gravity="center_vertical"
         android:paddingStart="10dp"
-        android:text="账号登录"
+        android:text="@string/drawer_layout_login"
         android:textColor="@color/black"
         android:textSize="17sp"
 
@@ -188,7 +188,7 @@
         android:drawablePadding="10dp"
         android:gravity="center_vertical"
         android:paddingStart="10dp"
-        android:text="我的收藏"
+        android:text="@string/drawer_layout_my_collection"
         android:textColor="@color/black"
         android:textSize="17sp"
 
@@ -213,7 +213,7 @@
         android:drawablePadding="10dp"
         android:gravity="center_vertical"
         android:paddingStart="10dp"
-        android:text="退出应用"
+        android:text="@string/drawer_layout_exit"
         android:textColor="@color/black"
         android:textSize="17sp"
 

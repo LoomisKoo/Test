@@ -6,6 +6,14 @@
     <string name="main_subtitle">subtitle</string>
     <!--开屏页-->
     <string name="splash_skip">跳过（%1$d）</string>
+    <!--侧拉菜单-->
+    <string name="drawer_layout_project_home_page">项目主页</string>
+    <string name="drawer_layout_down_load">扫码下载</string>
+    <string name="drawer_layout_feed_back">问题反馈</string>
+    <string name="drawer_layout_about">关于</string>
+    <string name="drawer_layout_login">账号登录</string>
+    <string name="drawer_layout_my_collection">我的收藏</string>
+    <string name="drawer_layout_exit">退出登录</string>
 
     <!--****安卓资料****-->
     <!--安卓资料fragment-->
