@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="@mipmap/bg_login"
     android:layout_height="match_parent">
 
     <Button
@@ -14,7 +15,7 @@
         android:background="@drawable/bg_login_github_btn"
         android:text="Github"
         android:textAllCaps="false"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/login_play_android_btn"
         app:layout_constraintEnd_toEndOf="parent"
@@ -32,7 +33,7 @@
         android:layout_marginEnd="30dp"
         android:background="@drawable/bg_login_github_btn"
         android:text="玩安卓"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

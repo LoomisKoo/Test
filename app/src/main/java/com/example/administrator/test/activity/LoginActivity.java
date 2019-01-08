@@ -73,6 +73,9 @@ public class LoginActivity extends BaseActivity {
 
     @Override
     public void initView(Bundle savedInstanceState) {
+        showCenterTitle(true);
+        setCenterTitle("登录");
+
         loginGithubBtn.setOnClickListener(v -> ARouter.getInstance().build(ArouterHelper.ROUTE_ACTIVITY_WEB).withString("title", "登录Github").withString("url", GITHUB_URL).navigation());
 
         loginPlayAndroidBtn.setOnClickListener(v -> ARouter.getInstance().build(ArouterHelper.ROUTE_ACTIVITY_LOGIN_PLAY_ANDROID).navigation());
