@@ -146,7 +146,7 @@ public class MainActivity extends BaseActivity {
      * inflateHeaderView 进来的布局要宽一些
      */
     private void initDrawerLayout() {
-        navView.inflateHeaderView(R.layout.layout_main_draw_view);
+        navView.inflateHeaderView(R.layout.layout_main_drawer_view);
         View headerView = navView.getHeaderView(0);
         //夜间模式
 //        bind.dayNightSwitch.setChecked(SPUtils.getNightMode());

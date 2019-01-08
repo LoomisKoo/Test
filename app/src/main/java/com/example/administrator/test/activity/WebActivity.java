@@ -24,7 +24,6 @@ import com.example.administrator.test.base.activity.BaseActivity;
 import com.example.administrator.test.mvp.base.IBasePresenter;
 import com.example.administrator.test.util.ArouterHelper;
 
-import com.example.administrator.test.util.OnMultiClickListener;
 import com.example.administrator.test.webview.CustomWebViewClient;
 import com.example.administrator.test.webview.IWebPageView;
 
