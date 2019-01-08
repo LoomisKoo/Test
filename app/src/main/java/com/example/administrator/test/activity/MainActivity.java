@@ -33,10 +33,18 @@ public class MainActivity extends BaseActivity {
     /**
      * viewpager缓存数量
      */
-    private static final int            VIEW_PAGER_OFFSCREEN_PAGE_LIMIT = 3;
-    private              BottomBar      mBottomBar;
-    private              List<Fragment> fragments;
-    private              ViewPager      viewPager;
+    private static final int VIEW_PAGER_OFFSCREEN_PAGE_LIMIT = 3;
+
+    /**
+     * Tab下标
+     */
+    private static final int TAB_TYPE_DISCOVER = 0;
+    private static final int TAB_TYPE_FRIENDS  = 1;
+    private static final int TAB_TYPE_MUSIC    = 2;
+
+    private BottomBar      mBottomBar;
+    private List<Fragment> fragments;
+    private ViewPager      viewPager;
 
     @Override
     public void widgetClick(View v) {
@@ -171,7 +179,7 @@ public class MainActivity extends BaseActivity {
         });
         //登录
         loginTv.setOnClickListener(v -> {
-            showToast("登录");
+            ARouter.getInstance().build(ArouterHelper.ROUTE_ACTIVITY_LOGIN).navigation();
         });
         //我的收藏
         collectionTv.setOnClickListener(v -> {
@@ -249,20 +257,20 @@ public class MainActivity extends BaseActivity {
      */
     private void initBottomBar() {
         mBottomBar = (BottomBar) findViewById(R.id.bottomBar);
-        //已小红点形式显示新消息数量
+        //以小红点形式显示新消息数量
         mBottomBar.getTabWithId(R.id.tab_discover).setBadgeCount(5);
 
         mBottomBar.setOnTabSelectListener(tabId -> {
 
             switch (tabId) {
                 case R.id.tab_discover:
-                    viewPager.setCurrentItem(0);
+                    viewPager.setCurrentItem(TAB_TYPE_DISCOVER);
                     break;
                 case R.id.tab_friends:
-                    viewPager.setCurrentItem(1);
+                    viewPager.setCurrentItem(TAB_TYPE_FRIENDS);
                     break;
                 case R.id.tab_music:
-                    viewPager.setCurrentItem(2);
+                    viewPager.setCurrentItem(TAB_TYPE_MUSIC);
                     break;
                 default:
                     break;

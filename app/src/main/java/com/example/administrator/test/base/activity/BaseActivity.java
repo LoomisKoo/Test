@@ -28,6 +28,7 @@ import com.example.administrator.test.R;
 import com.example.administrator.test.mvp.base.IBasePresenter;
 import com.example.administrator.test.util.OnMultiClickListener;
 
+import butterknife.ButterKnife;
 import me.imid.swipebacklayout.lib.SwipeBackLayout;
 import me.imid.swipebacklayout.lib.app.SwipeBackActivity;
 
@@ -79,6 +80,7 @@ public abstract class BaseActivity<P extends IBasePresenter> extends SwipeBackAc
         }
 
         initMainLayout();
+        ButterKnife.bind(this);
         initToolbar();
 
         drawerlayout = (DrawerLayout) findViewById(R.id.base_root_dl);
@@ -450,6 +452,7 @@ public abstract class BaseActivity<P extends IBasePresenter> extends SwipeBackAc
 
     /**
      * 设置toolBar左边图标
+     *
      * @param resId
      */
     public void setNavigationIcon(@DrawableRes int resId) {
