@@ -1,12 +1,5 @@
 package com.example.administrator.test.mvp.base;
 
-import android.arch.lifecycle.Lifecycle;
-import android.arch.lifecycle.LifecycleObserver;
-import android.arch.lifecycle.LifecycleOwner;
-import android.arch.lifecycle.OnLifecycleEvent;
-
-import org.jetbrains.annotations.NotNull;
-
 
 /**
  * @author koo

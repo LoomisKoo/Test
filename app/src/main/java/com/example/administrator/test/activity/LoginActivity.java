@@ -34,7 +34,7 @@ public class LoginActivity extends BaseActivity {
     @BindView(R.id.login_play_android_btn)
     Button loginPlayAndroidBtn;
 
-    private static final String GITHUB_URL = "https://github.com";
+    private static final String GITHUB_URL = "https://github.com/login";
 
     @Override
     public void widgetClick(View v) {
@@ -73,7 +73,7 @@ public class LoginActivity extends BaseActivity {
 
     @Override
     public void initView(Bundle savedInstanceState) {
-        loginGithubBtn.setOnClickListener(v -> ARouter.getInstance().build(ArouterHelper.ROUTE_ACTIVITY_WEB).withString("title", "").withString("url", GITHUB_URL).navigation());
+        loginGithubBtn.setOnClickListener(v -> ARouter.getInstance().build(ArouterHelper.ROUTE_ACTIVITY_WEB).withString("title", "登录Github").withString("url", GITHUB_URL).navigation());
 
         loginPlayAndroidBtn.setOnClickListener(v -> ARouter.getInstance().build(ArouterHelper.ROUTE_ACTIVITY_LOGIN_PLAY_ANDROID).navigation());
 
@@ -97,6 +97,12 @@ public class LoginActivity extends BaseActivity {
     @Override
     public void initData(Context mContext) {
 
+    }
+
+    @Override
+    protected void OnNavigationOnClick() {
+        super.OnNavigationOnClick();
+        finish();
     }
 
     @Override

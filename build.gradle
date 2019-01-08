@@ -8,9 +8,8 @@ buildscript {
     dependencies {
         //AOP
         classpath 'com.hujiang.aspectjx:gradle-android-plugin-aspectjx:2.0.0'
-        classpath 'com.android.tools.build:gradle:3.2.1'
 
-        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
+        classpath 'com.android.tools.build:gradle:3.2.1'
     }
 }
 

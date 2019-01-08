@@ -1,8 +1,6 @@
 package com.example.administrator.test.base.adapter;
 
-import android.support.annotation.LayoutRes;
-
-import com.example.administrator.test.base.adapter.BaseViewHolder;
+import androidx.annotation.LayoutRes;
 
 /**
  * @author koo

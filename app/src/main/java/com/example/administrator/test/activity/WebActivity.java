@@ -4,8 +4,10 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.Toolbar;
+
+import androidx.core.content.ContextCompat;
+import androidx.appcompat.widget.Toolbar;
+
 import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebSettings;
@@ -21,7 +23,10 @@ import com.example.administrator.test.R;
 import com.example.administrator.test.base.activity.BaseActivity;
 import com.example.administrator.test.mvp.base.IBasePresenter;
 import com.example.administrator.test.util.ArouterHelper;
+
 import com.example.administrator.test.util.OnMultiClickListener;
+import com.example.administrator.test.webview.CustomWebViewClient;
+import com.example.administrator.test.webview.IWebPageView;
 
 /**
  * @ProjectName: Test
@@ -36,7 +41,7 @@ import com.example.administrator.test.util.OnMultiClickListener;
  * @Version: 1.0
  */
 @Route(path = ArouterHelper.ROUTE_ACTIVITY_WEB)
-public class WebActivity extends BaseActivity {
+public class WebActivity extends BaseActivity implements IWebPageView {
     /**
      * 进度条
      */
@@ -152,12 +157,6 @@ public class WebActivity extends BaseActivity {
 
         mToolbar.setBackgroundResource(R.color.tool_bar_base_background);
 
-        mToolbar.setNavigationOnClickListener(new OnMultiClickListener() {
-            @Override
-            public void onMultiClick(View v) {
-                finish();
-            }
-        });
         mToolbar.setOverflowIcon(ContextCompat.getDrawable(this, R.mipmap.actionbar_more));
         setTitle("");
         setSubtitle("");
@@ -210,7 +209,7 @@ public class WebActivity extends BaseActivity {
 //        webView.setWebChromeClient(mWebChromeClient);
 //        // 与js交互
 //        webView.addJavascriptInterface(new ImageClickInterface(this), "injectedObject");
-//        webView.setWebViewClient(new MyWebViewClient(this));
+        webView.setWebViewClient(new CustomWebViewClient(this));
     }
 
 
@@ -265,4 +264,49 @@ public class WebActivity extends BaseActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void hindProgressBar() {
+
+    }
+
+    @Override
+    public void showWebView() {
+
+    }
+
+    @Override
+    public void hindWebView() {
+
+    }
+
+    @Override
+    public void startProgress(int newProgress) {
+
+    }
+
+    @Override
+    public void addImageClickListener() {
+
+    }
+
+    @Override
+    public void fullViewAddView(View view) {
+
+    }
+
+    @Override
+    public void showVideoFullView() {
+
+    }
+
+    @Override
+    public void hindVideoFullView() {
+
+    }
+
+    @Override
+    protected void OnNavigationOnClick() {
+        super.OnNavigationOnClick();
+        finish();
+    }
 }

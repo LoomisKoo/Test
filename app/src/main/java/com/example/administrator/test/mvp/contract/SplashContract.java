@@ -1,10 +1,8 @@
 package com.example.administrator.test.mvp.contract;
 
-import android.support.annotation.DrawableRes;
+import androidx.annotation.DrawableRes;
 
 import com.example.administrator.test.mvp.base.IBasePresenter;
-
-import io.reactivex.Observer;
 
 /**
  * @ProjectName: Test

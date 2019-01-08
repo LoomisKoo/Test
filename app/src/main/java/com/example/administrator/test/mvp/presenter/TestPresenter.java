@@ -1,7 +1,7 @@
 package com.example.administrator.test.mvp.presenter;
 
-import android.arch.lifecycle.Lifecycle;
-import android.arch.lifecycle.LifecycleOwner;
+import androidx.lifecycle.Lifecycle;
+import androidx.lifecycle.LifecycleOwner;
 
 import com.example.administrator.test.mvp.base.BasePresenter;
 import com.example.administrator.test.mvp.contract.TestContract;

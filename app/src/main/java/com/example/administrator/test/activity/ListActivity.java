@@ -2,8 +2,8 @@ package com.example.administrator.test.activity;
 
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v7.widget.RecyclerView;
-import android.view.View;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.view.ViewGroup;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
