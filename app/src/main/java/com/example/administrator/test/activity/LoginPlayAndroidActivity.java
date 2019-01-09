@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -64,17 +65,17 @@ public class LoginPlayAndroidActivity extends BaseActivity<LoginPresenter> imple
     String password;
 
     @BindView(R.id.tv_user_name)
-    EditText    tvUserName;
+    AutoCompleteTextView tvUserName;
     @BindView(R.id.tv_password)
-    EditText    tvPassword;
+    AutoCompleteTextView tvPassword;
     @BindView(R.id.btn_login)
-    Button      btnLogin;
+    Button               btnLogin;
     @BindView(R.id.btn_register)
-    Button      btnRegister;
+    Button               btnRegister;
     @BindView(R.id.pgb_loading)
-    ProgressBar pgbLoading;
+    ProgressBar          pgbLoading;
     @BindView(R.id.cardView)
-    CardView    cardView;
+    CardView             cardView;
 
     @Override
     public void widgetClick(View v) {

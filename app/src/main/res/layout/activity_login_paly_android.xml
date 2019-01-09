@@ -9,7 +9,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
         android:layout_width="300dp"
-        android:layout_height="110dp"
+        android:layout_height="150dp"
         android:layout_marginTop="90dp"
         android:translationZ="5dp"
         app:cardBackgroundColor="#745d83"
@@ -24,23 +24,30 @@
             android:layout_height="match_parent"
             android:layout_gravity="center">
 
-            <EditText
-                android:id="@+id/tv_user_name"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tv_user_name_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="8dp"
-                android:background="@null"
-                android:ems="20"
-                android:hint="account"
-                android:inputType="textPersonName"
-                android:textSize="20sp"
                 app:layout_constraintBottom_toTopOf="@+id/line"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_chainStyle="spread" />
+                app:layout_constraintVertical_chainStyle="spread">
+
+                <AutoCompleteTextView
+                    android:id="@+id/tv_user_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="@null"
+                    android:ems="20"
+                    android:hint="account"
+                    android:inputType="textPersonName"
+                    android:textSize="20sp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
 
             <View
                 android:id="@+id/line"
@@ -50,31 +57,35 @@
                 android:layout_marginTop="4dp"
                 android:layout_marginEnd="10dp"
                 android:background="#333333"
-                app:layout_constraintBottom_toTopOf="@+id/tv_password"
+                app:layout_constraintBottom_toTopOf="@+id/tv_user_password_layout"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_user_name" />
+                app:layout_constraintTop_toBottomOf="@id/tv_user_name_layout" />
 
-            <EditText
-                android:id="@+id/tv_password"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tv_user_password_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="4dp"
-                android:layout_marginEnd="10dp"
-                android:background="@null"
-                android:ems="10"
-                android:hint="password"
-                android:inputType="textPassword"
-                android:textSize="20sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/line" />
+                app:layout_constraintTop_toBottomOf="@id/line">
 
+                <AutoCompleteTextView
+                    android:id="@+id/tv_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:background="@null"
+                    android:ems="10"
+                    android:hint="password"
+                    android:inputType="textPassword"
+                    android:textSize="20sp" />
 
+            </com.google.android.material.textfield.TextInputLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 
