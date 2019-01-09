@@ -1,6 +1,7 @@
 package com.example.administrator.test.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
@@ -16,6 +17,7 @@ import android.widget.TextView;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.example.administrator.test.R;
+import com.example.administrator.test.animation.AnimatorHelper;
 import com.example.administrator.test.animation.RevealAnimation;
 import com.example.administrator.test.base.activity.BaseActivity;
 import com.example.administrator.test.fragment.Fragment1;
@@ -51,8 +53,6 @@ public class MainActivity extends BaseActivity {
     private BottomBar      mBottomBar;
     private List<Fragment> fragments;
     private ViewPager      viewPager;
-
-    private RevealAnimation mRevealAnimation;
 
     @Override
     public void widgetClick(View v) {
@@ -118,10 +118,10 @@ public class MainActivity extends BaseActivity {
     public void onMenuClickListener(int menuId) {
         switch (menuId) {
             case R.id.action_search:
-                ARouter.getInstance().build(ArouterHelper.ROUTE_ACTIVITY_TAB_ACTIVITY).navigation();
+                ARouter.getInstance().build(ArouterHelper.ROUTE_ACTIVITY_TAB_ACTIVITY).withFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION).navigation();
                 break;
             case R.id.action_notification:
-                ARouter.getInstance().build(ArouterHelper.ROUTE_ACTIVITY_LIST_ACTIVITY).navigation();
+                ARouter.getInstance().build(ArouterHelper.ROUTE_ACTIVITY_LIST_ACTIVITY).withFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION).navigation();
                 break;
 
             default:
@@ -167,6 +167,7 @@ public class MainActivity extends BaseActivity {
         loginTv = headerView.findViewById(R.id.login_tv);
         collectionTv = headerView.findViewById(R.id.collection_tv);
 
+
         exitTv = headerView.findViewById(R.id.exit_tv);
         //项目主页
         homePageTv.setOnClickListener(v -> {
@@ -186,7 +187,7 @@ public class MainActivity extends BaseActivity {
         });
         //登录
         loginTv.setOnClickListener(v -> {
-            ARouter.getInstance().build(ArouterHelper.ROUTE_ACTIVITY_LOGIN).navigation();
+            ARouter.getInstance().build(ArouterHelper.ROUTE_ACTIVITY_LOGIN).withFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION).withInt("x", AnimatorHelper.getDownX()).withInt("y", AnimatorHelper.getDownY()).navigation();
         });
         //我的收藏
         collectionTv.setOnClickListener(v -> {
@@ -194,16 +195,28 @@ public class MainActivity extends BaseActivity {
         });
         //退出应用
         exitTv.setOnClickListener(v -> {
-            showToast("退出应用");
+            System.exit(0);
         });
 
-        setDrawerLayoutIconSize(homePageTv);
-        setDrawerLayoutIconSize(downLoadTv);
-        setDrawerLayoutIconSize(feedBackTv);
-        setDrawerLayoutIconSize(aboutTv);
-        setDrawerLayoutIconSize(loginTv);
-        setDrawerLayoutIconSize(collectionTv);
-        setDrawerLayoutIconSize(exitTv);
+        setMenuEvent(homePageTv);
+        setMenuEvent(downLoadTv);
+        setMenuEvent(feedBackTv);
+        setMenuEvent(aboutTv);
+        setMenuEvent(loginTv);
+        setMenuEvent(collectionTv);
+        setMenuEvent(exitTv);
+
+    }
+
+    /**
+     * 设置按钮的事件
+     *
+     * @param view
+     */
+    private void setMenuEvent(TextView view) {
+        //监听View点击时的触摸坐标（相对于屏幕）
+        AnimatorHelper.setViewTouchListener(view);
+        setDrawerLayoutIconSize(view);
     }
 
     /**
@@ -302,35 +315,4 @@ public class MainActivity extends BaseActivity {
             return false;
         });
     }
-
-//    /**
-//     * 转场动画
-//     *
-//     * @param savedInstanceState
-//     * @param intent
-//     */
-//    private void onAnimateLayout(Bundle savedInstanceState, Intent intent) {
-//        if (savedInstanceState == null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP &&
-//                intent.hasExtra(EXTRA_CIRCULAR_REVEAL_X) &&
-//                intent.hasExtra(EXTRA_CIRCULAR_REVEAL_Y)) {
-//            rootLayout.setVisibility(View.INVISIBLE);
-//
-//            revealX = intent.getIntExtra(EXTRA_CIRCULAR_REVEAL_X, 0);
-//            revealY = intent.getIntExtra(EXTRA_CIRCULAR_REVEAL_Y, 0);
-//
-//            ViewTreeObserver viewTreeObserver = rootLayout.getViewTreeObserver();
-//            if (viewTreeObserver.isAlive()) {
-//                viewTreeObserver.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-//                    @Override
-//                    public void onGlobalLayout() {
-//                        mRevealAnimation.revealActivity(revealX, revealY);
-//                        rootLayout.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-//                    }
-//                });
-//            }
-//        }
-//        else {
-//            rootLayout.setVisibility(View.VISIBLE);
-//        }
-//    }
 }

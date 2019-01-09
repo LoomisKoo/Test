@@ -1,5 +1,6 @@
 package com.example.administrator.test.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -12,6 +13,8 @@ import com.alibaba.android.vlayout.LayoutHelper;
 import com.alibaba.android.vlayout.layout.LinearLayoutHelper;
 import com.blankj.utilcode.util.ToastUtils;
 import com.example.administrator.test.R;
+import com.example.administrator.test.activity.WebActivity;
+import com.example.administrator.test.animation.AnimatorHelper;
 import com.example.administrator.test.base.adapter.BaseViewHolder;
 import com.example.administrator.test.base.adapter.QuickDelegateAdapter;
 import com.example.administrator.test.base.fragment.BaseListFragment;
@@ -116,7 +119,9 @@ public class PlayAndroidFragment extends BaseListFragment<PlayAndroidViewEntity,
             public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
                 switch (viewType) {
                     case HttpRequestType.REQUEST_TYPE_BANNER:
-                        return new PlayAndroidBannerViewHolder(getContext(), parent, R.layout.header_play_android);
+                        PlayAndroidBannerViewHolder bannerVH = new PlayAndroidBannerViewHolder(getContext(), parent, R.layout.header_play_android);
+                        AnimatorHelper.setViewTouchListener(bannerVH.itemView);
+                        return bannerVH;
                     case HttpRequestType.REQUEST_TYPE_ARTICLE_LIST:
                         PlayAndroidArticleListVH vh = new PlayAndroidArticleListVH(getContext(), parent, R.layout.play_android_item_article);
                         vh.itemView.setOnClickListener(v -> {
@@ -124,11 +129,13 @@ public class PlayAndroidFragment extends BaseListFragment<PlayAndroidViewEntity,
 
                             PlayAndroidViewEntity entity = adapter.getData().get(position);
                             if (entity.getViewType() == HttpRequestType.REQUEST_TYPE_ARTICLE_LIST) {
-                                ArticleListEntity.DataBean.ArticleInfoBean bean  = (ArticleListEntity.DataBean.ArticleInfoBean) entity.getData();
-                                String                                     title = bean.getTitle();
-                                ARouter.getInstance().build(ArouterHelper.ROUTE_ACTIVITY_WEB).withString("title", title).withString("url", bean.getLink()).navigation();
+                                ArticleListEntity.DataBean.ArticleInfoBean bean   = (ArticleListEntity.DataBean.ArticleInfoBean) entity.getData();
+                                String                                     title  = bean.getTitle();
+                                ARouter.getInstance().build(ArouterHelper.ROUTE_ACTIVITY_WEB).withFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION).withString("title", title).withString("url", bean.getLink()).withInt("x", AnimatorHelper.getDownX()).withInt("y", AnimatorHelper.getDownY()).navigation();
                             }
                         });
+
+                        AnimatorHelper.setViewTouchListener(vh.itemView);
                         return vh;
                     default:
                         break;

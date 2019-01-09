@@ -1,8 +1,10 @@
 package com.example.administrator.test.base.activity;
 
 import android.animation.Animator;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
@@ -14,6 +16,7 @@ import androidx.annotation.DrawableRes;
 import androidx.annotation.StringRes;
 
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.example.administrator.test.animation.AnimatorHelper;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.core.view.GravityCompat;
@@ -22,6 +25,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.util.Log;
 import android.view.Menu;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
@@ -107,10 +111,14 @@ public abstract class BaseActivity<P extends IBasePresenter> extends SwipeBackAc
         if (isSetStatusBar) {
             steepStatusBar();
         }
-        if (!isAllowScreenRoate) {
-//            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        //安卓版本是否8.0
+        boolean isOreoSDK = Build.VERSION.SDK_INT >= Build.VERSION_CODES.O || Build.VERSION.SDK_INT < Build.VERSION_CODES.P;
+        //安卓8.0固定透明背景的activity方向会崩溃
+        if (!isOreoSDK) {
+            if (!isAllowScreenRoate) {
+                setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+            }
         }
-
         initData(this);
     }
 
@@ -147,6 +155,7 @@ public abstract class BaseActivity<P extends IBasePresenter> extends SwipeBackAc
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 revealX = getIntent().getIntExtra("x", 0);
                 revealY = getIntent().getIntExtra("y", 0);
+                AnimatorHelper.resetXY();
                 Animator animator = createRevealAnimator(false, revealX, revealY);
                 animator.start();
             }
@@ -262,7 +271,7 @@ public abstract class BaseActivity<P extends IBasePresenter> extends SwipeBackAc
                     startRadius,
                     endRadius);
         }
-        animator.setDuration(600);
+        animator.setDuration(9600);
         animator.setInterpolator(new AccelerateDecelerateInterpolator());
         if (reversed) {
             animator.addListener(new Animator.AnimatorListener() {

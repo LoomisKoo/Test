@@ -1,6 +1,7 @@
 package com.example.administrator.test.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -144,7 +145,7 @@ public class SplashActivity extends BaseActivity<SplashPresenter> implements Spl
      * 跳转主页面
      */
     private void startMainActivity() {
-        ARouter.getInstance().build(ArouterHelper.ROUTE_ACTIVITY_MAIN).navigation();
+        ARouter.getInstance().build(ArouterHelper.ROUTE_ACTIVITY_MAIN).withFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION).navigation();
         //跳转动画
         overridePendingTransition(R.anim.screen_zoom_in, R.anim.screen_zoom_out);
         finish();

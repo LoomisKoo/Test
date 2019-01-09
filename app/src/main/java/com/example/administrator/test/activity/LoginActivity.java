@@ -1,6 +1,8 @@
 package com.example.administrator.test.activity;
 
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.drawable.AnimatedImageDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -8,6 +10,7 @@ import android.widget.Button;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.example.administrator.test.R;
+import com.example.administrator.test.animation.AnimatorHelper;
 import com.example.administrator.test.base.activity.BaseActivity;
 import com.example.administrator.test.mvp.base.IBasePresenter;
 import com.example.administrator.test.util.ArouterHelper;
@@ -74,11 +77,9 @@ public class LoginActivity extends BaseActivity {
     @Override
     public void initView(Bundle savedInstanceState) {
         showCenterTitle(true);
-        setCenterTitle("登录");
-
-        loginGithubBtn.setOnClickListener(v -> ARouter.getInstance().build(ArouterHelper.ROUTE_ACTIVITY_WEB).withString("title", "登录Github").withString("url", GITHUB_URL).navigation());
-
-        loginPlayAndroidBtn.setOnClickListener(v -> ARouter.getInstance().build(ArouterHelper.ROUTE_ACTIVITY_LOGIN_PLAY_ANDROID).navigation());
+        setCenterTitle("选择登录平台");
+        AnimatorHelper.setViewTouchListener(loginGithubBtn);
+        AnimatorHelper.setViewTouchListener(loginPlayAndroidBtn);
 
     }
 
@@ -89,7 +90,8 @@ public class LoginActivity extends BaseActivity {
 
     @Override
     public void setListener() {
-
+        loginGithubBtn.setOnClickListener(v -> ARouter.getInstance().build(ArouterHelper.ROUTE_ACTIVITY_WEB).withFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION).withString("title", "登录Github").withString("url", GITHUB_URL).withInt("x", AnimatorHelper.getDownX()).withInt("y", AnimatorHelper.getDownY()).navigation());
+        loginPlayAndroidBtn.setOnClickListener(v -> ARouter.getInstance().build(ArouterHelper.ROUTE_ACTIVITY_LOGIN_PLAY_ANDROID).withFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION).withInt("x", AnimatorHelper.getDownX()).withInt("y", AnimatorHelper.getDownY()).navigation());
     }
 
     @Override

@@ -6,6 +6,7 @@ import android.view.ViewGroup;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.example.administrator.test.R;
+import com.example.administrator.test.animation.AnimatorHelper;
 import com.example.administrator.test.base.adapter.BaseViewHolder;
 import com.example.administrator.test.entity.BannerEntity;
 import com.example.administrator.test.util.ArouterHelper;
@@ -73,13 +74,13 @@ public class PlayAndroidBannerViewHolder extends BaseViewHolder {
               //以上内容都可写成链式布局，这是轮播图的监听。比较重要。方法在下面。
               .setOnBannerListener(position -> {
                   String title = entity.get(position).getTitle();
-                  String url = entity.get(position).getUrl();
-                  ARouter.getInstance().build(ArouterHelper.ROUTE_ACTIVITY_WEB).withString("title", title).withString("url", url).navigation();
-
+                  String url   = entity.get(position).getUrl();
+                  ARouter.getInstance().build(ArouterHelper.ROUTE_ACTIVITY_WEB).withString("title", title).withString("url", url).withInt("x", AnimatorHelper.getDownX()).withInt("y", AnimatorHelper.getDownY()).navigation();
               })
               //必须最后调用的方法，启动轮播图。
               .start();
 
+//        AnimatorHelper.setViewTouchListener(banner);
     }
 
     /**

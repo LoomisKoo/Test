@@ -18,7 +18,9 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.example.administrator.test.R;
+import com.example.administrator.test.animation.AnimatorHelper;
 import com.example.administrator.test.base.activity.BaseActivity;
 import com.example.administrator.test.animation.interpolator.LoginInterpolator;
 import com.example.administrator.test.mvp.base.IBasePresenter;
@@ -111,6 +113,8 @@ public class LoginPlayAndroidActivity extends BaseActivity {
     public void initView(Bundle savedInstanceState) {
         showCenterTitle(true);
         setCenterTitle("登录");
+
+        AnimatorHelper.setViewTouchListener(btnRegister);
     }
 
     @Override
@@ -122,12 +126,10 @@ public class LoginPlayAndroidActivity extends BaseActivity {
     public void setListener() {
         btnLogin.setOnClickListener(v -> {
 
-//            ARouter.getInstance().build(ArouterHelper.ROUTE_ACTIVITY_MAIN).withFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP).navigation();
+            ARouter.getInstance().build(ArouterHelper.ROUTE_ACTIVITY_MAIN).withFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION).withInt("x", AnimatorHelper.getDownX()).withInt("y", AnimatorHelper.getDownY()).navigation();
 //            finish();
             // 隐藏输入框
             cardView.setVisibility(View.VISIBLE);
-            presentActivity(pgbLoading);
-//            inputAnimator(cardView);
         });
     }
 
@@ -145,24 +147,6 @@ public class LoginPlayAndroidActivity extends BaseActivity {
     protected void onDestroy() {
         super.onDestroy();
         cancelAnimator();
-    }
-
-    public void presentActivity(View view) {
-        ActivityOptionsCompat options = ActivityOptionsCompat.
-                                                                     makeSceneTransitionAnimation(this, view, "transition");
-//
-        int[] position = new int[2];
-        view.getLocationInWindow(position);
-
-        int revealX = (position[0]);
-        int revealY = (position[1] + view.getHeight() / 2);
-
-        Intent intent = new Intent(this, MainActivity.class);
-        intent.putExtra(MainActivity.EXTRA_CIRCULAR_REVEAL_X, revealX);
-        intent.putExtra(MainActivity.EXTRA_CIRCULAR_REVEAL_Y, revealY);
-//        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-
-        startActivity(intent);
     }
 
     /**
@@ -207,7 +191,6 @@ public class LoginPlayAndroidActivity extends BaseActivity {
                  */
                 progressAnimator(pgbLoading);
                 cardView.setVisibility(View.INVISIBLE);
-                presentActivity(pgbLoading);
             }
 
             @Override
