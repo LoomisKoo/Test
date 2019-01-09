@@ -1,12 +1,9 @@
 package com.example.administrator.test.mvp.contract;
 
-import com.example.administrator.test.entity.ArticleListEntity;
 import com.example.administrator.test.entity.view.PlayAndroidViewEntity;
 import com.example.administrator.test.http.HttpCallback;
 import com.example.administrator.test.mvp.base.IBasePresenter;
 import com.example.administrator.test.mvp.presenter.PlayAndroidPresenter;
-
-import okhttp3.ResponseBody;
 
 /**
  * @author koo

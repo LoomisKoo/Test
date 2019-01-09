@@ -65,4 +65,24 @@ public interface Api {
     @FormUrlEncoded
     @POST("lg/uncollect/{id}/json")
     Observable<ResponseBody> unCollectArticle(@Path("id") int id, @Field("originId") int originId);
+
+    /**
+     * 玩安卓登录
+     *
+     * @param username 用户名
+     * @param password 密码
+     */
+    @FormUrlEncoded
+    @POST("user/login")
+    Observable<ResponseBody> login(@Field("username") String username, @Field("password") String password);
+
+    /**
+     * 玩安卓注册
+     */
+    @FormUrlEncoded
+    @POST("user/register")
+    Observable<ResponseBody> register(@Field("username") String username, @Field("password") String password, @Field("repassword") String repassword);
+
+
+
 }

@@ -74,8 +74,16 @@ public abstract class BaseActivity<P extends IBasePresenter> extends SwipeBackAc
      **/
     protected final String          TAG                = this.getClass().getSimpleName();
 
+    /**
+     * 转场动画中心坐标
+     */
     private int revealX;
     private int revealY;
+
+    /**
+     * activity转场动画持续时间
+     */
+    private static final int ACTIVITY_ANIMATOR_DURATION = 400;
 
     /**
      * View点击
@@ -271,7 +279,7 @@ public abstract class BaseActivity<P extends IBasePresenter> extends SwipeBackAc
                     startRadius,
                     endRadius);
         }
-        animator.setDuration(9600);
+        animator.setDuration(ACTIVITY_ANIMATOR_DURATION);
         animator.setInterpolator(new AccelerateDecelerateInterpolator());
         if (reversed) {
             animator.addListener(new Animator.AnimatorListener() {
