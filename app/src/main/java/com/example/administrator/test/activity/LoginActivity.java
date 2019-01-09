@@ -103,12 +103,6 @@ public class LoginActivity extends BaseActivity {
     }
 
     @Override
-    protected void OnNavigationOnClick() {
-        super.OnNavigationOnClick();
-        finish();
-    }
-
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // TODO: add setContentView(...) invocation

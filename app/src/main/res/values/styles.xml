@@ -7,6 +7,10 @@
         <item name="colorAccent">@color/colorAccent</item>
         // 改变右上角三个圆点的颜色
         <item name="android:textColorSecondary">@color/white</item>
+
+        <!--<item name="android:windowAnimationStyle">@null</item>//设置跳转动画为null，即没有动画-->
+        <item name="android:windowBackground">@android:color/transparent</item>//设置窗口背景为透明
+        <!--<item name="android:colorBackgroundCacheHint">@null</item>-->
     </style>
 
     <style name="ToolbarPopupTheme" parent="@style/ThemeOverlay.AppCompat.Dark">
@@ -17,11 +21,20 @@
         <!--设置menu弹出样式-->
         <item name="actionOverflowMenuStyle">@style/OverflowMenuStyle</item>
     </style>
+
     <style name="OverflowMenuStyle" parent="Widget.AppCompat.Light.PopupMenu.Overflow">
         <!--把该属性改为false即可使menu位置位于toolbar之下-->
         <item name="overlapAnchor">false</item>
     </style>
 
+    <style name="noAnimTheme" parent="AppTheme">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowDisablePreview">false</item>
+
+    </style>
 
     <style name="drawer_menu">
         <item name="android:textColor">@color/black</item>

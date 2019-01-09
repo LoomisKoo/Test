@@ -63,10 +63,6 @@ public class WebActivity extends BaseActivity implements IWebPageView {
      */
     @Autowired
     String url;
-    /**
-     * 可滚动的title 使用简单 没有渐变效果，文字两旁有阴影
-     */
-    private TextView tvGunTitle;
 
     @Override
     public void widgetClick(View v) {
@@ -105,8 +101,6 @@ public class WebActivity extends BaseActivity implements IWebPageView {
 
     @Override
     public void initView(Bundle savedInstanceState) {
-        ARouter.getInstance().inject(this);
-        setContentView(R.layout.activity_web_view);
         initTitle();
         initWebView();
         webView.loadUrl(url);
@@ -136,7 +130,6 @@ public class WebActivity extends BaseActivity implements IWebPageView {
         mProgressBar = (ProgressBar) findViewById(R.id.pb_progress);
         webView = (WebView) findViewById(R.id.webview_detail);
         videoFullView = (FrameLayout) findViewById(R.id.video_fullView);
-        tvGunTitle = (TextView) findViewById(R.id.base_root_title_tv);
 
         initToolbar();
     }
@@ -145,24 +138,10 @@ public class WebActivity extends BaseActivity implements IWebPageView {
      * 初始化toolbar
      */
     private void initToolbar() {
-        mToolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(mToolbar);
-        getSupportActionBar().setHomeButtonEnabled(getHomeButtonEnabled());
-        getSupportActionBar().setDisplayHomeAsUpEnabled(getDisplayHomeAsUpEnabled());
-        mToolbar.setOnMenuItemClickListener(menuItem -> {
-            onMenuClickListener(menuItem.getItemId());
-            return true;
-        });
-
-        mToolbar.setBackgroundResource(R.color.tool_bar_base_background);
-
-        mToolbar.setOverflowIcon(ContextCompat.getDrawable(this, R.mipmap.actionbar_more));
+        showCenterTitle(true);
         setTitle("");
         setSubtitle("");
-//        setTitle(title);
-        tvGunTitle.postDelayed(() -> tvGunTitle.setSelected(true), 1900);
-        tvGunTitle.setText(title);
-//        setTitle(title);
+        setCenterTitle(title);
     }
 
     @SuppressLint("SetJavaScriptEnabled")
@@ -211,19 +190,19 @@ public class WebActivity extends BaseActivity implements IWebPageView {
         webView.setWebViewClient(new CustomWebViewClient(this));
     }
 
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                // 返回键
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    finishAfterTransition();
-                }
-                else {
-                    finish();
-                }
-                break;
+//
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        switch (item.getItemId()) {
+//            case android.R.id.home:
+//                // 返回键
+//                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//                    finishAfterTransition();
+//                }
+//                else {
+//                    finish();
+//                }
+//                break;
 //            case R.id.actionbar_share:
 //                // 分享到
 //                String shareText = mWebChromeClient.getTitle() + webView.getUrl() + "（分享自云阅）";
@@ -257,11 +236,11 @@ public class WebActivity extends BaseActivity implements IWebPageView {
 //                    }
 //                }
 //                break;
-            default:
-                break;
-        }
-        return super.onOptionsItemSelected(item);
-    }
+//            default:
+//                break;
+//        }
+//        return super.onOptionsItemSelected(item);
+//    }
 
     @Override
     public void hindProgressBar() {
@@ -301,11 +280,5 @@ public class WebActivity extends BaseActivity implements IWebPageView {
     @Override
     public void hindVideoFullView() {
 
-    }
-
-    @Override
-    protected void OnNavigationOnClick() {
-        super.OnNavigationOnClick();
-        finish();
     }
 }

@@ -1,10 +1,10 @@
-package com.example.administrator.test.interpolator;
+package com.example.administrator.test.animation.interpolator;
 
 import android.view.animation.LinearInterpolator;
 
 /**
  * @ProjectName: Test
- * @Package: com.example.administrator.test.interpolator
+ * @Package: com.example.administrator.test.animation.interpolator
  * @ClassName: LoginInterpolator
  * @Description: java类作用描述
  * @Author: koo

@@ -1,26 +1,33 @@
 package com.example.administrator.test.base.activity;
 
+import android.animation.Animator;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
+
 import androidx.annotation.ColorRes;
 import androidx.annotation.DrawableRes;
 import androidx.annotation.StringRes;
+
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.google.android.material.navigation.NavigationView;
+
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.widget.Toolbar;
+
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
+import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,7 +43,7 @@ import me.imid.swipebacklayout.lib.app.SwipeBackActivity;
  * @author koo
  */
 public abstract class BaseActivity<P extends IBasePresenter> extends SwipeBackActivity implements View.OnClickListener {
-    protected       DrawerLayout    drawerlayout;
+    protected       DrawerLayout    drawerRootLayout;
     protected       NavigationView  navView;
     protected       Toolbar         mToolbar;
     private         TextView        tvCenterTitle;
@@ -63,6 +70,9 @@ public abstract class BaseActivity<P extends IBasePresenter> extends SwipeBackAc
      **/
     protected final String          TAG                = this.getClass().getSimpleName();
 
+    private int revealX;
+    private int revealY;
+
     /**
      * View点击
      **/
@@ -71,6 +81,7 @@ public abstract class BaseActivity<P extends IBasePresenter> extends SwipeBackAc
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ARouter.getInstance().inject(this);
 
         Bundle bundle = getIntent().getExtras();
         initParameter(bundle);
@@ -83,10 +94,12 @@ public abstract class BaseActivity<P extends IBasePresenter> extends SwipeBackAc
         ButterKnife.bind(this);
         initToolbar();
 
-        drawerlayout = (DrawerLayout) findViewById(R.id.base_root_dl);
+        drawerRootLayout = (DrawerLayout) findViewById(R.id.base_root_dl);
         navView = (NavigationView) findViewById(R.id.base_root_nav_view);
-
         presenter = createPresenter();
+
+        startActivityAnimation();
+
         initSwipeLayout();
         initView(savedInstanceState);
         setListener();
@@ -95,10 +108,51 @@ public abstract class BaseActivity<P extends IBasePresenter> extends SwipeBackAc
             steepStatusBar();
         }
         if (!isAllowScreenRoate) {
-            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+//            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         }
 
         initData(this);
+    }
+
+    @Override
+    public void onBackPressed() {
+        finishActivity();
+    }
+
+    /**
+     * 结束activity
+     */
+    private void finishActivity() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Animator animator = createRevealAnimator(true, revealX, revealY);
+            animator.start();
+        }
+        else {
+            finish();
+        }
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
+        //防止转场动画闪屏
+        overridePendingTransition(0, 0);
+    }
+
+    /**
+     * activity跳转时揭露动画
+     */
+    private void startActivityAnimation() {
+        drawerRootLayout.post(() -> {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                revealX = getIntent().getIntExtra("x", 0);
+                revealY = getIntent().getIntExtra("y", 0);
+                Animator animator = createRevealAnimator(false, revealX, revealY);
+                animator.start();
+            }
+            drawerRootLayout.setVisibility(View.VISIBLE);
+        });
+
     }
 
     /**
@@ -189,6 +243,57 @@ public abstract class BaseActivity<P extends IBasePresenter> extends SwipeBackAc
     }
 
     /**
+     * 揭露动画
+     *
+     * @param reversed
+     * @param x
+     * @param y
+     * @return
+     */
+    private Animator createRevealAnimator(boolean reversed, int x, int y) {
+        float maxRadius   = (float) Math.hypot(drawerRootLayout.getHeight(), drawerRootLayout.getWidth());
+        float startRadius = reversed ? maxRadius : 0;
+        float endRadius   = reversed ? 0 : maxRadius;
+
+        Animator animator = null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+            animator = ViewAnimationUtils.createCircularReveal(
+                    drawerRootLayout, x, y,
+                    startRadius,
+                    endRadius);
+        }
+        animator.setDuration(600);
+        animator.setInterpolator(new AccelerateDecelerateInterpolator());
+        if (reversed) {
+            animator.addListener(new Animator.AnimatorListener() {
+                @Override
+                public void onAnimationStart(Animator animation) {
+
+                }
+
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    if (reversed) {
+                        drawerRootLayout.setVisibility(View.INVISIBLE);
+                        finish();
+                    }
+                }
+
+                @Override
+                public void onAnimationCancel(Animator animation) {
+
+                }
+
+                @Override
+                public void onAnimationRepeat(Animator animation) {
+
+                }
+            });
+        }
+        return animator;
+    }
+
+    /**
      * [初始化参数]
      *
      * @param parameter
@@ -243,6 +348,7 @@ public abstract class BaseActivity<P extends IBasePresenter> extends SwipeBackAc
      * [toolbar点击回调]
      */
     protected void OnNavigationOnClick() {
+        finishActivity();
     }
 
     /**
@@ -634,6 +740,6 @@ public abstract class BaseActivity<P extends IBasePresenter> extends SwipeBackAc
      */
     protected void openDrawer() {
         // 开启菜单
-        drawerlayout.openDrawer(GravityCompat.START);
+        drawerRootLayout.openDrawer(GravityCompat.START);
     }
 }

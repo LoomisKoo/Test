@@ -4,12 +4,14 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
+
 import androidx.annotation.DrawableRes;
 import androidx.annotation.RequiresApi;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.RecyclerView;
+
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.widget.LinearLayout;
@@ -83,11 +85,6 @@ public abstract class BaseListActivity<T> extends BaseActivity {
     @Override
     public int bindMenu() {
         return 0;
-    }
-
-    @Override
-    protected boolean isToolBarAnimation() {
-        return true;
     }
 
     @Override

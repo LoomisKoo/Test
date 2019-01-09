@@ -3,10 +3,12 @@ package com.example.administrator.test.activity;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.core.view.GravityCompat;
 import androidx.viewpager.widget.ViewPager;
+
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.TextView;
@@ -14,6 +16,7 @@ import android.widget.TextView;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.example.administrator.test.R;
+import com.example.administrator.test.animation.RevealAnimation;
 import com.example.administrator.test.base.activity.BaseActivity;
 import com.example.administrator.test.fragment.Fragment1;
 import com.example.administrator.test.fragment.PlayFragment;
@@ -42,9 +45,14 @@ public class MainActivity extends BaseActivity {
     private static final int TAB_TYPE_FRIENDS  = 1;
     private static final int TAB_TYPE_MUSIC    = 2;
 
+    public static final String EXTRA_CIRCULAR_REVEAL_X = "EXTRA_CIRCULAR_REVEAL_X";
+    public static final String EXTRA_CIRCULAR_REVEAL_Y = "EXTRA_CIRCULAR_REVEAL_Y";
+
     private BottomBar      mBottomBar;
     private List<Fragment> fragments;
     private ViewPager      viewPager;
+
+    private RevealAnimation mRevealAnimation;
 
     @Override
     public void widgetClick(View v) {
@@ -88,12 +96,12 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void initView(Bundle savedInstanceState) {
+        getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         initViewPager();
         initTopBar();
         initBottomBar();
         initDrawerLayout();
         setEnableGesture(false);
-
     }
 
     @Override
@@ -133,8 +141,7 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void OnNavigationOnClick() {
-        super.OnNavigationOnClick();
-        drawerlayout.openDrawer(GravityCompat.START);
+        drawerRootLayout.openDrawer(GravityCompat.START);
     }
 
     private void initTopBar() {
@@ -296,4 +303,34 @@ public class MainActivity extends BaseActivity {
         });
     }
 
+//    /**
+//     * 转场动画
+//     *
+//     * @param savedInstanceState
+//     * @param intent
+//     */
+//    private void onAnimateLayout(Bundle savedInstanceState, Intent intent) {
+//        if (savedInstanceState == null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP &&
+//                intent.hasExtra(EXTRA_CIRCULAR_REVEAL_X) &&
+//                intent.hasExtra(EXTRA_CIRCULAR_REVEAL_Y)) {
+//            rootLayout.setVisibility(View.INVISIBLE);
+//
+//            revealX = intent.getIntExtra(EXTRA_CIRCULAR_REVEAL_X, 0);
+//            revealY = intent.getIntExtra(EXTRA_CIRCULAR_REVEAL_Y, 0);
+//
+//            ViewTreeObserver viewTreeObserver = rootLayout.getViewTreeObserver();
+//            if (viewTreeObserver.isAlive()) {
+//                viewTreeObserver.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+//                    @Override
+//                    public void onGlobalLayout() {
+//                        mRevealAnimation.revealActivity(revealX, revealY);
+//                        rootLayout.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+//                    }
+//                });
+//            }
+//        }
+//        else {
+//            rootLayout.setVisibility(View.VISIBLE);
+//        }
+//    }
 }

@@ -5,7 +5,10 @@ import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
 import android.animation.ValueAnimator;
+import android.app.ActivityOptions;
 import android.content.Context;
+import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,11 +20,13 @@ import android.widget.ProgressBar;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.example.administrator.test.R;
 import com.example.administrator.test.base.activity.BaseActivity;
-import com.example.administrator.test.interpolator.LoginInterpolator;
+import com.example.administrator.test.animation.interpolator.LoginInterpolator;
 import com.example.administrator.test.mvp.base.IBasePresenter;
 import com.example.administrator.test.util.ArouterHelper;
 
 import androidx.cardview.widget.CardView;
+import androidx.core.app.ActivityCompat;
+import androidx.core.app.ActivityOptionsCompat;
 import butterknife.BindView;
 
 /**
@@ -51,6 +56,8 @@ public class LoginPlayAndroidActivity extends BaseActivity {
     private static final float LOGIN_INSERT_LAYOUT_ANIMATOR_SCALE_MAX = 1f;
     private static final float LOGIN_INSERT_LAYOUT_ANIMATOR_SCALE_MIN = 0.4f;
 
+    private AnimatorSet    LoginLayoutAnimatorSet;
+    private ObjectAnimator loadAnimator;
 
     @BindView(R.id.tv_account)
     EditText    tvAccount;
@@ -114,9 +121,13 @@ public class LoginPlayAndroidActivity extends BaseActivity {
     @Override
     public void setListener() {
         btnLogin.setOnClickListener(v -> {
+
+//            ARouter.getInstance().build(ArouterHelper.ROUTE_ACTIVITY_MAIN).withFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP).navigation();
+//            finish();
             // 隐藏输入框
             cardView.setVisibility(View.VISIBLE);
-            inputAnimator(cardView);
+            presentActivity(pgbLoading);
+//            inputAnimator(cardView);
         });
     }
 
@@ -131,22 +142,36 @@ public class LoginPlayAndroidActivity extends BaseActivity {
     }
 
     @Override
-    protected void OnNavigationOnClick() {
-        super.OnNavigationOnClick();
-        finish();
+    protected void onDestroy() {
+        super.onDestroy();
+        cancelAnimator();
+    }
+
+    public void presentActivity(View view) {
+        ActivityOptionsCompat options = ActivityOptionsCompat.
+                                                                     makeSceneTransitionAnimation(this, view, "transition");
+//
+        int[] position = new int[2];
+        view.getLocationInWindow(position);
+
+        int revealX = (position[0]);
+        int revealY = (position[1] + view.getHeight() / 2);
+
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra(MainActivity.EXTRA_CIRCULAR_REVEAL_X, revealX);
+        intent.putExtra(MainActivity.EXTRA_CIRCULAR_REVEAL_Y, revealY);
+//        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+        startActivity(intent);
     }
 
     /**
      * 输入框的动画效果
      *
      * @param view 控件
-     * @param w    宽
-     * @param h    高
      */
     private void inputAnimator(final View view) {
-
-        AnimatorSet set = new AnimatorSet();
-
+        LoginLayoutAnimatorSet = new AnimatorSet();
         ValueAnimator animator = ValueAnimator.ofFloat(0, view.getMeasuredWidth());
         animator.addUpdateListener(animation -> {
             float value = (Float) animation.getAnimatedValue();
@@ -159,11 +184,11 @@ public class LoginPlayAndroidActivity extends BaseActivity {
 
         ObjectAnimator animator2 = ObjectAnimator.ofFloat(cardView,
                                                           "scaleX", LOGIN_INSERT_LAYOUT_ANIMATOR_SCALE_MAX, LOGIN_INSERT_LAYOUT_ANIMATOR_SCALE_MIN);
-        set.setDuration(LOGIN_INSERT_LAYOUT_ANIMATOR_DURATION);
-        set.setInterpolator(new AccelerateDecelerateInterpolator());
-        set.playTogether(animator, animator2);
-        set.start();
-        set.addListener(new Animator.AnimatorListener() {
+        LoginLayoutAnimatorSet.setDuration(LOGIN_INSERT_LAYOUT_ANIMATOR_DURATION);
+        LoginLayoutAnimatorSet.setInterpolator(new AccelerateDecelerateInterpolator());
+        LoginLayoutAnimatorSet.playTogether(animator, animator2);
+        LoginLayoutAnimatorSet.start();
+        LoginLayoutAnimatorSet.addListener(new Animator.AnimatorListener() {
 
             @Override
             public void onAnimationStart(Animator animation) {
@@ -180,9 +205,9 @@ public class LoginPlayAndroidActivity extends BaseActivity {
                 /**
                  * 动画结束后，先显示加载的动画，然后再隐藏输入框
                  */
-                pgbLoading.setVisibility(View.VISIBLE);
                 progressAnimator(pgbLoading);
                 cardView.setVisibility(View.INVISIBLE);
+                presentActivity(pgbLoading);
             }
 
             @Override
@@ -202,11 +227,22 @@ public class LoginPlayAndroidActivity extends BaseActivity {
                                                                      PROGRESS_ANIMATOR_SCALE_MIN, PROGRESS_ANIMATOR_SCALE_MAX);
         PropertyValuesHolder animator2 = PropertyValuesHolder.ofFloat("scaleY",
                                                                       PROGRESS_ANIMATOR_SCALE_MIN, PROGRESS_ANIMATOR_SCALE_MAX);
-        ObjectAnimator animator3 = ObjectAnimator.ofPropertyValuesHolder(view,
-                                                                         animator, animator2);
-        animator3.setDuration(PROGRESS_ANIMATOR_DURATION);
-        animator3.setInterpolator(new LoginInterpolator());
-        animator3.start();
+        loadAnimator = ObjectAnimator.ofPropertyValuesHolder(view,
+                                                             animator, animator2);
+        loadAnimator.setDuration(PROGRESS_ANIMATOR_DURATION);
+        loadAnimator.setInterpolator(new LoginInterpolator());
+        loadAnimator.start();
     }
 
+    /**
+     * 取消动画
+     */
+    private void cancelAnimator() {
+        if (null != LoginLayoutAnimatorSet && LoginLayoutAnimatorSet.isRunning()) {
+            LoginLayoutAnimatorSet.cancel();
+        }
+        if (null != loadAnimator && loadAnimator.isRunning()) {
+            loadAnimator.cancel();
+        }
+    }
 }

@@ -112,18 +112,8 @@ public class ListActivity extends BaseListActivity<TestEntity> {
     }
 
     @Override
-    protected boolean isToolBarAnimation() {
-        return true;
-    }
-
-    @Override
     protected IBasePresenter createPresenter() {
         return null;
-    }
-
-    @Override
-    public void OnNavigationOnClick() {
-        finish();
     }
 
     @Override

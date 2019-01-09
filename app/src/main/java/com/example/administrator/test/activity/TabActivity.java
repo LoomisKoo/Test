@@ -81,11 +81,6 @@ public class TabActivity extends BaseTabActivity {
         return viewList;
     }
 
-    @Override
-    public void OnNavigationOnClick() {
-        finish();
-    }
-
     /**
      * 初始化toolbar
      */
