@@ -119,7 +119,7 @@ public class PlayAndroidFragment extends BaseListFragment<PlayAndroidViewEntity,
             public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
                 switch (viewType) {
                     case HttpRequestType.REQUEST_TYPE_BANNER:
-                        PlayAndroidBannerViewHolder bannerVH = new PlayAndroidBannerViewHolder(getContext(), parent, R.layout.header_play_android);
+                        PlayAndroidBannerViewHolder bannerVH = new PlayAndroidBannerViewHolder(getActivity(), parent, R.layout.header_play_android);
                         AnimatorHelper.setViewTouchListener(bannerVH.itemView);
                         return bannerVH;
                     case HttpRequestType.REQUEST_TYPE_ARTICLE_LIST:
@@ -131,7 +131,7 @@ public class PlayAndroidFragment extends BaseListFragment<PlayAndroidViewEntity,
                             if (entity.getViewType() == HttpRequestType.REQUEST_TYPE_ARTICLE_LIST) {
                                 ArticleListEntity.DataBean.ArticleInfoBean bean   = (ArticleListEntity.DataBean.ArticleInfoBean) entity.getData();
                                 String                                     title  = bean.getTitle();
-                                ARouter.getInstance().build(ArouterHelper.ROUTE_ACTIVITY_WEB).withFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION).withString("title", title).withString("url", bean.getLink()).withInt("x", AnimatorHelper.getDownX()).withInt("y", AnimatorHelper.getDownY()).navigation();
+                                ARouter.getInstance().build(ArouterHelper.ROUTE_ACTIVITY_WEB).withFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION).withString("title", title).withString("url", bean.getLink()).withInt("x", AnimatorHelper.getDownX()).withInt("y", AnimatorHelper.getDownY()).navigation(getActivity());
                             }
                         });
 

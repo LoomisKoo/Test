@@ -2,6 +2,7 @@ package com.example.administrator.test.base.activity;
 
 import android.animation.Animator;
 import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -66,6 +67,10 @@ public abstract class BaseActivity<P extends IBasePresenter> extends SwipeBackAc
      **/
     private         boolean         isAllowScreenRoate = false;
     /**
+     * 是否允许activity转场动画
+     */
+    private         boolean         isAllowActivityAnimator = true;
+    /**
      * 当前Activity渲染的视图View
      **/
     private         View            mContextView       = null;
@@ -92,15 +97,18 @@ public abstract class BaseActivity<P extends IBasePresenter> extends SwipeBackAc
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        if (mAllowFullScreen) {
+            requestWindowFeature(Window.FEATURE_NO_TITLE);
+        }
         super.onCreate(savedInstanceState);
+
+
         ARouter.getInstance().inject(this);
 
         Bundle bundle = getIntent().getExtras();
         initParameter(bundle);
 
-        if (mAllowFullScreen) {
-            requestWindowFeature(Window.FEATURE_NO_TITLE);
-        }
 
         initMainLayout();
         ButterKnife.bind(this);
@@ -110,11 +118,12 @@ public abstract class BaseActivity<P extends IBasePresenter> extends SwipeBackAc
         navView = (NavigationView) findViewById(R.id.base_root_nav_view);
         presenter = createPresenter();
 
-        startActivityAnimation();
-
         initSwipeLayout();
         initView(savedInstanceState);
         setListener();
+        if(isAllowActivityAnimator){
+            startActivityAnimation();
+        }
 
         if (isSetStatusBar) {
             steepStatusBar();
@@ -139,6 +148,7 @@ public abstract class BaseActivity<P extends IBasePresenter> extends SwipeBackAc
      * 结束activity
      */
     private void finishActivity() {
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Animator animator = createRevealAnimator(true, revealX, revealY);
             animator.start();
@@ -273,7 +283,7 @@ public abstract class BaseActivity<P extends IBasePresenter> extends SwipeBackAc
         float endRadius   = reversed ? 0 : maxRadius;
 
         Animator animator = null;
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             animator = ViewAnimationUtils.createCircularReveal(
                     drawerRootLayout, x, y,
                     startRadius,
@@ -758,5 +768,13 @@ public abstract class BaseActivity<P extends IBasePresenter> extends SwipeBackAc
     protected void openDrawer() {
         // 开启菜单
         drawerRootLayout.openDrawer(GravityCompat.START);
+    }
+
+    public boolean isAllowActivityAnimator() {
+        return isAllowActivityAnimator;
+    }
+
+    public void setAllowActivityAnimator(boolean allowActivityAnimator) {
+        isAllowActivityAnimator = allowActivityAnimator;
     }
 }

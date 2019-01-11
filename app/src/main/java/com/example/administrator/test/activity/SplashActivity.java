@@ -79,6 +79,7 @@ public class SplashActivity extends BaseActivity<SplashPresenter> implements Spl
 
     @Override
     public void initView(Bundle savedInstanceState) {
+        setAllowActivityAnimator(false);
         //隐藏toolbar、把背景设透明，显示出欢迎页
         hideToolBar();
         setRootLayoutBackGround(getResources().getColor(R.color.activity_root_layout_background));
@@ -145,7 +146,7 @@ public class SplashActivity extends BaseActivity<SplashPresenter> implements Spl
      * 跳转主页面
      */
     private void startMainActivity() {
-        ARouter.getInstance().build(ArouterHelper.ROUTE_ACTIVITY_MAIN).withFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION).navigation();
+        ARouter.getInstance().build(ArouterHelper.ROUTE_ACTIVITY_MAIN).navigation();
         //跳转动画
         overridePendingTransition(R.anim.screen_zoom_in, R.anim.screen_zoom_out);
         finish();

@@ -187,7 +187,7 @@ public class MainActivity extends BaseActivity {
         });
         //登录
         loginTv.setOnClickListener(v -> {
-            ARouter.getInstance().build(ArouterHelper.ROUTE_ACTIVITY_LOGIN).withFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION).withInt("x", AnimatorHelper.getDownX()).withInt("y", AnimatorHelper.getDownY()).navigation();
+            ARouter.getInstance().build(ArouterHelper.ROUTE_ACTIVITY_LOGIN).withFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION).withInt("x", AnimatorHelper.getDownX()).withInt("y", AnimatorHelper.getDownY()).navigation(this);
         });
         //我的收藏
         collectionTv.setOnClickListener(v -> {

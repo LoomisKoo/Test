@@ -76,7 +76,7 @@ public class PlayAndroidBannerViewHolder extends BaseViewHolder {
               .setOnBannerListener(position -> {
                   String title = entity.get(position).getTitle();
                   String url   = entity.get(position).getUrl();
-                  ARouter.getInstance().build(ArouterHelper.ROUTE_ACTIVITY_WEB).withFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION).withString("title", title).withString("url", url).withInt("x", AnimatorHelper.getDownX()).withInt("y", AnimatorHelper.getDownY()).navigation();
+                  ARouter.getInstance().build(ArouterHelper.ROUTE_ACTIVITY_WEB).withFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION).withString("title", title).withString("url", url).withInt("x", AnimatorHelper.getDownX()).withInt("y", AnimatorHelper.getDownY()).navigation(context);
               })
               //必须最后调用的方法，启动轮播图。
               .start();
