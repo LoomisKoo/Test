@@ -13,7 +13,6 @@ import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ProgressBar;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
@@ -74,7 +73,7 @@ public class LoginPlayAndroidActivity extends BaseActivity<LoginPresenter> imple
     Button               btnRegister;
     @BindView(R.id.pgb_loading)
     ProgressBar          pgbLoading;
-    @BindView(R.id.cardView)
+    @BindView(R.id.card_view)
     CardView             cardView;
 
     @Override
@@ -133,7 +132,8 @@ public class LoginPlayAndroidActivity extends BaseActivity<LoginPresenter> imple
 
             boolean isInsertEmpty = isInsertEmpty(userName, password);
             if (!isInsertEmpty) {
-                inputAnimator(true);
+                login();
+//                inputAnimator(true);
             }
         });
 
@@ -183,7 +183,7 @@ public class LoginPlayAndroidActivity extends BaseActivity<LoginPresenter> imple
     }
 
     /**
-     * 输入框的动画效果R
+     * 输入框的动画效果
      *
      * @param isLogin
      */
@@ -268,6 +268,19 @@ public class LoginPlayAndroidActivity extends BaseActivity<LoginPresenter> imple
     }
 
     /**
+     * 获取LoadingView的中心坐标
+     *
+     * @return
+     */
+    private int[] getLoadingViewPoint() {
+        int[] point = new int[2];
+        pgbLoading.getLocationInWindow(point);
+        point[0] += pgbLoading.getWidth() / 2;
+        point[1] += pgbLoading.getHeight() / 2;
+        return point;
+    }
+
+    /**
      * 取消动画
      */
     private void cancelAnimator() {
@@ -279,13 +292,12 @@ public class LoginPlayAndroidActivity extends BaseActivity<LoginPresenter> imple
         }
         inputAnimator(false);
         cardView.setVisibility(View.VISIBLE);
-        pgbLoading.setVisibility(View.INVISIBLE);
     }
 
     @Override
     public void loginSuccess() {
-        ARouter.getInstance().build(ArouterHelper.ROUTE_ACTIVITY_MAIN).withFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION).withInt("x", AnimatorHelper.getDownX()).withInt("y", AnimatorHelper.getDownY()).navigation(this);
-        finish();
+        ARouter.getInstance().build(ArouterHelper.ROUTE_ACTIVITY_MAIN).withFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION).withInt("x", getLoadingViewPoint()[0]).withInt("y", getLoadingViewPoint()[1]).navigation(this);
+        finishActivity();
     }
 
     @Override

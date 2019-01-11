@@ -16,6 +16,7 @@ import androidx.annotation.ColorRes;
 import androidx.annotation.DrawableRes;
 import androidx.annotation.StringRes;
 
+import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.example.administrator.test.animation.AnimatorHelper;
 import com.google.android.material.navigation.NavigationView;
@@ -57,15 +58,15 @@ public abstract class BaseActivity<P extends IBasePresenter> extends SwipeBackAc
     /**
      * 是否沉浸状态栏
      **/
-    private         boolean         isSetStatusBar     = true;
+    private         boolean         isSetStatusBar          = true;
     /**
      * 是否允许全屏
      **/
-    private         boolean         mAllowFullScreen   = true;
+    private         boolean         mAllowFullScreen        = true;
     /**
      * 是否禁止旋转屏幕
      **/
-    private         boolean         isAllowScreenRoate = false;
+    private         boolean         isAllowScreenRoate      = false;
     /**
      * 是否允许activity转场动画
      */
@@ -73,11 +74,11 @@ public abstract class BaseActivity<P extends IBasePresenter> extends SwipeBackAc
     /**
      * 当前Activity渲染的视图View
      **/
-    private         View            mContextView       = null;
+    private         View            mContextView            = null;
     /**
      * 日志输出标志
      **/
-    protected final String          TAG                = this.getClass().getSimpleName();
+    protected final String          TAG                     = this.getClass().getSimpleName();
 
     /**
      * 转场动画中心坐标
@@ -121,7 +122,7 @@ public abstract class BaseActivity<P extends IBasePresenter> extends SwipeBackAc
         initSwipeLayout();
         initView(savedInstanceState);
         setListener();
-        if(isAllowActivityAnimator){
+        if (isAllowActivityAnimator) {
             startActivityAnimation();
         }
 
@@ -147,8 +148,7 @@ public abstract class BaseActivity<P extends IBasePresenter> extends SwipeBackAc
     /**
      * 结束activity
      */
-    private void finishActivity() {
-
+    protected void finishActivity() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Animator animator = createRevealAnimator(true, revealX, revealY);
             animator.start();
@@ -253,8 +253,8 @@ public abstract class BaseActivity<P extends IBasePresenter> extends SwipeBackAc
      * 全透状态栏
      */
     protected void setStatusBarFullTransparent() {
-        if (Build.VERSION.SDK_INT >= 21) {
-            //21表示5.0
+        //高于Android5.0
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Window window = getWindow();
             window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
             window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
@@ -262,7 +262,8 @@ public abstract class BaseActivity<P extends IBasePresenter> extends SwipeBackAc
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             window.setStatusBarColor(Color.TRANSPARENT);
         }
-        else if (Build.VERSION.SDK_INT >= 19) {//19表示4.4
+        //高于Android 4.4
+        else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
             //虚拟键盘也透明
 //            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
