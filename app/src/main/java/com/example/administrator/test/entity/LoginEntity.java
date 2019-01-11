@@ -1,5 +1,6 @@
 package com.example.administrator.test.entity;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -8,7 +9,7 @@ import java.util.List;
  * @Description
  */
 
-public class LoginEntity {
+public class LoginEntity  {
 
 
     /**
@@ -45,7 +46,7 @@ public class LoginEntity {
         this.errorMsg = errorMsg;
     }
 
-    public static class UserEntity {
+    public static class UserEntity implements Serializable{
         /**
          * chapterTops : []
          * collectIds : []

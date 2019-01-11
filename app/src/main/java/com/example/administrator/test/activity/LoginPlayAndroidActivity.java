@@ -120,7 +120,7 @@ public class LoginPlayAndroidActivity extends BaseActivity<LoginPresenter> imple
 
     @Override
     protected LoginPresenter createPresenter() {
-        return new LoginPresenter(new LoginModel(), this);
+        return new LoginPresenter(this, new LoginModel(), this);
     }
 
     @Override
@@ -298,6 +298,7 @@ public class LoginPlayAndroidActivity extends BaseActivity<LoginPresenter> imple
     public void loginSuccess() {
         ARouter.getInstance().build(ArouterHelper.ROUTE_ACTIVITY_MAIN).withFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION).withInt("x", getLoadingViewPoint()[0]).withInt("y", getLoadingViewPoint()[1]).navigation(this);
         finishActivity();
+
     }
 
     @Override

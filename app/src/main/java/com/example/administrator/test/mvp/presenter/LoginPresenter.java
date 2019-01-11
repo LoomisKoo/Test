@@ -1,9 +1,12 @@
 package com.example.administrator.test.mvp.presenter;
 
+import android.content.Context;
+
 import com.alibaba.fastjson.JSON;
 import com.example.administrator.test.entity.LoginEntity;
 import com.example.administrator.test.http.HttpCallback;
 import com.example.administrator.test.mvp.contract.LoginContract;
+import com.example.administrator.test.util.ACache;
 
 import java.io.IOException;
 
@@ -24,10 +27,12 @@ import okhttp3.ResponseBody;
 public class LoginPresenter implements LoginContract.Presenter {
     private LoginContract.Model model;
     private LoginContract.View  view;
+    private Context             context;
 
-    public LoginPresenter(LoginContract.Model model, LoginContract.View view) {
+    public LoginPresenter(Context context, LoginContract.Model model, LoginContract.View view) {
         this.model = model;
         this.view = view;
+        this.context = context;
     }
 
     @Override
@@ -38,10 +43,15 @@ public class LoginPresenter implements LoginContract.Presenter {
                 try {
                     String      strResult = result.string();
                     LoginEntity entity    = JSON.parseObject(strResult, LoginEntity.class);
+
                     if (-1 == entity.getErrorCode()) {
                         view.loginFail(entity.getErrorMsg());
                     }
                     else {
+                        //保存 user 对象
+                        ACache mCache = ACache.get(context);
+                        mCache.put("user", entity.getData());
+
                         view.loginSuccess();
                     }
                 }

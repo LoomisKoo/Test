@@ -18,10 +18,9 @@ import com.alibaba.android.arouter.launcher.ARouter;
 import com.example.administrator.test.R;
 import com.example.administrator.test.animation.AnimatorHelper;
 import com.example.administrator.test.base.activity.BaseActivity;
+import com.example.administrator.test.entity.LoginEntity;
 import com.example.administrator.test.mvp.base.IBasePresenter;
-import com.example.administrator.test.mvp.contract.LoginContract;
-import com.example.administrator.test.mvp.model.LoginModel;
-import com.example.administrator.test.mvp.presenter.LoginPresenter;
+import com.example.administrator.test.util.ACache;
 import com.example.administrator.test.util.ArouterHelper;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -96,6 +95,17 @@ public class LoginActivity extends BaseActivity {
         Bitmap bg = BitmapFactory.decodeResource(getResources(), R.mipmap.bg_login);
         bg = rsBlur(this, bg, 25);
         rootLayout.setBackground(new BitmapDrawable(getResources(), bg));
+
+        ACache                 mCache     = ACache.get(this);
+        LoginEntity.UserEntity userEntity = (LoginEntity.UserEntity) mCache.getAsObject("user");
+        if (null == userEntity) {
+            loginPlayAndroidBtn.setText("玩安卓");
+            loginPlayAndroidBtn.setOnClickListener(v -> ARouter.getInstance().build(ArouterHelper.ROUTE_ACTIVITY_LOGIN_PLAY_ANDROID).withFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION).withInt("x", AnimatorHelper.getDownX()).withInt("y", AnimatorHelper.getDownY()).navigation(this));
+
+        }
+        else {
+            loginPlayAndroidBtn.setText("退出玩安卓");
+        }
     }
 
     @Override
@@ -107,7 +117,6 @@ public class LoginActivity extends BaseActivity {
     @Override
     public void setListener() {
         loginGithubBtn.setOnClickListener(v -> ARouter.getInstance().build(ArouterHelper.ROUTE_ACTIVITY_WEB).withFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION).withString("title", "登录Github").withString("url", GITHUB_URL).withInt("x", AnimatorHelper.getDownX()).withInt("y", AnimatorHelper.getDownY()).navigation(this));
-        loginPlayAndroidBtn.setOnClickListener(v -> ARouter.getInstance().build(ArouterHelper.ROUTE_ACTIVITY_LOGIN_PLAY_ANDROID).withFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION).withInt("x", AnimatorHelper.getDownX()).withInt("y", AnimatorHelper.getDownY()).navigation(this));
     }
 
     @Override
