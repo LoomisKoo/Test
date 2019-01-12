@@ -107,7 +107,7 @@ public class LoginActivity extends BaseActivity<LogoutPresenter> implements Logo
 
     @Override
     public void setListener() {
-
+        loginGithubBtn.setOnClickListener(v -> ARouter.getInstance().build(ArouterHelper.ROUTE_ACTIVITY_WEB).withFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION).withString("title", "登录Github").withString("url", GITHUB_URL).withInt("x", AnimatorHelper.getDownX()).withInt("y", AnimatorHelper.getDownY()).navigation());
     }
 
     @Override
