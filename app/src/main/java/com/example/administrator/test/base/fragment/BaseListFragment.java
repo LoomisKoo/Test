@@ -96,7 +96,7 @@ public abstract class BaseListFragment<T, P> extends BaseFragment<P> {
         layoutManager = new VirtualLayoutManager(getContext());
 
         //添加Android自带的分割线
-        recyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
+//        recyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
 
         recyclerView.setLayoutManager(layoutManager);
 

@@ -111,8 +111,10 @@ dependencies {
     //butterknife
     implementation 'com.jakewharton:butterknife:10.0.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.0.0'
+    //design库
     implementation 'com.google.android.material:material:1.1.0-alpha02'
-
+    //收藏、赞等效果的checkbook
+//    implementation'com.github.jd-alexander:LikeButton:0.2.3'
     //    implementation 'com.google.android.material:material:1.0.0+'
 
     //    com.android.support:cardview-v7

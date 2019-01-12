@@ -8,33 +8,27 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
-import android.widget.Toast;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.alibaba.android.vlayout.LayoutHelper;
 import com.alibaba.android.vlayout.layout.LinearLayoutHelper;
 import com.blankj.utilcode.util.ToastUtils;
 import com.example.administrator.test.R;
-import com.example.administrator.test.activity.WebActivity;
 import com.example.administrator.test.animation.AnimatorHelper;
 import com.example.administrator.test.base.adapter.BaseViewHolder;
 import com.example.administrator.test.base.adapter.QuickDelegateAdapter;
 import com.example.administrator.test.base.fragment.BaseListFragment;
 import com.example.administrator.test.entity.ArticleListEntity;
 import com.example.administrator.test.entity.BannerEntity;
-import com.example.administrator.test.entity.LoginEntity;
 import com.example.administrator.test.entity.view.PlayAndroidViewEntity;
 import com.example.administrator.test.http.HttpRequestType;
 import com.example.administrator.test.mvp.contract.PlayAndroidContract;
 import com.example.administrator.test.mvp.model.PlayAndroidModel;
 import com.example.administrator.test.mvp.presenter.PlayAndroidPresenter;
-import com.example.administrator.test.util.ACache;
 import com.example.administrator.test.util.ArouterHelper;
 import com.example.administrator.test.util.UserUtil;
 import com.example.administrator.test.viewholder.PlayAndroidArticleListVH;
 import com.example.administrator.test.viewholder.PlayAndroidBannerViewHolder;
-
-import java.util.ArrayList;
 
 
 /**
@@ -54,10 +48,11 @@ public class PlayAndroidFragment extends BaseListFragment<PlayAndroidViewEntity,
 
     @Override
     protected void getData(int page, int pageSize) {
+        presenter.getArticleList(page);
         if (1 == page) {
             presenter.getBannerImg();
         }
-        presenter.getArticleList(page);
+
     }
 
     @Override
@@ -84,7 +79,6 @@ public class PlayAndroidFragment extends BaseListFragment<PlayAndroidViewEntity,
                                 checkBox.setChecked(!checkBox.isChecked());
                                 return;
                             }
-
 
                             int articleID = bean.getId();
                             if (bean.isCollect()) {
@@ -186,9 +180,12 @@ public class PlayAndroidFragment extends BaseListFragment<PlayAndroidViewEntity,
     @Override
     public void onSuccess(PlayAndroidViewEntity playAndroidViewEntity) {
         stopRefresh();
-        ArrayList<PlayAndroidViewEntity> playAndroidViewEntities = new ArrayList<>();
-        playAndroidViewEntities.add(playAndroidViewEntity);
-        adapter.addAll(playAndroidViewEntities);
+        if (playAndroidViewEntity.getViewType() == HttpRequestType.REQUEST_TYPE_BANNER) {
+            adapter.add(0, playAndroidViewEntity);
+        }
+        else {
+            adapter.add(playAndroidViewEntity);
+        }
     }
 
     @Override
