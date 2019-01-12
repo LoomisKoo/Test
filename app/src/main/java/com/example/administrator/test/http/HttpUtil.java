@@ -1,6 +1,9 @@
 package com.example.administrator.test.http;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
+
+import com.example.administrator.test.http.interceptor.BasicParamsInterceptor;
 
 import io.reactivex.Observable;
 import io.reactivex.Observer;
@@ -12,20 +15,34 @@ import io.reactivex.schedulers.Schedulers;
  * @author koo
  */
 public class HttpUtil {
-    private Api                  api;
-    private HttpUtilBuilder<Api> httpUtilBuilder;
-
-    private static class HttpUtilSingleton {
-        private static final HttpUtil INSTANCE = new HttpUtil();
-    }
+    private        Api                  api;
+    private        HttpUtilBuilder<Api> httpUtilBuilder;
+    private static HttpUtil             instance;
+    private        boolean              iaDebug;
+    private        Context              context;
 
     private HttpUtil() {
-        httpUtilBuilder = new HttpUtilBuilder<>(Api.class, AppConfigUtil.baseUrl, new BasicParamsInterceptor.Builder().build());
+        httpUtilBuilder = new HttpUtilBuilder<>(iaDebug, Api.class, AppConfigUtil.baseUrl, new BasicParamsInterceptor.Builder().build());
     }
 
     public static HttpUtil getInstance() {
-        return HttpUtilSingleton.INSTANCE;
+        if (instance == null) {
+            synchronized (HttpUtil.class) {
+                if (instance == null) {
+                    instance = new HttpUtil();
+                }
+            }
+        }
+        return instance;
     }
+
+    public void init(Context context, boolean debug) {
+        this.context = context;
+        this.iaDebug = debug;
+        httpUtilBuilder.setContext(context);
+//        HttpHead.init(context);
+    }
+
 
     public Api getService() {
         return api == null ? api = httpUtilBuilder.getService() : api;

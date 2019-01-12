@@ -296,7 +296,9 @@ public class LoginPlayAndroidActivity extends BaseActivity<LoginPresenter> imple
 
     @Override
     public void loginSuccess() {
+        showToast("登录成功");
         ARouter.getInstance().build(ArouterHelper.ROUTE_ACTIVITY_MAIN).withFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION).withInt("x", getLoadingViewPoint()[0]).withInt("y", getLoadingViewPoint()[1]).navigation(this);
+        setFinishBeforeAnimator(true);
         finishActivity();
 
     }

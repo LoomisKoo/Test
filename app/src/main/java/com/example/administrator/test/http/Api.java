@@ -77,12 +77,17 @@ public interface Api {
     Observable<ResponseBody> login(@Field("username") String username, @Field("password") String password);
 
     /**
+     * 玩安卓退出登录
+     */
+    @GET("user/logout/json")
+    Observable<ResponseBody> logout();
+
+    /**
      * 玩安卓注册
      */
     @FormUrlEncoded
     @POST("user/register")
     Observable<ResponseBody> register(@Field("username") String username, @Field("password") String password, @Field("repassword") String repassword);
-
 
 
 }

@@ -7,6 +7,7 @@ import com.example.administrator.test.entity.LoginEntity;
 import com.example.administrator.test.http.HttpCallback;
 import com.example.administrator.test.mvp.contract.LoginContract;
 import com.example.administrator.test.util.ACache;
+import com.example.administrator.test.util.UserUtil;
 
 import java.io.IOException;
 
@@ -50,12 +51,14 @@ public class LoginPresenter implements LoginContract.Presenter {
                     else {
                         //保存 user 对象
                         ACache mCache = ACache.get(context);
+                        mCache.remove("user");
                         mCache.put("user", entity.getData());
-
+                        UserUtil.handleLoginSuccess();
                         view.loginSuccess();
                     }
                 }
                 catch (IOException e) {
+                    UserUtil.handleLoginFailure();
                     view.loginFail("登录失败");
                     e.printStackTrace();
                 }

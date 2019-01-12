@@ -31,77 +31,96 @@ android {
 }
 
 dependencies {
-
     annotationProcessor 'com.alibaba:arouter-compiler:1.1.4'
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'androidx.appcompat:appcompat:1.1.0-alpha01'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.0-alpha3'
     implementation 'com.alibaba:arouter-api:1.4.1'
+
     //各种方法类集合，具体方法在说明文档 {@link /app/document/commonUtils.txt}
     implementation 'com.blankj:utilcode:1.13.5'
+
     //图片框架  glide
     implementation 'com.github.bumptech.glide:glide:4.8.0'
+
     //zxing二维码识别库
     implementation 'com.github.yuzhiqiang1993:zxing:2.2.1'
+
     //AE动画框架
-//    implementation 'com.airbnb.android:lottie:2.8.0'
+
+    //    implementation 'com.airbnb.android:lottie:2.8.0'
+
     //阿里巴巴fastjson库 具体方法在说明文档 {@link /app/document/commonUtils.txt}
     implementation 'com.alibaba:fastjson:1.2.51'
+
     //greenDao
     implementation 'org.greenrobot:greendao:3.2.2'
+
     //通用RecycleView适配器
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.30'
+
     //RecycleView动画库
     implementation 'jp.wasabeef:recyclerview-animators:2.2.3'
+
     //列表动画库
     implementation 'com.nineoldandroids:library:2.4.0'
+
     //log打印框架
     implementation 'com.orhanobut:logger:2.2.0'
+
     //底部导航栏框架
     implementation 'com.roughike:bottom-bar:2.3.1'
+
     //页面滑动退出框架
     implementation 'me.imid.swipebacklayout.lib:library:1.1.0'
+
     //AOP
     implementation 'org.aspectj:aspectjrt:1.8.9'
+
     //阿里巴巴扩展列表 vlayotu   因1.2.8版本不调用onbindViewHolder() 所以暂时使用1.2.6
     implementation 'com.alibaba.android:vlayout:1.2.6'
+
     //SmartRefreshLayout
     implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.4-7'
+
     //cardview
     implementation 'androidx.cardview:cardview:1.0.0'
+
     //banner  具体方法在说明文档 {@link /app/document/banner.txt}
     implementation 'com.youth.banner:banner:1.4.10'
-
     implementation 'com.google.android.material:material:1.1.0-alpha02'
-
     implementation 'com.squareup.okhttp3:logging-interceptor:3.10.0'
     implementation 'com.squareup.okhttp3:okhttp:3.10.0'
+
     //rx
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.0'
+
     //retrofit相关
     implementation 'com.squareup.retrofit2:adapter-rxjava2:2.4.0'
     implementation 'com.squareup.retrofit2:retrofit:2.4.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
 
     //Lifecycles, LiveData, and ViewModel
-    implementation "androidx.lifecycle:lifecycle-runtime:2.1.0-alpha01"
-    implementation "androidx.lifecycle:lifecycle-extensions:2.1.0-alpha01"
+    implementation 'androidx.lifecycle:lifecycle-runtime:2.1.0-alpha01'
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0-alpha01'
     annotationProcessor "androidx.lifecycle:lifecycle-compiler:2.1.0-alpha01"
 
     //侧滑recyclerview
     implementation 'com.github.LoomisKoo:SwipeRecyclerview:1.0'
+
     //butterknife
     implementation 'com.jakewharton:butterknife:10.0.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.0.0'
-
     implementation 'com.google.android.material:material:1.1.0-alpha02'
-//    implementation 'com.google.android.material:material:1.0.0+'
-//    com.android.support:cardview-v7
-//    androidx.cardview:cardview:1.0.0
 
+    //    implementation 'com.google.android.material:material:1.0.0+'
+
+    //    com.android.support:cardview-v7
+
+    //    androidx.cardview:cardview:1.0.0
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
     implementation 'org.jetbrains:annotations:15.0'
-
+    implementation files('libs/commons-lang-2.6.jar')
 }

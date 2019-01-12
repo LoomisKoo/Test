@@ -7,6 +7,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.Toast;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.alibaba.android.vlayout.LayoutHelper;
@@ -20,12 +22,15 @@ import com.example.administrator.test.base.adapter.QuickDelegateAdapter;
 import com.example.administrator.test.base.fragment.BaseListFragment;
 import com.example.administrator.test.entity.ArticleListEntity;
 import com.example.administrator.test.entity.BannerEntity;
+import com.example.administrator.test.entity.LoginEntity;
 import com.example.administrator.test.entity.view.PlayAndroidViewEntity;
 import com.example.administrator.test.http.HttpRequestType;
 import com.example.administrator.test.mvp.contract.PlayAndroidContract;
 import com.example.administrator.test.mvp.model.PlayAndroidModel;
 import com.example.administrator.test.mvp.presenter.PlayAndroidPresenter;
+import com.example.administrator.test.util.ACache;
 import com.example.administrator.test.util.ArouterHelper;
+import com.example.administrator.test.util.UserUtil;
 import com.example.administrator.test.viewholder.PlayAndroidArticleListVH;
 import com.example.administrator.test.viewholder.PlayAndroidBannerViewHolder;
 
@@ -71,10 +76,19 @@ public class PlayAndroidFragment extends BaseListFragment<PlayAndroidViewEntity,
                         break;
                     case HttpRequestType.REQUEST_TYPE_ARTICLE_LIST:
                         ((PlayAndroidArticleListVH) holder).setData((ArticleListEntity.DataBean.ArticleInfoBean) item.getData());
-                        holder.setOnClickListener(R.id.cbCollect, v -> {
+                        CheckBox checkBox = holder.getView(R.id.cbCollect);
+                        checkBox.setOnClickListener(v -> {
+
                             ArticleListEntity.DataBean.ArticleInfoBean bean = (ArticleListEntity.DataBean.ArticleInfoBean) item.getData();
+                            if (!UserUtil.isLogin(context)) {
+                                checkBox.setChecked(!checkBox.isChecked());
+                                return;
+                            }
+
+
+                            int articleID = bean.getId();
                             if (bean.isCollect()) {
-                                presenter.unCollectArticle(bean.getId(), new PlayAndroidPresenter.CallBack() {
+                                presenter.unCollectArticle(articleID, new PlayAndroidPresenter.CallBack() {
                                     @Override
                                     public void onSuccess() {
                                         ToastUtils.showShort(getString(R.string.play_android_cancel_collection_successfully));
@@ -88,7 +102,7 @@ public class PlayAndroidFragment extends BaseListFragment<PlayAndroidViewEntity,
                                 });
                             }
                             else {
-                                presenter.collectArticle(bean.getId(), new PlayAndroidPresenter.CallBack() {
+                                presenter.collectArticle(articleID, new PlayAndroidPresenter.CallBack() {
                                     @Override
                                     public void onSuccess() {
                                         ToastUtils.showShort(getString(R.string.play_android_collection_successfully));
@@ -129,8 +143,8 @@ public class PlayAndroidFragment extends BaseListFragment<PlayAndroidViewEntity,
 
                             PlayAndroidViewEntity entity = adapter.getData().get(position);
                             if (entity.getViewType() == HttpRequestType.REQUEST_TYPE_ARTICLE_LIST) {
-                                ArticleListEntity.DataBean.ArticleInfoBean bean   = (ArticleListEntity.DataBean.ArticleInfoBean) entity.getData();
-                                String                                     title  = bean.getTitle();
+                                ArticleListEntity.DataBean.ArticleInfoBean bean  = (ArticleListEntity.DataBean.ArticleInfoBean) entity.getData();
+                                String                                     title = bean.getTitle();
                                 ARouter.getInstance().build(ArouterHelper.ROUTE_ACTIVITY_WEB).withFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION).withString("title", title).withString("url", bean.getLink()).withInt("x", AnimatorHelper.getDownX()).withInt("y", AnimatorHelper.getDownY()).navigation(getActivity());
                             }
                         });

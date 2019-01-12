@@ -4,6 +4,7 @@ import android.app.Application;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.blankj.utilcode.util.Utils;
+import com.example.administrator.test.http.HttpUtil;
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.FormatStrategy;
 import com.orhanobut.logger.Logger;
@@ -25,6 +26,8 @@ public class TestApplication extends Application {
 
         Utils.init(this);
         initLogger();
+
+        HttpUtil.getInstance().init(this, true);
     }
 
     private void initLogger() {

@@ -91,6 +91,8 @@ public abstract class BaseActivity<P extends IBasePresenter> extends SwipeBackAc
      */
     private static final int ACTIVITY_ANIMATOR_DURATION = 400;
 
+    private boolean isFinishBeforeAnimator = false;
+
     /**
      * View点击
      **/
@@ -292,32 +294,33 @@ public abstract class BaseActivity<P extends IBasePresenter> extends SwipeBackAc
         }
         animator.setDuration(ACTIVITY_ANIMATOR_DURATION);
         animator.setInterpolator(new AccelerateDecelerateInterpolator());
-        if (reversed) {
-            animator.addListener(new Animator.AnimatorListener() {
-                @Override
-                public void onAnimationStart(Animator animation) {
+        animator.addListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animation) {
 
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                if (reversed) {
+                    drawerRootLayout.setVisibility(View.INVISIBLE);
+                    finish();
                 }
-
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    if (reversed) {
-                        drawerRootLayout.setVisibility(View.INVISIBLE);
-                        finish();
-                    }
+                if (isFinishBeforeAnimator) {
+                    finish();
                 }
+            }
 
-                @Override
-                public void onAnimationCancel(Animator animation) {
+            @Override
+            public void onAnimationCancel(Animator animation) {
 
-                }
+            }
 
-                @Override
-                public void onAnimationRepeat(Animator animation) {
+            @Override
+            public void onAnimationRepeat(Animator animation) {
 
-                }
-            });
-        }
+            }
+        });
         return animator;
     }
 
@@ -777,5 +780,13 @@ public abstract class BaseActivity<P extends IBasePresenter> extends SwipeBackAc
 
     public void setAllowActivityAnimator(boolean allowActivityAnimator) {
         isAllowActivityAnimator = allowActivityAnimator;
+    }
+
+    public boolean isFinishBeforeAnimator() {
+        return isFinishBeforeAnimator;
+    }
+
+    public void setFinishBeforeAnimator(boolean finishBeforeAnimator) {
+        isFinishBeforeAnimator = finishBeforeAnimator;
     }
 }

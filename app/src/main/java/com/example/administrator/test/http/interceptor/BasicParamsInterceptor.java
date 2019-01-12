@@ -1,6 +1,8 @@
-package com.example.administrator.test.http;
+package com.example.administrator.test.http.interceptor;
 
 import android.util.Log;
+
+import com.example.administrator.test.http.JsonLogFormat;
 
 import java.io.IOException;
 import java.nio.charset.Charset;
@@ -27,7 +29,7 @@ import static okhttp3.internal.Util.UTF_8;
  */
 public class BasicParamsInterceptor implements Interceptor {
 
-    public static final String TAG = "httpLog";
+    public static final String TAG  = "httpLog";
     public static final String POST = "POST";
 
     private Map<String, String> queryParamsMap  = new HashMap<>();

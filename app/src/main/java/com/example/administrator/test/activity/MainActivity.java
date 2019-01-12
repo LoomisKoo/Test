@@ -18,11 +18,11 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.example.administrator.test.R;
 import com.example.administrator.test.animation.AnimatorHelper;
-import com.example.administrator.test.animation.RevealAnimation;
 import com.example.administrator.test.base.activity.BaseActivity;
 import com.example.administrator.test.fragment.Fragment1;
 import com.example.administrator.test.fragment.PlayFragment;
 import com.example.administrator.test.mvp.base.IBasePresenter;
+import com.example.administrator.test.util.ACache;
 import com.example.administrator.test.util.ArouterHelper;
 import com.roughike.bottombar.BottomBar;
 
@@ -142,6 +142,13 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void OnNavigationOnClick() {
         drawerRootLayout.openDrawer(GravityCompat.START);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ACache mCache = ACache.get(this);
+        mCache.remove("user");
     }
 
     private void initTopBar() {

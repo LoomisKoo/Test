@@ -18,8 +18,9 @@ import com.alibaba.android.arouter.launcher.ARouter;
 import com.example.administrator.test.R;
 import com.example.administrator.test.animation.AnimatorHelper;
 import com.example.administrator.test.base.activity.BaseActivity;
-import com.example.administrator.test.entity.LoginEntity;
-import com.example.administrator.test.mvp.base.IBasePresenter;
+import com.example.administrator.test.mvp.contract.LogoutContract;
+import com.example.administrator.test.mvp.model.LogoutModel;
+import com.example.administrator.test.mvp.presenter.LogoutPresenter;
 import com.example.administrator.test.util.ACache;
 import com.example.administrator.test.util.ArouterHelper;
 
@@ -39,7 +40,7 @@ import butterknife.BindView;
  * @Version: 1.0
  */
 @Route(path = ArouterHelper.ROUTE_ACTIVITY_LOGIN)
-public class LoginActivity extends BaseActivity {
+public class LoginActivity extends BaseActivity<LogoutPresenter> implements LogoutContract.View {
     @BindView(R.id.login_github_btn)
     Button           loginGithubBtn;
     @BindView(R.id.login_play_android_btn)
@@ -96,27 +97,17 @@ public class LoginActivity extends BaseActivity {
         bg = rsBlur(this, bg, 25);
         rootLayout.setBackground(new BitmapDrawable(getResources(), bg));
 
-        ACache                 mCache     = ACache.get(this);
-        LoginEntity.UserEntity userEntity = (LoginEntity.UserEntity) mCache.getAsObject("user");
-        if (null == userEntity) {
-            loginPlayAndroidBtn.setText("玩安卓");
-            loginPlayAndroidBtn.setOnClickListener(v -> ARouter.getInstance().build(ArouterHelper.ROUTE_ACTIVITY_LOGIN_PLAY_ANDROID).withFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION).withInt("x", AnimatorHelper.getDownX()).withInt("y", AnimatorHelper.getDownY()).navigation(this));
-
-        }
-        else {
-            loginPlayAndroidBtn.setText("退出玩安卓");
-        }
+        initPlayAndroidBtnStyle();
     }
 
     @Override
-    protected IBasePresenter createPresenter() {
-        return null;
+    protected LogoutPresenter createPresenter() {
+        return new LogoutPresenter(this, new LogoutModel(), this);
     }
-
 
     @Override
     public void setListener() {
-        loginGithubBtn.setOnClickListener(v -> ARouter.getInstance().build(ArouterHelper.ROUTE_ACTIVITY_WEB).withFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION).withString("title", "登录Github").withString("url", GITHUB_URL).withInt("x", AnimatorHelper.getDownX()).withInt("y", AnimatorHelper.getDownY()).navigation(this));
+
     }
 
     @Override
@@ -166,5 +157,32 @@ public class LoginActivity extends BaseActivity {
         renderScript.destroy();
 
         return inputBmp;
+    }
+
+    @Override
+    public void logoutSuccess() {
+        showToast("已退出 玩安卓");
+        initPlayAndroidBtnStyle();
+    }
+
+    @Override
+    public void logoutFail(String msg) {
+        showToast(msg);
+        initPlayAndroidBtnStyle();
+    }
+
+    /**
+     * 初始化玩安卓登录按钮
+     */
+    private void initPlayAndroidBtnStyle() {
+        ACache mCache = ACache.get(this);
+        if (null == mCache.getAsObject("user")) {
+            loginPlayAndroidBtn.setText("玩安卓");
+            loginPlayAndroidBtn.setOnClickListener(v -> ARouter.getInstance().build(ArouterHelper.ROUTE_ACTIVITY_LOGIN_PLAY_ANDROID).withFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION).withInt("x", AnimatorHelper.getDownX()).withInt("y", AnimatorHelper.getDownY()).navigation(this));
+        }
+        else {
+            loginPlayAndroidBtn.setText("退出玩安卓");
+            loginPlayAndroidBtn.setOnClickListener(v -> presenter.logout());
+        }
     }
 }
