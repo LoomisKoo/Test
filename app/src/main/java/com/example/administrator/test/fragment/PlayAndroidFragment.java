@@ -7,8 +7,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
-
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.alibaba.android.vlayout.LayoutHelper;
 import com.alibaba.android.vlayout.layout.LinearLayoutHelper;
@@ -29,6 +27,8 @@ import com.example.administrator.test.util.ArouterHelper;
 import com.example.administrator.test.util.UserUtil;
 import com.example.administrator.test.viewholder.PlayAndroidArticleListVH;
 import com.example.administrator.test.viewholder.PlayAndroidBannerVH;
+import com.like.LikeButton;
+import com.like.OnLikeListener;
 
 
 /**
@@ -70,46 +70,20 @@ public class PlayAndroidFragment extends BaseListFragment<PlayAndroidViewEntity,
                         ((PlayAndroidBannerVH) holder).setData((BannerEntity) item.getData());
                         break;
                     case HttpRequestType.REQUEST_TYPE_ARTICLE_LIST:
-                        ((PlayAndroidArticleListVH) holder).setData((ArticleListEntity.DataBean.ArticleInfoBean) item.getData());
-                        CheckBox checkBox = holder.getView(R.id.cbCollect);
-                        checkBox.setOnClickListener(v -> {
+                        ArticleListEntity.DataBean.ArticleInfoBean entity = (ArticleListEntity.DataBean.ArticleInfoBean) item.getData();
+                        ((PlayAndroidArticleListVH) holder).setData(entity);
+                        LikeButton checkBox = holder.getView(R.id.cbCollect);
 
-                            ArticleListEntity.DataBean.ArticleInfoBean bean = (ArticleListEntity.DataBean.ArticleInfoBean) item.getData();
-                            if (!UserUtil.isLogin(context)) {
-                                checkBox.setChecked(!checkBox.isChecked());
-                                return;
+                        checkBox.setOnLikeListener(new OnLikeListener() {
+                            @Override
+                            public void liked(LikeButton likeButton) {
+                                collectArticle(likeButton,entity);
                             }
 
-                            int articleID = bean.getId();
-                            if (bean.isCollect()) {
-                                presenter.unCollectArticle(articleID, new PlayAndroidPresenter.CallBack() {
-                                    @Override
-                                    public void onSuccess() {
-                                        ToastUtils.showShort(getString(R.string.play_android_cancel_collection_successfully));
-                                        bean.setCollect(false);
-                                    }
-
-                                    @Override
-                                    public void onError() {
-                                        ToastUtils.showShort(getString(R.string.play_android_cancel_collection_failed));
-                                    }
-                                });
+                            @Override
+                            public void unLiked(LikeButton likeButton) {
+                                collectArticle(likeButton,entity);
                             }
-                            else {
-                                presenter.collectArticle(articleID, new PlayAndroidPresenter.CallBack() {
-                                    @Override
-                                    public void onSuccess() {
-                                        ToastUtils.showShort(getString(R.string.play_android_collection_successfully));
-                                        bean.setCollect(true);
-                                    }
-
-                                    @Override
-                                    public void onError() {
-                                        ToastUtils.showShort(getString(R.string.play_android_collection_failed));
-                                    }
-                                });
-                            }
-
                         });
                         break;
                     default:
@@ -197,5 +171,49 @@ public class PlayAndroidFragment extends BaseListFragment<PlayAndroidViewEntity,
     public void onComplete() {
         stopRefresh();
         checkEmpty(getString(R.string.common_empty_list_load_failed), R.mipmap.ic_load_err);
+    }
+
+    /**
+     * 收藏或者取消收藏文章
+     * @param checkBox
+     * @param entity
+     */
+    private void collectArticle(LikeButton checkBox, ArticleListEntity.DataBean.ArticleInfoBean entity) {
+        if (!UserUtil.isLogin(getContext())) {
+            checkBox.setLiked(!checkBox.isLiked());
+            return;
+        }
+
+        int articleID = entity.getId();
+        if (entity.isCollect()) {
+            presenter.unCollectArticle(articleID, new PlayAndroidPresenter.CallBack() {
+                @Override
+                public void onSuccess() {
+                    ToastUtils.showShort(getString(R.string.play_android_cancel_collection_successfully));
+                    entity.setCollect(false);
+                    checkBox.setLiked(false);
+                }
+
+                @Override
+                public void onError() {
+                    ToastUtils.showShort(getString(R.string.play_android_cancel_collection_failed));
+                }
+            });
+        }
+        else {
+            presenter.collectArticle(articleID, new PlayAndroidPresenter.CallBack() {
+                @Override
+                public void onSuccess() {
+                    ToastUtils.showShort(getString(R.string.play_android_collection_successfully));
+                    entity.setCollect(true);
+                    checkBox.setLiked(true);
+                }
+
+                @Override
+                public void onError() {
+                    ToastUtils.showShort(getString(R.string.play_android_collection_failed));
+                }
+            });
+        }
     }
 }

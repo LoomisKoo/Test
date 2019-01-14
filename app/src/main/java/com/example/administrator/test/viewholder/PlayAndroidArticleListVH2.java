@@ -22,7 +22,6 @@ import com.example.administrator.test.entity.ArticleListEntity;
  * @Version: 1.0
  */
 public class PlayAndroidArticleListVH2 extends BaseViewHolder {
-    private TextView tvSubTitle;
     private TextView tvTitle;
     private TextView tvPublishInfo;
     private CheckBox cbCollect;

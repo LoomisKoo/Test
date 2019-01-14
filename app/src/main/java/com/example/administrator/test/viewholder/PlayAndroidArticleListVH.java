@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.example.administrator.test.R;
 import com.example.administrator.test.base.adapter.BaseViewHolder;
 import com.example.administrator.test.entity.ArticleListEntity;
+import com.like.LikeButton;
 
 /**
  * @ProjectName: Test
@@ -23,10 +24,10 @@ import com.example.administrator.test.entity.ArticleListEntity;
  * @Version: 1.0
  */
 public class PlayAndroidArticleListVH extends BaseViewHolder {
-    private TextView tvSubTitle;
-    private TextView tvTitle;
-    private TextView tvPublishInfo;
-    private CheckBox cbCollect;
+    private TextView   tvSubTitle;
+    private TextView   tvTitle;
+    private TextView   tvPublishInfo;
+    private LikeButton cbCollect;
 
     public PlayAndroidArticleListVH(Context context, ViewGroup parent, int layoutId) {
         super(context, parent, layoutId);
@@ -42,6 +43,6 @@ public class PlayAndroidArticleListVH extends BaseViewHolder {
         tvTitle.setText(data.getTitle());
         tvPublishInfo.setText(data.getNiceDate() + "·" + data.getAuthor());
         tvSubTitle.setText(data.getChapterName());
-        cbCollect.setChecked(data.isCollect());
+        cbCollect.setLiked(data.isCollect());
     }
 }
