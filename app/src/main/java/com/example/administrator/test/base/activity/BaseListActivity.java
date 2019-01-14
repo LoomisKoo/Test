@@ -41,9 +41,9 @@ import jp.wasabeef.recyclerview.animators.SlideInLeftAnimator;
  * @author koo
  */
 public abstract class BaseListActivity<T, P extends IBasePresenter> extends BaseActivity<P> {
-    protected int page      = 1;
-    protected int pageSize  = 20;
-    protected int totalPage = 1;
+    protected int page     = 1;
+    protected int pageSize = 20;
+    protected int maxPage  = 1;
 
     protected SwipeMenuRecyclerView   recyclerView;
     protected QuickDelegateAdapter<T> adapter;
@@ -239,9 +239,9 @@ public abstract class BaseListActivity<T, P extends IBasePresenter> extends Base
 
     protected void refresh() {
         hideEmptyView();
-        page = 1;
+        page = 0;
         adapter.clear();
-        if (totalPage >= page) {
+        if (maxPage >= page) {
             getData(page, pageSize);
         }
         else {
@@ -251,7 +251,7 @@ public abstract class BaseListActivity<T, P extends IBasePresenter> extends Base
 
     protected void loadMore() {
         page++;
-        if (totalPage >= page) {
+        if (maxPage > page) {
             getData(page, pageSize);
         }
         else {

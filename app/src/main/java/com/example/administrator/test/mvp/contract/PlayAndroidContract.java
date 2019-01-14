@@ -44,8 +44,9 @@ public interface PlayAndroidContract {
          * banner图请求成功回调
          *
          * @param playAndroidViewEntity
+         * @param maxPage
          */
-        void onSuccess(PlayAndroidViewEntity playAndroidViewEntity);
+        void onSuccess(PlayAndroidViewEntity playAndroidViewEntity,int maxPage);
 
         void onError(String msg);
 

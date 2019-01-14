@@ -49,7 +49,7 @@ public class PlayAndroidFragment extends BaseListFragment<PlayAndroidViewEntity,
     @Override
     protected void getData(int page, int pageSize) {
         presenter.getArticleList(page);
-        if (1 == page) {
+        if (0 == page) {
             presenter.getBannerImg();
         }
 
@@ -135,12 +135,10 @@ public class PlayAndroidFragment extends BaseListFragment<PlayAndroidViewEntity,
                         vh.itemView.setOnClickListener(v -> {
                             int position = recyclerView.getChildAdapterPosition(v);
 
-                            PlayAndroidViewEntity entity = adapter.getData().get(position);
-                            if (entity.getViewType() == HttpRequestType.REQUEST_TYPE_ARTICLE_LIST) {
-                                ArticleListEntity.DataBean.ArticleInfoBean bean  = (ArticleListEntity.DataBean.ArticleInfoBean) entity.getData();
-                                String                                     title = bean.getTitle();
-                                ARouter.getInstance().build(ArouterHelper.ROUTE_ACTIVITY_WEB).withFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION).withString("title", title).withString("url", bean.getLink()).withInt("x", AnimatorHelper.getDownX()).withInt("y", AnimatorHelper.getDownY()).navigation(getActivity());
-                            }
+                            PlayAndroidViewEntity                      entity = adapter.getData().get(position);
+                            ArticleListEntity.DataBean.ArticleInfoBean bean   = (ArticleListEntity.DataBean.ArticleInfoBean) entity.getData();
+                            String                                     title  = bean.getTitle();
+                            ARouter.getInstance().build(ArouterHelper.ROUTE_ACTIVITY_WEB).withFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION).withString("title", title).withString("url", bean.getLink()).withInt("x", AnimatorHelper.getDownX()).withInt("y", AnimatorHelper.getDownY()).navigation(getActivity());
                         });
 
                         AnimatorHelper.setViewTouchListener(vh.itemView);
@@ -178,12 +176,13 @@ public class PlayAndroidFragment extends BaseListFragment<PlayAndroidViewEntity,
     }
 
     @Override
-    public void onSuccess(PlayAndroidViewEntity playAndroidViewEntity) {
+    public void onSuccess(PlayAndroidViewEntity playAndroidViewEntity, int maxPage) {
         stopRefresh();
         if (playAndroidViewEntity.getViewType() == HttpRequestType.REQUEST_TYPE_BANNER) {
             adapter.add(0, playAndroidViewEntity);
         }
         else {
+            this.maxPage = maxPage;
             adapter.add(playAndroidViewEntity);
         }
     }

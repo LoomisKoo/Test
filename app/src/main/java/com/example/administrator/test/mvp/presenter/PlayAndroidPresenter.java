@@ -41,7 +41,7 @@ public class PlayAndroidPresenter implements PlayAndroidContract.Presenter {
                     e.printStackTrace();
                 }
                 playAndroidViewEntity = new PlayAndroidViewEntity(bannerEntity, HttpRequestType.REQUEST_TYPE_BANNER);
-                view.onSuccess(playAndroidViewEntity);
+                view.onSuccess(playAndroidViewEntity,0);
             }
 
             @Override
@@ -68,7 +68,7 @@ public class PlayAndroidPresenter implements PlayAndroidContract.Presenter {
                     List<ArticleListEntity.DataBean.ArticleInfoBean> entityList = articleListEntity.getData().getArticleListBean();
                     for (ArticleListEntity.DataBean.ArticleInfoBean entity : entityList) {
                         playAndroidViewEntity = new PlayAndroidViewEntity(entity, HttpRequestType.REQUEST_TYPE_ARTICLE_LIST);
-                        view.onSuccess(playAndroidViewEntity);
+                        view.onSuccess(playAndroidViewEntity,articleListEntity.getData().getPageCount());
                     }
                 }
                 catch (IOException e) {

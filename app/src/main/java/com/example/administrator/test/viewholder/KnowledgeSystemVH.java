@@ -68,10 +68,6 @@ public class KnowledgeSystemVH extends BaseViewHolder {
             //实例化得到Item布局文件的View对象
             View v = LayoutInflater.from(context).inflate(R.layout.play_android_item_knowledge_point, parent, false);
             AnimatorHelper.setViewTouchListener(v);
-            v.setOnClickListener(v1 -> {
-                KnowledgeSystemEntity.KnowledgeType.KnowledgePoint entity = data.get(getAdapterPosition());
-                ARouter.getInstance().build(ArouterHelper.ROUTE_ACTIVITY_ARTICLE_LIST).withFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION).withInt("x", AnimatorHelper.getDownX()).withInt("y", AnimatorHelper.getDownY()).withInt("cid", entity.getId()).withString("title", entity.getName()).navigation();
-            });
             KnowledgeSystemPointVH vh = new KnowledgeSystemPointVH(v);
             return vh;
         }
@@ -79,6 +75,11 @@ public class KnowledgeSystemVH extends BaseViewHolder {
         @Override
         public void onBindViewHolder(@NonNull KnowledgeSystemPointVH holder, int position) {
             holder.tvPoint.setText(data.get(position).getName());
+            holder.tvPoint.setOnClickListener(v -> {
+                KnowledgeSystemEntity.KnowledgeType.KnowledgePoint entity = data.get(position);
+                ARouter.getInstance().build(ArouterHelper.ROUTE_ACTIVITY_ARTICLE_LIST).withFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION).withInt("x", AnimatorHelper.getDownX()).withInt("y", AnimatorHelper.getDownY()).withInt("cid", entity.getId()).withString("title", entity.getName()).navigation();
+
+            });
         }
 
         @Override

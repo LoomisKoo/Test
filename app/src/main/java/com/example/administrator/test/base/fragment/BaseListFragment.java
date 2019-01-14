@@ -2,11 +2,13 @@ package com.example.administrator.test.base.fragment;
 
 import android.app.Activity;
 import android.os.Bundle;
+
 import androidx.annotation.DrawableRes;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.RecyclerView;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,6 +42,7 @@ public abstract class BaseListFragment<T, P> extends BaseFragment<P> {
 
     protected int page     = 1;
     protected int pageSize = 20;
+    protected int maxPage  = 1;
 
     protected RecyclerView            recyclerView;
     protected QuickDelegateAdapter<T> adapter;
@@ -179,14 +182,24 @@ public abstract class BaseListFragment<T, P> extends BaseFragment<P> {
 
     protected void refresh() {
         hideEmptyView();
-        page = 1;
+        page = 0;
         adapter.clear();
-        getData(page, pageSize);
+        if (maxPage >= page) {
+            getData(page, pageSize);
+        }
+        else {
+            stopRefresh();
+        }
     }
 
     protected void loadMore() {
         page++;
-        getData(page, pageSize);
+        if (maxPage > page) {
+            getData(page, pageSize);
+        }
+        else {
+            stopRefresh();
+        }
     }
 
     protected void setRefreshEnable(boolean enable) {

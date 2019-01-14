@@ -15,13 +15,10 @@ import com.example.administrator.test.base.activity.BaseListActivity;
 import com.example.administrator.test.base.adapter.BaseViewHolder;
 import com.example.administrator.test.base.adapter.QuickDelegateAdapter;
 import com.example.administrator.test.entity.ArticleListEntity;
-import com.example.administrator.test.entity.view.PlayAndroidViewEntity;
-import com.example.administrator.test.http.HttpRequestType;
 import com.example.administrator.test.mvp.contract.ArticleListContract;
 import com.example.administrator.test.mvp.model.ArticleListModel;
 import com.example.administrator.test.mvp.presenter.ArticleListPresenter;
 import com.example.administrator.test.util.ArouterHelper;
-import com.example.administrator.test.viewholder.PlayAndroidArticleListVH;
 import com.example.administrator.test.viewholder.PlayAndroidArticleListVH2;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -48,7 +45,8 @@ public class ArticleListActivity extends BaseListActivity<ArticleListEntity.Data
     @Override
     public void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
-        setTooBarTitle(title);
+        showCenterTitle(true);
+        setCenterTitle(title);
     }
 
     @Override
@@ -105,8 +103,10 @@ public class ArticleListActivity extends BaseListActivity<ArticleListEntity.Data
     @Override
     public void onSuccess(ArticleListEntity entity) {
         stopRefresh();
-        totalPage = entity.getData().getPageCount();
-        adapter.addAll(entity.getData().getArticleListBean());
+        maxPage = entity.getData().getPageCount();
+        for (ArticleListEntity.DataBean.ArticleInfoBean bean : entity.getData().getArticleListBean()) {
+            adapter.add(bean);
+        }
     }
 
     @Override
