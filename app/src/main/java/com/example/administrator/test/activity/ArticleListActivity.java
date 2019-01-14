@@ -9,6 +9,7 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.alibaba.android.vlayout.LayoutHelper;
 import com.alibaba.android.vlayout.layout.LinearLayoutHelper;
+import com.blankj.utilcode.util.ToastUtils;
 import com.example.administrator.test.R;
 import com.example.administrator.test.animation.AnimatorHelper;
 import com.example.administrator.test.base.activity.BaseListActivity;
@@ -18,8 +19,12 @@ import com.example.administrator.test.entity.ArticleListEntity;
 import com.example.administrator.test.mvp.contract.ArticleListContract;
 import com.example.administrator.test.mvp.model.ArticleListModel;
 import com.example.administrator.test.mvp.presenter.ArticleListPresenter;
+import com.example.administrator.test.mvp.presenter.PlayAndroidPresenter;
 import com.example.administrator.test.util.ArouterHelper;
+import com.example.administrator.test.util.UserUtil;
 import com.example.administrator.test.viewholder.PlayAndroidArticleListVH2;
+import com.like.LikeButton;
+import com.like.OnLikeListener;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -60,6 +65,18 @@ public class ArticleListActivity extends BaseListActivity<ArticleListEntity.Data
             @Override
             protected void onSetItemData(BaseViewHolder holder, ArticleListEntity.DataBean.ArticleInfoBean item, int viewType, int position) {
                 ((PlayAndroidArticleListVH2) holder).setData(item);
+                LikeButton checkBox = holder.getView(R.id.cbCollect);
+                checkBox.setOnLikeListener(new OnLikeListener() {
+                    @Override
+                    public void liked(LikeButton likeButton) {
+                        collectArticle(likeButton, item);
+                    }
+
+                    @Override
+                    public void unLiked(LikeButton likeButton) {
+                        collectArticle(likeButton, item);
+                    }
+                });
             }
 
             @Override
@@ -112,5 +129,50 @@ public class ArticleListActivity extends BaseListActivity<ArticleListEntity.Data
     @Override
     public void onError(String msg) {
         stopRefresh();
+    }
+
+
+    /**
+     * 收藏或者取消收藏文章
+     * @param checkBox
+     * @param entity
+     */
+    private void collectArticle(LikeButton checkBox, ArticleListEntity.DataBean.ArticleInfoBean entity) {
+        if (!UserUtil.isLogin(this)) {
+            checkBox.setLiked(!checkBox.isLiked());
+            return;
+        }
+
+        int articleID = entity.getId();
+        if (entity.isCollect()) {
+            presenter.unCollectArticle(articleID, new ArticleListPresenter.CallBack() {
+                @Override
+                public void onSuccess() {
+                    ToastUtils.showShort(getString(R.string.play_android_cancel_collection_successfully));
+                    entity.setCollect(false);
+                    checkBox.setLiked(false);
+                }
+
+                @Override
+                public void onError() {
+                    ToastUtils.showShort(getString(R.string.play_android_cancel_collection_failed));
+                }
+            });
+        }
+        else {
+            presenter.collectArticle(articleID, new ArticleListPresenter.CallBack() {
+                @Override
+                public void onSuccess() {
+                    ToastUtils.showShort(getString(R.string.play_android_collection_successfully));
+                    entity.setCollect(true);
+                    checkBox.setLiked(true);
+                }
+
+                @Override
+                public void onError() {
+                    ToastUtils.showShort(getString(R.string.play_android_collection_failed));
+                }
+            });
+        }
     }
 }

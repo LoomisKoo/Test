@@ -1,9 +1,9 @@
 package com.example.administrator.test.mvp.contract;
 
 import com.example.administrator.test.entity.ArticleListEntity;
-import com.example.administrator.test.entity.view.PlayAndroidViewEntity;
 import com.example.administrator.test.http.HttpCallback;
 import com.example.administrator.test.mvp.base.IBasePresenter;
+import com.example.administrator.test.mvp.presenter.ArticleListPresenter;
 
 /**
  * @ProjectName: Test
@@ -38,8 +38,8 @@ public interface ArticleListContract {
     interface Presenter extends IBasePresenter {
         void getArticleList(int page, Integer cid);
 
-        void collectArticle(int articleID);
+        void collectArticle(int articleID,ArticleListPresenter.CallBack callBack);
 
-        void unCollectArticle(int articleID);
+        void unCollectArticle(int articleID,ArticleListPresenter.CallBack callBack);
     }
 }

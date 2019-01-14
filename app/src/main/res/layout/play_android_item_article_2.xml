@@ -5,8 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginStart="5dp"
-    android:layout_marginBottom="5dp"
     android:layout_marginEnd="5dp"
+    android:layout_marginBottom="5dp"
     app:cardCornerRadius="5dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -33,13 +33,16 @@
             app:layout_constraintStart_toStartOf="@id/tvTitle"
             app:layout_constraintTop_toBottomOf="@id/tvTitle" />
 
-        <CheckBox
+        <com.like.LikeButton
             android:id="@+id/cbCollect"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:background="@color/recycler_swipe_color_text_gray"
-            app:layout_constraintBaseline_toBaselineOf="@id/tvPublishInfo"
-            app:layout_constraintEnd_toEndOf="parent" />
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginEnd="20dp"
+            app:anim_scale_factor="3"
+            app:icon_size="20dp"
+            app:icon_type="heart"
+            app:layout_constraintBottom_toBottomOf="@+id/tvPublishInfo"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tvPublishInfo" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

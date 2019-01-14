@@ -51,7 +51,6 @@
             app:anim_scale_factor="3"
             app:icon_size="20dp"
             app:icon_type="heart"
-
             app:layout_constraintBottom_toBottomOf="@+id/tvPublishInfo"
             app:layout_constraintEnd_toEndOf="@+id/tvSubTitle"
             app:layout_constraintTop_toTopOf="@+id/tvPublishInfo" />
