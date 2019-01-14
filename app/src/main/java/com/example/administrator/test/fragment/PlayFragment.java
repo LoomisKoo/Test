@@ -71,7 +71,7 @@ public class PlayFragment extends BaseFragment {
 
         fragments.add(new PlayAndroidFragment());
         fragments.add(new KnowledgeSystemFragment());
-        fragments.add(new Fragment1());
+        fragments.add(new PlayAndroidNaviFragment());
     }
 
     private void initViewPager(View view) {

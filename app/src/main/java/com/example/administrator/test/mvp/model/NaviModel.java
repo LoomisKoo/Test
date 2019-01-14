@@ -2,7 +2,7 @@ package com.example.administrator.test.mvp.model;
 
 import com.example.administrator.test.http.HttpCallback;
 import com.example.administrator.test.http.HttpUtil;
-import com.example.administrator.test.mvp.contract.KnowledgeSystemContract;
+import com.example.administrator.test.mvp.contract.NaviContract;
 
 import io.reactivex.Observable;
 import okhttp3.ResponseBody;
@@ -10,19 +10,19 @@ import okhttp3.ResponseBody;
 /**
  * @ProjectName: Test
  * @Package: com.example.administrator.test.mvp.model
- * @ClassName: KnowledgeSystemModel
+ * @ClassName: NaviModel
  * @Description: java类作用描述
  * @Author: koo
- * @CreateDate: 2019/1/13 4:35 PM
+ * @CreateDate: 2019/1/14 5:43 PM
  * @UpdateUser:
- * @UpdateDate: 2019/1/13 4:35 PM
+ * @UpdateDate: 2019/1/14 5:43 PM
  * @UpdateRemark: 更新说明
  * @Version: 1.0
  */
-public class KnowledgeSystemModel implements KnowledgeSystemContract.Model {
+public class NaviModel implements NaviContract.Model {
     @Override
-    public void loadData(HttpCallback callback) {
-        Observable<ResponseBody> observable = HttpUtil.getInstance().getService().getKownledgeSystem();
+    public void getNaviData(HttpCallback callback) {
+        Observable<ResponseBody> observable = HttpUtil.getInstance().getService().getNaviData();
         HttpUtil.query(observable, callback);
     }
 }

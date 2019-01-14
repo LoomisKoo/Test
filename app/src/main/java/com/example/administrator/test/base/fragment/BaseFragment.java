@@ -5,6 +5,8 @@ import android.os.Bundle;
 
 import androidx.annotation.StringRes;
 import androidx.fragment.app.Fragment;
+import butterknife.ButterKnife;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -63,7 +65,9 @@ public abstract class BaseFragment<P> extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         if (0 != setContentLayout()) {
-            return inflater.inflate(setContentLayout(), container, false);
+            View view = inflater.inflate(setContentLayout(), container, false);
+            ButterKnife.bind(this, view);
+            return view;
         }
         return null;
     }

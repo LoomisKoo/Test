@@ -19,7 +19,6 @@ import com.example.administrator.test.entity.ArticleListEntity;
 import com.example.administrator.test.mvp.contract.ArticleListContract;
 import com.example.administrator.test.mvp.model.ArticleListModel;
 import com.example.administrator.test.mvp.presenter.ArticleListPresenter;
-import com.example.administrator.test.mvp.presenter.PlayAndroidPresenter;
 import com.example.administrator.test.util.ArouterHelper;
 import com.example.administrator.test.util.UserUtil;
 import com.example.administrator.test.viewholder.PlayAndroidArticleListVH2;

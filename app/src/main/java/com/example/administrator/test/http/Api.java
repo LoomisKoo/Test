@@ -94,6 +94,12 @@ public interface Api {
      * 体系数据
      */
     @GET("tree/json")
-    Observable<ResponseBody> loadKownledgeSystem();
+    Observable<ResponseBody> getKownledgeSystem();
+
+    /**
+     * 导航数据
+     */
+    @GET("navi/json")
+    Observable<ResponseBody> getNaviData();
 
 }
