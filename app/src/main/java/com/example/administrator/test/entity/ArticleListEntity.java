@@ -23,8 +23,8 @@ public class ArticleListEntity {
      */
 
     private DataBean data;
-    private int    errorCode;
-    private String errorMsg;
+    private int      errorCode;
+    private String   errorMsg;
 
     public DataBean getData() {
         return data;
@@ -152,7 +152,7 @@ public class ArticleListEntity {
              * zan : 0
              */
 
-            private String apkLink;
+            private String         apkLink;
             private String         author;
             private int            chapterId;
             private String         chapterName;

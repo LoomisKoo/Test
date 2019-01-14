@@ -70,7 +70,7 @@ public class PlayFragment extends BaseFragment {
         mTitleList.add(getString(R.string.android_data_navigation));
 
         fragments.add(new PlayAndroidFragment());
-        fragments.add(new Fragment1());
+        fragments.add(new KnowledgeSystemFragment());
         fragments.add(new Fragment1());
     }
 

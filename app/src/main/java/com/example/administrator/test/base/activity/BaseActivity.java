@@ -171,17 +171,20 @@ public abstract class BaseActivity<P extends IBasePresenter> extends SwipeBackAc
      * activity跳转时揭露动画
      */
     private void startActivityAnimation() {
-        drawerRootLayout.post(() -> {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                revealX = getIntent().getIntExtra("x", 0);
-                revealY = getIntent().getIntExtra("y", 0);
-                AnimatorHelper.resetXY();
-                Animator animator = createRevealAnimator(false, revealX, revealY);
-                animator.start();
+        //view绘制完成后开始动画
+        drawerRootLayout.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
+            @Override
+            public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    v.removeOnLayoutChangeListener(this);
+                    revealX = getIntent().getIntExtra("x", 0);
+                    revealY = getIntent().getIntExtra("y", 0);
+                    AnimatorHelper.resetXY();
+                    Animator animator = createRevealAnimator(false, revealX, revealY);
+                    animator.start();
+                }
             }
-            drawerRootLayout.setVisibility(View.VISIBLE);
         });
-
     }
 
     /**

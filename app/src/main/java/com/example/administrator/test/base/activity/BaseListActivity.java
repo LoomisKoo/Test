@@ -23,6 +23,7 @@ import com.example.administrator.test.R;
 import com.example.administrator.test.base.adapter.HeaderFooterAdapter;
 import com.example.administrator.test.base.adapter.HeaderFooterViewModel;
 import com.example.administrator.test.base.adapter.QuickDelegateAdapter;
+import com.example.administrator.test.mvp.base.IBasePresenter;
 import com.koo.loomis.swiperecyclerview.SwipeMenuRecyclerView;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.constant.RefreshState;
@@ -39,9 +40,10 @@ import jp.wasabeef.recyclerview.animators.SlideInLeftAnimator;
  * @param <T>
  * @author koo
  */
-public abstract class BaseListActivity<T> extends BaseActivity {
-    protected int page     = 1;
-    protected int pageSize = 20;
+public abstract class BaseListActivity<T, P extends IBasePresenter> extends BaseActivity<P> {
+    protected int page      = 1;
+    protected int pageSize  = 20;
+    protected int totalPage = 1;
 
     protected SwipeMenuRecyclerView   recyclerView;
     protected QuickDelegateAdapter<T> adapter;
@@ -140,7 +142,6 @@ public abstract class BaseListActivity<T> extends BaseActivity {
         }
 
         delegateAdapter.setAdapters(adapters);
-
     }
 
     /**
@@ -240,12 +241,22 @@ public abstract class BaseListActivity<T> extends BaseActivity {
         hideEmptyView();
         page = 1;
         adapter.clear();
-        getData(page, pageSize);
+        if (totalPage >= page) {
+            getData(page, pageSize);
+        }
+        else {
+            stopRefresh();
+        }
     }
 
     protected void loadMore() {
         page++;
-        getData(page, pageSize);
+        if (totalPage >= page) {
+            getData(page, pageSize);
+        }
+        else {
+            stopRefresh();
+        }
     }
 
     protected void setRefreshEnable(boolean enable) {

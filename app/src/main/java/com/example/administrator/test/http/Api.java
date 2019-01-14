@@ -90,4 +90,10 @@ public interface Api {
     Observable<ResponseBody> register(@Field("username") String username, @Field("password") String password, @Field("repassword") String repassword);
 
 
+    /**
+     * 体系数据
+     */
+    @GET("tree/json")
+    Observable<ResponseBody> loadKownledgeSystem();
+
 }

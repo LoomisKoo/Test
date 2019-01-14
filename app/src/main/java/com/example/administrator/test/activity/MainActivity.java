@@ -47,8 +47,8 @@ public class MainActivity extends BaseActivity {
     private static final int TAB_TYPE_FRIENDS  = 1;
     private static final int TAB_TYPE_MUSIC    = 2;
 
-    public static final String EXTRA_CIRCULAR_REVEAL_X = "EXTRA_CIRCULAR_REVEAL_X";
-    public static final String EXTRA_CIRCULAR_REVEAL_Y = "EXTRA_CIRCULAR_REVEAL_Y";
+    public static final String CIRCULAR_REVEAL_X = "CIRCULAR_REVEAL_X";
+    public static final String CIRCULAR_REVEAL_Y = "CIRCULAR_REVEAL_Y";
 
     private BottomBar      mBottomBar;
     private List<Fragment> fragments;

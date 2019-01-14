@@ -20,4 +20,5 @@ public class ArouterHelper {
     public final static String ROUTE_ACTIVITY_WEB                = "/koo/web";
     public final static String ROUTE_ACTIVITY_LOGIN              = "/koo/login";
     public final static String ROUTE_ACTIVITY_LOGIN_PLAY_ANDROID = "/koo/login/play_android";
+    public final static String ROUTE_ACTIVITY_ARTICLE_LIST       = "/koo/article_list";
 }

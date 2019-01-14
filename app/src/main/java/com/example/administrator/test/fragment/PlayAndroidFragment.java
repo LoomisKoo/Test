@@ -28,7 +28,7 @@ import com.example.administrator.test.mvp.presenter.PlayAndroidPresenter;
 import com.example.administrator.test.util.ArouterHelper;
 import com.example.administrator.test.util.UserUtil;
 import com.example.administrator.test.viewholder.PlayAndroidArticleListVH;
-import com.example.administrator.test.viewholder.PlayAndroidBannerViewHolder;
+import com.example.administrator.test.viewholder.PlayAndroidBannerVH;
 
 
 /**
@@ -62,12 +62,12 @@ public class PlayAndroidFragment extends BaseListFragment<PlayAndroidViewEntity,
 
     @Override
     protected QuickDelegateAdapter getAdapter() {
-        return new QuickDelegateAdapter<PlayAndroidViewEntity>(getContext(), R.layout.header_play_android) {
+        return new QuickDelegateAdapter<PlayAndroidViewEntity>(getContext(), 0) {
             @Override
             protected void onSetItemData(BaseViewHolder holder, PlayAndroidViewEntity item, int viewType, int position) {
                 switch (viewType) {
                     case HttpRequestType.REQUEST_TYPE_BANNER:
-                        ((PlayAndroidBannerViewHolder) holder).setData((BannerEntity) item.getData());
+                        ((PlayAndroidBannerVH) holder).setData((BannerEntity) item.getData());
                         break;
                     case HttpRequestType.REQUEST_TYPE_ARTICLE_LIST:
                         ((PlayAndroidArticleListVH) holder).setData((ArticleListEntity.DataBean.ArticleInfoBean) item.getData());
@@ -127,7 +127,7 @@ public class PlayAndroidFragment extends BaseListFragment<PlayAndroidViewEntity,
             public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
                 switch (viewType) {
                     case HttpRequestType.REQUEST_TYPE_BANNER:
-                        PlayAndroidBannerViewHolder bannerVH = new PlayAndroidBannerViewHolder(getActivity(), parent, R.layout.header_play_android);
+                        PlayAndroidBannerVH bannerVH = new PlayAndroidBannerVH(getActivity(), parent, R.layout.header_play_android);
                         AnimatorHelper.setViewTouchListener(bannerVH.itemView);
                         return bannerVH;
                     case HttpRequestType.REQUEST_TYPE_ARTICLE_LIST:

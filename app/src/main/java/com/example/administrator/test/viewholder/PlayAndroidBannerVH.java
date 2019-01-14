@@ -23,7 +23,7 @@ import java.util.List;
 /**
  * @ProjectName: Test
  * @Package: com.example.administrator.test.viewholder
- * @ClassName: PlayAndroidBannerViewHolder
+ * @ClassName: PlayAndroidBannerVH
  * @Description: java类作用描述
  * @Author: koo
  * @CreateDate: 2018/11/27 2:58 PM
@@ -32,16 +32,16 @@ import java.util.List;
  * @UpdateRemark: 更新说明
  * @Version: 1.0
  */
-public class PlayAndroidBannerViewHolder extends BaseViewHolder {
+public class PlayAndroidBannerVH extends BaseViewHolder {
     private Banner banner;
 
-    public PlayAndroidBannerViewHolder(Context context, ViewGroup parent, int layoutId) {
+    public PlayAndroidBannerVH(Context context, ViewGroup parent, int layoutId) {
         super(context, parent, layoutId);
         banner = retrieveView(R.id.banner);
 
     }
 
-    public PlayAndroidBannerViewHolder(Context context, View itemView) {
+    public PlayAndroidBannerVH(Context context, View itemView) {
         super(context, itemView);
     }
 
