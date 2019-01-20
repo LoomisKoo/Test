@@ -1,25 +1,31 @@
 package com.example.administrator.test.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.example.administrator.test.R;
+import com.example.administrator.test.animation.AnimatorHelper;
 import com.example.administrator.test.base.fragment.BaseFragment;
 import com.example.administrator.test.entity.NaviEntity;
 import com.example.administrator.test.mvp.contract.NaviContract;
 import com.example.administrator.test.mvp.model.NaviModel;
 import com.example.administrator.test.mvp.presenter.NaviPresenter;
+import com.example.administrator.test.util.ArouterHelper;
+
+import org.apache.commons.lang.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.LinearSmoothScroller;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 
@@ -36,15 +42,29 @@ import butterknife.BindView;
  * @Version: 1.0
  */
 public class PlayAndroidNaviFragment extends BaseFragment<NaviPresenter> implements NaviContract.View {
+
+    List<ContentTypeEntity> titleData;
+    /**
+     * 左边recyclerview
+     */
+    @BindView(R.id.rv_name)
+    RecyclerView rvName;
+    /**
+     * 右边recyclerview
+     */
     @BindView(R.id.rv_title)
     RecyclerView rvTitle;
-    @BindView(R.id.rv_content)
-    RecyclerView rvContent;
 
-    List<ContentTypeEntity> contentData;
+    RecyclerView.SmoothScroller titleSmoothScroller;
+    RecyclerView.SmoothScroller nameSmoothScroller;
+    GridLayoutManager           titleLayoutManager;
+    LinearLayoutManager         nameLayoutManager;
+
+    NameAdapter  nameAdapter;
+    TitleAdapter titleAdapter;
 
     class ContentTypeEntity {
-        private boolean isTitle = true;
+        private boolean isTitle = false;
         private Object  data;
 
         public boolean isTitle() {
@@ -88,6 +108,7 @@ public class PlayAndroidNaviFragment extends BaseFragment<NaviPresenter> impleme
     public void getDataSuccess(NaviEntity entity) {
         initTitleData(entity);
         initContentData(entity);
+        connectRecyclerView();
     }
 
     @Override
@@ -102,62 +123,103 @@ public class PlayAndroidNaviFragment extends BaseFragment<NaviPresenter> impleme
         for (int i = 0; i < dataSize; i++) {
             titles.add(data.get(i).getName());
         }
-        rvTitle.setAdapter(new TitleAdapter(titles));
-
+        rvName.setAdapter(nameAdapter = new NameAdapter(titles));
     }
 
+    /**
+     * 联动两个recyclerview
+     */
+    private void connectRecyclerView() {
+    }
+
+    /**
+     * 改装数据
+     *
+     * @param entity
+     */
     private void initContentData(NaviEntity entity) {
         int                       dataSize   = entity.getData().size();
         List<NaviEntity.DataBean> originData = entity.getData();
-        contentData = new ArrayList<>();
+        titleData = new ArrayList<>();
         for (int i = 0; i < dataSize; i++) {
             //title数据
             ContentTypeEntity viewEntity = new ContentTypeEntity();
             viewEntity.data = originData.get(i).getName();
-            viewEntity.isTitle = true;
-            contentData.add(viewEntity);
+            viewEntity.isTitle = false;
+            titleData.add(viewEntity);
             //文章类型数据
             int articleSize = originData.get(i).getArticles().size();
             for (int j = 0; j < articleSize; j++) {
                 viewEntity = new ContentTypeEntity();
                 viewEntity.data = originData.get(i).getArticles().get(j);
-                viewEntity.isTitle = false;
-                contentData.add(viewEntity);
+                viewEntity.isTitle = true;
+                titleData.add(viewEntity);
             }
         }
-        rvContent.setAdapter(new ContentAdapter(contentData));
+        rvTitle.setAdapter(titleAdapter = new TitleAdapter(titleData));
     }
 
+    /**
+     * 初始化recyclerview
+     */
     private void initRv() {
-        rvTitle.setLayoutManager(new LinearLayoutManager(getContext()));
-        rvTitle.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
-        GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 2);
-        layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+        rvName.setLayoutManager(nameLayoutManager = new LinearLayoutManager(getContext()));
+        titleLayoutManager = new GridLayoutManager(getContext(), 2);
+        titleLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
             public int getSpanSize(int position) {
-                return contentData.get(position).isTitle() ? 2 : 1;
+                return titleData.get(position).isTitle() ? 1 : 2;
             }
         });
-        rvContent.setLayoutManager(layoutManager);
+        rvTitle.setLayoutManager(titleLayoutManager);
+        initScroller();
     }
 
-    class TitleAdapter extends RecyclerView.Adapter<TitleAdapter.TitleVH> {
+    /**
+     * 左边列表适配器
+     */
+    class NameAdapter extends RecyclerView.Adapter<NameAdapter.NameVH> {
         private List<String> data;
+        private int          selectPosition = 0;
 
-        public TitleAdapter(List<String> data) {
+        public NameAdapter(List<String> data) {
             this.data = data;
         }
 
         @NonNull
         @Override
-        public TitleVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        public NameVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             View v = LayoutInflater.from(getContext()).inflate(R.layout.play_android_navi_item_title, parent, false);
-            return new TitleVH(v);
+            return new NameVH(v);
         }
 
         @Override
-        public void onBindViewHolder(@NonNull TitleVH holder, int position) {
-            holder.tvTitle.setText(data.get(position));
+        public void onBindViewHolder(@NonNull NameVH holder, int position) {
+            holder.tvName.setText(data.get(position));
+            //左边列表点击事件
+            holder.tvName.setOnClickListener(v -> {
+                selectPosition = position;
+                //点击后，右边列表滑动到相应的位置
+                String name          = data.get(position);
+                int    titleDataSize = titleAdapter.data.size();
+                for (int i = 0; i < titleDataSize; i++) {
+                    if (!titleAdapter.data.get(i).isTitle) {
+                        String chapterName = (String) titleAdapter.data.get(i).getData();
+                        if (StringUtils.equals(name, chapterName)) {
+                            titleSmoothScroller.setTargetPosition(i);
+                            titleLayoutManager.startSmoothScroll(titleSmoothScroller);
+                            break;
+                        }
+                    }
+                }
+                notifyDataSetChanged();
+            });
+            if (selectPosition == position) {
+                holder.tvName.setBackgroundResource(R.color.white);
+            }
+            else {
+                holder.tvName.setBackgroundResource(R.color.gray_e1dada);
+            }
         }
 
         @Override
@@ -165,31 +227,34 @@ public class PlayAndroidNaviFragment extends BaseFragment<NaviPresenter> impleme
             return data.size();
         }
 
-        class TitleVH extends RecyclerView.ViewHolder {
-            TextView tvTitle;
+        class NameVH extends RecyclerView.ViewHolder {
+            TextView tvName;
 
-            public TitleVH(@NonNull View itemView) {
+            public NameVH(@NonNull View itemView) {
                 super(itemView);
-                tvTitle = itemView.findViewById(R.id.tv_title);
+                tvName = itemView.findViewById(R.id.tv_title);
             }
         }
     }
 
-    class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.ContentVH> {
+    /**
+     * 右边列表适配器
+     */
+    class TitleAdapter extends RecyclerView.Adapter<TitleAdapter.TitleVH> {
         private List<ContentTypeEntity> data;
 
-        public ContentAdapter(List<ContentTypeEntity> data) {
+        public TitleAdapter(List<ContentTypeEntity> data) {
             this.data = data;
         }
 
         @NonNull
         @Override
-        public ContentVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        public TitleVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             View v = null;
             switch (viewType) {
                 //content
                 case 0:
-                    v = LayoutInflater.from(getContext()).inflate(R.layout.play_android_navi_item_title, parent, false);
+                    v = LayoutInflater.from(getContext()).inflate(R.layout.play_android_navi_item_name, parent, false);
                     break;
                 //title
                 case 1:
@@ -199,22 +264,24 @@ public class PlayAndroidNaviFragment extends BaseFragment<NaviPresenter> impleme
                     break;
             }
 
-            return new ContentVH(v);
+            return new TitleVH(v);
         }
 
         @Override
-        public void onBindViewHolder(@NonNull ContentVH holder, int position) {
+        public void onBindViewHolder(@NonNull TitleVH holder, int position) {
             int viewType = getItemViewType(position);
             switch (viewType) {
-                //content
+                //name
                 case 0:
-                    NaviEntity.DataBean.ArticlesBean entity = (NaviEntity.DataBean.ArticlesBean) data.get(position).getData();
-                    holder.tvTitle.setText(entity.getTitle());
+                    String title = (String) data.get(position).getData();
+                    holder.tvName.setText(title);
                     break;
                 //title
                 case 1:
-                    String title = (String) data.get(position).getData();
-                    holder.tvTitle.setText(title);
+                    AnimatorHelper.setViewTouchListener(holder.tvTitle);
+                    NaviEntity.DataBean.ArticlesBean entity = (NaviEntity.DataBean.ArticlesBean) data.get(position).getData();
+                    holder.tvTitle.setText(entity.getTitle());
+                    holder.tvTitle.setOnClickListener(v -> ARouter.getInstance().build(ArouterHelper.ROUTE_ACTIVITY_WEB).withFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION).withString("title", entity.getTitle()).withString("url", entity.getLink()).withInt("x", AnimatorHelper.getDownX()).withInt("y", AnimatorHelper.getDownY()).navigation(getActivity()));
                     break;
                 default:
                     break;
@@ -232,13 +299,76 @@ public class PlayAndroidNaviFragment extends BaseFragment<NaviPresenter> impleme
             return data.get(position).isTitle ? 1 : 0;
         }
 
-        class ContentVH extends RecyclerView.ViewHolder {
+        class TitleVH extends RecyclerView.ViewHolder {
             TextView tvTitle;
+            TextView tvName;
 
-            public ContentVH(@NonNull View itemView) {
+            public TitleVH(@NonNull View itemView) {
                 super(itemView);
                 tvTitle = itemView.findViewById(R.id.tv_title);
+                tvName = itemView.findViewById(R.id.tv_name);
             }
         }
     }
+
+    /**
+     * 右边列表是否滑动中
+     */
+    private boolean isTitleRVMoving = false;
+
+    private void initScroller() {
+        titleSmoothScroller = new LinearSmoothScroller(getContext()) {
+
+            @Override
+
+            protected int getVerticalSnapPreference() {
+
+                return LinearSmoothScroller.SNAP_TO_START;
+
+            }
+
+        };
+        nameSmoothScroller = new LinearSmoothScroller(getContext()) {
+
+            @Override
+
+            protected int getVerticalSnapPreference() {
+
+                return LinearSmoothScroller.SNAP_TO_START;
+
+            }
+
+        };
+
+        titleScrollListener = new RecyclerViewListener();
+        rvTitle.addOnScrollListener(titleScrollListener);
+    }
+
+    RecyclerViewListener titleScrollListener;
+
+    private class RecyclerViewListener extends RecyclerView.OnScrollListener {
+
+        @Override
+        public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+            super.onScrolled(recyclerView, dx, dy);
+//            if (isTitleRVMoving) {
+//                isTitleRVMoving = false;
+            //TODO 该处滑动时候多次调用，待优化
+            int firstVisiblePosition = titleLayoutManager.findFirstVisibleItemPosition();
+            if (!titleData.get(firstVisiblePosition).isTitle) {
+                // 如果此项对应的是左边的大类的index
+                int nameSize = nameAdapter.data.size();
+                for (int i = 0; i < nameSize; i++) {
+                    if (nameAdapter.data.get(i).equals(titleData.get(firstVisiblePosition).getData())) {
+                        nameAdapter.selectPosition = i;
+                        nameSmoothScroller.setTargetPosition(i);
+                        nameAdapter.notifyDataSetChanged();
+                        nameLayoutManager.startSmoothScroll(nameSmoothScroller);
+                    }
+                }
+//                }
+            }
+        }
+    }
+
 }

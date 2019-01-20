@@ -5,6 +5,9 @@
     <color name="colorAccent">#D81B60</color>
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
+    <color name="gray_e1dada">#f9f5f5</color>
+
+
 
     <color name="tool_bar_base_background">#5a93d4</color>
     <color name="activity_root_layout_background">#00000000</color>
