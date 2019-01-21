@@ -115,7 +115,7 @@ public class PlayFragment extends BaseFragment {
     private void initBottomBar(View view) {
         mBottomBar = view.findViewById(R.id.bottomBar);
         //已小红点形式显示新消息数量
-        mBottomBar.getTabWithId(R.id.tab_discover).setBadgeCount(5);
+//        mBottomBar.getTabWithId(R.id.tab_discover).setBadgeCount(5);
 
         mBottomBar.setOnTabSelectListener(tabId -> {
 

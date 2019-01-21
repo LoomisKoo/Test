@@ -25,6 +25,7 @@ import com.example.administrator.test.mvp.base.IBasePresenter;
 import com.example.administrator.test.util.ACache;
 import com.example.administrator.test.util.ArouterHelper;
 import com.roughike.bottombar.BottomBar;
+import com.roughike.bottombar.BottomBarTab;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -285,10 +286,9 @@ public class MainActivity extends BaseActivity {
     private void initBottomBar() {
         mBottomBar = (BottomBar) findViewById(R.id.bottomBar);
         //以小红点形式显示新消息数量
-        mBottomBar.getTabWithId(R.id.tab_discover).setBadgeCount(5);
+//        mBottomBar.getTabWithId(R.id.tab_discover).setBadgeCount(5);
 
         mBottomBar.setOnTabSelectListener(tabId -> {
-
             switch (tabId) {
                 case R.id.tab_discover:
                     viewPager.setCurrentItem(TAB_TYPE_DISCOVER);
@@ -321,5 +321,12 @@ public class MainActivity extends BaseActivity {
 
             return false;
         });
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        //保存BottomBar的状态
+        mBottomBar.onSaveInstanceState();
     }
 }

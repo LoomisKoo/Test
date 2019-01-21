@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <tabs>
-    <tab barColorWhenSelected="#FE3D81" icon="@mipmap/ic_bottom_bar_discover" id="@+id/tab_discover"
-        title="Recents" />
-    <tab barColorWhenSelected="#5D3C35" icon="@mipmap/ic_bottom_bar_friends" id="@+id/tab_friends"
-        title="Favorites" />
-    <tab barColorWhenSelected="#7B1FA2" icon="@mipmap/ic_bottom_bar_music" id="@+id/tab_music"
-        title="Nearby" />
+    <tab
+        icon="@mipmap/ic_bottom_bar_discover"
+        id="@+id/tab_discover"
+        title="标题1" />
+    <tab
+        icon="@mipmap/ic_bottom_bar_friends"
+        id="@+id/tab_friends"
+        title="标题2" />
+    <tab
+        icon="@mipmap/ic_bottom_bar_music"
+        id="@+id/tab_music"
+        title="标题3" />
 </tabs>
