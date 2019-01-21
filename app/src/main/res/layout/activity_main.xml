@@ -42,7 +42,7 @@
         android:layout_height="50dp"
         android:layout_alignParentBottom="true"
         app:bb_behavior="shifting"
-        app:bb_tabXmlResource="@xml/bottom_bar_menu"
+        app:bb_tabXmlResource="@xml/main_bottombar"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

@@ -118,15 +118,14 @@ public class PlayFragment extends BaseFragment {
 //        mBottomBar.getTabWithId(R.id.tab_discover).setBadgeCount(5);
 
         mBottomBar.setOnTabSelectListener(tabId -> {
-
             switch (tabId) {
-                case R.id.tab_discover:
+                case R.id.play_android:
                     viewPager.setCurrentItem(VIEW_PAGER_PAGE_1);
                     break;
-                case R.id.tab_friends:
+                case R.id.tree:
                     viewPager.setCurrentItem(VIEW_PAGER_PAGE_2);
                     break;
-                case R.id.tab_music:
+                case R.id.navigation_data:
                     viewPager.setCurrentItem(VIEW_PAGER_PAGE_3);
                     break;
                 default:
@@ -135,14 +134,14 @@ public class PlayFragment extends BaseFragment {
         });
 
         mBottomBar.setOnTabReselectListener(tabId -> {
-            if (tabId == R.id.tab_discover) {
+            if (tabId == R.id.play_android) {
                 // 已经选择了这个标签，又点击一次。即重选。
-                mBottomBar.getTabWithId(R.id.tab_discover).removeBadge();
+                mBottomBar.getTabWithId(R.id.play_android).removeBadge();
             }
         });
         mBottomBar.setTabSelectionInterceptor((oldTabId, newTabId) -> {
             // 点击无效
-            if (newTabId == R.id.tab_music) {
+            if (newTabId == R.id.tree) {
                 // ......
                 // 返回 true 。代表：这里我处理了，你不用管了。
                 return false;

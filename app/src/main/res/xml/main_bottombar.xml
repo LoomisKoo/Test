@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<tabs>
+    <tab
+        barColorWhenSelected="#8387f7"
+        icon="@mipmap/main_ic_tab_basic_knowledge"
+        id="@+id/tab_basic_knowledge"
+        title="基础知识" />
+    <tab
+        barColorWhenSelected="#FE3D81"
+        icon="@mipmap/main_ic_tab_recommended"
+        id="@+id/tab_recommended"
+        title="推荐" />
+    <tab
+        barColorWhenSelected="#f21628"
+        icon="@mipmap/main_ic_tab_film"
+        id="@+id/tab_film"
+        title="电影" />
+</tabs>
+
+
+

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<tabs>
+    <tab
+        barColorWhenSelected="#bfc0f1"
+        id="@+id/play_android"
+        icon="@mipmap/play_android_ic_tab_android"
+        title="玩安卓" />
+    <tab
+        barColorWhenSelected="#5b8f4b"
+        id="@+id/tree"
+        icon="@mipmap/play_android_ic_tab_tree"
+        title="知识体系" />
+    <tab
+        barColorWhenSelected="#e72034"
+        id="@+id/navigation_data"
+        icon="@mipmap/play_android_ic_tab_navigation"
+        title="导航数据" />
+</tabs>

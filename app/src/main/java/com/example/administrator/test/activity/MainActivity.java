@@ -290,13 +290,13 @@ public class MainActivity extends BaseActivity {
 
         mBottomBar.setOnTabSelectListener(tabId -> {
             switch (tabId) {
-                case R.id.tab_discover:
+                case R.id.tab_basic_knowledge:
                     viewPager.setCurrentItem(TAB_TYPE_DISCOVER);
                     break;
-                case R.id.tab_friends:
+                case R.id.tab_recommended:
                     viewPager.setCurrentItem(TAB_TYPE_FRIENDS);
                     break;
-                case R.id.tab_music:
+                case R.id.tab_film:
                     viewPager.setCurrentItem(TAB_TYPE_MUSIC);
                     break;
                 default:
@@ -305,15 +305,15 @@ public class MainActivity extends BaseActivity {
         });
 
         mBottomBar.setOnTabReselectListener(tabId -> {
-            if (tabId == R.id.tab_discover) {
+            if (tabId == R.id.tab_recommended) {
                 // 已经选择了这个标签，又点击一次。即重选。
-                mBottomBar.getTabWithId(R.id.tab_discover).removeBadge();
+                mBottomBar.getTabWithId(R.id.tab_recommended).removeBadge();
             }
         });
 
         mBottomBar.setTabSelectionInterceptor((oldTabId, newTabId) -> {
             // 点击无效
-            if (newTabId == R.id.tab_music) {
+            if (newTabId == R.id.tab_film) {
                 // ......
                 // 返回 true 。代表：这里我处理了，你不用管了。
                 return false;
