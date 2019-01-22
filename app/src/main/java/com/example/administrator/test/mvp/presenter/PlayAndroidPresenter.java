@@ -5,7 +5,6 @@ import com.example.administrator.test.entity.ArticleListEntity;
 import com.example.administrator.test.entity.BannerEntity;
 import com.example.administrator.test.entity.view.PlayAndroidViewEntity;
 import com.example.administrator.test.http.HttpCallback;
-import com.example.administrator.test.http.HttpRequestType;
 import com.example.administrator.test.mvp.contract.PlayAndroidContract;
 
 import java.io.IOException;
@@ -40,7 +39,7 @@ public class PlayAndroidPresenter implements PlayAndroidContract.Presenter {
                 catch (IOException e) {
                     e.printStackTrace();
                 }
-                playAndroidViewEntity = new PlayAndroidViewEntity(bannerEntity, HttpRequestType.REQUEST_TYPE_BANNER);
+                playAndroidViewEntity = new PlayAndroidViewEntity(bannerEntity, PlayAndroidViewEntity.VIEW_TYPE_BANNER);
                 view.onSuccess(playAndroidViewEntity,0);
             }
 
@@ -67,7 +66,7 @@ public class PlayAndroidPresenter implements PlayAndroidContract.Presenter {
 
                     List<ArticleListEntity.DataBean.ArticleInfoBean> entityList = articleListEntity.getData().getArticleListBean();
                     for (ArticleListEntity.DataBean.ArticleInfoBean entity : entityList) {
-                        playAndroidViewEntity = new PlayAndroidViewEntity(entity, HttpRequestType.REQUEST_TYPE_ARTICLE_LIST);
+                        playAndroidViewEntity = new PlayAndroidViewEntity(entity, PlayAndroidViewEntity.VIEW_TYPE_ARTICLE_LIST);
                         view.onSuccess(playAndroidViewEntity,articleListEntity.getData().getPageCount());
                     }
                 }

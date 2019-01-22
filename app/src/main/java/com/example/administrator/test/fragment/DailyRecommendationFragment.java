@@ -2,11 +2,9 @@ package com.example.administrator.test.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.view.View;
 import android.view.ViewGroup;
+
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.alibaba.android.vlayout.LayoutHelper;
 import com.alibaba.android.vlayout.layout.LinearLayoutHelper;
@@ -29,20 +27,21 @@ import com.example.administrator.test.viewholder.PlayAndroidBannerVH;
 import com.like.LikeButton;
 import com.like.OnLikeListener;
 
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * @ProjectName: Test
  * @Package: com.example.administrator.test.fragment
- * @ClassName: PlayAndroidFragment
+ * @ClassName: DailyRecommendationFragment
  * @Description: java类作用描述
  * @Author: koo
- * @CreateDate: 2018/11/27 2:28 PM
+ * @CreateDate: 2019/1/22 6:13 PM
  * @UpdateUser:
- * @UpdateDate: 2018/11/27 2:28 PM
+ * @UpdateDate: 2019/1/22 6:13 PM
  * @UpdateRemark: 更新说明
  * @Version: 1.0
  */
-public class PlayAndroidFragment extends BaseListFragment<PlayAndroidViewEntity, PlayAndroidPresenter> implements PlayAndroidContract.View {
+public class DailyRecommendationFragment extends BaseListFragment<PlayAndroidViewEntity, PlayAndroidPresenter> implements PlayAndroidContract.View {
 
     @Override
     protected void getData(int page, int pageSize) {
@@ -75,19 +74,18 @@ public class PlayAndroidFragment extends BaseListFragment<PlayAndroidViewEntity,
                         checkBox.setOnLikeListener(new OnLikeListener() {
                             @Override
                             public void liked(LikeButton likeButton) {
-                                collectArticle(likeButton,entity);
+                                collectArticle(likeButton, entity);
                             }
 
                             @Override
                             public void unLiked(LikeButton likeButton) {
-                                collectArticle(likeButton,entity);
+                                collectArticle(likeButton, entity);
                             }
                         });
                         break;
                     default:
                         break;
                 }
-
             }
 
             @Override
@@ -173,6 +171,7 @@ public class PlayAndroidFragment extends BaseListFragment<PlayAndroidViewEntity,
 
     /**
      * 收藏或者取消收藏文章
+     *
      * @param checkBox
      * @param entity
      */
