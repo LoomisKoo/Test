@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<tabs>
+    <tab
+        barColorWhenSelected="#bfc0f1"
+        icon="@mipmap/recommend_ic_tab_daily_recommendation"
+        id="@+id/daily_recommendation"
+        title="每日推荐" />
+    <tab
+        barColorWhenSelected="#5b8f4b"
+        icon="@mipmap/recommend_ic_tab_welfare"
+        id="@+id/welfare"
+        title="福利" />
+    <tab
+        barColorWhenSelected="#e72034"
+        icon="@mipmap/recommend_ic_tab_custom"
+        id="@+id/custom"
+        title="干货定制" />
+    <tab
+        barColorWhenSelected="#e72034"
+        icon="@mipmap/recommend_ic_tab_android"
+        id="@+id/android"
+        title="安卓" />
+</tabs>

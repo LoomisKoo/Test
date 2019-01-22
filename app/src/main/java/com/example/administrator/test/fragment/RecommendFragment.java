@@ -1,11 +1,6 @@
 package com.example.administrator.test.fragment;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentStatePagerAdapter;
-import androidx.viewpager.widget.ViewPager;
-
 import android.view.View;
 
 import com.example.administrator.test.R;
@@ -14,10 +9,23 @@ import com.roughike.bottombar.BottomBar;
 
 import java.util.ArrayList;
 
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentStatePagerAdapter;
+import androidx.viewpager.widget.ViewPager;
+
 /**
- * @author koo
+ * @ProjectName: Test
+ * @Package: com.example.administrator.test.fragment
+ * @ClassName: RecommendFragment
+ * @Description: java类作用描述
+ * @Author: koo
+ * @CreateDate: 2019/1/22 3:38 PM
+ * @UpdateUser:
+ * @UpdateDate: 2019/1/22 3:38 PM
+ * @UpdateRemark: 更新说明
+ * @Version: 1.0
  */
-public class PlayFragment extends BaseFragment {
+public class RecommendFragment extends BaseFragment {
     /**
      * viewpager数量
      */
@@ -29,15 +37,16 @@ public class PlayFragment extends BaseFragment {
     private static final int VIEW_PAGER_PAGE_1 = 0;
     private static final int VIEW_PAGER_PAGE_2 = 1;
     private static final int VIEW_PAGER_PAGE_3 = 2;
+    private static final int VIEW_PAGER_PAGE_4 = 3;
 
-    private ArrayList<Fragment> fragments  = new ArrayList<>(VIEW_PAGER_COUNT);
+    private ArrayList<Fragment> fragments = new ArrayList<>(VIEW_PAGER_COUNT);
     private ViewPager           viewPager;
     private BottomBar           mBottomBar;
 
 
     @Override
     protected int setContentLayout() {
-        return R.layout.play_android_fragment_root;
+        return R.layout.recommend_fragment_root;
     }
 
     @Override
@@ -67,6 +76,7 @@ public class PlayFragment extends BaseFragment {
 
         fragments.add(new PlayAndroidFragment());
         fragments.add(new KnowledgeSystemFragment());
+        fragments.add(new PlayAndroidNaviFragment());
         fragments.add(new PlayAndroidNaviFragment());
     }
 
@@ -115,14 +125,17 @@ public class PlayFragment extends BaseFragment {
 
         mBottomBar.setOnTabSelectListener(tabId -> {
             switch (tabId) {
-                case R.id.play_android:
+                case R.id.daily_recommendation:
                     viewPager.setCurrentItem(VIEW_PAGER_PAGE_1);
                     break;
-                case R.id.tree:
+                case R.id.welfare:
                     viewPager.setCurrentItem(VIEW_PAGER_PAGE_2);
                     break;
-                case R.id.navigation_data:
+                case R.id.custom:
                     viewPager.setCurrentItem(VIEW_PAGER_PAGE_3);
+                    break;
+                case R.id.android:
+                    viewPager.setCurrentItem(VIEW_PAGER_PAGE_4);
                     break;
                 default:
                     break;

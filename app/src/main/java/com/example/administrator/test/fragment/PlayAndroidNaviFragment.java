@@ -362,7 +362,6 @@ public class PlayAndroidNaviFragment extends BaseFragment<NaviPresenter> impleme
         public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
             super.onScrolled(recyclerView, dx, dy);
             if (!isTitleRVMoving) {
-//                isTitleRVMoving = true;
                 //TODO 该处滑动时候多次调用，待优化
                 int firstVisiblePosition = titleLayoutManager.findFirstVisibleItemPosition();
                 if (!titleData.get(firstVisiblePosition).isTitle) {
