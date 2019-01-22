@@ -58,7 +58,11 @@ public class PlayAndroidNaviFragment extends BaseFragment<NaviPresenter> impleme
     RecyclerView.SmoothScroller titleSmoothScroller;
     RecyclerView.SmoothScroller nameSmoothScroller;
     GridLayoutManager           titleLayoutManager;
-    LinearLayoutManager         nameLayoutManager;
+
+    /**
+     * 右边列表滑动监听
+     */
+    RecyclerViewListener titleScrollListener;
 
     NameAdapter  nameAdapter;
     TitleAdapter titleAdapter;
@@ -163,7 +167,7 @@ public class PlayAndroidNaviFragment extends BaseFragment<NaviPresenter> impleme
      * 初始化recyclerview
      */
     private void initRv() {
-        rvName.setLayoutManager(nameLayoutManager = new LinearLayoutManager(getContext()));
+        rvName.setLayoutManager(new LinearLayoutManager(getContext()));
         titleLayoutManager = new GridLayoutManager(getContext(), 2);
         titleLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
@@ -198,6 +202,7 @@ public class PlayAndroidNaviFragment extends BaseFragment<NaviPresenter> impleme
             holder.tvName.setText(data.get(position));
             //左边列表点击事件
             holder.tvName.setOnClickListener(v -> {
+                isTitleRVMoving = true;
                 selectPosition = position;
                 //点击后，右边列表滑动到相应的位置
                 String name          = data.get(position);
@@ -344,31 +349,34 @@ public class PlayAndroidNaviFragment extends BaseFragment<NaviPresenter> impleme
         rvTitle.addOnScrollListener(titleScrollListener);
     }
 
-    RecyclerViewListener titleScrollListener;
-
     private class RecyclerViewListener extends RecyclerView.OnScrollListener {
+        @Override
+        public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+            super.onScrollStateChanged(recyclerView, newState);
+            if (isTitleRVMoving && newState == RecyclerView.SCROLL_STATE_IDLE) {
+                isTitleRVMoving = false;
+            }
+        }
 
         @Override
         public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
             super.onScrolled(recyclerView, dx, dy);
-//            if (isTitleRVMoving) {
-//                isTitleRVMoving = false;
-            //TODO 该处滑动时候多次调用，待优化
-            int firstVisiblePosition = titleLayoutManager.findFirstVisibleItemPosition();
-            if (!titleData.get(firstVisiblePosition).isTitle) {
-                // 如果此项对应的是左边的大类的index
-                int nameSize = nameAdapter.data.size();
-                for (int i = 0; i < nameSize; i++) {
-                    if (nameAdapter.data.get(i).equals(titleData.get(firstVisiblePosition).getData())) {
-                        nameAdapter.selectPosition = i;
-                        nameSmoothScroller.setTargetPosition(i);
-                        nameAdapter.notifyDataSetChanged();
-                        nameLayoutManager.startSmoothScroll(nameSmoothScroller);
+            if (!isTitleRVMoving) {
+//                isTitleRVMoving = true;
+                //TODO 该处滑动时候多次调用，待优化
+                int firstVisiblePosition = titleLayoutManager.findFirstVisibleItemPosition();
+                if (!titleData.get(firstVisiblePosition).isTitle) {
+                    // 如果此项对应的是左边的大类的index
+                    int nameSize = nameAdapter.data.size();
+                    for (int i = 0; i < nameSize; i++) {
+                        if (nameAdapter.data.get(i).equals(titleData.get(firstVisiblePosition).getData())) {
+                            nameAdapter.selectPosition = i;
+                            rvName.scrollToPosition(i);
+                            nameAdapter.notifyDataSetChanged();
+                        }
                     }
                 }
-//                }
             }
         }
     }
-
 }

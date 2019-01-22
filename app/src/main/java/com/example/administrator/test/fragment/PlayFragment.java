@@ -1,9 +1,11 @@
 package com.example.administrator.test.fragment;
 
 import android.os.Bundle;
+
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
+
 import android.view.View;
 
 import com.example.administrator.test.R;
