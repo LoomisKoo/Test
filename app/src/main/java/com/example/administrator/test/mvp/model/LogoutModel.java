@@ -1,5 +1,6 @@
 package com.example.administrator.test.mvp.model;
 
+import com.example.administrator.test.http.Api;
 import com.example.administrator.test.http.HttpCallback;
 import com.example.administrator.test.http.HttpUtil;
 import com.example.administrator.test.mvp.contract.LogoutContract;
@@ -22,7 +23,7 @@ import okhttp3.ResponseBody;
 public class LogoutModel implements LogoutContract.Model {
     @Override
     public void logout(HttpCallback httpCallback) {
-        Observable<ResponseBody> observable = HttpUtil.getInstance().getService().logout();
-        HttpUtil.query(observable, httpCallback);
+        Observable<ResponseBody> observable = Api.getPlayAndroidService().logout();
+        Api.query(observable, httpCallback);
     }
 }

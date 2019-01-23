@@ -4,19 +4,25 @@ import android.app.Application;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.blankj.utilcode.util.Utils;
+import com.example.administrator.test.http.Api;
 import com.example.administrator.test.http.HttpUtil;
 import com.orhanobut.logger.AndroidLogAdapter;
-import com.orhanobut.logger.FormatStrategy;
 import com.orhanobut.logger.Logger;
-import com.orhanobut.logger.PrettyFormatStrategy;
 
 /**
  * @author koo
  */
 public class TestApplication extends Application {
+    public static TestApplication instance;
+
+    public static TestApplication getApplication() {
+        return instance;
+    }
+
     @Override
     public void onCreate() {
         super.onCreate();
+        instance = this;
         // 打印日志
         ARouter.openLog();
         // 开启调试模式(如果在InstantRun模式下运行，必须开启调试模式！线上版本需要关闭,否则有安全风险)
@@ -26,8 +32,6 @@ public class TestApplication extends Application {
 
         Utils.init(this);
         initLogger();
-
-        HttpUtil.getInstance().init(this, true);
     }
 
     private void initLogger() {

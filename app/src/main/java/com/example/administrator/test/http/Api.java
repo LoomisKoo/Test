@@ -1,6 +1,13 @@
 package com.example.administrator.test.http;
 
+import android.annotation.SuppressLint;
+import android.content.Context;
+
 import io.reactivex.Observable;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 import okhttp3.ResponseBody;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
@@ -14,6 +21,48 @@ import retrofit2.http.Url;
  * @author koo
  */
 public interface Api {
+    static void init(Context context){
+
+    }
+    static Api getPlayAndroidService() {
+        return BuilderFactory.getInstance().create(HttpConfigUtil.BASE_URL_PLAY_ANDROID);
+    }
+    static Api getRecommendService() {
+        return BuilderFactory.getInstance().create(HttpConfigUtil.BASE_URL_GANK);
+    }
+
+    static <T> void query(Observable<T> observable, HttpCallback<T> callBack) {
+        observable.subscribeOn(Schedulers.newThread())
+                  .subscribeOn(Schedulers.io())
+                  .observeOn(AndroidSchedulers.mainThread())
+                  .subscribe(new Observer<T>() {
+                      @Override
+                      public void onSubscribe(Disposable d) {
+
+                      }
+
+                      @Override
+                      public void onNext(T t) {
+                          callBack.onSuccess(t);
+                      }
+
+                      @SuppressLint("CheckResult")
+                      @Override
+                      public void onError(Throwable e) {
+                          observable.unsubscribeOn(AndroidSchedulers.mainThread());
+                          callBack.onError(e.toString());
+                      }
+
+                      @SuppressLint("CheckResult")
+                      @Override
+                      public void onComplete() {
+                          observable.unsubscribeOn(AndroidSchedulers.mainThread());
+                          callBack.onComplete();
+                      }
+                  });
+
+    }
+    //---------------------------------- playAndroid ------------------------------------
     /**
      * @param url
      * @return
@@ -102,4 +151,11 @@ public interface Api {
     @GET("navi/json")
     Observable<ResponseBody> getNaviData();
 
+
+    //---------------------------------- gank ------------------------------------
+    /**
+     * 每日推荐
+     */
+    @GET("today")
+    Observable<ResponseBody> getTodayRecommend();
 }

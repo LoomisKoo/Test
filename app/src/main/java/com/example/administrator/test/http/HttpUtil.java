@@ -21,9 +21,9 @@ public class HttpUtil {
     private        boolean              iaDebug;
     private        Context              context;
 
-    private HttpUtil() {
-        httpUtilBuilder = new HttpUtilBuilder<>(iaDebug, Api.class, AppConfigUtil.baseUrl, new BasicParamsInterceptor.Builder().build());
-    }
+//    private HttpUtil() {
+//        httpUtilBuilder = new HttpUtilBuilder<Api>(Api.class, new BasicParamsInterceptor.Builder().build(), "");
+//    }
 
     public static HttpUtil getInstance() {
         if (instance == null) {
@@ -39,7 +39,7 @@ public class HttpUtil {
     public void init(Context context, boolean debug) {
         this.context = context;
         this.iaDebug = debug;
-        httpUtilBuilder.setContext(context);
+//        httpUtilBuilder.setContext(context);
 //        HttpHead.init(context);
     }
 
@@ -52,7 +52,7 @@ public class HttpUtil {
      * 重置
      */
     public void resetService() {
-        httpUtilBuilder.resetBaseUrl(AppConfigUtil.baseUrl);
+        httpUtilBuilder.resetBaseUrl(HttpConfigUtil.baseUrl);
         api = httpUtilBuilder.getService();
     }
 

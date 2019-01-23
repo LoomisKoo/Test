@@ -1,5 +1,6 @@
 package com.example.administrator.test.mvp.model;
 
+import com.example.administrator.test.http.Api;
 import com.example.administrator.test.http.HttpCallback;
 import com.example.administrator.test.http.HttpUtil;
 import com.example.administrator.test.mvp.contract.KnowledgeSystemContract;
@@ -22,7 +23,7 @@ import okhttp3.ResponseBody;
 public class KnowledgeSystemModel implements KnowledgeSystemContract.Model {
     @Override
     public void loadData(HttpCallback callback) {
-        Observable<ResponseBody> observable = HttpUtil.getInstance().getService().getKownledgeSystem();
-        HttpUtil.query(observable, callback);
+        Observable<ResponseBody> observable = Api.getPlayAndroidService().getKownledgeSystem();
+        Api.query(observable, callback);
     }
 }

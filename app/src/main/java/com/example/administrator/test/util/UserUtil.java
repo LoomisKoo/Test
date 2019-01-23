@@ -30,12 +30,12 @@ public class UserUtil {
 //        Injection.get().getSingleBean(new UserDataCallback() {
 //            @Override
 //            public void onDataNotAvailable() {
-//                SPUtils.getInstance().put(Constants.IS_LOGIN, false);
+//                SPUtils.getPlayAndroidInstance().put(Constants.IS_LOGIN, false);
 //            }
 //
 //            @Override
 //            public void getData(User bean) {
-//                SPUtils.getInstance().put(Constants.IS_LOGIN, true);
+//                SPUtils.getPlayAndroidInstance().put(Constants.IS_LOGIN, true);
 //            }
 //        });
 //    }
@@ -56,7 +56,7 @@ public class UserUtil {
         boolean isLogin = SPUtils.getInstance().getBoolean(Constants.IS_LOGIN, false);
         if (!isLogin) {
             ToastUtils.showShort("请先登录~");
-//            ARouter.getInstance().build(ArouterHelper.ROUTE_ACTIVITY_LOGIN).withFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION).withInt("x", AnimatorHelper.getDownX()).withInt("y", AnimatorHelper.getDownY()).navigation();
+//            ARouter.getPlayAndroidInstance().build(ArouterHelper.ROUTE_ACTIVITY_LOGIN).withFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION).withInt("x", AnimatorHelper.getDownX()).withInt("y", AnimatorHelper.getDownY()).navigation();
             return false;
         } else {
             return true;

@@ -5,7 +5,8 @@ import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.OnLifecycleEvent;
 
-import com.example.administrator.test.http.AppConfigUtil;
+import com.example.administrator.test.http.Api;
+import com.example.administrator.test.http.HttpConfigUtil;
 import com.example.administrator.test.http.HttpCallback;
 import com.example.administrator.test.http.HttpUtil;
 
@@ -21,8 +22,9 @@ import okhttp3.ResponseBody;
  */
 public abstract class BasePresenter implements LifecycleObserver {
     protected void getData(Map<String, String> map, HttpCallback<ResponseBody> callback) {
-        Observable<ResponseBody> observable = HttpUtil.getInstance().getService().getData(AppConfigUtil.url);
-        HttpUtil.query(observable, callback);
+//        Observable<ResponseBody> observable = HttpUtil.getPlayAndroidInstance().getPlayAndroidService().getData(HttpConfigUtil.url);
+        Observable<ResponseBody> observable = Api.getPlayAndroidService().getData(HttpConfigUtil.url);
+        Api.query(observable, callback);
     }
 
 

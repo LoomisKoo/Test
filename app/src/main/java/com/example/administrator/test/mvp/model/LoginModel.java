@@ -1,6 +1,6 @@
 package com.example.administrator.test.mvp.model;
 
-import com.blankj.utilcode.util.StringUtils;
+import com.example.administrator.test.http.Api;
 import com.example.administrator.test.http.HttpCallback;
 import com.example.administrator.test.http.HttpUtil;
 import com.example.administrator.test.mvp.contract.LoginContract;
@@ -23,13 +23,13 @@ import okhttp3.ResponseBody;
 public class LoginModel implements LoginContract.Model {
     @Override
     public void login(String userName, String password, HttpCallback httpCallback) {
-        Observable<ResponseBody> observable = HttpUtil.getInstance().getService().login(userName, password);
-        HttpUtil.query(observable, httpCallback);
+        Observable<ResponseBody> observable = Api.getPlayAndroidService().login(userName, password);
+        Api.query(observable, httpCallback);
     }
 
     @Override
     public void register(String userName, String password, String rePassword, HttpCallback httpCallback) {
-        Observable<ResponseBody> observable = HttpUtil.getInstance().getService().register(userName, password, rePassword);
-        HttpUtil.query(observable, httpCallback);
+        Observable<ResponseBody> observable = Api.getPlayAndroidService().register(userName, password, rePassword);
+        Api.query(observable, httpCallback);
     }
 }

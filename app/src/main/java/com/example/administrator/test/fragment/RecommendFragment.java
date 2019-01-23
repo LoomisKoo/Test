@@ -74,7 +74,7 @@ public class RecommendFragment extends BaseFragment {
     private void initFragmentList() {
         fragments.clear();
 
-        fragments.add(new PlayAndroidFragment());
+        fragments.add(new DailyRecommendationFragment());
         fragments.add(new KnowledgeSystemFragment());
         fragments.add(new PlayAndroidNaviFragment());
         fragments.add(new PlayAndroidNaviFragment());
