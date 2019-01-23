@@ -20,6 +20,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * @ProjectName: Test
@@ -39,12 +40,14 @@ public class KnowledgeSystemVH extends BaseViewHolder {
     @BindView(R.id.rv_knowledge_point)
     RecyclerView rvKnowledgePoint;
 
-    private KnowledgeSystemAdapter adapter;
-
     public KnowledgeSystemVH(Context context, ViewGroup parent, int layoutId) {
         super(context, parent, layoutId);
+        //TODO 使用ButterKnife不显示view
+//        View view = LayoutInflater.from(parent.getContext()).inflate(layoutId, parent, true);
+//        ButterKnife.bind(this, view);
         rvKnowledgePoint = retrieveView(R.id.rv_knowledge_point);
         tvTitle = retrieveView(R.id.tv_title);
+
         //TODO 此处可用流式布局进行优化
         rvKnowledgePoint.setLayoutManager(new LinearLayoutManager(context));
 
@@ -52,7 +55,7 @@ public class KnowledgeSystemVH extends BaseViewHolder {
 
     public void setData(KnowledgeSystemEntity.KnowledgeType knowledgeType) {
         tvTitle.setText(knowledgeType.getName());
-        rvKnowledgePoint.setAdapter(adapter = new KnowledgeSystemAdapter(knowledgeType.getChildren()));
+        rvKnowledgePoint.setAdapter(new KnowledgeSystemAdapter(knowledgeType.getChildren()));
     }
 
     class KnowledgeSystemAdapter extends RecyclerView.Adapter<KnowledgeSystemAdapter.KnowledgeSystemPointVH> {
@@ -78,7 +81,6 @@ public class KnowledgeSystemVH extends BaseViewHolder {
             holder.tvPoint.setOnClickListener(v -> {
                 KnowledgeSystemEntity.KnowledgeType.KnowledgePoint entity = data.get(position);
                 ARouter.getInstance().build(ArouterHelper.ROUTE_ACTIVITY_ARTICLE_LIST).withFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION).withInt("x", AnimatorHelper.getDownX()).withInt("y", AnimatorHelper.getDownY()).withInt("cid", entity.getId()).withString("title", entity.getName()).navigation();
-
             });
         }
 
@@ -96,5 +98,4 @@ public class KnowledgeSystemVH extends BaseViewHolder {
             }
         }
     }
-
 }

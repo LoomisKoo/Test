@@ -56,7 +56,7 @@ public class KnowledgeSystemFragment extends BaseListFragment<KnowledgeSystemEnt
 
             @Override
             public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-                return new KnowledgeSystemVH(getActivity(), parent, R.layout.fragment_knowledge_system);
+                return new KnowledgeSystemVH(getContext(), parent, R.layout.fragment_knowledge_system);
             }
 
             @Override

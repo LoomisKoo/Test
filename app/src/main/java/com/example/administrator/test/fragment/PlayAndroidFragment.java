@@ -24,8 +24,8 @@ import com.example.administrator.test.mvp.model.PlayAndroidModel;
 import com.example.administrator.test.mvp.presenter.PlayAndroidPresenter;
 import com.example.administrator.test.util.ArouterHelper;
 import com.example.administrator.test.util.UserUtil;
-import com.example.administrator.test.viewholder.PlayAndroidArticleListVH;
-import com.example.administrator.test.viewholder.PlayAndroidBannerVH;
+import com.example.administrator.test.viewholder.playandroid.PlayAndroidArticleListVH;
+import com.example.administrator.test.viewholder.playandroid.PlayAndroidBannerVH;
 import com.like.LikeButton;
 import com.like.OnLikeListener;
 
