@@ -18,6 +18,8 @@ import com.example.administrator.test.base.activity.BaseActivity;
  * @author
  */
 public abstract class BaseFragment<P> extends Fragment {
+    protected boolean isInitView = false;
+
     protected P presenter;
 
     protected BaseActivity mActivity;
@@ -42,6 +44,11 @@ public abstract class BaseFragment<P> extends Fragment {
      * @param savedInstanceState
      */
     protected abstract void initData(Bundle savedInstanceState);
+
+    /**
+     * 初始化数据
+     */
+    protected abstract void initData();
 
     /**
      * 获取presenter实例
@@ -76,13 +83,29 @@ public abstract class BaseFragment<P> extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initView(view);
+        //视图创建完成，将变量置为true
+        isInitView = true;
+        //如果Fragment可见进行数据加载
+        if (getUserVisibleHint()) {
+            initData();
+            isInitView = false;
+        }
     }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         presenter = getPresenter();
-        initData(savedInstanceState);
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        //视图变为可见并且是第一次加载
+        if (isInitView && isVisibleToUser) {
+            initData();
+            isInitView = false;
+        }
     }
 
     @Override
@@ -114,6 +137,7 @@ public abstract class BaseFragment<P> extends Fragment {
 
     @Override
     public void onDestroy() {
+        isInitView = false;
         super.onDestroy();
     }
 

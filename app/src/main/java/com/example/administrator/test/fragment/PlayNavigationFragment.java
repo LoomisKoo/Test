@@ -34,6 +34,11 @@ public class PlayNavigationFragment extends BaseFragment {
     }
 
     @Override
+    protected void initData() {
+
+    }
+
+    @Override
     protected Object getPresenter() {
         return null;
     }

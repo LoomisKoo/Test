@@ -38,6 +38,7 @@ public class DailyRecommendationFragment extends BaseListFragment<DailyRecommend
 
     @Override
     protected void getData(int page, int pageSize) {
+        System.out.println("----------------------->DailyRecommendationFragment");
         presenter.getDailyRecommend();
     }
 

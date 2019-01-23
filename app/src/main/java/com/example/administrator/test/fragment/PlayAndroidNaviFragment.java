@@ -100,6 +100,11 @@ public class PlayAndroidNaviFragment extends BaseFragment<NaviPresenter> impleme
 
     @Override
     protected void initData(Bundle savedInstanceState) {
+
+    }
+
+    @Override
+    protected void initData() {
         presenter.getNaviData();
     }
 

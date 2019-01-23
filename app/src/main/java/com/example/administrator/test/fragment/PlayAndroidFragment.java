@@ -46,6 +46,7 @@ public class PlayAndroidFragment extends BaseListFragment<PlayAndroidViewEntity,
 
     @Override
     protected void getData(int page, int pageSize) {
+        System.out.println("----------------------->PlayAndroidFragment");
         presenter.getArticleList(page);
         if (0 == page) {
             presenter.getBannerImg();
@@ -56,6 +57,11 @@ public class PlayAndroidFragment extends BaseListFragment<PlayAndroidViewEntity,
     @Override
     protected void initView(View view) {
         super.initView(view);
+    }
+
+    @Override
+    protected void initData(Bundle savedInstanceState) {
+
     }
 
     @Override
@@ -126,10 +132,6 @@ public class PlayAndroidFragment extends BaseListFragment<PlayAndroidViewEntity,
                 return getItem(position).getViewType();
             }
         };
-    }
-
-    @Override
-    protected void initData(Bundle savedInstanceState) {
     }
 
     @Override

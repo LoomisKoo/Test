@@ -40,6 +40,11 @@ public class Fragment1 extends BaseFragment implements TestContract.View {
     }
 
     @Override
+    protected void initData() {
+
+    }
+
+    @Override
     protected Object getPresenter() {
         return null;
     }

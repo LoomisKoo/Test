@@ -39,7 +39,6 @@ import jp.wasabeef.recyclerview.animators.SlideInLeftAnimator;
  */
 public abstract class BaseListFragment<T, P> extends BaseFragment<P> {
 
-
     protected int page     = 1;
     protected int pageSize = 20;
     protected int maxPage  = 1;
@@ -87,7 +86,6 @@ public abstract class BaseListFragment<T, P> extends BaseFragment<P> {
         refreshLayout = view.findViewById(R.id.base_pager_list_refreshLayout);
         refreshLayout.setOnRefreshListener(refreshLayout -> refresh());
         refreshLayout.setOnLoadmoreListener(refreshLayout -> loadMore());
-        refreshLayout.autoRefresh();
 
         initRecycleView();
     }
@@ -323,7 +321,12 @@ public abstract class BaseListFragment<T, P> extends BaseFragment<P> {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        initData(savedInstanceState);
+//        initData(savedInstanceState);
+    }
+
+    @Override
+    protected void initData() {
+        refreshLayout.autoRefresh();
     }
 
     @Override

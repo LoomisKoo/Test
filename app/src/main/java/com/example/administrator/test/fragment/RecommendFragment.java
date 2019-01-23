@@ -64,6 +64,10 @@ public class RecommendFragment extends BaseFragment {
     }
 
     @Override
+    protected void initData() {
+    }
+
+    @Override
     protected Object getPresenter() {
         return null;
     }
@@ -75,9 +79,9 @@ public class RecommendFragment extends BaseFragment {
         fragments.clear();
 
         fragments.add(new DailyRecommendationFragment());
-        fragments.add(new KnowledgeSystemFragment());
-        fragments.add(new PlayAndroidNaviFragment());
-        fragments.add(new PlayAndroidNaviFragment());
+        fragments.add(new DailyRecommendationFragment());
+        fragments.add(new DailyRecommendationFragment());
+        fragments.add(new DailyRecommendationFragment());
     }
 
     private void initViewPager(View view) {
