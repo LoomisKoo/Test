@@ -10,6 +10,9 @@ import com.example.administrator.test.R;
 import com.example.administrator.test.animation.AnimatorHelper;
 import com.example.administrator.test.base.adapter.BaseViewHolder;
 import com.example.administrator.test.entity.DailyRecommendArticleEntity;
+import com.google.android.flexbox.FlexDirection;
+import com.google.android.flexbox.FlexWrap;
+import com.google.android.flexbox.FlexboxLayoutManager;
 
 import java.util.List;
 
@@ -37,7 +40,15 @@ public class DailyRecommendArticleVH extends BaseViewHolder {
         super(context, parent, layoutId);
         tvTitle = retrieveView(R.id.tv_title);
         rvArticle = retrieveView(R.id.rv_article);
-        rvArticle.setLayoutManager(new LinearLayoutManager(context));
+
+
+        FlexboxLayoutManager manager  = new FlexboxLayoutManager(context, FlexDirection.ROW, FlexWrap.WRAP){
+            @Override
+            public boolean canScrollVertically() {
+                return false;
+            }
+        };
+        rvArticle.setLayoutManager(manager);
         //设置不需要焦点 否则切换tab后，嵌套的recyclerview会自动滚动
         rvArticle.setFocusableInTouchMode(false);
         rvArticle.requestFocus();

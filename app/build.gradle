@@ -117,6 +117,9 @@ dependencies {
     implementation 'com.github.1002326270xc:LayoutManager-FlowLayout:v1.7'
     //收藏、赞等效果的checkbook
     implementation'com.github.jd-alexander:LikeButton:0.2.3'
+    //流式布局
+    implementation 'com.google.android:flexbox:1.0.0'
+
     //    implementation 'com.google.android.material:material:1.0.0+'
 
     //    com.android.support:cardview-v7

@@ -13,6 +13,9 @@ import com.example.administrator.test.animation.AnimatorHelper;
 import com.example.administrator.test.base.adapter.BaseViewHolder;
 import com.example.administrator.test.entity.KnowledgeSystemEntity;
 import com.example.administrator.test.util.ArouterHelper;
+import com.google.android.flexbox.FlexDirection;
+import com.google.android.flexbox.FlexWrap;
+import com.google.android.flexbox.FlexboxLayoutManager;
 
 import java.util.List;
 
@@ -47,9 +50,13 @@ public class KnowledgeSystemVH extends BaseViewHolder {
 //        ButterKnife.bind(this, view);
         rvKnowledgePoint = retrieveView(R.id.rv_knowledge_point);
         tvTitle = retrieveView(R.id.tv_title);
-
-        //TODO 此处可用流式布局进行优化
-        rvKnowledgePoint.setLayoutManager(new LinearLayoutManager(context));
+        FlexboxLayoutManager manager = new FlexboxLayoutManager(context, FlexDirection.ROW, FlexWrap.WRAP) {
+            @Override
+            public boolean canScrollVertically() {
+                return false;
+            }
+        };
+        rvKnowledgePoint.setLayoutManager(manager);
 
     }
 
