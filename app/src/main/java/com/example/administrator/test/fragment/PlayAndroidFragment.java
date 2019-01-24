@@ -46,7 +46,6 @@ public class PlayAndroidFragment extends BaseListFragment<PlayAndroidViewEntity,
 
     @Override
     protected void getData(int page, int pageSize) {
-        System.out.println("----------------------->PlayAndroidFragment");
         presenter.getArticleList(page);
         if (0 == page) {
             presenter.getBannerImg();

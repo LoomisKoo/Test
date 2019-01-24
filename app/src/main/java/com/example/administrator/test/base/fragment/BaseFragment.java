@@ -13,16 +13,27 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.administrator.test.base.activity.BaseActivity;
+import com.example.administrator.test.manager.FragmentUserVisibleManager;
 
 /**
  * @author
  */
-public abstract class BaseFragment<P> extends Fragment {
-    protected boolean isInitView = false;
+public abstract class BaseFragment<P> extends Fragment implements FragmentUserVisibleManager.UserVisibleCallback {
+
+    private FragmentUserVisibleManager userVisibleManager;
+
+    /**
+     * 是否已经加载数据
+     */
+    protected boolean isLoadData = false;
 
     protected P presenter;
 
     protected BaseActivity mActivity;
+
+    public BaseFragment() {
+        userVisibleManager = new FragmentUserVisibleManager(this, this);
+    }
 
     /**
      * 设置内容布局
@@ -83,29 +94,19 @@ public abstract class BaseFragment<P> extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initView(view);
-        //视图创建完成，将变量置为true
-        isInitView = true;
-        //如果Fragment可见进行数据加载
-        if (getUserVisibleHint()) {
-            initData();
-            isInitView = false;
-        }
     }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         presenter = getPresenter();
+        userVisibleManager.activityCreated();
     }
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        //视图变为可见并且是第一次加载
-        if (isInitView && isVisibleToUser) {
-            initData();
-            isInitView = false;
-        }
+        userVisibleManager.setUserVisibleHint(isVisibleToUser);
     }
 
     @Override
@@ -116,13 +117,43 @@ public abstract class BaseFragment<P> extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        userVisibleManager.resume();
     }
 
     @Override
     public void onPause() {
         super.onPause();
+        userVisibleManager.pause();
     }
 
+    @Override
+    public void setWaitingShowToUser(boolean waitingShowToUser) {
+        userVisibleManager.setWaitingShowToUser(waitingShowToUser);
+    }
+
+    @Override
+    public boolean isWaitingShowToUser() {
+        return userVisibleManager.isWaitingShowToUser();
+    }
+
+    @Override
+    public boolean isVisibleToUser() {
+        return userVisibleManager.isVisibleToUser();
+    }
+
+    @Override
+    public void callSuperSetUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+    }
+
+    @Override
+    public void onVisibleToUserChanged(boolean isVisibleToUser, boolean invokeInResumeOrPause) {
+        System.out.println("isVisibleToUser:" + isVisibleToUser);
+        if (isVisibleToUser && !isLoadData) {
+            initData();
+            isLoadData = true;
+        }
+    }
 
     @Override
     public void onStop() {
@@ -137,7 +168,7 @@ public abstract class BaseFragment<P> extends Fragment {
 
     @Override
     public void onDestroy() {
-        isInitView = false;
+        isLoadData = false;
         super.onDestroy();
     }
 

@@ -29,7 +29,7 @@ public class RecommendFragment extends BaseFragment {
     /**
      * viewpager数量
      */
-    private static final int VIEW_PAGER_COUNT = 3;
+    private static final int VIEW_PAGER_COUNT = 4;
 
     /**
      * viewpager下标
@@ -77,7 +77,6 @@ public class RecommendFragment extends BaseFragment {
      */
     private void initFragmentList() {
         fragments.clear();
-
         fragments.add(new DailyRecommendationFragment());
         fragments.add(new DailyRecommendationFragment());
         fragments.add(new DailyRecommendationFragment());

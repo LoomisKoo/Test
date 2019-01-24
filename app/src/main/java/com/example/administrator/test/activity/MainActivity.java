@@ -26,7 +26,6 @@ import com.example.administrator.test.mvp.base.IBasePresenter;
 import com.example.administrator.test.util.ACache;
 import com.example.administrator.test.util.ArouterHelper;
 import com.roughike.bottombar.BottomBar;
-import com.roughike.bottombar.BottomBarTab;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -30,9 +30,6 @@ public class Fragment1 extends BaseFragment implements TestContract.View {
             public void onMultiClick(View v) {
             }
         });
-//        customTextView = view.findViewById(R.id.customTextView);
-//        initView();
-
     }
 
     @Override
