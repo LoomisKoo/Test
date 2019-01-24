@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/banner"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <View
+        android:id="@+id/line"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/gray_e1dada"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageButton
+        android:id="@+id/ib_play_android"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="15dp"
+        android:background="@color/transparent"
+        android:src="@mipmap/ic_nav_login"
+        app:layout_constraintBottom_toTopOf="@+id/tv_play_android"
+        app:layout_constraintEnd_toStartOf="@+id/ib_daily_recommend"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/ib_daily_recommend"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:background="@color/transparent"
+        android:src="@mipmap/ic_nav_login"
+        app:layout_constraintEnd_toStartOf="@+id/ib_reading"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@id/ib_play_android"
+        app:layout_constraintTop_toTopOf="@id/ib_play_android" />
+
+    <ImageButton
+        android:id="@+id/ib_reading"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:background="@color/transparent"
+        android:src="@mipmap/ic_nav_login"
+        app:layout_constraintEnd_toStartOf="@+id/ib_hit_movies"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@id/ib_daily_recommend"
+        app:layout_constraintTop_toTopOf="@id/ib_play_android" />
+
+    <ImageButton
+        android:id="@+id/ib_hit_movies"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:background="@color/transparent"
+        android:src="@mipmap/ic_nav_login"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@id/ib_reading"
+        app:layout_constraintTop_toTopOf="@id/ib_play_android" />
+
+    <TextView
+        android:id="@+id/tv_reading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="干货阅读"
+        app:layout_constraintEnd_toEndOf="@id/ib_reading"
+        app:layout_constraintStart_toStartOf="@id/ib_reading"
+        app:layout_constraintTop_toTopOf="@+id/tv_daily_recommend" />
+
+    <TextView
+        android:id="@+id/tv_daily_recommend"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="每日推荐"
+        app:layout_constraintEnd_toEndOf="@id/ib_daily_recommend"
+        app:layout_constraintStart_toStartOf="@id/ib_daily_recommend"
+        app:layout_constraintTop_toTopOf="@+id/tv_play_android" />
+
+    <TextView
+        android:id="@+id/tv_play_android"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="玩安卓"
+        app:layout_constraintBottom_toTopOf="@id/line"
+        app:layout_constraintEnd_toEndOf="@id/ib_play_android"
+        app:layout_constraintStart_toStartOf="@id/ib_play_android" />
+
+    <TextView
+        android:id="@+id/tv_hit_movies"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="热映榜"
+        app:layout_constraintEnd_toEndOf="@id/ib_hit_movies"
+        app:layout_constraintStart_toStartOf="@id/ib_hit_movies"
+        app:layout_constraintTop_toTopOf="@id/tv_reading" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
