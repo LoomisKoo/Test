@@ -8,6 +8,7 @@ import android.os.Bundle;
 import androidx.core.content.ContextCompat;
 import androidx.appcompat.widget.Toolbar;
 
+import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebSettings;
@@ -26,6 +27,8 @@ import com.example.administrator.test.util.ArouterHelper;
 
 import com.example.administrator.test.webview.CustomWebViewClient;
 import com.example.administrator.test.webview.IWebPageView;
+
+import static android.view.KeyEvent.KEYCODE_BACK;
 
 /**
  * @ProjectName: Test
@@ -126,6 +129,16 @@ public class WebActivity extends BaseActivity implements IWebPageView {
 
     }
 
+    @Override
+    protected void OnNavigationOnClick() {
+        if (webView.canGoBack()) {
+            webView.goBack();
+        }
+        else {
+            finishActivity();
+        }
+    }
+
     private void initTitle() {
         mProgressBar = (ProgressBar) findViewById(R.id.pb_progress);
         webView = (WebView) findViewById(R.id.webview_detail);
@@ -190,7 +203,7 @@ public class WebActivity extends BaseActivity implements IWebPageView {
         webView.setWebViewClient(new CustomWebViewClient(this));
     }
 
-//
+    //
 //    @Override
 //    public boolean onOptionsItemSelected(MenuItem item) {
 //        switch (item.getItemId()) {
@@ -241,6 +254,16 @@ public class WebActivity extends BaseActivity implements IWebPageView {
 //        }
 //        return super.onOptionsItemSelected(item);
 //    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        //点击回退键时，不会退出浏览器而是返回网页上一页
+        if ((keyCode == KEYCODE_BACK) && webView.canGoBack()) {
+            webView.goBack();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
 
     @Override
     public void hindProgressBar() {
