@@ -1,7 +1,6 @@
 package com.example.administrator.test.activity;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -13,7 +12,7 @@ import com.example.administrator.test.R;
 import com.example.administrator.test.base.activity.BaseActivity;
 import com.example.administrator.test.mvp.contract.SplashContract;
 import com.example.administrator.test.mvp.presenter.SplashPresenter;
-import com.example.administrator.test.util.ArouterHelper;
+import com.example.administrator.test.util.ArouteHelper;
 import com.example.administrator.test.util.OnMultiClickListener;
 
 /**
@@ -149,7 +148,7 @@ public class SplashActivity extends BaseActivity<SplashPresenter> implements Spl
      */
     private void startMainActivity() {
         ARouter.getInstance()
-               .build(ArouterHelper.ROUTE_ACTIVITY_MAIN)
+               .build(ArouteHelper.ROUTE_ACTIVITY_MAIN)
                .navigation();
         //跳转动画
         overridePendingTransition(R.anim.screen_zoom_in, R.anim.screen_zoom_out);

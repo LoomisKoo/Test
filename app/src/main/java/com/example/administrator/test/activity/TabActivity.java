@@ -9,14 +9,14 @@ import com.example.administrator.test.base.baseinterface.ITabPagerView;
 import com.example.administrator.test.entity.TestEntity;
 import com.example.administrator.test.listview.TestListView;
 import com.example.administrator.test.mvp.base.IBasePresenter;
-import com.example.administrator.test.util.ArouterHelper;
+import com.example.administrator.test.util.ArouteHelper;
 
 import java.util.ArrayList;
 
 /**
  * @author koo
  */
-@Route(path = ArouterHelper.ROUTE_ACTIVITY_TAB_ACTIVITY)
+@Route(path = ArouteHelper.ROUTE_ACTIVITY_TAB_ACTIVITY)
 public class TabActivity extends BaseTabActivity {
     @Override
     public int bindContentLayout() {

@@ -5,25 +5,19 @@ import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 
-import androidx.core.content.ContextCompat;
-import androidx.appcompat.widget.Toolbar;
-
 import android.view.KeyEvent;
-import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.FrameLayout;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
-import com.alibaba.android.arouter.launcher.ARouter;
 import com.example.administrator.test.R;
 import com.example.administrator.test.base.activity.BaseActivity;
 import com.example.administrator.test.mvp.base.IBasePresenter;
-import com.example.administrator.test.util.ArouterHelper;
+import com.example.administrator.test.util.ArouteHelper;
 
 import com.example.administrator.test.webview.CustomWebViewClient;
 import com.example.administrator.test.webview.IWebPageView;
@@ -42,7 +36,7 @@ import static android.view.KeyEvent.KEYCODE_BACK;
  * @UpdateRemark: 更新说明
  * @Version: 1.0
  */
-@Route(path = ArouterHelper.ROUTE_ACTIVITY_WEB)
+@Route(path = ArouteHelper.ROUTE_ACTIVITY_WEB)
 public class WebActivity extends BaseActivity implements IWebPageView {
     /**
      * 进度条

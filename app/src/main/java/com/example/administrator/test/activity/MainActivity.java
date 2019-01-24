@@ -24,7 +24,7 @@ import com.example.administrator.test.fragment.PlayFragment;
 import com.example.administrator.test.fragment.RecommendFragment;
 import com.example.administrator.test.mvp.base.IBasePresenter;
 import com.example.administrator.test.util.ACache;
-import com.example.administrator.test.util.ArouterHelper;
+import com.example.administrator.test.util.ArouteHelper;
 import com.roughike.bottombar.BottomBar;
 
 import java.util.ArrayList;
@@ -34,7 +34,7 @@ import java.util.List;
 /**
  * @author
  */
-@Route(path = ArouterHelper.ROUTE_ACTIVITY_MAIN)
+@Route(path = ArouteHelper.ROUTE_ACTIVITY_MAIN)
 public class MainActivity extends BaseActivity {
     /**
      * viewpager缓存数量
@@ -120,13 +120,13 @@ public class MainActivity extends BaseActivity {
         switch (menuId) {
             case R.id.action_search:
                 ARouter.getInstance()
-                       .build(ArouterHelper.ROUTE_ACTIVITY_TAB_ACTIVITY)
+                       .build(ArouteHelper.ROUTE_ACTIVITY_TAB_ACTIVITY)
                        .withFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
                        .navigation();
                 break;
             case R.id.action_notification:
                 ARouter.getInstance()
-                       .build(ArouterHelper.ROUTE_ACTIVITY_LIST_ACTIVITY)
+                       .build(ArouteHelper.ROUTE_ACTIVITY_LIST_ACTIVITY)
                        .withFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
                        .navigation();
                 break;
@@ -202,7 +202,7 @@ public class MainActivity extends BaseActivity {
         //登录
         loginTv.setOnClickListener(v -> {
             ARouter.getInstance()
-                   .build(ArouterHelper.ROUTE_ACTIVITY_LOGIN)
+                   .build(ArouteHelper.ROUTE_ACTIVITY_LOGIN)
                    .withFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
                    .withInt("x", AnimatorHelper.getDownX())
                    .withInt("y", AnimatorHelper.getDownY())

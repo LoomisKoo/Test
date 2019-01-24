@@ -15,7 +15,7 @@ import com.example.administrator.test.entity.NaviEntity;
 import com.example.administrator.test.mvp.contract.NaviContract;
 import com.example.administrator.test.mvp.model.NaviModel;
 import com.example.administrator.test.mvp.presenter.NaviPresenter;
-import com.example.administrator.test.util.ArouterHelper;
+import com.example.administrator.test.util.ArouteHelper;
 
 import org.apache.commons.lang.StringUtils;
 
@@ -126,10 +126,10 @@ public class PlayAndroidNaviFragment extends BaseFragment<NaviPresenter> impleme
     }
 
     private void initTitleData(NaviEntity entity) {
-        List<String>              titles   = new ArrayList<>();
-        int                       dataSize = entity.getData()
-                                                   .size();
-        List<NaviEntity.DataBean> data     = entity.getData();
+        List<String> titles = new ArrayList<>();
+        int dataSize = entity.getData()
+                             .size();
+        List<NaviEntity.DataBean> data = entity.getData();
         for (int i = 0; i < dataSize; i++) {
             titles.add(data.get(i)
                            .getName());
@@ -149,8 +149,8 @@ public class PlayAndroidNaviFragment extends BaseFragment<NaviPresenter> impleme
      * @param entity
      */
     private void initContentData(NaviEntity entity) {
-        int                       dataSize   = entity.getData()
-                                                     .size();
+        int dataSize = entity.getData()
+                             .size();
         List<NaviEntity.DataBean> originData = entity.getData();
         titleData = new ArrayList<>();
         for (int i = 0; i < dataSize; i++) {
@@ -306,14 +306,7 @@ public class PlayAndroidNaviFragment extends BaseFragment<NaviPresenter> impleme
                     NaviEntity.DataBean.ArticlesBean entity = (NaviEntity.DataBean.ArticlesBean) data.get(position)
                                                                                                      .getData();
                     holder.tvTitle.setText(entity.getTitle());
-                    holder.tvTitle.setOnClickListener(v -> ARouter.getInstance()
-                                                                  .build(ArouterHelper.ROUTE_ACTIVITY_WEB)
-                                                                  .withFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
-                                                                  .withString("title", entity.getTitle())
-                                                                  .withString("url", entity.getLink())
-                                                                  .withInt("x", AnimatorHelper.getDownX())
-                                                                  .withInt("y", AnimatorHelper.getDownY())
-                                                                  .navigation(getActivity()));
+                    holder.tvTitle.setOnClickListener(v -> ArouteHelper.buildWebWithAnimator(getActivity(), entity.getTitle(), entity.getLink()));
                     break;
                 default:
                     break;

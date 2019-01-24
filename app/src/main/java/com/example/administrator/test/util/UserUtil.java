@@ -59,7 +59,7 @@ public class UserUtil {
                                  .getBoolean(Constants.IS_LOGIN, false);
         if (!isLogin) {
             ToastUtils.showShort("请先登录~");
-//            ARouter.getPlayAndroidInstance().build(ArouterHelper.ROUTE_ACTIVITY_LOGIN).withFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION).withInt("x", AnimatorHelper.getDownX()).withInt("y", AnimatorHelper.getDownY()).navigation();
+//            ARouter.getPlayAndroidInstance().build(ArouteHelper.ROUTE_ACTIVITY_LOGIN).withFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION).withInt("x", AnimatorHelper.getDownX()).withInt("y", AnimatorHelper.getDownY()).navigation();
             return false;
         }
         else {

@@ -22,7 +22,7 @@ import com.example.administrator.test.mvp.contract.LogoutContract;
 import com.example.administrator.test.mvp.model.LogoutModel;
 import com.example.administrator.test.mvp.presenter.LogoutPresenter;
 import com.example.administrator.test.util.ACache;
-import com.example.administrator.test.util.ArouterHelper;
+import com.example.administrator.test.util.ArouteHelper;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 import butterknife.BindView;
@@ -39,7 +39,7 @@ import butterknife.BindView;
  * @UpdateRemark: 更新说明
  * @Version: 1.0
  */
-@Route(path = ArouterHelper.ROUTE_ACTIVITY_LOGIN)
+@Route(path = ArouteHelper.ROUTE_ACTIVITY_LOGIN)
 public class LoginActivity extends BaseActivity<LogoutPresenter> implements LogoutContract.View {
     @BindView(R.id.login_github_btn)
     Button           loginGithubBtn;
@@ -107,14 +107,7 @@ public class LoginActivity extends BaseActivity<LogoutPresenter> implements Logo
 
     @Override
     public void setListener() {
-        loginGithubBtn.setOnClickListener(v -> ARouter.getInstance()
-                                                      .build(ArouterHelper.ROUTE_ACTIVITY_WEB)
-                                                      .withFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
-                                                      .withString("title", "登录Github")
-                                                      .withString("url", GITHUB_URL)
-                                                      .withInt("x", AnimatorHelper.getDownX())
-                                                      .withInt("y", AnimatorHelper.getDownY())
-                                                      .navigation());
+        loginGithubBtn.setOnClickListener(v -> ArouteHelper.buildWebWithAnimator(this, "登录Github", GITHUB_URL));
     }
 
     @Override
@@ -186,7 +179,7 @@ public class LoginActivity extends BaseActivity<LogoutPresenter> implements Logo
         if (null == mCache.getAsObject("user")) {
             loginPlayAndroidBtn.setText("玩安卓");
             loginPlayAndroidBtn.setOnClickListener(v -> ARouter.getInstance()
-                                                               .build(ArouterHelper.ROUTE_ACTIVITY_LOGIN_PLAY_ANDROID)
+                                                               .build(ArouteHelper.ROUTE_ACTIVITY_LOGIN_PLAY_ANDROID)
                                                                .withFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
                                                                .withInt("x", AnimatorHelper.getDownX())
                                                                .withInt("y", AnimatorHelper.getDownY())

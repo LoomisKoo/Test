@@ -10,7 +10,7 @@ import com.example.administrator.test.R;
 import com.example.administrator.test.animation.AnimatorHelper;
 import com.example.administrator.test.base.adapter.BaseViewHolder;
 import com.example.administrator.test.entity.BannerEntity;
-import com.example.administrator.test.util.ArouterHelper;
+import com.example.administrator.test.util.ArouteHelper;
 import com.example.administrator.test.util.GlideImageLoader;
 import com.orhanobut.logger.Logger;
 import com.youth.banner.Banner;
@@ -76,16 +76,10 @@ public class PlayAndroidBannerVH extends BaseViewHolder {
               .setOnBannerListener(position -> {
                   String title = entity.get(position)
                                        .getTitle();
-                  String url   = entity.get(position)
-                                       .getUrl();
-                  ARouter.getInstance()
-                         .build(ArouterHelper.ROUTE_ACTIVITY_WEB)
-                         .withFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
-                         .withString("title", title)
-                         .withString("url", url)
-                         .withInt("x", AnimatorHelper.getDownX())
-                         .withInt("y", AnimatorHelper.getDownY())
-                         .navigation(context);
+                  String url = entity.get(position)
+                                     .getUrl();
+
+                  ArouteHelper.buildWebWithAnimator(context, title, url);
               })
               //必须最后调用的方法，启动轮播图。
               .start();

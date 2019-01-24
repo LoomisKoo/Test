@@ -23,7 +23,7 @@ import com.example.administrator.test.entity.view.PlayAndroidViewEntity;
 import com.example.administrator.test.mvp.contract.PlayAndroidContract;
 import com.example.administrator.test.mvp.model.PlayAndroidModel;
 import com.example.administrator.test.mvp.presenter.PlayAndroidPresenter;
-import com.example.administrator.test.util.ArouterHelper;
+import com.example.administrator.test.util.ArouteHelper;
 import com.example.administrator.test.util.UserUtil;
 import com.example.administrator.test.viewholder.playandroid.PlayAndroidArticleListVH;
 import com.example.administrator.test.viewholder.playandroid.PlayAndroidBannerVH;
@@ -111,19 +111,12 @@ public class PlayAndroidFragment extends BaseListFragment<PlayAndroidViewEntity,
                     case PlayAndroidViewEntity.VIEW_TYPE_ARTICLE_LIST:
                         PlayAndroidArticleListVH vh = new PlayAndroidArticleListVH(getContext(), parent, R.layout.play_android_item_article);
                         vh.itemView.setOnClickListener(v -> {
-                            int                                        position = recyclerView.getChildAdapterPosition(v);
-                            PlayAndroidViewEntity                      entity   = adapter.getData()
-                                                                                         .get(position);
-                            ArticleListEntity.DataBean.ArticleInfoBean bean     = (ArticleListEntity.DataBean.ArticleInfoBean) entity.getData();
-                            String                                     title    = bean.getTitle();
-                            ARouter.getInstance()
-                                   .build(ArouterHelper.ROUTE_ACTIVITY_WEB)
-                                   .withFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
-                                   .withString("title", title)
-                                   .withString("url", bean.getLink())
-                                   .withInt("x", AnimatorHelper.getDownX())
-                                   .withInt("y", AnimatorHelper.getDownY())
-                                   .navigation(getActivity());
+                            int position = recyclerView.getChildAdapterPosition(v);
+                            PlayAndroidViewEntity entity = adapter.getData()
+                                                                  .get(position);
+                            ArticleListEntity.DataBean.ArticleInfoBean bean  = (ArticleListEntity.DataBean.ArticleInfoBean) entity.getData();
+                            String                                     title = bean.getTitle();
+                            ArouteHelper.buildWebWithAnimator(getActivity(), title, bean.getLink());
                         });
 
                         AnimatorHelper.setViewTouchListener(vh.itemView);

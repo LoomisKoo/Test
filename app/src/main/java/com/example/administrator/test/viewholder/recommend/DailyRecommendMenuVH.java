@@ -1,25 +1,13 @@
 package com.example.administrator.test.viewholder.recommend;
 
 import android.content.Context;
-import android.content.Intent;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
-import android.widget.TextView;
 
-import com.alibaba.android.arouter.launcher.ARouter;
-import com.blankj.utilcode.util.ToastUtils;
 import com.example.administrator.test.R;
 import com.example.administrator.test.animation.AnimatorHelper;
 import com.example.administrator.test.base.adapter.BaseViewHolder;
-import com.example.administrator.test.util.ArouterHelper;
-import com.example.administrator.test.util.GlideImageLoader;
-import com.youth.banner.Banner;
-import com.youth.banner.BannerConfig;
-import com.youth.banner.Transformer;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.example.administrator.test.util.ArouteHelper;
 
 /**
  * @ProjectName: Test
@@ -34,14 +22,17 @@ import java.util.List;
  * @Version: 1.0
  */
 public class DailyRecommendMenuVH extends BaseViewHolder {
-    private static final String RECOMMEND_MUSIC_TITLE        = "网易云音乐";
-    private static final String RECOMMEND_MUSIC_URL          = "https://music.163.com/m/";
+    private static final String RECOMMEND_MUSIC_TITLE = "网易云音乐";
+    private static final String RECOMMEND_MUSIC_URL   = "https://music.163.com/m/";
+
     private static final String RECOMMEND_PLAY_ANDROID_TITLE = "玩安卓";
     private static final String RECOMMEND_PLAY_ANDROID_URL   = "http://www.wanandroid.com";
-    private static final String RECOMMEND_READING_TITLE      = "干货闲读";
-    private static final String RECOMMEND_READING_URL        = "https://gank.io/xiandu";
-    private static final String RECOMMEND_HIT_MOVIE_TITLE    = "热映电影";
-    private static final String RECOMMEND_HIT_MOVIE_URL      = "https://movie.douban.com";
+
+    private static final String RECOMMEND_READING_TITLE = "干货闲读";
+    private static final String RECOMMEND_READING_URL   = "https://gank.io/xiandu";
+
+    private static final String RECOMMEND_HIT_MOVIE_TITLE = "热映电影";
+    private static final String RECOMMEND_HIT_MOVIE_URL   = "https://movie.douban.com";
 
     private ImageButton ibReading;
     private ImageButton ibDailyRecommend;
@@ -59,37 +50,10 @@ public class DailyRecommendMenuVH extends BaseViewHolder {
         AnimatorHelper.setViewTouchListener(ibDailyRecommend);
         AnimatorHelper.setViewTouchListener(ibPlayAndroid);
         AnimatorHelper.setViewTouchListener(ibHitMovies);
-        ibReading.setOnClickListener(v -> ARouter.getInstance()
-                                                 .build(ArouterHelper.ROUTE_ACTIVITY_WEB)
-                                                 .withFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
-                                                 .withString("title", RECOMMEND_READING_TITLE)
-                                                 .withString("url", RECOMMEND_READING_URL)
-                                                 .withInt("x", AnimatorHelper.getDownX())
-                                                 .withInt("y", AnimatorHelper.getDownY())
-                                                 .navigation(context));
-        ibDailyRecommend.setOnClickListener(v -> ARouter.getInstance()
-                                                        .build(ArouterHelper.ROUTE_ACTIVITY_WEB)
-                                                        .withFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
-                                                        .withString("title", RECOMMEND_MUSIC_TITLE)
-                                                        .withString("url", RECOMMEND_MUSIC_URL)
-                                                        .withInt("x", AnimatorHelper.getDownX())
-                                                        .withInt("y", AnimatorHelper.getDownY())
-                                                        .navigation(context));
-        ibPlayAndroid.setOnClickListener(v -> ARouter.getInstance()
-                                                     .build(ArouterHelper.ROUTE_ACTIVITY_WEB)
-                                                     .withFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
-                                                     .withString("title", RECOMMEND_PLAY_ANDROID_TITLE)
-                                                     .withString("url", RECOMMEND_PLAY_ANDROID_URL)
-                                                     .withInt("x", AnimatorHelper.getDownX())
-                                                     .withInt("y", AnimatorHelper.getDownY())
-                                                     .navigation(context));
-        ibHitMovies.setOnClickListener(v -> ARouter.getInstance()
-                                                   .build(ArouterHelper.ROUTE_ACTIVITY_WEB)
-                                                   .withFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
-                                                   .withString("title", RECOMMEND_HIT_MOVIE_TITLE)
-                                                   .withString("url", RECOMMEND_HIT_MOVIE_URL)
-                                                   .withInt("x", AnimatorHelper.getDownX())
-                                                   .withInt("y", AnimatorHelper.getDownY())
-                                                   .navigation(context));
+
+        ibReading.setOnClickListener(v -> ArouteHelper.buildWebWithAnimator(context, RECOMMEND_READING_TITLE, RECOMMEND_READING_URL));
+        ibDailyRecommend.setOnClickListener(v -> ArouteHelper.buildWebWithAnimator(context, RECOMMEND_MUSIC_TITLE, RECOMMEND_MUSIC_URL));
+        ibPlayAndroid.setOnClickListener(v -> ArouteHelper.buildWebWithAnimator(context, RECOMMEND_PLAY_ANDROID_TITLE, RECOMMEND_PLAY_ANDROID_URL));
+        ibHitMovies.setOnClickListener(v -> ArouteHelper.buildWebWithAnimator(context, RECOMMEND_HIT_MOVIE_TITLE, RECOMMEND_HIT_MOVIE_URL));
     }
 }

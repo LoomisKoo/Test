@@ -12,7 +12,7 @@ import com.example.administrator.test.R;
 import com.example.administrator.test.animation.AnimatorHelper;
 import com.example.administrator.test.base.adapter.BaseViewHolder;
 import com.example.administrator.test.entity.KnowledgeSystemEntity;
-import com.example.administrator.test.util.ArouterHelper;
+import com.example.administrator.test.util.ArouteHelper;
 import com.google.android.flexbox.FlexDirection;
 import com.google.android.flexbox.FlexWrap;
 import com.google.android.flexbox.FlexboxLayoutManager;
@@ -20,10 +20,8 @@ import com.google.android.flexbox.FlexboxLayoutManager;
 import java.util.List;
 
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * @ProjectName: Test
@@ -90,7 +88,7 @@ public class KnowledgeSystemVH extends BaseViewHolder {
             holder.tvPoint.setOnClickListener(v -> {
                 KnowledgeSystemEntity.KnowledgeType.KnowledgePoint entity = data.get(position);
                 ARouter.getInstance()
-                       .build(ArouterHelper.ROUTE_ACTIVITY_ARTICLE_LIST)
+                       .build(ArouteHelper.ROUTE_ACTIVITY_ARTICLE_LIST)
                        .withFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
                        .withInt("x", AnimatorHelper.getDownX())
                        .withInt("y", AnimatorHelper.getDownY())

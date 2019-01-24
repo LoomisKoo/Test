@@ -19,7 +19,7 @@ import com.example.administrator.test.entity.ArticleListEntity;
 import com.example.administrator.test.mvp.contract.ArticleListContract;
 import com.example.administrator.test.mvp.model.ArticleListModel;
 import com.example.administrator.test.mvp.presenter.ArticleListPresenter;
-import com.example.administrator.test.util.ArouterHelper;
+import com.example.administrator.test.util.ArouteHelper;
 import com.example.administrator.test.util.UserUtil;
 import com.example.administrator.test.viewholder.playandroid.PlayAndroidArticleListVH2;
 import com.like.LikeButton;
@@ -39,7 +39,7 @@ import androidx.recyclerview.widget.RecyclerView;
  * @UpdateRemark: 更新说明
  * @Version: 1.0
  */
-@Route(path = ArouterHelper.ROUTE_ACTIVITY_ARTICLE_LIST)
+@Route(path = ArouteHelper.ROUTE_ACTIVITY_ARTICLE_LIST)
 public class ArticleListActivity extends BaseListActivity<ArticleListEntity.DataBean.ArticleInfoBean, ArticleListPresenter> implements ArticleListContract.View {
     @Autowired
     int    cid;
@@ -93,14 +93,7 @@ public class ArticleListActivity extends BaseListActivity<ArticleListEntity.Data
                                                                                .get(position);
                     String url   = entity.getLink();
                     String title = entity.getTitle();
-                    ARouter.getInstance()
-                           .build(ArouterHelper.ROUTE_ACTIVITY_WEB)
-                           .withFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
-                           .withString("title", title)
-                           .withString("url", url)
-                           .withInt("x", AnimatorHelper.getDownX())
-                           .withInt("y", AnimatorHelper.getDownY())
-                           .navigation(context);
+                    ArouteHelper.buildWebWithAnimator(context, title, url);
                 });
 
                 AnimatorHelper.setViewTouchListener(vh.itemView);

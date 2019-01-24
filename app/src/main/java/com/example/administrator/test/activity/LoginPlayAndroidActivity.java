@@ -25,7 +25,7 @@ import com.example.administrator.test.animation.interpolator.LoginInterpolator;
 import com.example.administrator.test.mvp.contract.LoginContract;
 import com.example.administrator.test.mvp.model.LoginModel;
 import com.example.administrator.test.mvp.presenter.LoginPresenter;
-import com.example.administrator.test.util.ArouterHelper;
+import com.example.administrator.test.util.ArouteHelper;
 
 import androidx.cardview.widget.CardView;
 import butterknife.BindView;
@@ -42,7 +42,7 @@ import butterknife.BindView;
  * @UpdateRemark: 更新说明
  * @Version: 1.0
  */
-@Route(path = ArouterHelper.ROUTE_ACTIVITY_LOGIN_PLAY_ANDROID)
+@Route(path = ArouteHelper.ROUTE_ACTIVITY_LOGIN_PLAY_ANDROID)
 public class LoginPlayAndroidActivity extends BaseActivity<LoginPresenter> implements LoginContract.View {
     /**
      * 进度条动画参数
@@ -308,7 +308,7 @@ public class LoginPlayAndroidActivity extends BaseActivity<LoginPresenter> imple
     public void loginSuccess() {
         showToast("登录成功");
         ARouter.getInstance()
-               .build(ArouterHelper.ROUTE_ACTIVITY_MAIN)
+               .build(ArouteHelper.ROUTE_ACTIVITY_MAIN)
                .withFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
                .withInt("x", getLoadingViewPoint()[0])
                .withInt("y", getLoadingViewPoint()[1])
