@@ -42,7 +42,8 @@ public class RevealAnimation {
                     @Override
                     public void onGlobalLayout() {
                         revealActivity(revealX, revealY);
-                        mView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                        mView.getViewTreeObserver()
+                             .removeOnGlobalLayoutListener(this);
                     }
                 });
             }

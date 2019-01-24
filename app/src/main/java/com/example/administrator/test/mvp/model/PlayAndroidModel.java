@@ -15,31 +15,36 @@ public class PlayAndroidModel implements PlayAndroidContract.Model {
 
     @Override
     public void getBannerImg(HttpCallback httpCallback) {
-        Observable<ResponseBody> observable = Api.getPlayAndroidService().getBannerImg();
+        Observable<ResponseBody> observable = Api.getPlayAndroidService()
+                                                 .getBannerImg();
         Api.query(observable, httpCallback);
     }
 
     @Override
     public void getArticleList(int page, Integer cid, HttpCallback httpCallback) {
-        Observable<ResponseBody> observable = Api.getPlayAndroidService().getArticleList(page, cid);
+        Observable<ResponseBody> observable = Api.getPlayAndroidService()
+                                                 .getArticleList(page, cid);
         Api.query(observable, httpCallback);
     }
 
     @Override
     public void collectArticle(int articleID, HttpCallback httpCallback) {
-        Observable<ResponseBody> observable = Api.getPlayAndroidService().collectArticle(articleID);
+        Observable<ResponseBody> observable = Api.getPlayAndroidService()
+                                                 .collectArticle(articleID);
         Api.query(observable, httpCallback);
     }
 
     @Override
     public void unCollectArticle(int articleID, HttpCallback httpCallback) {
-        Observable<ResponseBody> observable = Api.getPlayAndroidService().unCollectArticleOrigin(articleID);
+        Observable<ResponseBody> observable = Api.getPlayAndroidService()
+                                                 .unCollectArticleOrigin(articleID);
         Api.query(observable, httpCallback);
     }
 
     @Override
     public void unCollectArticle(int originId, int id, HttpCallback httpCallback) {
-        Observable<ResponseBody> observable = Api.getPlayAndroidService().unCollectArticle(id, originId);
+        Observable<ResponseBody> observable = Api.getPlayAndroidService()
+                                                 .unCollectArticle(id, originId);
         Api.query(observable, httpCallback);
     }
 }

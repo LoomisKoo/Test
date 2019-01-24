@@ -183,7 +183,8 @@ public abstract class BaseFragment<P> extends Fragment implements FragmentUserVi
      * @param msg
      */
     protected void showToast(String msg) {
-        Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT)
+             .show();
     }
 
     /**
@@ -192,7 +193,8 @@ public abstract class BaseFragment<P> extends Fragment implements FragmentUserVi
      * @param msg
      */
     protected void showLongToast(String msg) {
-        Toast.makeText(getContext(), msg, Toast.LENGTH_LONG).show();
+        Toast.makeText(getContext(), msg, Toast.LENGTH_LONG)
+             .show();
     }
 
     /**
@@ -201,7 +203,8 @@ public abstract class BaseFragment<P> extends Fragment implements FragmentUserVi
      * @param resId
      */
     public void showToast(@StringRes int resId) {
-        Toast.makeText(getContext(), getResources().getString(resId), Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), getResources().getString(resId), Toast.LENGTH_SHORT)
+             .show();
     }
 
     /**
@@ -210,7 +213,8 @@ public abstract class BaseFragment<P> extends Fragment implements FragmentUserVi
      * @param resId
      */
     public void showLongToast(@StringRes int resId) {
-        Toast.makeText(getContext(), getResources().getString(resId), Toast.LENGTH_LONG).show();
+        Toast.makeText(getContext(), getResources().getString(resId), Toast.LENGTH_LONG)
+             .show();
     }
 
 }

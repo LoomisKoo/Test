@@ -148,7 +148,8 @@ public class RecommendFragment extends BaseFragment {
         mBottomBar.setOnTabReselectListener(tabId -> {
             if (tabId == R.id.play_android) {
                 // 已经选择了这个标签，又点击一次。即重选。
-                mBottomBar.getTabWithId(R.id.play_android).removeBadge();
+                mBottomBar.getTabWithId(R.id.play_android)
+                          .removeBadge();
             }
         });
         mBottomBar.setTabSelectionInterceptor((oldTabId, newTabId) -> {

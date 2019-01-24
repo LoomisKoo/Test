@@ -34,11 +34,19 @@ import java.util.List;
  * @Version: 1.0
  */
 public class DailyRecommendMenuVH extends BaseViewHolder {
-    private static final String      RECOMMEND_MUSIC_URL = "https://music.163.com/m/";
-    private              ImageButton ibReading;
-    private              ImageButton ibDailyRecommend;
-    private              ImageButton ibPlayAndroid;
-    private              ImageButton ibHitMovies;
+    private static final String RECOMMEND_MUSIC_TITLE        = "网易云音乐";
+    private static final String RECOMMEND_MUSIC_URL          = "https://music.163.com/m/";
+    private static final String RECOMMEND_PLAY_ANDROID_TITLE = "玩安卓";
+    private static final String RECOMMEND_PLAY_ANDROID_URL   = "http://www.wanandroid.com";
+    private static final String RECOMMEND_READING_TITLE      = "干货闲读";
+    private static final String RECOMMEND_READING_URL        = "https://gank.io/xiandu";
+    private static final String RECOMMEND_HIT_MOVIE_TITLE    = "热映电影";
+    private static final String RECOMMEND_HIT_MOVIE_URL      = "https://movie.douban.com";
+
+    private ImageButton ibReading;
+    private ImageButton ibDailyRecommend;
+    private ImageButton ibPlayAndroid;
+    private ImageButton ibHitMovies;
 
     public DailyRecommendMenuVH(Context context, ViewGroup parent, int layoutId) {
         super(context, parent, layoutId);
@@ -51,20 +59,37 @@ public class DailyRecommendMenuVH extends BaseViewHolder {
         AnimatorHelper.setViewTouchListener(ibDailyRecommend);
         AnimatorHelper.setViewTouchListener(ibPlayAndroid);
         AnimatorHelper.setViewTouchListener(ibHitMovies);
-
-        ibReading.setOnClickListener(v -> {
-            ToastUtils.showShort("干活阅读");
-        });
-        ibDailyRecommend.setOnClickListener(v -> {
-            ToastUtils.showShort("每日推荐");
-            ARouter.getInstance().build(ArouterHelper.ROUTE_ACTIVITY_WEB).withFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION).withString("title", "网易云音乐").withString("url", RECOMMEND_MUSIC_URL).withInt("x", AnimatorHelper.getDownX()).withInt("y", AnimatorHelper.getDownY()).navigation(context);
-
-        });
-        ibPlayAndroid.setOnClickListener(v -> {
-            ToastUtils.showShort("玩安卓");
-        });
-        ibHitMovies.setOnClickListener(v -> {
-            ToastUtils.showShort("热映榜");
-        });
+        ibReading.setOnClickListener(v -> ARouter.getInstance()
+                                                 .build(ArouterHelper.ROUTE_ACTIVITY_WEB)
+                                                 .withFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
+                                                 .withString("title", RECOMMEND_READING_TITLE)
+                                                 .withString("url", RECOMMEND_READING_URL)
+                                                 .withInt("x", AnimatorHelper.getDownX())
+                                                 .withInt("y", AnimatorHelper.getDownY())
+                                                 .navigation(context));
+        ibDailyRecommend.setOnClickListener(v -> ARouter.getInstance()
+                                                        .build(ArouterHelper.ROUTE_ACTIVITY_WEB)
+                                                        .withFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
+                                                        .withString("title", RECOMMEND_MUSIC_TITLE)
+                                                        .withString("url", RECOMMEND_MUSIC_URL)
+                                                        .withInt("x", AnimatorHelper.getDownX())
+                                                        .withInt("y", AnimatorHelper.getDownY())
+                                                        .navigation(context));
+        ibPlayAndroid.setOnClickListener(v -> ARouter.getInstance()
+                                                     .build(ArouterHelper.ROUTE_ACTIVITY_WEB)
+                                                     .withFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
+                                                     .withString("title", RECOMMEND_PLAY_ANDROID_TITLE)
+                                                     .withString("url", RECOMMEND_PLAY_ANDROID_URL)
+                                                     .withInt("x", AnimatorHelper.getDownX())
+                                                     .withInt("y", AnimatorHelper.getDownY())
+                                                     .navigation(context));
+        ibHitMovies.setOnClickListener(v -> ARouter.getInstance()
+                                                   .build(ArouterHelper.ROUTE_ACTIVITY_WEB)
+                                                   .withFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
+                                                   .withString("title", RECOMMEND_HIT_MOVIE_TITLE)
+                                                   .withString("url", RECOMMEND_HIT_MOVIE_URL)
+                                                   .withInt("x", AnimatorHelper.getDownX())
+                                                   .withInt("y", AnimatorHelper.getDownY())
+                                                   .navigation(context));
     }
 }

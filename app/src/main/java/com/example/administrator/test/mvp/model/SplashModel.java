@@ -95,9 +95,10 @@ public class SplashModel implements SplashContract.Model {
 
     @Override
     public void countDownAD() {
-        countDownDisposable = Observable.intervalRange(AD_COUNTDOWN_START_SECOND, AD_COUNTDOWN_END_SECOND, AD_COUNTDOWN_DELAY_SECOND, AD_COUNTDOWN_PERIOD_SECOND, TimeUnit.SECONDS).subscribe(aLong -> {
-            ((Activity) context).runOnUiThread(() -> CallBack.countDown(convertCountDownTime(aLong)));
-        });
+        countDownDisposable = Observable.intervalRange(AD_COUNTDOWN_START_SECOND, AD_COUNTDOWN_END_SECOND, AD_COUNTDOWN_DELAY_SECOND, AD_COUNTDOWN_PERIOD_SECOND, TimeUnit.SECONDS)
+                                        .subscribe(aLong -> {
+                                            ((Activity) context).runOnUiThread(() -> CallBack.countDown(convertCountDownTime(aLong)));
+                                        });
         if (AD_COUNTDOWN_END_SECOND == 0) {
             CallBack.countDown(0);
         }

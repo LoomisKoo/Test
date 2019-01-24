@@ -12,7 +12,8 @@ public class FullscreenHolder extends FrameLayout {
 
     public FullscreenHolder(Context ctx) {
         super(ctx);
-        setBackgroundColor(ctx.getResources().getColor(android.R.color.black));
+        setBackgroundColor(ctx.getResources()
+                              .getColor(android.R.color.black));
     }
 
     @Override

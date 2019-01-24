@@ -9,7 +9,7 @@ import java.util.List;
  * @Description
  */
 
-public class LoginEntity  {
+public class LoginEntity {
 
 
     /**
@@ -46,7 +46,7 @@ public class LoginEntity  {
         this.errorMsg = errorMsg;
     }
 
-    public static class UserEntity implements Serializable{
+    public static class UserEntity implements Serializable {
         /**
          * chapterTops : []
          * collectIds : []
@@ -67,7 +67,7 @@ public class LoginEntity  {
         private int          type;
         private String       username;
         private List<String> chapterTops;
-        private List<String>   collectIds;
+        private List<String> collectIds;
 
         public String getEmail() {
             return email;

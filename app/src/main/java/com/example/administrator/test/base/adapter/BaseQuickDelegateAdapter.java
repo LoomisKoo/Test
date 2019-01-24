@@ -2,7 +2,9 @@ package com.example.administrator.test.base.adapter;
 
 
 import android.content.Context;
+
 import androidx.recyclerview.widget.RecyclerView;
+
 import android.view.ViewGroup;
 
 import com.alibaba.android.vlayout.DelegateAdapter;

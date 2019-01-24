@@ -159,7 +159,8 @@ public abstract class BaseListActivity<T, P extends IBasePresenter> extends Base
             SlideInLeftAnimator animator = new SlideInLeftAnimator();
             animator.setInterpolator(new AccelerateInterpolator());
             recyclerView.setItemAnimator(animator);
-            recyclerView.getItemAnimator().setRemoveDuration(300);
+            recyclerView.getItemAnimator()
+                        .setRemoveDuration(300);
 
             recyclerView.setAdapter(animationAdapter);
         }

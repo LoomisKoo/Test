@@ -680,12 +680,14 @@ public class BankCardUtil {
      */
     public static char getBankCardCheckCode(String nonCheckCodeCardId) {
         if (nonCheckCodeCardId == null
-                || nonCheckCodeCardId.trim().length() == 0
+                || nonCheckCodeCardId.trim()
+                                     .length() == 0
                 || !nonCheckCodeCardId.matches("\\d+")) {
             // 如果传的不是数据返回N
             return 'N';
         }
-        char[] chs     = nonCheckCodeCardId.trim().toCharArray();
+        char[] chs     = nonCheckCodeCardId.trim()
+                                           .toCharArray();
         int    luhmSum = 0;
         for (int i = chs.length - 1, j = 0; i >= 0; i--, j++) {
             int k = chs[i] - '0';

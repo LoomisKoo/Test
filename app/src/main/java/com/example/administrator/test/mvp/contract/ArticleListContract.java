@@ -38,8 +38,8 @@ public interface ArticleListContract {
     interface Presenter extends IBasePresenter {
         void getArticleList(int page, Integer cid);
 
-        void collectArticle(int articleID,ArticleListPresenter.CallBack callBack);
+        void collectArticle(int articleID, ArticleListPresenter.CallBack callBack);
 
-        void unCollectArticle(int articleID,ArticleListPresenter.CallBack callBack);
+        void unCollectArticle(int articleID, ArticleListPresenter.CallBack callBack);
     }
 }

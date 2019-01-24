@@ -103,9 +103,11 @@ public class BasicParamsInterceptor implements Interceptor {
     // func to inject params into url
     private void injectParamsIntoUrl(Request request, Request.Builder
             requestBuilder, Map<String, String> paramsMap) {
-        HttpUrl.Builder httpUrlBuilder = request.url().newBuilder();
+        HttpUrl.Builder httpUrlBuilder = request.url()
+                                                .newBuilder();
         if (paramsMap.size() > 0) {
-            Iterator iterator = paramsMap.entrySet().iterator();
+            Iterator iterator = paramsMap.entrySet()
+                                         .iterator();
             while (iterator.hasNext()) {
                 Map.Entry entry = (Map.Entry) iterator.next();
                 httpUrlBuilder.addQueryParameter((String) entry.getKey(), (String) entry.getValue());

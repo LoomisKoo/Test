@@ -25,8 +25,8 @@ import androidx.recyclerview.widget.RecyclerView;
  */
 public class FlowLayoutManager extends RecyclerView.LayoutManager {
 
-    private static final String TAG = FlowLayoutManager.class.getSimpleName();
-    final FlowLayoutManager self = this;
+    private static final String            TAG  = FlowLayoutManager.class.getSimpleName();
+    final                FlowLayoutManager self = this;
 
     private int width, height;
     private int left, top, right;
@@ -40,9 +40,9 @@ public class FlowLayoutManager extends RecyclerView.LayoutManager {
     }
 
     //计算显示的内容的高度
-    private int totalHeight = 0;
-    private Row row = new Row();
-    private List<Row> lineRows = new ArrayList<>();
+    private int       totalHeight = 0;
+    private Row       row         = new Row();
+    private List<Row> lineRows    = new ArrayList<>();
 
     //保存所有的Item的上下左右的偏移量信息
     private SparseArray<Rect> allItemFrames = new SparseArray<>();
@@ -54,7 +54,7 @@ public class FlowLayoutManager extends RecyclerView.LayoutManager {
 
     //每个item的定义
     public class Item {
-        int useHeight;
+        int  useHeight;
         View view;
 
         public void setRect(Rect rect) {
@@ -81,9 +81,9 @@ public class FlowLayoutManager extends RecyclerView.LayoutManager {
         }
 
         //每一行的头部坐标
-        float cuTop;
+        float      cuTop;
         //每一行需要占据的最大高度
-        float maxHeight;
+        float      maxHeight;
         //每一行存储的item
         List<Item> views = new ArrayList<>();
 
@@ -122,7 +122,7 @@ public class FlowLayoutManager extends RecyclerView.LayoutManager {
         totalHeight = 0;
         int cuLineTop = top;
         //当前行使用的宽度
-        int cuLineWidth = 0;
+        int cuLineWidth   = 0;
         int itemLeft;
         int itemTop;
         int maxHeightItem = 0;
@@ -137,9 +137,9 @@ public class FlowLayoutManager extends RecyclerView.LayoutManager {
                 continue;
             }
             measureChildWithMargins(childAt, 0, 0);
-            int childWidth = getDecoratedMeasuredWidth(childAt);
-            int childHeight = getDecoratedMeasuredHeight(childAt);
-            int childUseWidth = childWidth;
+            int childWidth     = getDecoratedMeasuredWidth(childAt);
+            int childHeight    = getDecoratedMeasuredHeight(childAt);
+            int childUseWidth  = childWidth;
             int childUseHeight = childHeight;
             //如果加上当前的item还小于最大的宽度的话
             if (cuLineWidth + childUseWidth <= usedMaxWidth) {
@@ -156,7 +156,8 @@ public class FlowLayoutManager extends RecyclerView.LayoutManager {
                 row.addViews(new Item(childUseHeight, childAt, frame));
                 row.setCuTop(cuLineTop);
                 row.setMaxHeight(maxHeightItem);
-            } else {
+            }
+            else {
                 //换行
                 formatAboveRow();
                 cuLineTop += maxHeightItem;
@@ -198,8 +199,8 @@ public class FlowLayoutManager extends RecyclerView.LayoutManager {
 
         //对所有的行信息进行遍历
         for (int j = 0; j < lineRows.size(); j++) {
-            Row row = lineRows.get(j);
-            float lineTop = row.cuTop;
+            Row   row        = lineRows.get(j);
+            float lineTop    = row.cuTop;
             float lineBottom = lineTop + row.maxHeight;
             //如果该行在屏幕中，进行放置item
             if (lineTop < displayFrame.bottom && displayFrame.top < lineBottom) {
@@ -216,7 +217,8 @@ public class FlowLayoutManager extends RecyclerView.LayoutManager {
                                                frame.right,
                                                frame.bottom - verticalScrollOffset);
                 }
-            } else {
+            }
+            else {
                 //将不在屏幕中的item放到缓存中
                 List<Item> views = row.views;
                 for (int i = 0; i < views.size(); i++) {
@@ -233,9 +235,9 @@ public class FlowLayoutManager extends RecyclerView.LayoutManager {
     private void formatAboveRow() {
         List<Item> views = row.views;
         for (int i = 0; i < views.size(); i++) {
-            Item item = views.get(i);
-            View view = item.view;
-            int position = getPosition(view);
+            Item item     = views.get(i);
+            View view     = item.view;
+            int  position = getPosition(view);
             //如果该item的位置不在该行中间位置的话，进行重新放置
             if (allItemFrames.get(position).top < row.cuTop + (row.maxHeight - views.get(i).useHeight) / 2) {
                 Rect frame = allItemFrames.get(position);
@@ -276,7 +278,8 @@ public class FlowLayoutManager extends RecyclerView.LayoutManager {
         //如果滑动到最顶部
         if (verticalScrollOffset + dy < 0) {//限制滑动到顶部之后，不让继续向上滑动了
             travel = -verticalScrollOffset;//verticalScrollOffset=0
-        } else if (verticalScrollOffset + dy > totalHeight - getVerticalSpace()) {//如果滑动到最底部
+        }
+        else if (verticalScrollOffset + dy > totalHeight - getVerticalSpace()) {//如果滑动到最底部
             travel = totalHeight - getVerticalSpace() - verticalScrollOffset;//verticalScrollOffset=totalHeight - getVerticalSpace()
         }
 

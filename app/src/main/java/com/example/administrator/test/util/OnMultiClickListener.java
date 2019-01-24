@@ -21,6 +21,7 @@ public abstract class OnMultiClickListener implements View.OnClickListener {
 
     /**
      * 防止多次点击
+     *
      * @param v
      */
     public abstract void onMultiClick(View v);

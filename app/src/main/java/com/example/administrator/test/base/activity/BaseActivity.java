@@ -78,7 +78,8 @@ public abstract class BaseActivity<P extends IBasePresenter> extends SwipeBackAc
     /**
      * 日志输出标志
      **/
-    protected final String          TAG                     = this.getClass().getSimpleName();
+    protected final String          TAG                     = this.getClass()
+                                                                  .getSimpleName();
 
     /**
      * 转场动画中心坐标
@@ -107,7 +108,8 @@ public abstract class BaseActivity<P extends IBasePresenter> extends SwipeBackAc
         super.onCreate(savedInstanceState);
 
 
-        ARouter.getInstance().inject(this);
+        ARouter.getInstance()
+               .inject(this);
 
         Bundle bundle = getIntent().getExtras();
         initParameter(bundle);
@@ -262,8 +264,9 @@ public abstract class BaseActivity<P extends IBasePresenter> extends SwipeBackAc
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Window window = getWindow();
             window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                                                                | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
+            window.getDecorView()
+                  .setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                                                 | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             window.setStatusBarColor(Color.TRANSPARENT);
         }
@@ -514,7 +517,8 @@ public abstract class BaseActivity<P extends IBasePresenter> extends SwipeBackAc
      * @param msg
      */
     protected void showToast(String msg) {
-        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT)
+             .show();
     }
 
     /**
@@ -523,7 +527,8 @@ public abstract class BaseActivity<P extends IBasePresenter> extends SwipeBackAc
      * @param msg
      */
     protected void showLongToast(String msg) {
-        Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
+        Toast.makeText(this, msg, Toast.LENGTH_LONG)
+             .show();
     }
 
     /**
@@ -532,7 +537,8 @@ public abstract class BaseActivity<P extends IBasePresenter> extends SwipeBackAc
      * @param resId
      */
     public void showToast(@StringRes int resId) {
-        Toast.makeText(this, getResources().getString(resId), Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, getResources().getString(resId), Toast.LENGTH_SHORT)
+             .show();
     }
 
     /**
@@ -541,7 +547,8 @@ public abstract class BaseActivity<P extends IBasePresenter> extends SwipeBackAc
      * @param resId
      */
     public void showLongToast(@StringRes int resId) {
-        Toast.makeText(this, getResources().getString(resId), Toast.LENGTH_LONG).show();
+        Toast.makeText(this, getResources().getString(resId), Toast.LENGTH_LONG)
+             .show();
     }
 
 

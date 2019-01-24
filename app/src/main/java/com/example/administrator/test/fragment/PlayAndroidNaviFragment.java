@@ -127,10 +127,12 @@ public class PlayAndroidNaviFragment extends BaseFragment<NaviPresenter> impleme
 
     private void initTitleData(NaviEntity entity) {
         List<String>              titles   = new ArrayList<>();
-        int                       dataSize = entity.getData().size();
+        int                       dataSize = entity.getData()
+                                                   .size();
         List<NaviEntity.DataBean> data     = entity.getData();
         for (int i = 0; i < dataSize; i++) {
-            titles.add(data.get(i).getName());
+            titles.add(data.get(i)
+                           .getName());
         }
         rvName.setAdapter(nameAdapter = new NameAdapter(titles));
     }
@@ -147,20 +149,26 @@ public class PlayAndroidNaviFragment extends BaseFragment<NaviPresenter> impleme
      * @param entity
      */
     private void initContentData(NaviEntity entity) {
-        int                       dataSize   = entity.getData().size();
+        int                       dataSize   = entity.getData()
+                                                     .size();
         List<NaviEntity.DataBean> originData = entity.getData();
         titleData = new ArrayList<>();
         for (int i = 0; i < dataSize; i++) {
             //title数据
             ContentTypeEntity viewEntity = new ContentTypeEntity();
-            viewEntity.data = originData.get(i).getName();
+            viewEntity.data = originData.get(i)
+                                        .getName();
             viewEntity.isTitle = false;
             titleData.add(viewEntity);
             //文章类型数据
-            int articleSize = originData.get(i).getArticles().size();
+            int articleSize = originData.get(i)
+                                        .getArticles()
+                                        .size();
             for (int j = 0; j < articleSize; j++) {
                 viewEntity = new ContentTypeEntity();
-                viewEntity.data = originData.get(i).getArticles().get(j);
+                viewEntity.data = originData.get(i)
+                                            .getArticles()
+                                            .get(j);
                 viewEntity.isTitle = true;
                 titleData.add(viewEntity);
             }
@@ -177,7 +185,8 @@ public class PlayAndroidNaviFragment extends BaseFragment<NaviPresenter> impleme
         titleLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
             public int getSpanSize(int position) {
-                return titleData.get(position).isTitle() ? 1 : 2;
+                return titleData.get(position)
+                                .isTitle() ? 1 : 2;
             }
         });
         rvTitle.setLayoutManager(titleLayoutManager);
@@ -198,7 +207,8 @@ public class PlayAndroidNaviFragment extends BaseFragment<NaviPresenter> impleme
         @NonNull
         @Override
         public NameVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            View v = LayoutInflater.from(getContext()).inflate(R.layout.play_android_navi_item_title, parent, false);
+            View v = LayoutInflater.from(getContext())
+                                   .inflate(R.layout.play_android_navi_item_title, parent, false);
             return new NameVH(v);
         }
 
@@ -214,7 +224,8 @@ public class PlayAndroidNaviFragment extends BaseFragment<NaviPresenter> impleme
                 int    titleDataSize = titleAdapter.data.size();
                 for (int i = 0; i < titleDataSize; i++) {
                     if (!titleAdapter.data.get(i).isTitle) {
-                        String chapterName = (String) titleAdapter.data.get(i).getData();
+                        String chapterName = (String) titleAdapter.data.get(i)
+                                                                       .getData();
                         if (StringUtils.equals(name, chapterName)) {
                             titleSmoothScroller.setTargetPosition(i);
                             titleLayoutManager.startSmoothScroll(titleSmoothScroller);
@@ -264,11 +275,13 @@ public class PlayAndroidNaviFragment extends BaseFragment<NaviPresenter> impleme
             switch (viewType) {
                 //content
                 case 0:
-                    v = LayoutInflater.from(getContext()).inflate(R.layout.play_android_navi_item_name, parent, false);
+                    v = LayoutInflater.from(getContext())
+                                      .inflate(R.layout.play_android_navi_item_name, parent, false);
                     break;
                 //title
                 case 1:
-                    v = LayoutInflater.from(getContext()).inflate(R.layout.play_android_navi_item_title, parent, false);
+                    v = LayoutInflater.from(getContext())
+                                      .inflate(R.layout.play_android_navi_item_title, parent, false);
                     break;
                 default:
                     break;
@@ -283,15 +296,24 @@ public class PlayAndroidNaviFragment extends BaseFragment<NaviPresenter> impleme
             switch (viewType) {
                 //name
                 case 0:
-                    String title = (String) data.get(position).getData();
+                    String title = (String) data.get(position)
+                                                .getData();
                     holder.tvName.setText(title);
                     break;
                 //title
                 case 1:
                     AnimatorHelper.setViewTouchListener(holder.tvTitle);
-                    NaviEntity.DataBean.ArticlesBean entity = (NaviEntity.DataBean.ArticlesBean) data.get(position).getData();
+                    NaviEntity.DataBean.ArticlesBean entity = (NaviEntity.DataBean.ArticlesBean) data.get(position)
+                                                                                                     .getData();
                     holder.tvTitle.setText(entity.getTitle());
-                    holder.tvTitle.setOnClickListener(v -> ARouter.getInstance().build(ArouterHelper.ROUTE_ACTIVITY_WEB).withFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION).withString("title", entity.getTitle()).withString("url", entity.getLink()).withInt("x", AnimatorHelper.getDownX()).withInt("y", AnimatorHelper.getDownY()).navigation(getActivity()));
+                    holder.tvTitle.setOnClickListener(v -> ARouter.getInstance()
+                                                                  .build(ArouterHelper.ROUTE_ACTIVITY_WEB)
+                                                                  .withFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
+                                                                  .withString("title", entity.getTitle())
+                                                                  .withString("url", entity.getLink())
+                                                                  .withInt("x", AnimatorHelper.getDownX())
+                                                                  .withInt("y", AnimatorHelper.getDownY())
+                                                                  .navigation(getActivity()));
                     break;
                 default:
                     break;
@@ -373,7 +395,9 @@ public class PlayAndroidNaviFragment extends BaseFragment<NaviPresenter> impleme
                     // 如果此项对应的是左边的大类的index
                     int nameSize = nameAdapter.data.size();
                     for (int i = 0; i < nameSize; i++) {
-                        if (nameAdapter.data.get(i).equals(titleData.get(firstVisiblePosition).getData())) {
+                        if (nameAdapter.data.get(i)
+                                            .equals(titleData.get(firstVisiblePosition)
+                                                             .getData())) {
                             nameAdapter.selectPosition = i;
                             rvName.scrollToPosition(i);
                             nameAdapter.notifyDataSetChanged();

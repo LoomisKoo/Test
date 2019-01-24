@@ -143,7 +143,8 @@ public class WebActivity extends BaseActivity implements IWebPageView {
         mProgressBar = (ProgressBar) findViewById(R.id.pb_progress);
         webView = (WebView) findViewById(R.id.webview_detail);
         videoFullView = (FrameLayout) findViewById(R.id.video_fullView);
-
+        //TODO  待完善
+//        webView.getSettings().setUserAgentString("电脑");
         initToolbar();
     }
 

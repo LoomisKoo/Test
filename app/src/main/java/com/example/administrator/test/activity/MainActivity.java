@@ -119,10 +119,16 @@ public class MainActivity extends BaseActivity {
     public void onMenuClickListener(int menuId) {
         switch (menuId) {
             case R.id.action_search:
-                ARouter.getInstance().build(ArouterHelper.ROUTE_ACTIVITY_TAB_ACTIVITY).withFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION).navigation();
+                ARouter.getInstance()
+                       .build(ArouterHelper.ROUTE_ACTIVITY_TAB_ACTIVITY)
+                       .withFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
+                       .navigation();
                 break;
             case R.id.action_notification:
-                ARouter.getInstance().build(ArouterHelper.ROUTE_ACTIVITY_LIST_ACTIVITY).withFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION).navigation();
+                ARouter.getInstance()
+                       .build(ArouterHelper.ROUTE_ACTIVITY_LIST_ACTIVITY)
+                       .withFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
+                       .navigation();
                 break;
 
             default:
@@ -195,7 +201,12 @@ public class MainActivity extends BaseActivity {
         });
         //登录
         loginTv.setOnClickListener(v -> {
-            ARouter.getInstance().build(ArouterHelper.ROUTE_ACTIVITY_LOGIN).withFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION).withInt("x", AnimatorHelper.getDownX()).withInt("y", AnimatorHelper.getDownY()).navigation(this);
+            ARouter.getInstance()
+                   .build(ArouterHelper.ROUTE_ACTIVITY_LOGIN)
+                   .withFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
+                   .withInt("x", AnimatorHelper.getDownX())
+                   .withInt("y", AnimatorHelper.getDownY())
+                   .navigation(this);
         });
         //我的收藏
         collectionTv.setOnClickListener(v -> {
@@ -307,7 +318,8 @@ public class MainActivity extends BaseActivity {
         mBottomBar.setOnTabReselectListener(tabId -> {
             if (tabId == R.id.tab_recommended) {
                 // 已经选择了这个标签，又点击一次。即重选。
-                mBottomBar.getTabWithId(R.id.tab_recommended).removeBadge();
+                mBottomBar.getTabWithId(R.id.tab_recommended)
+                          .removeBadge();
             }
         });
 

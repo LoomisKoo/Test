@@ -46,7 +46,7 @@ public interface PlayAndroidContract {
          * @param playAndroidViewEntity
          * @param maxPage
          */
-        void onSuccess(PlayAndroidViewEntity playAndroidViewEntity,int maxPage);
+        void onSuccess(PlayAndroidViewEntity playAndroidViewEntity, int maxPage);
 
         void onError(String msg);
 

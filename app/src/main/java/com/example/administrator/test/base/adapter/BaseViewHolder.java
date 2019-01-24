@@ -7,7 +7,9 @@ import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+
 import androidx.recyclerview.widget.RecyclerView;
+
 import android.text.util.Linkify;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
@@ -33,7 +35,8 @@ public class BaseViewHolder extends RecyclerView.ViewHolder {
     private final SparseArray<View> views;
 
     public BaseViewHolder(Context context, ViewGroup parent, int layoutId) {
-        super(LayoutInflater.from(context).inflate(layoutId, parent, false));
+        super(LayoutInflater.from(context)
+                            .inflate(layoutId, parent, false));
         this.context = context;
         this.views = new SparseArray<>();
     }
@@ -143,7 +146,8 @@ public class BaseViewHolder extends RecyclerView.ViewHolder {
      */
     public BaseViewHolder setTextColorRes(int viewId, int textColorRes) {
         TextView view = retrieveView(viewId);
-        view.setTextColor(context.getResources().getColor(textColorRes));
+        view.setTextColor(context.getResources()
+                                 .getColor(textColorRes));
         return this;
     }
 

@@ -27,7 +27,8 @@ public class DailyRecommendModel implements DailyRecommendContract.Model {
 
     @Override
     public void getDailyRecommend(HttpCallback httpCallback) {
-        Observable<ResponseBody> observable = Api.getRecommendService().getTodayRecommend();
+        Observable<ResponseBody> observable = Api.getRecommendService()
+                                                 .getTodayRecommend();
         Api.query(observable, httpCallback);
     }
 }

@@ -107,7 +107,14 @@ public class LoginActivity extends BaseActivity<LogoutPresenter> implements Logo
 
     @Override
     public void setListener() {
-        loginGithubBtn.setOnClickListener(v -> ARouter.getInstance().build(ArouterHelper.ROUTE_ACTIVITY_WEB).withFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION).withString("title", "登录Github").withString("url", GITHUB_URL).withInt("x", AnimatorHelper.getDownX()).withInt("y", AnimatorHelper.getDownY()).navigation());
+        loginGithubBtn.setOnClickListener(v -> ARouter.getInstance()
+                                                      .build(ArouterHelper.ROUTE_ACTIVITY_WEB)
+                                                      .withFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
+                                                      .withString("title", "登录Github")
+                                                      .withString("url", GITHUB_URL)
+                                                      .withInt("x", AnimatorHelper.getDownX())
+                                                      .withInt("y", AnimatorHelper.getDownY())
+                                                      .navigation());
     }
 
     @Override
@@ -178,7 +185,12 @@ public class LoginActivity extends BaseActivity<LogoutPresenter> implements Logo
         ACache mCache = ACache.get(this);
         if (null == mCache.getAsObject("user")) {
             loginPlayAndroidBtn.setText("玩安卓");
-            loginPlayAndroidBtn.setOnClickListener(v -> ARouter.getInstance().build(ArouterHelper.ROUTE_ACTIVITY_LOGIN_PLAY_ANDROID).withFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION).withInt("x", AnimatorHelper.getDownX()).withInt("y", AnimatorHelper.getDownY()).navigation(this));
+            loginPlayAndroidBtn.setOnClickListener(v -> ARouter.getInstance()
+                                                               .build(ArouterHelper.ROUTE_ACTIVITY_LOGIN_PLAY_ANDROID)
+                                                               .withFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
+                                                               .withInt("x", AnimatorHelper.getDownX())
+                                                               .withInt("y", AnimatorHelper.getDownY())
+                                                               .navigation(this));
         }
         else {
             loginPlayAndroidBtn.setText("退出玩安卓");

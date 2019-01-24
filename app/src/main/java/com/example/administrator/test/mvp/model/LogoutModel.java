@@ -23,7 +23,8 @@ import okhttp3.ResponseBody;
 public class LogoutModel implements LogoutContract.Model {
     @Override
     public void logout(HttpCallback httpCallback) {
-        Observable<ResponseBody> observable = Api.getPlayAndroidService().logout();
+        Observable<ResponseBody> observable = Api.getPlayAndroidService()
+                                                 .logout();
         Api.query(observable, httpCallback);
     }
 }

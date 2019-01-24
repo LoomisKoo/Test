@@ -127,8 +127,12 @@ public class LoginPlayAndroidActivity extends BaseActivity<LoginPresenter> imple
     public void setListener() {
         //登录
         btnLogin.setOnClickListener(v -> {
-            userName = tvUserName.getText().toString().trim();
-            password = tvPassword.getText().toString().trim();
+            userName = tvUserName.getText()
+                                 .toString()
+                                 .trim();
+            password = tvPassword.getText()
+                                 .toString()
+                                 .trim();
 
             boolean isInsertEmpty = isInsertEmpty(userName, password);
             if (!isInsertEmpty) {
@@ -139,9 +143,15 @@ public class LoginPlayAndroidActivity extends BaseActivity<LoginPresenter> imple
 
         //注册
         btnRegister.setOnClickListener(v -> {
-            String userName   = tvUserName.getText().toString().trim();
-            String password   = tvPassword.getText().toString().trim();
-            String rePassword = tvPassword.getText().toString().trim();
+            String userName = tvUserName.getText()
+                                        .toString()
+                                        .trim();
+            String password = tvPassword.getText()
+                                        .toString()
+                                        .trim();
+            String rePassword = tvPassword.getText()
+                                          .toString()
+                                          .trim();
 
             isInsertEmpty(userName, password);
             presenter.register(userName, password, rePassword);
@@ -297,7 +307,12 @@ public class LoginPlayAndroidActivity extends BaseActivity<LoginPresenter> imple
     @Override
     public void loginSuccess() {
         showToast("登录成功");
-        ARouter.getInstance().build(ArouterHelper.ROUTE_ACTIVITY_MAIN).withFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION).withInt("x", getLoadingViewPoint()[0]).withInt("y", getLoadingViewPoint()[1]).navigation(this);
+        ARouter.getInstance()
+               .build(ArouterHelper.ROUTE_ACTIVITY_MAIN)
+               .withFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
+               .withInt("x", getLoadingViewPoint()[0])
+               .withInt("y", getLoadingViewPoint()[1])
+               .navigation(this);
         setFinishBeforeAnimator(true);
         finishActivity();
 

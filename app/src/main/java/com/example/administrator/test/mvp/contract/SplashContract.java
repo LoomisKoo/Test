@@ -51,6 +51,7 @@ public interface SplashContract {
 
         /**
          * 广告倒计时
+         *
          * @param countDown
          */
         void countDownAD(long countDown);

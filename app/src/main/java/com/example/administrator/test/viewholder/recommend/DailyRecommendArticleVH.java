@@ -34,7 +34,7 @@ import androidx.recyclerview.widget.RecyclerView;
  */
 public class DailyRecommendArticleVH extends BaseViewHolder {
     RecyclerView rvArticle;
-    TextView tvTitle;
+    TextView     tvTitle;
 
     public DailyRecommendArticleVH(Context context, ViewGroup parent, int layoutId) {
         super(context, parent, layoutId);
@@ -42,7 +42,7 @@ public class DailyRecommendArticleVH extends BaseViewHolder {
         rvArticle = retrieveView(R.id.rv_article);
 
 
-        FlexboxLayoutManager manager  = new FlexboxLayoutManager(context, FlexDirection.ROW, FlexWrap.WRAP){
+        FlexboxLayoutManager manager = new FlexboxLayoutManager(context, FlexDirection.ROW, FlexWrap.WRAP) {
             @Override
             public boolean canScrollVertically() {
                 return false;
@@ -56,7 +56,8 @@ public class DailyRecommendArticleVH extends BaseViewHolder {
 
     public void setData(List<DailyRecommendArticleEntity> entityList) {
         if (entityList.size() > 0) {
-            tvTitle.setText(entityList.get(0).getType());
+            tvTitle.setText(entityList.get(0)
+                                      .getType());
             rvArticle.setAdapter(new DailyRecommendArticleAdapter(entityList));
         }
     }
@@ -73,7 +74,8 @@ public class DailyRecommendArticleVH extends BaseViewHolder {
         @Override
         public ArticleVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             //实例化得到Item布局文件的View对象
-            View v = LayoutInflater.from(context).inflate(R.layout.recommend_daily_vh_article_list_item, parent, false);
+            View v = LayoutInflater.from(context)
+                                   .inflate(R.layout.recommend_daily_vh_article_list_item, parent, false);
             AnimatorHelper.setViewTouchListener(v);
             ArticleVH vh = new ArticleVH(v);
             return vh;
@@ -81,7 +83,8 @@ public class DailyRecommendArticleVH extends BaseViewHolder {
 
         @Override
         public void onBindViewHolder(@NonNull ArticleVH holder, int position) {
-            holder.tvTitle.setText(data.get(position).getDesc());
+            holder.tvTitle.setText(data.get(position)
+                                       .getDesc());
         }
 
         @Override

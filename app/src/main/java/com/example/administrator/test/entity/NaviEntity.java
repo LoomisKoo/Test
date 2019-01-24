@@ -22,7 +22,7 @@ public class NaviEntity {
      * errorMsg :
      */
 
-    private int errorCode;
+    private int            errorCode;
     private String         errorMsg;
     private List<DataBean> data;
 
@@ -57,7 +57,7 @@ public class NaviEntity {
          * name : 常用网站
          */
 
-        private int cid;
+        private int                cid;
         private String             name;
         private List<ArticlesBean> articles;
 
@@ -112,7 +112,7 @@ public class NaviEntity {
              * zan : 0
              */
 
-            private String apkLink;
+            private String  apkLink;
             private String  author;
             private int     chapterId;
             private String  chapterName;

@@ -23,7 +23,8 @@ import okhttp3.ResponseBody;
 public class NaviModel implements NaviContract.Model {
     @Override
     public void getNaviData(HttpCallback callback) {
-        Observable<ResponseBody> observable = Api.getPlayAndroidService().getNaviData();
+        Observable<ResponseBody> observable = Api.getPlayAndroidService()
+                                                 .getNaviData();
         Api.query(observable, callback);
     }
 }

@@ -33,7 +33,8 @@ public class AddCookiesInterceptor implements Interceptor {
     @Override
     public Response intercept(Chain chain) throws IOException {
 
-        final Request.Builder builder           = chain.request().newBuilder();
+        final Request.Builder builder           = chain.request()
+                                                       .newBuilder();
         SharedPreferences     sharedPreferences = context.getSharedPreferences("config", Context.MODE_PRIVATE);
         String                cookie            = sharedPreferences.getString("cookie", "");
         builder.addHeader("Cookie", cookie);

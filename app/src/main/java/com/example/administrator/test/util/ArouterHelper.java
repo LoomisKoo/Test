@@ -1,5 +1,11 @@
 package com.example.administrator.test.util;
 
+import android.content.Intent;
+
+import com.alibaba.android.arouter.facade.Postcard;
+import com.alibaba.android.arouter.launcher.ARouter;
+import com.example.administrator.test.animation.AnimatorHelper;
+
 /**
  * @ProjectName: Test
  * @Package: com.example.administrator.test.util
@@ -21,4 +27,13 @@ public class ArouterHelper {
     public final static String ROUTE_ACTIVITY_LOGIN              = "/koo/login";
     public final static String ROUTE_ACTIVITY_LOGIN_PLAY_ANDROID = "/koo/login/play_android";
     public final static String ROUTE_ACTIVITY_ARTICLE_LIST       = "/koo/article_list";
+
+
+    public static Postcard buildWithAnimator(String route) {
+        return ARouter.getInstance()
+                      .build(route)
+                      .withFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
+                      .withInt("x", AnimatorHelper.getDownX())
+                      .withInt("y", AnimatorHelper.getDownY());
+    }
 }

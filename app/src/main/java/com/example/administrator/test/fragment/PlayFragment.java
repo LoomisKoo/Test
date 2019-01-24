@@ -30,7 +30,7 @@ public class PlayFragment extends BaseFragment {
     private static final int VIEW_PAGER_PAGE_2 = 1;
     private static final int VIEW_PAGER_PAGE_3 = 2;
 
-    private ArrayList<Fragment> fragments  = new ArrayList<>(VIEW_PAGER_COUNT);
+    private ArrayList<Fragment> fragments = new ArrayList<>(VIEW_PAGER_COUNT);
     private ViewPager           viewPager;
     private BottomBar           mBottomBar;
 
@@ -137,7 +137,8 @@ public class PlayFragment extends BaseFragment {
         mBottomBar.setOnTabReselectListener(tabId -> {
             if (tabId == R.id.play_android) {
                 // 已经选择了这个标签，又点击一次。即重选。
-                mBottomBar.getTabWithId(R.id.play_android).removeBadge();
+                mBottomBar.getTabWithId(R.id.play_android)
+                          .removeBadge();
             }
         });
         mBottomBar.setTabSelectionInterceptor((oldTabId, newTabId) -> {

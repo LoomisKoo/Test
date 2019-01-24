@@ -40,7 +40,7 @@ public class PlayAndroidPresenter implements PlayAndroidContract.Presenter {
                     e.printStackTrace();
                 }
                 playAndroidViewEntity = new PlayAndroidViewEntity(bannerEntity, PlayAndroidViewEntity.VIEW_TYPE_BANNER);
-                view.onSuccess(playAndroidViewEntity,0);
+                view.onSuccess(playAndroidViewEntity, 0);
             }
 
             @Override
@@ -64,10 +64,12 @@ public class PlayAndroidPresenter implements PlayAndroidContract.Presenter {
                     String            strResult         = result.string();
                     ArticleListEntity articleListEntity = JSON.parseObject(strResult, ArticleListEntity.class);
 
-                    List<ArticleListEntity.DataBean.ArticleInfoBean> entityList = articleListEntity.getData().getArticleListBean();
+                    List<ArticleListEntity.DataBean.ArticleInfoBean> entityList = articleListEntity.getData()
+                                                                                                   .getArticleListBean();
                     for (ArticleListEntity.DataBean.ArticleInfoBean entity : entityList) {
                         playAndroidViewEntity = new PlayAndroidViewEntity(entity, PlayAndroidViewEntity.VIEW_TYPE_ARTICLE_LIST);
-                        view.onSuccess(playAndroidViewEntity,articleListEntity.getData().getPageCount());
+                        view.onSuccess(playAndroidViewEntity, articleListEntity.getData()
+                                                                               .getPageCount());
                     }
                 }
                 catch (IOException e) {

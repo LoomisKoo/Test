@@ -153,9 +153,13 @@ public class JsonLogFormat {
     private static StringBuilder logLocation(int index) {
         StackTraceElement logStackTrace = getLogStackTrace(index);
         StringBuilder     stringBuilder = new StringBuilder();
-        stringBuilder.append(jumpKeyWord).append(" (").append(logStackTrace.getFileName())
-                     .append(":").append(logStackTrace.getLineNumber() + ")");
-        if (stringBuilder.toString().equals(lastLogMethod)) {
+        stringBuilder.append(jumpKeyWord)
+                     .append(" (")
+                     .append(logStackTrace.getFileName())
+                     .append(":")
+                     .append(logStackTrace.getLineNumber() + ")");
+        if (stringBuilder.toString()
+                         .equals(lastLogMethod)) {
             stringBuilder = new StringBuilder("");
         }
         else {
@@ -176,11 +180,13 @@ public class JsonLogFormat {
             jsonStr = jsonStr.trim();
             if (jsonStr.startsWith("{")) {
                 JSONObject jsonObject = new JSONObject(jsonStr);
-                return jsonObject.toString(2).replace("\\/", "/");
+                return jsonObject.toString(2)
+                                 .replace("\\/", "/");
             }
             if (jsonStr.startsWith("[")) {
                 JSONArray jsonArray = new JSONArray(jsonStr);
-                return jsonArray.toString(2).replace("\\/", "/");
+                return jsonArray.toString(2)
+                                .replace("\\/", "/");
             }
         }
         catch (JSONException e) {
@@ -200,7 +206,8 @@ public class JsonLogFormat {
                                                 .getStackTrace();
         for (int i = 0; i < stackTraces.length; i++) {
             StackTraceElement stackTrace = stackTraces[i];
-            if (stackTrace.getClassName().equals(JsonLogFormat.class.getName())) {
+            if (stackTrace.getClassName()
+                          .equals(JsonLogFormat.class.getName())) {
                 // getLogStackTrace--logLocation--i/e/json--方法栈,所以调用打印方法栈的位置是当前方法栈后的第3个
                 logTackTraces = stackTraces[i + 3 + index];
                 i = stackTraces.length;

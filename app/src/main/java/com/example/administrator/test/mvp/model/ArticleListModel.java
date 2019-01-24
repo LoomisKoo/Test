@@ -23,18 +23,22 @@ import okhttp3.ResponseBody;
 public class ArticleListModel implements ArticleListContract.Model {
     @Override
     public void getArticleList(int page, Integer cid, HttpCallback httpCallback) {
-        Observable<ResponseBody> observable = Api.getPlayAndroidService().getArticleList(page, cid);
+        Observable<ResponseBody> observable = Api.getPlayAndroidService()
+                                                 .getArticleList(page, cid);
         Api.query(observable, httpCallback);
     }
+
     @Override
     public void collectArticle(int articleID, HttpCallback httpCallback) {
-        Observable<ResponseBody> observable = Api.getPlayAndroidService().collectArticle(articleID);
+        Observable<ResponseBody> observable = Api.getPlayAndroidService()
+                                                 .collectArticle(articleID);
         Api.query(observable, httpCallback);
     }
 
     @Override
     public void unCollectArticle(int articleID, HttpCallback httpCallback) {
-        Observable<ResponseBody> observable = Api.getPlayAndroidService().unCollectArticleOrigin(articleID);
+        Observable<ResponseBody> observable = Api.getPlayAndroidService()
+                                                 .unCollectArticleOrigin(articleID);
         Api.query(observable, httpCallback);
     }
 

@@ -63,12 +63,12 @@ public class ArticleListPresenter implements ArticleListContract.Presenter {
     }
 
     @Override
-    public void collectArticle(int articleID,CallBack callBack) {
+    public void collectArticle(int articleID, CallBack callBack) {
 
     }
 
     @Override
-    public void unCollectArticle(int articleID,CallBack callBack) {
+    public void unCollectArticle(int articleID, CallBack callBack) {
 
     }
 

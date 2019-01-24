@@ -23,7 +23,8 @@ import okhttp3.ResponseBody;
 public class KnowledgeSystemModel implements KnowledgeSystemContract.Model {
     @Override
     public void loadData(HttpCallback callback) {
-        Observable<ResponseBody> observable = Api.getPlayAndroidService().getKownledgeSystem();
+        Observable<ResponseBody> observable = Api.getPlayAndroidService()
+                                                 .getKownledgeSystem();
         Api.query(observable, callback);
     }
 }

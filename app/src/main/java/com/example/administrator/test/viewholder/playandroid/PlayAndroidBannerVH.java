@@ -74,9 +74,18 @@ public class PlayAndroidBannerVH extends BaseViewHolder {
         banner.setIndicatorGravity(BannerConfig.CENTER)
               //以上内容都可写成链式布局，这是轮播图的监听。比较重要。方法在下面。
               .setOnBannerListener(position -> {
-                  String title = entity.get(position).getTitle();
-                  String url   = entity.get(position).getUrl();
-                  ARouter.getInstance().build(ArouterHelper.ROUTE_ACTIVITY_WEB).withFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION).withString("title", title).withString("url", url).withInt("x", AnimatorHelper.getDownX()).withInt("y", AnimatorHelper.getDownY()).navigation(context);
+                  String title = entity.get(position)
+                                       .getTitle();
+                  String url   = entity.get(position)
+                                       .getUrl();
+                  ARouter.getInstance()
+                         .build(ArouterHelper.ROUTE_ACTIVITY_WEB)
+                         .withFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
+                         .withString("title", title)
+                         .withString("url", url)
+                         .withInt("x", AnimatorHelper.getDownX())
+                         .withInt("y", AnimatorHelper.getDownY())
+                         .navigation(context);
               })
               //必须最后调用的方法，启动轮播图。
               .start();

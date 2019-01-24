@@ -158,7 +158,8 @@ public abstract class BaseListFragment<T, P> extends BaseFragment<P> {
             SlideInLeftAnimator animator = new SlideInLeftAnimator();
             animator.setInterpolator(new AccelerateInterpolator());
             recyclerView.setItemAnimator(animator);
-            recyclerView.getItemAnimator().setRemoveDuration(300);
+            recyclerView.getItemAnimator()
+                        .setRemoveDuration(300);
 
             recyclerView.setAdapter(animationAdapter);
         }

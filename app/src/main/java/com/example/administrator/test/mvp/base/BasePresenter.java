@@ -23,7 +23,8 @@ import okhttp3.ResponseBody;
 public abstract class BasePresenter implements LifecycleObserver {
     protected void getData(Map<String, String> map, HttpCallback<ResponseBody> callback) {
 //        Observable<ResponseBody> observable = HttpUtil.getPlayAndroidInstance().getPlayAndroidService().getData(HttpConfigUtil.url);
-        Observable<ResponseBody> observable = Api.getPlayAndroidService().getData(HttpConfigUtil.url);
+        Observable<ResponseBody> observable = Api.getPlayAndroidService()
+                                                 .getData(HttpConfigUtil.url);
         Api.query(observable, callback);
     }
 

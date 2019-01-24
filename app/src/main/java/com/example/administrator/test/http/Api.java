@@ -21,14 +21,18 @@ import retrofit2.http.Url;
  * @author koo
  */
 public interface Api {
-    static void init(Context context){
+    static void init(Context context) {
 
     }
+
     static Api getPlayAndroidService() {
-        return BuilderFactory.getInstance().create(HttpConfigUtil.BASE_URL_PLAY_ANDROID);
+        return BuilderFactory.getInstance()
+                             .create(HttpConfigUtil.BASE_URL_PLAY_ANDROID);
     }
+
     static Api getRecommendService() {
-        return BuilderFactory.getInstance().create(HttpConfigUtil.BASE_URL_GANK);
+        return BuilderFactory.getInstance()
+                             .create(HttpConfigUtil.BASE_URL_GANK);
     }
 
     static <T> void query(Observable<T> observable, HttpCallback<T> callBack) {
@@ -63,6 +67,7 @@ public interface Api {
 
     }
     //---------------------------------- playAndroid ------------------------------------
+
     /**
      * @param url
      * @return
@@ -153,6 +158,7 @@ public interface Api {
 
 
     //---------------------------------- gank ------------------------------------
+
     /**
      * 每日推荐
      */

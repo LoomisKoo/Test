@@ -112,10 +112,18 @@ public class PlayAndroidFragment extends BaseListFragment<PlayAndroidViewEntity,
                         PlayAndroidArticleListVH vh = new PlayAndroidArticleListVH(getContext(), parent, R.layout.play_android_item_article);
                         vh.itemView.setOnClickListener(v -> {
                             int                                        position = recyclerView.getChildAdapterPosition(v);
-                            PlayAndroidViewEntity                      entity   = adapter.getData().get(position);
+                            PlayAndroidViewEntity                      entity   = adapter.getData()
+                                                                                         .get(position);
                             ArticleListEntity.DataBean.ArticleInfoBean bean     = (ArticleListEntity.DataBean.ArticleInfoBean) entity.getData();
                             String                                     title    = bean.getTitle();
-                            ARouter.getInstance().build(ArouterHelper.ROUTE_ACTIVITY_WEB).withFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION).withString("title", title).withString("url", bean.getLink()).withInt("x", AnimatorHelper.getDownX()).withInt("y", AnimatorHelper.getDownY()).navigation(getActivity());
+                            ARouter.getInstance()
+                                   .build(ArouterHelper.ROUTE_ACTIVITY_WEB)
+                                   .withFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
+                                   .withString("title", title)
+                                   .withString("url", bean.getLink())
+                                   .withInt("x", AnimatorHelper.getDownX())
+                                   .withInt("y", AnimatorHelper.getDownY())
+                                   .navigation(getActivity());
                         });
 
                         AnimatorHelper.setViewTouchListener(vh.itemView);

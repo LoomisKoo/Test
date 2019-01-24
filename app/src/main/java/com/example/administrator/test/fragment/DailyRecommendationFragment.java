@@ -107,7 +107,8 @@ public class DailyRecommendationFragment extends BaseListFragment<DailyRecommend
 
             @Override
             public int getItemCount() {
-                return adapter.getData().size();
+                return adapter.getData()
+                              .size();
             }
 
             @Override
@@ -130,22 +131,27 @@ public class DailyRecommendationFragment extends BaseListFragment<DailyRecommend
     public void onSuccess(DailyRecommendEntity entity) {
         DailyRecommendViewEntity data;
         //android
-        data = new DailyRecommendViewEntity(entity.getResults().getAndroid(), DailyRecommendViewEntity.VIEW_TYPE_ARTICLE);
+        data = new DailyRecommendViewEntity(entity.getResults()
+                                                  .getAndroid(), DailyRecommendViewEntity.VIEW_TYPE_ARTICLE);
         adapter.add(data);
         //ios
-        data = new DailyRecommendViewEntity(entity.getResults().getIOS(), DailyRecommendViewEntity.VIEW_TYPE_ARTICLE);
+        data = new DailyRecommendViewEntity(entity.getResults()
+                                                  .getIOS(), DailyRecommendViewEntity.VIEW_TYPE_ARTICLE);
         adapter.add(data);
 //        //app
-        data = new DailyRecommendViewEntity(entity.getResults().getApp(), DailyRecommendViewEntity.VIEW_TYPE_ARTICLE);
+        data = new DailyRecommendViewEntity(entity.getResults()
+                                                  .getApp(), DailyRecommendViewEntity.VIEW_TYPE_ARTICLE);
         adapter.add(data);
 //        //拓展资源
-        data = new DailyRecommendViewEntity(entity.getResults().getExpandBeanList(), DailyRecommendViewEntity.VIEW_TYPE_ARTICLE);
+        data = new DailyRecommendViewEntity(entity.getResults()
+                                                  .getExpandBeanList(), DailyRecommendViewEntity.VIEW_TYPE_ARTICLE);
         adapter.add(data);
 //        //视频
 //        data = new DailyRecommendViewEntity(entity.getResults().getVideoBeanList(), DailyRecommendViewEntity.VIEW_TYPE_VIDEO);
 //        adapter.add(data);
 //        //瞎推荐
-        data = new DailyRecommendViewEntity(entity.getResults().getRecommendBeanList(), DailyRecommendViewEntity.VIEW_TYPE_ARTICLE);
+        data = new DailyRecommendViewEntity(entity.getResults()
+                                                  .getRecommendBeanList(), DailyRecommendViewEntity.VIEW_TYPE_ARTICLE);
         adapter.add(data);
 //        //福利
 //        data = new DailyRecommendViewEntity(entity.getResults().getWelfareBeanList(), DailyRecommendViewEntity.VIEW_TYPE_PHOTO);

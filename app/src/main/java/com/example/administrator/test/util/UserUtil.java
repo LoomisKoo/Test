@@ -39,26 +39,30 @@ public class UserUtil {
 //            }
 //        });
 //    }
-
     public static void handleLoginSuccess() {
-        SPUtils.getInstance().put(Constants.IS_LOGIN, true);
+        SPUtils.getInstance()
+               .put(Constants.IS_LOGIN, true);
     }
 
     public static void handleLoginFailure() {
-        SPUtils.getInstance().put(Constants.IS_LOGIN, false);
-        SPUtils.getInstance().remove("cookie");
+        SPUtils.getInstance()
+               .put(Constants.IS_LOGIN, false);
+        SPUtils.getInstance()
+               .remove("cookie");
     }
 
     /**
      * 是否登录，没有进入登录页面
      */
     public static boolean isLogin(Context context) {
-        boolean isLogin = SPUtils.getInstance().getBoolean(Constants.IS_LOGIN, false);
+        boolean isLogin = SPUtils.getInstance()
+                                 .getBoolean(Constants.IS_LOGIN, false);
         if (!isLogin) {
             ToastUtils.showShort("请先登录~");
 //            ARouter.getPlayAndroidInstance().build(ArouterHelper.ROUTE_ACTIVITY_LOGIN).withFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION).withInt("x", AnimatorHelper.getDownX()).withInt("y", AnimatorHelper.getDownY()).navigation();
             return false;
-        } else {
+        }
+        else {
             return true;
         }
     }

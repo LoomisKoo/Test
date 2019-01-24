@@ -13,9 +13,9 @@ package com.example.administrator.test.entity.view;
  * @Version: 1.0
  */
 public class PlayAndroidViewEntity {
-    public static final int VIEW_TYPE_BANNER = 0;
+    public static final int VIEW_TYPE_BANNER       = 0;
     public static final int VIEW_TYPE_ARTICLE_LIST = 1;
-    private int viewType = -1;
+    private             int viewType               = -1;
 
     public PlayAndroidViewEntity(Object data, int viewType) {
         this.data = data;

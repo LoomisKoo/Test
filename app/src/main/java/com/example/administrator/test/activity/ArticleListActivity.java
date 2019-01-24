@@ -89,10 +89,18 @@ public class ArticleListActivity extends BaseListActivity<ArticleListEntity.Data
                 vh.itemView.setOnClickListener(v -> {
                     int position = recyclerView.getChildAdapterPosition(v);
 
-                    ArticleListEntity.DataBean.ArticleInfoBean entity = adapter.getData().get(position);
-                    String                                     url    = entity.getLink();
-                    String                                     title  = entity.getTitle();
-                    ARouter.getInstance().build(ArouterHelper.ROUTE_ACTIVITY_WEB).withFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION).withString("title", title).withString("url", url).withInt("x", AnimatorHelper.getDownX()).withInt("y", AnimatorHelper.getDownY()).navigation(context);
+                    ArticleListEntity.DataBean.ArticleInfoBean entity = adapter.getData()
+                                                                               .get(position);
+                    String url   = entity.getLink();
+                    String title = entity.getTitle();
+                    ARouter.getInstance()
+                           .build(ArouterHelper.ROUTE_ACTIVITY_WEB)
+                           .withFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
+                           .withString("title", title)
+                           .withString("url", url)
+                           .withInt("x", AnimatorHelper.getDownX())
+                           .withInt("y", AnimatorHelper.getDownY())
+                           .navigation(context);
                 });
 
                 AnimatorHelper.setViewTouchListener(vh.itemView);
@@ -119,8 +127,10 @@ public class ArticleListActivity extends BaseListActivity<ArticleListEntity.Data
     @Override
     public void onSuccess(ArticleListEntity entity) {
         stopRefresh();
-        maxPage = entity.getData().getPageCount();
-        for (ArticleListEntity.DataBean.ArticleInfoBean bean : entity.getData().getArticleListBean()) {
+        maxPage = entity.getData()
+                        .getPageCount();
+        for (ArticleListEntity.DataBean.ArticleInfoBean bean : entity.getData()
+                                                                     .getArticleListBean()) {
             adapter.add(bean);
         }
     }
@@ -133,6 +143,7 @@ public class ArticleListActivity extends BaseListActivity<ArticleListEntity.Data
 
     /**
      * 收藏或者取消收藏文章
+     *
      * @param checkBox
      * @param entity
      */

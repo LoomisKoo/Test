@@ -2,10 +2,14 @@ package com.example.administrator.test.base.activity;
 
 import android.content.Context;
 import android.os.Bundle;
+
 import androidx.annotation.NonNull;
+
 import com.google.android.material.tabs.TabLayout;
+
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
+
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -59,7 +63,8 @@ public abstract class BaseTabActivity extends BaseActivity {
         }
 
         for (int i = 0; i < tabTitles.size(); i++) {
-            tabLayout.addTab(tabLayout.newTab().setText(tabTitles.get(i)));
+            tabLayout.addTab(tabLayout.newTab()
+                                      .setText(tabTitles.get(i)));
         }
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -87,7 +92,8 @@ public abstract class BaseTabActivity extends BaseActivity {
 
             @Override
             public void onPageSelected(int position) {
-                tabLayout.getTabAt(position).select();
+                tabLayout.getTabAt(position)
+                         .select();
             }
 
             @Override
@@ -132,9 +138,12 @@ public abstract class BaseTabActivity extends BaseActivity {
 
         @Override
         public Object instantiateItem(ViewGroup container, int position) {
-            container.addView(viewList.get(position).getContentView());
-            viewList.get(position).onCreateView(BaseTabActivity.this);
-            return viewList.get(position).getContentView();
+            container.addView(viewList.get(position)
+                                      .getContentView());
+            viewList.get(position)
+                    .onCreateView(BaseTabActivity.this);
+            return viewList.get(position)
+                           .getContentView();
         }
 
         @Override

@@ -21,21 +21,22 @@ import androidx.fragment.app.Fragment;
  * @UpdateRemark: 更新说明
  * @Version: 1.0
  */
-public class FragmentUserVisibleManager{
-    private static final String TAG = "UserVisibleManager";
-    public static boolean DEBUG = AppConfig.IS_DEBUG;
+public class FragmentUserVisibleManager {
+    private static final String                      TAG   = "UserVisibleManager";
+    public static        boolean                     DEBUG = AppConfig.IS_DEBUG;
     @SuppressWarnings("FieldCanBeLocal")
-    private String fragmentName;
-    private boolean waitingShowToUser;
-    private Fragment fragment;
-    private UserVisibleCallback userVisibleCallback;
-    private List<OnUserVisibleListener> userVisibleListenerList;
+    private              String                      fragmentName;
+    private              boolean                     waitingShowToUser;
+    private              Fragment                    fragment;
+    private              UserVisibleCallback         userVisibleCallback;
+    private              List<OnUserVisibleListener> userVisibleListenerList;
 
     public FragmentUserVisibleManager(Fragment fragment, UserVisibleCallback userVisibleCallback) {
         this.fragment = fragment;
         this.userVisibleCallback = userVisibleCallback;
         //noinspection ConstantConditions
-        this.fragmentName = DEBUG ? fragment.getClass().getSimpleName() : null;
+        this.fragmentName = DEBUG ? fragment.getClass()
+                                            .getSimpleName() : null;
     }
 
     public void activityCreated() {
@@ -46,7 +47,8 @@ public class FragmentUserVisibleManager{
             Fragment parentFragment = fragment.getParentFragment();
             if (parentFragment != null && !parentFragment.getUserVisibleHint()) {
                 if (DEBUG) {
-                    Log.d(TAG, fragmentName + ": activityCreated, parent " + parentFragment.getClass().getSimpleName() + " is hidden, therefore hidden self");
+                    Log.d(TAG, fragmentName + ": activityCreated, parent " + parentFragment.getClass()
+                                                                                           .getSimpleName() + " is hidden, therefore hidden self");
                 }
                 userVisibleCallback.setWaitingShowToUser(true);
                 userVisibleCallback.callSuperSetUserVisibleHint(false);
@@ -85,8 +87,10 @@ public class FragmentUserVisibleManager{
         if (DEBUG) {
             String parent;
             if (parentFragment != null) {
-                parent = "parent " + parentFragment.getClass().getSimpleName() + " userVisibleHint=" + parentFragment.getUserVisibleHint();
-            } else {
+                parent = "parent " + parentFragment.getClass()
+                                                   .getSimpleName() + " userVisibleHint=" + parentFragment.getUserVisibleHint();
+            }
+            else {
                 parent = "parent is null";
             }
             Log.d(TAG, fragmentName + ": setUserVisibleHint, userVisibleHint=" + isVisibleToUser + ", " + (fragment.isResumed() ? "resume" : "pause") + ", " + parent);
@@ -96,7 +100,8 @@ public class FragmentUserVisibleManager{
         if (isVisibleToUser) {
             if (parentFragment != null && !parentFragment.getUserVisibleHint()) {
                 if (DEBUG) {
-                    Log.d(TAG, fragmentName + ": setUserVisibleHint, parent " + parentFragment.getClass().getSimpleName() + " is hidden, therefore hidden self");
+                    Log.d(TAG, fragmentName + ": setUserVisibleHint, parent " + parentFragment.getClass()
+                                                                                              .getSimpleName() + " is hidden, therefore hidden self");
                 }
                 userVisibleCallback.setWaitingShowToUser(true);
                 userVisibleCallback.callSuperSetUserVisibleHint(false);
@@ -110,14 +115,16 @@ public class FragmentUserVisibleManager{
             if (DEBUG) {
                 if (isVisibleToUser) {
                     Log.i(TAG, fragmentName + ": visibleToUser on setUserVisibleHint");
-                } else {
+                }
+                else {
                     Log.w(TAG, fragmentName + ": hiddenToUser on setUserVisibleHint");
                 }
             }
         }
 
         if (fragment.getActivity() != null) {
-            List<Fragment> childFragmentList = fragment.getChildFragmentManager().getFragments();
+            List<Fragment> childFragmentList = fragment.getChildFragmentManager()
+                                                       .getFragments();
             if (isVisibleToUser) {
                 // 显示待显示的子Fragment
                 if (childFragmentList != null && childFragmentList.size() > 0) {
@@ -126,7 +133,8 @@ public class FragmentUserVisibleManager{
                             UserVisibleCallback userVisibleCallback = (UserVisibleCallback) childFragment;
                             if (userVisibleCallback.isWaitingShowToUser()) {
                                 if (DEBUG) {
-                                    Log.d(TAG, fragmentName + ": setUserVisibleHint, show child " + childFragment.getClass().getSimpleName());
+                                    Log.d(TAG, fragmentName + ": setUserVisibleHint, show child " + childFragment.getClass()
+                                                                                                                 .getSimpleName());
                                 }
                                 userVisibleCallback.setWaitingShowToUser(false);
                                 childFragment.setUserVisibleHint(true);
@@ -134,7 +142,8 @@ public class FragmentUserVisibleManager{
                         }
                     }
                 }
-            } else {
+            }
+            else {
                 // 隐藏正在显示的子Fragment
                 if (childFragmentList != null && childFragmentList.size() > 0) {
                     for (Fragment childFragment : childFragmentList) {
@@ -142,7 +151,8 @@ public class FragmentUserVisibleManager{
                             UserVisibleCallback userVisibleCallback = (UserVisibleCallback) childFragment;
                             if (childFragment.getUserVisibleHint()) {
                                 if (DEBUG) {
-                                    Log.d(TAG, fragmentName + ": setUserVisibleHint, hidden child " + childFragment.getClass().getSimpleName());
+                                    Log.d(TAG, fragmentName + ": setUserVisibleHint, hidden child " + childFragment.getClass()
+                                                                                                                   .getSimpleName());
                                 }
                                 userVisibleCallback.setWaitingShowToUser(true);
                                 childFragment.setUserVisibleHint(false);

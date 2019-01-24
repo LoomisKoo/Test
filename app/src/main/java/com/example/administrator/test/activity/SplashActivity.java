@@ -128,7 +128,9 @@ public class SplashActivity extends BaseActivity<SplashPresenter> implements Spl
         ivAD.setVisibility(View.VISIBLE);
         btnSkip.setVisibility(View.VISIBLE);
         presenter.countDownAD();
-        Glide.with(this).load(imgRes).into(ivAD);
+        Glide.with(this)
+             .load(imgRes)
+             .into(ivAD);
     }
 
     @Override
@@ -146,7 +148,9 @@ public class SplashActivity extends BaseActivity<SplashPresenter> implements Spl
      * 跳转主页面
      */
     private void startMainActivity() {
-        ARouter.getInstance().build(ArouterHelper.ROUTE_ACTIVITY_MAIN).navigation();
+        ARouter.getInstance()
+               .build(ArouterHelper.ROUTE_ACTIVITY_MAIN)
+               .navigation();
         //跳转动画
         overridePendingTransition(R.anim.screen_zoom_in, R.anim.screen_zoom_out);
         finish();

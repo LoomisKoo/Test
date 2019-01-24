@@ -39,7 +39,8 @@ public class ReceivedCookiesInterceptor implements Interceptor {
 
         Response originalResponse = chain.proceed(chain.request());
         //这里获取请求返回的cookie
-        if (!originalResponse.headers("Set-Cookie").isEmpty()) {
+        if (!originalResponse.headers("Set-Cookie")
+                             .isEmpty()) {
 
             List<String> d = originalResponse.headers("Set-Cookie");
 //                Log.e("jing", "------------得到的 cookies:" + d.toString());
@@ -60,12 +61,13 @@ public class ReceivedCookiesInterceptor implements Interceptor {
                         if (aSubstring.contains("=")) {
                             String[] split = aSubstring.split("=");
                             stringStringHashMap.put(split[0], split[1]);
-                        } else {
+                        }
+                        else {
                             stringStringHashMap.put(aSubstring, "");
                         }
                     }
                 }
-                String join = StringUtils.join(d, ";");
+                String   join  = StringUtils.join(d, ";");
                 String[] split = join.split(";");
 
                 // 存到Map里
@@ -73,7 +75,8 @@ public class ReceivedCookiesInterceptor implements Interceptor {
                     String[] split1 = aSplit.split("=");
                     if (split1.length == 2) {
                         stringStringHashMap.put(split1[0], split1[1]);
-                    } else {
+                    }
+                    else {
                         stringStringHashMap.put(split1[0], "");
                     }
                 }
