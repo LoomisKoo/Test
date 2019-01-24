@@ -17,7 +17,9 @@ import com.example.administrator.test.mvp.contract.DailyRecommendContract;
 import com.example.administrator.test.mvp.model.DailyRecommendModel;
 import com.example.administrator.test.mvp.presenter.DailyRecommendPresenter;
 import com.example.administrator.test.viewholder.recommend.DailyRecommendArticleVH;
+import com.example.administrator.test.viewholder.recommend.DailyRecommendBannerVH;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -38,6 +40,12 @@ public class DailyRecommendationFragment extends BaseListFragment<DailyRecommend
 
     @Override
     protected void getData(int page, int pageSize) {
+        List<String> imgList = new ArrayList<>();
+        //特斯拉logo
+        imgList.add("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1548312536332&di=77ecb35f710f883f5e12ad9e90bcb003&imgtype=0&src=http%3A%2F%2Fwww.deskier.com%2Fuploads%2Fallimg%2F170706%2F1-1FF6153306.jpg");
+        //钢铁侠
+        imgList.add("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1548318266090&di=a85615596dec381e7d33b1074e8c14e3&imgtype=0&src=http%3A%2F%2Fgss0.baidu.com%2F-vo3dSag_xI4khGko9WTAnF6hhy%2Fzhidao%2Fpic%2Fitem%2Ffaf2b2119313b07e9f2e75030dd7912397dd8c2d.jpg");
+        adapter.add(new DailyRecommendViewEntity(imgList, DailyRecommendViewEntity.VIEW_TYPE_BANNER));
         presenter.getDailyRecommend();
     }
 
@@ -54,6 +62,7 @@ public class DailyRecommendationFragment extends BaseListFragment<DailyRecommend
             protected void onSetItemData(BaseViewHolder holder, DailyRecommendViewEntity item, int viewType, int position) {
                 switch (viewType) {
                     case DailyRecommendViewEntity.VIEW_TYPE_BANNER:
+                        ((DailyRecommendBannerVH) holder).setData((List<String>) item.getData());
                         break;
                     case DailyRecommendViewEntity.VIEW_TYPE_MAIN_MENU:
                         break;
@@ -78,7 +87,7 @@ public class DailyRecommendationFragment extends BaseListFragment<DailyRecommend
             public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
                 switch (viewType) {
                     case DailyRecommendViewEntity.VIEW_TYPE_BANNER:
-                        return null;
+                        return new DailyRecommendBannerVH(getActivity(), parent, R.layout.recommend_daily_vh_banner);
                     case DailyRecommendViewEntity.VIEW_TYPE_MAIN_MENU:
                         break;
                     case DailyRecommendViewEntity.VIEW_TYPE_ARTICLE:

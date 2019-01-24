@@ -69,7 +69,6 @@ public class KnowledgeSystemFragment extends BaseListFragment<KnowledgeSystemEnt
     @Override
     protected void initView(View view) {
         super.initView(view);
-//        setRefreshEnable(false);
     }
 
     @Override

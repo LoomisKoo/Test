@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.View;
 import android.view.ViewGroup;
+
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.alibaba.android.vlayout.LayoutHelper;
 import com.alibaba.android.vlayout.layout.LinearLayoutHelper;
@@ -80,12 +81,12 @@ public class PlayAndroidFragment extends BaseListFragment<PlayAndroidViewEntity,
                         checkBox.setOnLikeListener(new OnLikeListener() {
                             @Override
                             public void liked(LikeButton likeButton) {
-                                collectArticle(likeButton,entity);
+                                collectArticle(likeButton, entity);
                             }
 
                             @Override
                             public void unLiked(LikeButton likeButton) {
-                                collectArticle(likeButton,entity);
+                                collectArticle(likeButton, entity);
                             }
                         });
                         break;
@@ -110,11 +111,10 @@ public class PlayAndroidFragment extends BaseListFragment<PlayAndroidViewEntity,
                     case PlayAndroidViewEntity.VIEW_TYPE_ARTICLE_LIST:
                         PlayAndroidArticleListVH vh = new PlayAndroidArticleListVH(getContext(), parent, R.layout.play_android_item_article);
                         vh.itemView.setOnClickListener(v -> {
-                            int position = recyclerView.getChildAdapterPosition(v);
-
-                            PlayAndroidViewEntity                      entity = adapter.getData().get(position);
-                            ArticleListEntity.DataBean.ArticleInfoBean bean   = (ArticleListEntity.DataBean.ArticleInfoBean) entity.getData();
-                            String                                     title  = bean.getTitle();
+                            int                                        position = recyclerView.getChildAdapterPosition(v);
+                            PlayAndroidViewEntity                      entity   = adapter.getData().get(position);
+                            ArticleListEntity.DataBean.ArticleInfoBean bean     = (ArticleListEntity.DataBean.ArticleInfoBean) entity.getData();
+                            String                                     title    = bean.getTitle();
                             ARouter.getInstance().build(ArouterHelper.ROUTE_ACTIVITY_WEB).withFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION).withString("title", title).withString("url", bean.getLink()).withInt("x", AnimatorHelper.getDownX()).withInt("y", AnimatorHelper.getDownY()).navigation(getActivity());
                         });
 
@@ -174,6 +174,7 @@ public class PlayAndroidFragment extends BaseListFragment<PlayAndroidViewEntity,
 
     /**
      * 收藏或者取消收藏文章
+     *
      * @param checkBox
      * @param entity
      */
