@@ -1,4 +1,4 @@
-package com.example.administrator.test.viewholder.playandroid;
+package com.example.administrator.test.viewholder.knowledgesystem;
 
 import android.content.Context;
 import android.view.ViewGroup;
@@ -22,12 +22,12 @@ import com.like.LikeButton;
  * @UpdateRemark: 更新说明
  * @Version: 1.0
  */
-public class PlayAndroidArticleListVH2 extends BaseViewHolder {
+public class KnowledgeSystemArticleListVH2 extends BaseViewHolder {
     private TextView   tvTitle;
     private TextView   tvPublishInfo;
     private LikeButton cbCollect;
 
-    public PlayAndroidArticleListVH2(Context context, ViewGroup parent, int layoutId) {
+    public KnowledgeSystemArticleListVH2(Context context, ViewGroup parent, int layoutId) {
         super(context, parent, layoutId);
         tvTitle = retrieveView(R.id.tvTitle);
         tvPublishInfo = retrieveView(R.id.tvPublishInfo);

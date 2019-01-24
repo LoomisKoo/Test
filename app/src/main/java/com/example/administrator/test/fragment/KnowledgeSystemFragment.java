@@ -14,7 +14,7 @@ import com.example.administrator.test.entity.KnowledgeSystemEntity;
 import com.example.administrator.test.mvp.contract.KnowledgeSystemContract;
 import com.example.administrator.test.mvp.model.KnowledgeSystemModel;
 import com.example.administrator.test.mvp.presenter.KnowledgeSystemPresenter;
-import com.example.administrator.test.viewholder.KnowledgeSystemVH;
+import com.example.administrator.test.viewholder.knowledgesystem.KnowledgeSystemVH;
 
 import androidx.recyclerview.widget.RecyclerView;
 

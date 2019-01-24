@@ -1,12 +1,10 @@
 package com.example.administrator.test.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.ViewGroup;
 
 import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
-import com.alibaba.android.arouter.launcher.ARouter;
 import com.alibaba.android.vlayout.LayoutHelper;
 import com.alibaba.android.vlayout.layout.LinearLayoutHelper;
 import com.blankj.utilcode.util.ToastUtils;
@@ -21,7 +19,7 @@ import com.example.administrator.test.mvp.model.ArticleListModel;
 import com.example.administrator.test.mvp.presenter.ArticleListPresenter;
 import com.example.administrator.test.util.ArouteHelper;
 import com.example.administrator.test.util.UserUtil;
-import com.example.administrator.test.viewholder.playandroid.PlayAndroidArticleListVH2;
+import com.example.administrator.test.viewholder.knowledgesystem.KnowledgeSystemArticleListVH2;
 import com.like.LikeButton;
 import com.like.OnLikeListener;
 
@@ -30,7 +28,7 @@ import androidx.recyclerview.widget.RecyclerView;
 /**
  * @ProjectName: Test
  * @Package: com.example.administrator.test.activity
- * @ClassName: ArticleListActivity
+ * @ClassName: KnowledgeSystemArticleActivity
  * @Description: java类作用描述
  * @Author: koo
  * @CreateDate: 2019/1/14 1:31 PM
@@ -40,7 +38,7 @@ import androidx.recyclerview.widget.RecyclerView;
  * @Version: 1.0
  */
 @Route(path = ArouteHelper.ROUTE_ACTIVITY_ARTICLE_LIST)
-public class ArticleListActivity extends BaseListActivity<ArticleListEntity.DataBean.ArticleInfoBean, ArticleListPresenter> implements ArticleListContract.View {
+public class KnowledgeSystemArticleActivity extends BaseListActivity<ArticleListEntity.DataBean.ArticleInfoBean, ArticleListPresenter> implements ArticleListContract.View {
     @Autowired
     int    cid;
     @Autowired
@@ -63,7 +61,7 @@ public class ArticleListActivity extends BaseListActivity<ArticleListEntity.Data
         return new QuickDelegateAdapter<ArticleListEntity.DataBean.ArticleInfoBean>(this, R.layout.play_android_item_article_2) {
             @Override
             protected void onSetItemData(BaseViewHolder holder, ArticleListEntity.DataBean.ArticleInfoBean item, int viewType, int position) {
-                ((PlayAndroidArticleListVH2) holder).setData(item);
+                ((KnowledgeSystemArticleListVH2) holder).setData(item);
                 LikeButton checkBox = holder.getView(R.id.cbCollect);
                 checkBox.setOnLikeListener(new OnLikeListener() {
                     @Override
@@ -85,7 +83,7 @@ public class ArticleListActivity extends BaseListActivity<ArticleListEntity.Data
 
             @Override
             public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-                PlayAndroidArticleListVH2 vh = new PlayAndroidArticleListVH2(context, parent, R.layout.play_android_item_article_2);
+                KnowledgeSystemArticleListVH2 vh = new KnowledgeSystemArticleListVH2(context, parent, R.layout.play_android_item_article_2);
                 vh.itemView.setOnClickListener(v -> {
                     int position = recyclerView.getChildAdapterPosition(v);
 
