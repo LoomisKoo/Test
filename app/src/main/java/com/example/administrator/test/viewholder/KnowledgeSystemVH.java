@@ -77,13 +77,13 @@ public class KnowledgeSystemVH extends BaseViewHolder {
         public KnowledgeSystemPointVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             //实例化得到Item布局文件的View对象
             View v = LayoutInflater.from(context).inflate(R.layout.play_android_item_knowledge_point, parent, false);
-            AnimatorHelper.setViewTouchListener(v);
             KnowledgeSystemPointVH vh = new KnowledgeSystemPointVH(v);
             return vh;
         }
 
         @Override
         public void onBindViewHolder(@NonNull KnowledgeSystemPointVH holder, int position) {
+            AnimatorHelper.setViewTouchListener(holder.tvPoint);
             holder.tvPoint.setText(data.get(position).getName());
             holder.tvPoint.setOnClickListener(v -> {
                 KnowledgeSystemEntity.KnowledgeType.KnowledgePoint entity = data.get(position);

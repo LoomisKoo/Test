@@ -2,6 +2,8 @@ package com.example.administrator.test.manager;
 
 import android.util.Log;
 
+import com.example.administrator.test.app.AppConfig;
+
 import java.util.LinkedList;
 import java.util.List;
 
@@ -11,7 +13,7 @@ import androidx.fragment.app.Fragment;
  * @ProjectName: Test
  * @Package: com.example.administrator.test.manager
  * @ClassName: FragmentUserVisibleManager
- * @Description: java类作用描述
+ * @Description: java类作用描述 嵌套viewpager-fragment时，Fragment的getUserVisibleHint()方法并不能准确反映fragment是否显示状态，该类可以准确反映fragment显示/隐藏状态
  * @Author: koo
  * @CreateDate: 2019/1/24 10:08 AM
  * @UpdateUser:
@@ -21,7 +23,7 @@ import androidx.fragment.app.Fragment;
  */
 public class FragmentUserVisibleManager{
     private static final String TAG = "UserVisibleManager";
-    public static boolean DEBUG = false;
+    public static boolean DEBUG = AppConfig.IS_DEBUG;
     @SuppressWarnings("FieldCanBeLocal")
     private String fragmentName;
     private boolean waitingShowToUser;
