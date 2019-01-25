@@ -27,6 +27,7 @@ public class ArouteHelper {
     public final static String ROUTE_ACTIVITY_LOGIN              = "/koo/login";
     public final static String ROUTE_ACTIVITY_LOGIN_PLAY_ANDROID = "/koo/login/play_android";
     public final static String ROUTE_ACTIVITY_ARTICLE_LIST       = "/koo/article_list";
+    public final static String ROUTE_ACTIVITY_BIG_IMAGE       = "/koo/big_image";
 
 
     public static void buildWebWithAnimator(Context context, String title, String url) {

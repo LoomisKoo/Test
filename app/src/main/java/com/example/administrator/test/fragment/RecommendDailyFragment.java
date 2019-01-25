@@ -1,6 +1,5 @@
 package com.example.administrator.test.fragment;
 
-import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -19,6 +18,7 @@ import com.example.administrator.test.mvp.presenter.DailyRecommendPresenter;
 import com.example.administrator.test.viewholder.recommend.DailyRecommendArticleVH;
 import com.example.administrator.test.viewholder.recommend.DailyRecommendBannerVH;
 import com.example.administrator.test.viewholder.recommend.DailyRecommendMenuVH;
+import com.example.administrator.test.viewholder.recommend.DailyRecommendPhotoVH;
 import com.example.administrator.test.viewholder.recommend.DailyRecommendVideoVH;
 
 import java.util.ArrayList;
@@ -81,6 +81,7 @@ public class RecommendDailyFragment extends BaseListFragment<DailyRecommendViewE
                         ((DailyRecommendVideoVH) holder).setData((List<DailyRecommendArticleEntity>) item.getData());
                         break;
                     case DailyRecommendViewEntity.VIEW_TYPE_PHOTO:
+                        ((DailyRecommendPhotoVH) holder).setData((List<DailyRecommendArticleEntity>) item.getData());
                         break;
                     default:
                         break;
@@ -100,11 +101,11 @@ public class RecommendDailyFragment extends BaseListFragment<DailyRecommendViewE
                     case DailyRecommendViewEntity.VIEW_TYPE_MAIN_MENU:
                         return new DailyRecommendMenuVH(getActivity(), parent, R.layout.recommend_daily_vh_menu);
                     case DailyRecommendViewEntity.VIEW_TYPE_ARTICLE:
-                        return new DailyRecommendArticleVH(getActivity(), parent, R.layout.recommend_daily_vh_article_list);
+                        return new DailyRecommendArticleVH(getActivity(), parent, R.layout.recommend_daily_vh_common);
                     case DailyRecommendViewEntity.VIEW_TYPE_VIDEO:
-                        return new DailyRecommendVideoVH(getActivity(), parent, R.layout.recommend_daily_vh_article_list);
+                        return new DailyRecommendVideoVH(getActivity(), parent, R.layout.recommend_daily_vh_common);
                     case DailyRecommendViewEntity.VIEW_TYPE_PHOTO:
-                        break;
+                        return new DailyRecommendPhotoVH(getActivity(), parent, R.layout.recommend_daily_vh_common);
                     default:
                         break;
                 }
@@ -146,24 +147,26 @@ public class RecommendDailyFragment extends BaseListFragment<DailyRecommendViewE
         data = new DailyRecommendViewEntity(entity.getResults()
                                                   .getIOS(), DailyRecommendViewEntity.VIEW_TYPE_ARTICLE);
         adapter.add(data);
-//        //app
+        //app
         data = new DailyRecommendViewEntity(entity.getResults()
                                                   .getApp(), DailyRecommendViewEntity.VIEW_TYPE_ARTICLE);
         adapter.add(data);
-//        //拓展资源
+        //拓展资源
         data = new DailyRecommendViewEntity(entity.getResults()
                                                   .getExpandBeanList(), DailyRecommendViewEntity.VIEW_TYPE_ARTICLE);
         adapter.add(data);
-//        //视频
-        data = new DailyRecommendViewEntity(entity.getResults().getVideoBeanList(), DailyRecommendViewEntity.VIEW_TYPE_VIDEO);
+        //视频
+        data = new DailyRecommendViewEntity(entity.getResults()
+                                                  .getVideoBeanList(), DailyRecommendViewEntity.VIEW_TYPE_VIDEO);
         adapter.add(data);
-//        //瞎推荐
+        //瞎推荐
         data = new DailyRecommendViewEntity(entity.getResults()
                                                   .getRecommendBeanList(), DailyRecommendViewEntity.VIEW_TYPE_ARTICLE);
         adapter.add(data);
-//        //福利
-//        data = new DailyRecommendViewEntity(entity.getResults().getWelfareBeanList(), DailyRecommendViewEntity.VIEW_TYPE_PHOTO);
-//        adapter.add(data);
+        //福利
+        data = new DailyRecommendViewEntity(entity.getResults()
+                                                  .getWelfareBeanList(), DailyRecommendViewEntity.VIEW_TYPE_PHOTO);
+        adapter.add(data);
 
         checkRvEmpty();
     }
