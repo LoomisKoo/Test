@@ -28,7 +28,7 @@ import androidx.recyclerview.widget.RecyclerView;
 /**
  * @ProjectName: Test
  * @Package: com.example.administrator.test.fragment
- * @ClassName: DailyRecommendationFragment
+ * @ClassName: RecommendDailyFragment
  * @Description: java类作用描述
  * @Author: koo
  * @CreateDate: 2019/1/22 6:13 PM
@@ -37,7 +37,7 @@ import androidx.recyclerview.widget.RecyclerView;
  * @UpdateRemark: 更新说明
  * @Version: 1.0
  */
-public class DailyRecommendationFragment extends BaseListFragment<DailyRecommendViewEntity, DailyRecommendPresenter> implements DailyRecommendContract.View {
+public class RecommendDailyFragment extends BaseListFragment<DailyRecommendViewEntity, DailyRecommendPresenter> implements DailyRecommendContract.View {
 
     @Override
     protected void getData(int page, int pageSize) {

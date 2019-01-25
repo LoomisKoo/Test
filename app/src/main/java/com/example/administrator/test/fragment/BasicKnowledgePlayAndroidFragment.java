@@ -32,7 +32,7 @@ import com.like.OnLikeListener;
 /**
  * @ProjectName: Test
  * @Package: com.example.administrator.test.fragment
- * @ClassName: PlayAndroidFragment
+ * @ClassName: BasicKnowledgePlayAndroidFragment
  * @Description: java类作用描述
  * @Author: koo
  * @CreateDate: 2018/11/27 2:28 PM
@@ -41,7 +41,7 @@ import com.like.OnLikeListener;
  * @UpdateRemark: 更新说明
  * @Version: 1.0
  */
-public class PlayAndroidFragment extends BaseListFragment<PlayAndroidViewEntity, PlayAndroidPresenter> implements PlayAndroidContract.View {
+public class BasicKnowledgePlayAndroidFragment extends BaseListFragment<PlayAndroidViewEntity, PlayAndroidPresenter> implements PlayAndroidContract.View {
 
     @Override
     protected void getData(int page, int pageSize) {

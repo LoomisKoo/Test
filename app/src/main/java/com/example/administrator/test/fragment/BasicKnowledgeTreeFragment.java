@@ -20,7 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 /**
  * @ProjectName: Test
  * @Package: com.example.administrator.test.fragment
- * @ClassName: KnowledgeSystemFragment
+ * @ClassName: BasicKnowledgeTreeFragment
  * @Description: java类作用描述
  * @Author: koo
  * @CreateDate: 2019/1/13 4:31 PM
@@ -29,7 +29,7 @@ import androidx.recyclerview.widget.RecyclerView;
  * @UpdateRemark: 更新说明
  * @Version: 1.0
  */
-public class KnowledgeSystemFragment extends BaseListFragment<KnowledgeSystemEntity.KnowledgeType, KnowledgeSystemPresenter> implements KnowledgeSystemContract.View {
+public class BasicKnowledgeTreeFragment extends BaseListFragment<KnowledgeSystemEntity.KnowledgeType, KnowledgeSystemPresenter> implements KnowledgeSystemContract.View {
     @Override
     protected void getData(int page, int pageSize) {
         presenter.loadData();

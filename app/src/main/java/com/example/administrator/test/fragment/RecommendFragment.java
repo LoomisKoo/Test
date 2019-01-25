@@ -1,10 +1,8 @@
 package com.example.administrator.test.fragment;
 
-import android.os.Bundle;
 import android.view.View;
 
 import com.example.administrator.test.R;
-import com.example.administrator.test.base.adapter.QuickDelegateAdapter;
 import com.example.administrator.test.base.fragment.BaseFragmentNew;
 import com.roughike.bottombar.BottomBar;
 
@@ -90,10 +88,10 @@ public class RecommendFragment extends BaseFragmentNew {
      */
     private void initFragmentList() {
         fragments.clear();
-        fragments.add(new DailyRecommendationFragment());
-        fragments.add(new DailyRecommendationFragment());
-        fragments.add(new DailyRecommendationFragment());
-        fragments.add(new DailyRecommendationFragment());
+        fragments.add(new RecommendDailyFragment());
+        fragments.add(new RecommendDailyFragment());
+        fragments.add(new RecommendDailyFragment());
+        fragments.add(new RecommendDailyFragment());
     }
 
     private void initViewPager(View view) {

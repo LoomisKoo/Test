@@ -1,7 +1,5 @@
 package com.example.administrator.test.fragment;
 
-import android.os.Bundle;
-
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
@@ -9,7 +7,6 @@ import androidx.viewpager.widget.ViewPager;
 import android.view.View;
 
 import com.example.administrator.test.R;
-import com.example.administrator.test.base.adapter.QuickDelegateAdapter;
 import com.example.administrator.test.base.fragment.BaseFragmentNew;
 import com.roughike.bottombar.BottomBar;
 
@@ -76,9 +73,9 @@ public class BasicKnowledgeFragment extends BaseFragmentNew {
     private void initFragmentList() {
         fragments.clear();
 
-        fragments.add(new PlayAndroidFragment());
-        fragments.add(new KnowledgeSystemFragment());
-        fragments.add(new PlayAndroidNaviFragment());
+        fragments.add(new BasicKnowledgePlayAndroidFragment());
+        fragments.add(new BasicKnowledgeTreeFragment());
+        fragments.add(new BasicKnowledgeNaviFragment());
     }
 
     private void initViewPager(View view) {

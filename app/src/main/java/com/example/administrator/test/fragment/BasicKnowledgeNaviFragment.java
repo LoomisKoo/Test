@@ -30,7 +30,7 @@ import androidx.recyclerview.widget.RecyclerView;
 /**
  * @ProjectName: Test
  * @Package: com.example.administrator.test.fragment
- * @ClassName: PlayAndroidNaviFragment
+ * @ClassName: BasicKnowledgeNaviFragment
  * @Description: java类作用描述
  * @Author: koo
  * @CreateDate: 2019/1/14 5:34 PM
@@ -39,7 +39,7 @@ import androidx.recyclerview.widget.RecyclerView;
  * @UpdateRemark: 更新说明
  * @Version: 1.0
  */
-public class PlayAndroidNaviFragment extends BaseFragmentNew<NaviPresenter> implements NaviContract.View {
+public class BasicKnowledgeNaviFragment extends BaseFragmentNew<NaviPresenter> implements NaviContract.View {
 
     List<ContentTypeEntity> titleData;
     /**
@@ -118,6 +118,12 @@ public class PlayAndroidNaviFragment extends BaseFragmentNew<NaviPresenter> impl
             titleAdapter.notifyDataSetChanged();
         }
         presenter.getNaviData();
+    }
+
+    @Override
+    protected void loadMoreData() {
+        super.loadMoreData();
+        stopRefresh();
     }
 
     @Override
