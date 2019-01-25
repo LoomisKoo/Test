@@ -52,6 +52,16 @@ public class DailyRecommendationFragment extends BaseListFragment<DailyRecommend
     }
 
     @Override
+    public int bindTopLayout() {
+        return 0;
+    }
+
+    @Override
+    public int bindBottomLayout() {
+        return 0;
+    }
+
+    @Override
     protected QuickDelegateAdapter getAdapter() {
         return new QuickDelegateAdapter<DailyRecommendViewEntity>(getContext(), 0) {
             @Override
@@ -116,10 +126,6 @@ public class DailyRecommendationFragment extends BaseListFragment<DailyRecommend
                 super.onBindViewHolder(holder, position);
             }
         };
-    }
-
-    @Override
-    protected void initData(Bundle savedInstanceState) {
     }
 
     @Override

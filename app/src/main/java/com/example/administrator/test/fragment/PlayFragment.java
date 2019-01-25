@@ -9,7 +9,8 @@ import androidx.viewpager.widget.ViewPager;
 import android.view.View;
 
 import com.example.administrator.test.R;
-import com.example.administrator.test.base.fragment.BaseFragment;
+import com.example.administrator.test.base.adapter.QuickDelegateAdapter;
+import com.example.administrator.test.base.fragment.BaseFragmentNew;
 import com.roughike.bottombar.BottomBar;
 
 import java.util.ArrayList;
@@ -17,7 +18,7 @@ import java.util.ArrayList;
 /**
  * @author koo
  */
-public class PlayFragment extends BaseFragment {
+public class PlayFragment extends BaseFragmentNew {
     /**
      * viewpager数量
      */
@@ -34,12 +35,6 @@ public class PlayFragment extends BaseFragment {
     private ViewPager           viewPager;
     private BottomBar           mBottomBar;
 
-
-    @Override
-    protected int setContentLayout() {
-        return R.layout.play_android_fragment_root;
-    }
-
     @Override
     protected void initView(View view) {
         mBottomBar = view.findViewById(R.id.bottomBar);
@@ -47,16 +42,25 @@ public class PlayFragment extends BaseFragment {
         initFragmentList();
         initViewPager(view);
         initBottomBar(view);
+        //禁止越界拖动
+        refreshLayout.setEnableOverScrollDrag(false);
+        //禁止下拉加载
+        refreshLayout.setEnableRefresh(false);
     }
 
     @Override
-    protected void initData(Bundle savedInstanceState) {
-
+    public int bindContentLayout() {
+        return R.layout.play_android_fragment_root;
     }
 
     @Override
-    protected void initData() {
+    public int bindTopLayout() {
+        return 0;
+    }
 
+    @Override
+    public int bindBottomLayout() {
+        return 0;
     }
 
     @Override

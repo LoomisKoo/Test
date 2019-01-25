@@ -4,7 +4,8 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.example.administrator.test.R;
-import com.example.administrator.test.base.fragment.BaseFragment;
+import com.example.administrator.test.base.adapter.QuickDelegateAdapter;
+import com.example.administrator.test.base.fragment.BaseFragmentNew;
 import com.roughike.bottombar.BottomBar;
 
 import java.util.ArrayList;
@@ -25,7 +26,7 @@ import androidx.viewpager.widget.ViewPager;
  * @UpdateRemark: 更新说明
  * @Version: 1.0
  */
-public class RecommendFragment extends BaseFragment {
+public class RecommendFragment extends BaseFragmentNew {
     /**
      * viewpager数量
      */
@@ -45,22 +46,31 @@ public class RecommendFragment extends BaseFragment {
 
 
     @Override
-    protected int setContentLayout() {
-        return R.layout.recommend_fragment_root;
-    }
-
-    @Override
     protected void initView(View view) {
         mBottomBar = view.findViewById(R.id.bottomBar);
         viewPager = view.findViewById(R.id.view_pager);
         initFragmentList();
         initViewPager(view);
         initBottomBar(view);
+        //禁止越界拖动
+        refreshLayout.setEnableOverScrollDrag(false);
+        //禁止下拉加载
+        refreshLayout.setEnableRefresh(false);
     }
 
     @Override
-    protected void initData(Bundle savedInstanceState) {
+    public int bindContentLayout() {
+        return R.layout.recommend_fragment_root;
+    }
 
+    @Override
+    public int bindTopLayout() {
+        return 0;
+    }
+
+    @Override
+    public int bindBottomLayout() {
+        return 0;
     }
 
     @Override

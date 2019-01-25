@@ -1,6 +1,5 @@
 package com.example.administrator.test.fragment;
 
-import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -72,8 +71,13 @@ public class KnowledgeSystemFragment extends BaseListFragment<KnowledgeSystemEnt
     }
 
     @Override
-    protected void initData(Bundle savedInstanceState) {
+    public int bindTopLayout() {
+        return 0;
+    }
 
+    @Override
+    public int bindBottomLayout() {
+        return 0;
     }
 
     @Override

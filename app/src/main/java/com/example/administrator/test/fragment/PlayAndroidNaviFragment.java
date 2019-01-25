@@ -1,16 +1,15 @@
 package com.example.administrator.test.fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.alibaba.android.arouter.launcher.ARouter;
 import com.example.administrator.test.R;
 import com.example.administrator.test.animation.AnimatorHelper;
-import com.example.administrator.test.base.fragment.BaseFragment;
+import com.example.administrator.test.base.adapter.QuickDelegateAdapter;
+import com.example.administrator.test.base.fragment.BaseFragmentNew;
 import com.example.administrator.test.entity.NaviEntity;
 import com.example.administrator.test.mvp.contract.NaviContract;
 import com.example.administrator.test.mvp.model.NaviModel;
@@ -27,7 +26,6 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.LinearSmoothScroller;
 import androidx.recyclerview.widget.RecyclerView;
-import butterknife.BindView;
 
 /**
  * @ProjectName: Test
@@ -41,19 +39,17 @@ import butterknife.BindView;
  * @UpdateRemark: 更新说明
  * @Version: 1.0
  */
-public class PlayAndroidNaviFragment extends BaseFragment<NaviPresenter> implements NaviContract.View {
+public class PlayAndroidNaviFragment extends BaseFragmentNew<NaviPresenter> implements NaviContract.View {
 
     List<ContentTypeEntity> titleData;
     /**
      * 左边recyclerview
      */
-    @BindView(R.id.rv_name)
-    RecyclerView rvName;
+    RecyclerView            rvName;
     /**
      * 右边recyclerview
      */
-    @BindView(R.id.rv_title)
-    RecyclerView rvTitle;
+    RecyclerView            rvTitle;
 
     RecyclerView.SmoothScroller titleSmoothScroller;
     RecyclerView.SmoothScroller nameSmoothScroller;
@@ -89,23 +85,44 @@ public class PlayAndroidNaviFragment extends BaseFragment<NaviPresenter> impleme
     }
 
     @Override
-    protected int setContentLayout() {
-        return R.layout.play_android_navi_fragment;
-    }
-
-    @Override
     protected void initView(View view) {
+        rvName = llContent.findViewById(R.id.rv_name_new);
+        rvTitle = llContent.findViewById(R.id.rv_title_new);
         initRv();
     }
 
     @Override
-    protected void initData(Bundle savedInstanceState) {
+    public int bindContentLayout() {
+        return R.layout.play_android_navi_fragment_new;
+    }
 
+    @Override
+    public int bindTopLayout() {
+        return 0;
+    }
+
+    @Override
+    public int bindBottomLayout() {
+        return 0;
+    }
+
+    @Override
+    protected void refreshData() {
+        super.refreshData();
+        if (null != nameAdapter) {
+            nameAdapter.data.clear();
+            nameAdapter.notifyDataSetChanged();
+        }
+        if (null != titleAdapter) {
+            titleAdapter.data.clear();
+            titleAdapter.notifyDataSetChanged();
+        }
+        presenter.getNaviData();
     }
 
     @Override
     protected void initData() {
-        presenter.getNaviData();
+        super.initData();
     }
 
     @Override
@@ -115,6 +132,7 @@ public class PlayAndroidNaviFragment extends BaseFragment<NaviPresenter> impleme
 
     @Override
     public void getDataSuccess(NaviEntity entity) {
+        stopRefresh();
         initTitleData(entity);
         initContentData(entity);
         connectRecyclerView();
@@ -122,7 +140,7 @@ public class PlayAndroidNaviFragment extends BaseFragment<NaviPresenter> impleme
 
     @Override
     public void getDataFail(String msg) {
-
+        stopRefresh();
     }
 
     private void initTitleData(NaviEntity entity) {
@@ -384,7 +402,7 @@ public class PlayAndroidNaviFragment extends BaseFragment<NaviPresenter> impleme
             if (!isTitleRVMoving) {
                 //TODO 该处滑动时候多次调用，待优化
                 int firstVisiblePosition = titleLayoutManager.findFirstVisibleItemPosition();
-                if (!titleData.get(firstVisiblePosition).isTitle) {
+                if (titleData.size() <= firstVisiblePosition && !titleData.get(firstVisiblePosition).isTitle) {
                     // 如果此项对应的是左边的大类的index
                     int nameSize = nameAdapter.data.size();
                     for (int i = 0; i < nameSize; i++) {

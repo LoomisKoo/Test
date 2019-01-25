@@ -5,21 +5,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.Toast;
 
 import com.example.administrator.test.R;
-import com.example.administrator.test.base.fragment.BaseFragment;
+import com.example.administrator.test.base.adapter.QuickDelegateAdapter;
+import com.example.administrator.test.base.fragment.BaseFragmentNew;
 import com.example.administrator.test.mvp.base.IBaseModel;
 import com.example.administrator.test.mvp.contract.TestContract;
 import com.example.administrator.test.util.OnMultiClickListener;
 
-public class Fragment1 extends BaseFragment implements TestContract.View {
+public class Fragment1 extends BaseFragmentNew implements TestContract.View {
     Button button;
-
-    @Override
-    protected int setContentLayout() {
-        return R.layout.fragment_1;
-    }
 
     @Override
     protected void initView(View view) {
@@ -33,7 +28,18 @@ public class Fragment1 extends BaseFragment implements TestContract.View {
     }
 
     @Override
-    protected void initData(Bundle savedInstanceState) {
+    public int bindContentLayout() {
+        return R.layout.fragment_1;
+    }
+
+    @Override
+    public int bindTopLayout() {
+        return 0;
+    }
+
+    @Override
+    public int bindBottomLayout() {
+        return 0;
     }
 
     @Override

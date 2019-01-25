@@ -37,7 +37,7 @@ import jp.wasabeef.recyclerview.animators.SlideInLeftAnimator;
 /**
  * @author koo
  */
-public abstract class BaseListFragment<T, P> extends BaseFragment<P> {
+public abstract class BaseListFragment<T, P> extends BaseFragmentNew<P> {
 
     protected int page     = 1;
     protected int pageSize = 20;
@@ -45,14 +45,13 @@ public abstract class BaseListFragment<T, P> extends BaseFragment<P> {
 
     protected RecyclerView            recyclerView;
     protected QuickDelegateAdapter<T> adapter;
-    protected HeaderFooterViewModel   headerViewModel, footerViewModel;
+
 
     protected BaseActivity mActivity;
 
     protected TextView     emptyTv;
     protected LinearLayout topLay, bottomLay;
     protected ConstraintLayout     rootLay;
-    protected SmartRefreshLayout   refreshLayout;
     protected VirtualLayoutManager layoutManager;
 
     /**
@@ -64,12 +63,6 @@ public abstract class BaseListFragment<T, P> extends BaseFragment<P> {
      * 是否显示recycleView的item增删动画
      */
     private boolean isShowRvAnimation = true;
-
-
-    @Override
-    protected int setContentLayout() {
-        return R.layout.fragment_base_list;
-    }
 
     /**
      * 初始化View
@@ -83,9 +76,6 @@ public abstract class BaseListFragment<T, P> extends BaseFragment<P> {
         topLay = view.findViewById(R.id.base_pager_list_topLay);
         bottomLay = view.findViewById(R.id.base_pager_list_bottomLay);
         recyclerView = view.findViewById(R.id.base_pager_list_rv);
-        refreshLayout = view.findViewById(R.id.base_pager_list_refreshLayout);
-        refreshLayout.setOnRefreshListener(refreshLayout -> refresh());
-        refreshLayout.setOnLoadmoreListener(refreshLayout -> loadMore());
 
         initRecycleView();
     }
@@ -179,7 +169,8 @@ public abstract class BaseListFragment<T, P> extends BaseFragment<P> {
         recyclerView.addItemDecoration(divider);
     }
 
-    protected void refresh() {
+    @Override
+    protected void refreshData() {
         hideEmptyView();
         page = 0;
         adapter.clear();
@@ -191,7 +182,8 @@ public abstract class BaseListFragment<T, P> extends BaseFragment<P> {
         }
     }
 
-    protected void loadMore() {
+    @Override
+    protected void loadMoreData() {
         page++;
         if (maxPage > page) {
             getData(page, pageSize);
@@ -199,10 +191,6 @@ public abstract class BaseListFragment<T, P> extends BaseFragment<P> {
         else {
             stopRefresh();
         }
-    }
-
-    protected void setRefreshEnable(boolean enable) {
-        refreshLayout.setEnableRefresh(enable);
     }
 
     protected HeaderFooterViewModel getHeaderView() {
@@ -213,26 +201,17 @@ public abstract class BaseListFragment<T, P> extends BaseFragment<P> {
         return null;
     }
 
-    /**
-     * 隐藏空列表提示
-     */
-    protected void hideEmptyView() {
-        if (emptyTv.getVisibility() == View.VISIBLE) {
-            emptyTv.setVisibility(View.INVISIBLE);
-        }
-    }
-
-    /**
-     * 显示空列表提示
-     *
-     * @param text
-     * @param resId
-     */
-    protected void showEmptyView(String text, @DrawableRes int resId) {
-        emptyTv.setVisibility(View.VISIBLE);
-        emptyTv.setText(text);
-        emptyTv.setCompoundDrawablesWithIntrinsicBounds(0, resId, 0, 0);
-    }
+//    /**
+//     * 显示空列表提示
+//     *
+//     * @param text
+//     * @param resId
+//     */
+//    protected void showEmptyView(String text, @DrawableRes int resId) {
+//        emptyTv.setVisibility(View.VISIBLE);
+//        emptyTv.setText(text);
+//        emptyTv.setCompoundDrawablesWithIntrinsicBounds(0, resId, 0, 0);
+//    }
 
     /**
      * 检查列表是否为空
@@ -258,18 +237,18 @@ public abstract class BaseListFragment<T, P> extends BaseFragment<P> {
         isShowDefaultDivider = showDefaultDivider;
     }
 
-    protected boolean isRefreshFinish() {
-        return refreshLayout.getState() == RefreshState.None;
-    }
+//    protected boolean isRefreshFinish() {
+//        return refreshLayout.getState() == RefreshState.None;
+//    }
 
-    protected void stopRefresh() {
-        if (refreshLayout.isRefreshing()) {
-            refreshLayout.finishRefresh();
-        }
-        else if (refreshLayout.isLoading()) {
-            refreshLayout.finishLoadmore();
-        }
-    }
+//    protected void stopRefresh() {
+//        if (refreshLayout.isRefreshing()) {
+//            refreshLayout.finishRefresh();
+//        }
+//        else if (refreshLayout.isLoading()) {
+//            refreshLayout.finishLoadmore();
+//        }
+//    }
 
     /**
      * 是否显示recycleView的增删动画
@@ -278,14 +257,6 @@ public abstract class BaseListFragment<T, P> extends BaseFragment<P> {
      */
     public void setShowRvAnimation(boolean showRvAnimation) {
         isShowRvAnimation = showRvAnimation;
-    }
-
-    protected void setRootBackground(int color) {
-        rootLay.setBackgroundColor(color);
-    }
-
-    protected void setLoadMoreEnable(boolean enable) {
-        refreshLayout.setEnableLoadmore(enable);
     }
 
     protected abstract void getData(int page, int pageSize);
@@ -304,13 +275,8 @@ public abstract class BaseListFragment<T, P> extends BaseFragment<P> {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        if (0 != setContentLayout()) {
-            return inflater.inflate(setContentLayout(), container, false);
-        }
-        return null;
-
+    public int bindContentLayout() {
+        return R.layout.fragment_base_list;
     }
 
     @Override
