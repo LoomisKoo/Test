@@ -10,9 +10,6 @@ import com.example.administrator.test.R;
 import com.example.administrator.test.animation.AnimatorHelper;
 import com.example.administrator.test.base.adapter.BaseViewHolder;
 import com.example.administrator.test.entity.DailyRecommendArticleEntity;
-import com.google.android.flexbox.FlexDirection;
-import com.google.android.flexbox.FlexWrap;
-import com.google.android.flexbox.FlexboxLayoutManager;
 
 import java.util.List;
 
@@ -34,21 +31,14 @@ import androidx.recyclerview.widget.RecyclerView;
  */
 public class DailyRecommendArticleVH extends BaseViewHolder {
     RecyclerView rvArticle;
-    TextView     tvTitle;
+    TextView     tvType;
 
     public DailyRecommendArticleVH(Context context, ViewGroup parent, int layoutId) {
         super(context, parent, layoutId);
-        tvTitle = retrieveView(R.id.tv_title);
+        tvType = retrieveView(R.id.tv_title);
         rvArticle = retrieveView(R.id.rv_article);
 
-
-        FlexboxLayoutManager manager = new FlexboxLayoutManager(context, FlexDirection.ROW, FlexWrap.WRAP) {
-            @Override
-            public boolean canScrollVertically() {
-                return false;
-            }
-        };
-        rvArticle.setLayoutManager(manager);
+        rvArticle.setLayoutManager(new LinearLayoutManager(context));
         //设置不需要焦点 否则切换tab后，嵌套的recyclerview会自动滚动
         rvArticle.setFocusableInTouchMode(false);
         rvArticle.requestFocus();
@@ -56,11 +46,14 @@ public class DailyRecommendArticleVH extends BaseViewHolder {
 
     public void setData(List<DailyRecommendArticleEntity> entityList) {
         if (entityList.size() > 0) {
-            tvTitle.setText(entityList.get(0)
-                                      .getType());
+            tvType.setText(entityList.get(0)
+                                     .getType());
             rvArticle.setAdapter(new DailyRecommendArticleAdapter(entityList));
         }
+
     }
+
+    DailyRecommendArticleAdapter adapter;
 
     class DailyRecommendArticleAdapter extends RecyclerView.Adapter<DailyRecommendArticleAdapter.ArticleVH> {
 
@@ -85,6 +78,11 @@ public class DailyRecommendArticleVH extends BaseViewHolder {
         public void onBindViewHolder(@NonNull ArticleVH holder, int position) {
             holder.tvTitle.setText(data.get(position)
                                        .getDesc());
+            holder.itemView.setOnClickListener(v -> {
+                if (null != clickCallBack) {
+                    clickCallBack.onItemClick(position);
+                }
+            });
         }
 
         @Override
@@ -100,5 +98,11 @@ public class DailyRecommendArticleVH extends BaseViewHolder {
                 tvTitle = itemView.findViewById(R.id.tv_title);
             }
         }
+    }
+
+    ClickCallBack clickCallBack;
+
+    interface ClickCallBack {
+        void onItemClick(int position);
     }
 }
