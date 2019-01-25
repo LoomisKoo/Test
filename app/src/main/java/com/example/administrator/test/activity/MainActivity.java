@@ -20,7 +20,7 @@ import com.example.administrator.test.R;
 import com.example.administrator.test.animation.AnimatorHelper;
 import com.example.administrator.test.base.activity.BaseActivity;
 import com.example.administrator.test.fragment.Fragment1;
-import com.example.administrator.test.fragment.PlayFragment;
+import com.example.administrator.test.fragment.BasicKnowledgeFragment;
 import com.example.administrator.test.fragment.RecommendFragment;
 import com.example.administrator.test.mvp.base.IBasePresenter;
 import com.example.administrator.test.util.ACache;
@@ -257,7 +257,7 @@ public class MainActivity extends BaseActivity {
      */
     private void initViewPager() {
         fragments = new ArrayList<>();
-        fragments.add(new PlayFragment());
+        fragments.add(new BasicKnowledgeFragment());
         fragments.add(new RecommendFragment());
         fragments.add(new Fragment1());
         viewPager = (ViewPager) findViewById(R.id.view_pager);

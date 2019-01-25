@@ -18,7 +18,7 @@ import java.util.ArrayList;
 /**
  * @author koo
  */
-public class PlayFragment extends BaseFragmentNew {
+public class BasicKnowledgeFragment extends BaseFragmentNew {
     /**
      * viewpager数量
      */
@@ -44,8 +44,10 @@ public class PlayFragment extends BaseFragmentNew {
         initBottomBar(view);
         //禁止越界拖动
         refreshLayout.setEnableOverScrollDrag(false);
-        //禁止下拉加载
+        //禁止下拉刷新
         refreshLayout.setEnableRefresh(false);
+        //禁止上拉加载
+        refreshLayout.setEnableLoadmore(false);
     }
 
     @Override
