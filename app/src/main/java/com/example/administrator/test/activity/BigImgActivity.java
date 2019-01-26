@@ -74,7 +74,8 @@ public class BigImgActivity extends BaseActivity {
     @Override
     public void initView(Bundle savedInstanceState) {
         setAllowActivityAnimator(false);
-        setTooBarTitle(activityTitle);
+        setCenterTitle(activityTitle);
+        showCenterTitle(true);
         photoView = (PhotoView) findViewById(R.id.photo_view);
         photoView.setEnabled(true);
         photoView.setOnClickListener(view -> finishAfterTransition());

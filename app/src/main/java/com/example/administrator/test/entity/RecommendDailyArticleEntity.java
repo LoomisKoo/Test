@@ -8,7 +8,7 @@ import java.util.List;
  * 首页item bean
  */
 
-public class DailyRecommendArticleEntity implements Serializable {
+public class RecommendDailyArticleEntity implements Serializable {
 
     // 存储单独设置的值，用来显示title
     private String type_title;

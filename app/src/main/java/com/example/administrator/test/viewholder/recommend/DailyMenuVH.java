@@ -12,7 +12,7 @@ import com.example.administrator.test.util.ArouteHelper;
 /**
  * @ProjectName: Test
  * @Package: com.example.administrator.test.viewholder.recommend
- * @ClassName: DailyRecommendArticleVH
+ * @ClassName: DailyArticleVH
  * @Description: java类作用描述
  * @Author: koo
  * @CreateDate: 2019/1/23 6:27 PM
@@ -21,7 +21,7 @@ import com.example.administrator.test.util.ArouteHelper;
  * @UpdateRemark: 更新说明
  * @Version: 1.0
  */
-public class DailyRecommendMenuVH extends BaseViewHolder {
+public class DailyMenuVH extends BaseViewHolder {
     private static final String RECOMMEND_MUSIC_TITLE = "网易云音乐";
     private static final String RECOMMEND_MUSIC_URL   = "https://music.163.com/m/";
 
@@ -39,7 +39,7 @@ public class DailyRecommendMenuVH extends BaseViewHolder {
     private ImageButton ibPlayAndroid;
     private ImageButton ibHitMovies;
 
-    public DailyRecommendMenuVH(Context context, ViewGroup parent, int layoutId) {
+    public DailyMenuVH(Context context, ViewGroup parent, int layoutId) {
         super(context, parent, layoutId);
         ibReading = getView(R.id.ib_reading);
         ibDailyRecommend = getView(R.id.ib_daily_recommend);

@@ -16,7 +16,7 @@ import java.util.List;
 /**
  * @ProjectName: Test
  * @Package: com.example.administrator.test.viewholder.recommend
- * @ClassName: DailyRecommendArticleVH
+ * @ClassName: DailyArticleVH
  * @Description: java类作用描述
  * @Author: koo
  * @CreateDate: 2019/1/23 6:27 PM
@@ -25,10 +25,10 @@ import java.util.List;
  * @UpdateRemark: 更新说明
  * @Version: 1.0
  */
-public class DailyRecommendBannerVH extends BaseViewHolder {
+public class DailyBannerVH extends BaseViewHolder {
     Banner banner;
 
-    public DailyRecommendBannerVH(Context context, ViewGroup parent, int layoutId) {
+    public DailyBannerVH(Context context, ViewGroup parent, int layoutId) {
         super(context, parent, layoutId);
         banner = retrieveView(R.id.banner);
     }

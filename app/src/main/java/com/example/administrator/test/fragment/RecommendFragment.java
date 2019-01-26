@@ -89,7 +89,7 @@ public class RecommendFragment extends BaseFragmentNew {
     private void initFragmentList() {
         fragments.clear();
         fragments.add(new RecommendDailyFragment());
-        fragments.add(new RecommendDailyFragment());
+        fragments.add(new RecommendWelfareFragment());
         fragments.add(new RecommendDailyFragment());
         fragments.add(new RecommendDailyFragment());
     }

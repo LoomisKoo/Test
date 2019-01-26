@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * @ProjectName: Test
  * @Package: com.example.administrator.test.entity
- * @ClassName: DailyRecommendEntity
+ * @ClassName: RecommendDailyEntity
  * @Description: java类作用描述
  * @Author: koo
  * @CreateDate: 2019/1/23 11:33 AM
@@ -17,7 +17,7 @@ import java.util.List;
  * @UpdateRemark: 更新说明
  * @Version: 1.0
  */
-public class DailyRecommendEntity implements Serializable {
+public class RecommendDailyEntity implements Serializable {
 
     /**
      * category : ["拓展资源","瞎推荐","ddd","App","IOS","休息视频","福利"]
@@ -54,72 +54,72 @@ public class DailyRecommendEntity implements Serializable {
     }
 
     public static class ResultsBean {
-        private List<DailyRecommendArticleEntity> Android;
-        private List<DailyRecommendArticleEntity> App;
-        private List<DailyRecommendArticleEntity> IOS;
+        private List<RecommendDailyArticleEntity> Android;
+        private List<RecommendDailyArticleEntity> App;
+        private List<RecommendDailyArticleEntity> IOS;
         @JSONField(name = "休息视频")
-        private List<DailyRecommendArticleEntity> videoBeanList;
+        private List<RecommendDailyArticleEntity> videoBeanList;
         @JSONField(name = "拓展资源")
-        private List<DailyRecommendArticleEntity> expandBeanList;
+        private List<RecommendDailyArticleEntity> expandBeanList;
         @JSONField(name = "瞎推荐")
-        private List<DailyRecommendArticleEntity> recommendBeanList;
+        private List<RecommendDailyArticleEntity> recommendBeanList;
         @JSONField(name = "福利")
-        private List<DailyRecommendArticleEntity> welfareBeanList;
+        private List<RecommendDailyArticleEntity> welfareBeanList;
 
 
-        public List<DailyRecommendArticleEntity> getAndroid() {
+        public List<RecommendDailyArticleEntity> getAndroid() {
             return Android;
         }
 
-        public void setAndroid(List<DailyRecommendArticleEntity> android) {
+        public void setAndroid(List<RecommendDailyArticleEntity> android) {
             Android = android;
         }
 
-        public List<DailyRecommendArticleEntity> getApp() {
+        public List<RecommendDailyArticleEntity> getApp() {
             return App;
         }
 
-        public void setApp(List<DailyRecommendArticleEntity> app) {
+        public void setApp(List<RecommendDailyArticleEntity> app) {
             App = app;
         }
 
-        public List<DailyRecommendArticleEntity> getIOS() {
+        public List<RecommendDailyArticleEntity> getIOS() {
             return IOS;
         }
 
-        public void setIOS(List<DailyRecommendArticleEntity> IOS) {
+        public void setIOS(List<RecommendDailyArticleEntity> IOS) {
             this.IOS = IOS;
         }
 
-        public List<DailyRecommendArticleEntity> getVideoBeanList() {
+        public List<RecommendDailyArticleEntity> getVideoBeanList() {
             return videoBeanList;
         }
 
-        public void setVideoBeanList(List<DailyRecommendArticleEntity> videoBeanList) {
+        public void setVideoBeanList(List<RecommendDailyArticleEntity> videoBeanList) {
             this.videoBeanList = videoBeanList;
         }
 
-        public List<DailyRecommendArticleEntity> getExpandBeanList() {
+        public List<RecommendDailyArticleEntity> getExpandBeanList() {
             return expandBeanList;
         }
 
-        public void setExpandBeanList(List<DailyRecommendArticleEntity> expandBeanList) {
+        public void setExpandBeanList(List<RecommendDailyArticleEntity> expandBeanList) {
             this.expandBeanList = expandBeanList;
         }
 
-        public List<DailyRecommendArticleEntity> getRecommendBeanList() {
+        public List<RecommendDailyArticleEntity> getRecommendBeanList() {
             return recommendBeanList;
         }
 
-        public void setRecommendBeanList(List<DailyRecommendArticleEntity> recommendBeanList) {
+        public void setRecommendBeanList(List<RecommendDailyArticleEntity> recommendBeanList) {
             this.recommendBeanList = recommendBeanList;
         }
 
-        public List<DailyRecommendArticleEntity> getWelfareBeanList() {
+        public List<RecommendDailyArticleEntity> getWelfareBeanList() {
             return welfareBeanList;
         }
 
-        public void setWelfareBeanList(List<DailyRecommendArticleEntity> welfareBeanList) {
+        public void setWelfareBeanList(List<RecommendDailyArticleEntity> welfareBeanList) {
             this.welfareBeanList = welfareBeanList;
         }
 

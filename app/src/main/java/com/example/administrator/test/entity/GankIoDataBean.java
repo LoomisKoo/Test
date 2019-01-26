@@ -75,7 +75,7 @@ public class GankIoDataBean implements Serializable {
 
         @Override
         public String toString() {
-            return "ResultsBean{" +
+            return "WelfareBean{" +
                     "who='" + who + '\'' +
                     ", used=" + used +
                     ", url='" + url + '\'' +

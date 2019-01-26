@@ -9,17 +9,17 @@ import com.example.administrator.test.R;
 import com.example.administrator.test.base.adapter.BaseViewHolder;
 import com.example.administrator.test.base.adapter.QuickDelegateAdapter;
 import com.example.administrator.test.base.fragment.BaseListFragment;
-import com.example.administrator.test.entity.DailyRecommendArticleEntity;
-import com.example.administrator.test.entity.DailyRecommendEntity;
+import com.example.administrator.test.entity.RecommendDailyArticleEntity;
+import com.example.administrator.test.entity.RecommendDailyEntity;
 import com.example.administrator.test.entity.view.DailyRecommendViewEntity;
-import com.example.administrator.test.mvp.contract.DailyRecommendContract;
-import com.example.administrator.test.mvp.model.DailyRecommendModel;
-import com.example.administrator.test.mvp.presenter.DailyRecommendPresenter;
-import com.example.administrator.test.viewholder.recommend.DailyRecommendArticleVH;
-import com.example.administrator.test.viewholder.recommend.DailyRecommendBannerVH;
-import com.example.administrator.test.viewholder.recommend.DailyRecommendMenuVH;
-import com.example.administrator.test.viewholder.recommend.DailyRecommendPhotoVH;
-import com.example.administrator.test.viewholder.recommend.DailyRecommendVideoVH;
+import com.example.administrator.test.mvp.contract.RecommendDailyContract;
+import com.example.administrator.test.mvp.model.RecommendDailyModel;
+import com.example.administrator.test.mvp.presenter.RecommendDailyPresenter;
+import com.example.administrator.test.viewholder.recommend.DailyArticleVH;
+import com.example.administrator.test.viewholder.recommend.DailyBannerVH;
+import com.example.administrator.test.viewholder.recommend.DailyMenuVH;
+import com.example.administrator.test.viewholder.recommend.DailyPhotoVH;
+import com.example.administrator.test.viewholder.recommend.DailyVideoVH;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +38,7 @@ import androidx.recyclerview.widget.RecyclerView;
  * @UpdateRemark: 更新说明
  * @Version: 1.0
  */
-public class RecommendDailyFragment extends BaseListFragment<DailyRecommendViewEntity, DailyRecommendPresenter> implements DailyRecommendContract.View {
+public class RecommendDailyFragment extends BaseListFragment<DailyRecommendViewEntity, RecommendDailyPresenter> implements RecommendDailyContract.View {
 
     @Override
     protected void getData(int page, int pageSize) {
@@ -70,18 +70,18 @@ public class RecommendDailyFragment extends BaseListFragment<DailyRecommendViewE
             protected void onSetItemData(BaseViewHolder holder, DailyRecommendViewEntity item, int viewType, int position) {
                 switch (viewType) {
                     case DailyRecommendViewEntity.VIEW_TYPE_BANNER:
-                        ((DailyRecommendBannerVH) holder).setData((List<String>) item.getData());
+                        ((DailyBannerVH) holder).setData((List<String>) item.getData());
                         break;
                     case DailyRecommendViewEntity.VIEW_TYPE_MAIN_MENU:
                         break;
                     case DailyRecommendViewEntity.VIEW_TYPE_ARTICLE:
-                        ((DailyRecommendArticleVH) holder).setData((List<DailyRecommendArticleEntity>) item.getData());
+                        ((DailyArticleVH) holder).setData((List<RecommendDailyArticleEntity>) item.getData());
                         break;
                     case DailyRecommendViewEntity.VIEW_TYPE_VIDEO:
-                        ((DailyRecommendVideoVH) holder).setData((List<DailyRecommendArticleEntity>) item.getData());
+                        ((DailyVideoVH) holder).setData((List<RecommendDailyArticleEntity>) item.getData());
                         break;
                     case DailyRecommendViewEntity.VIEW_TYPE_PHOTO:
-                        ((DailyRecommendPhotoVH) holder).setData((List<DailyRecommendArticleEntity>) item.getData());
+                        ((DailyPhotoVH) holder).setData((List<RecommendDailyArticleEntity>) item.getData());
                         break;
                     default:
                         break;
@@ -97,15 +97,15 @@ public class RecommendDailyFragment extends BaseListFragment<DailyRecommendViewE
             public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
                 switch (viewType) {
                     case DailyRecommendViewEntity.VIEW_TYPE_BANNER:
-                        return new DailyRecommendBannerVH(getActivity(), parent, R.layout.recommend_daily_vh_banner);
+                        return new DailyBannerVH(getActivity(), parent, R.layout.recommend_daily_vh_banner);
                     case DailyRecommendViewEntity.VIEW_TYPE_MAIN_MENU:
-                        return new DailyRecommendMenuVH(getActivity(), parent, R.layout.recommend_daily_vh_menu);
+                        return new DailyMenuVH(getActivity(), parent, R.layout.recommend_daily_vh_menu);
                     case DailyRecommendViewEntity.VIEW_TYPE_ARTICLE:
-                        return new DailyRecommendArticleVH(getActivity(), parent, R.layout.recommend_daily_vh_common);
+                        return new DailyArticleVH(getActivity(), parent, R.layout.recommend_daily_vh_common);
                     case DailyRecommendViewEntity.VIEW_TYPE_VIDEO:
-                        return new DailyRecommendVideoVH(getActivity(), parent, R.layout.recommend_daily_vh_common);
+                        return new DailyVideoVH(getActivity(), parent, R.layout.recommend_daily_vh_common);
                     case DailyRecommendViewEntity.VIEW_TYPE_PHOTO:
-                        return new DailyRecommendPhotoVH(getActivity(), parent, R.layout.recommend_daily_vh_common);
+                        return new DailyPhotoVH(getActivity(), parent, R.layout.recommend_daily_vh_common);
                     default:
                         break;
                 }
@@ -132,12 +132,12 @@ public class RecommendDailyFragment extends BaseListFragment<DailyRecommendViewE
     }
 
     @Override
-    protected DailyRecommendPresenter getPresenter() {
-        return new DailyRecommendPresenter(new DailyRecommendModel(), this);
+    protected RecommendDailyPresenter getPresenter() {
+        return new RecommendDailyPresenter(new RecommendDailyModel(), this);
     }
 
     @Override
-    public void onSuccess(DailyRecommendEntity entity) {
+    public void onSuccess(RecommendDailyEntity entity) {
         DailyRecommendViewEntity data;
         //福利
         data = new DailyRecommendViewEntity(entity.getResults()

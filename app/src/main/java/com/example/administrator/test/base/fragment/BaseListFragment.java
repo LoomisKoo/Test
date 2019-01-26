@@ -41,7 +41,7 @@ public abstract class BaseListFragment<T, P> extends BaseFragmentNew<P> {
 
     protected int page     = 1;
     protected int pageSize = 20;
-    protected int maxPage  = 1;
+    protected int maxPage  = Integer.MAX_VALUE;
 
     protected RecyclerView            recyclerView;
     protected QuickDelegateAdapter<T> adapter;

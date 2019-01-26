@@ -2,7 +2,7 @@ package com.example.administrator.test.mvp.model;
 
 import com.example.administrator.test.http.Api;
 import com.example.administrator.test.http.HttpCallback;
-import com.example.administrator.test.mvp.contract.DailyRecommendContract;
+import com.example.administrator.test.mvp.contract.RecommendDailyContract;
 
 import io.reactivex.Observable;
 import okhttp3.ResponseBody;
@@ -10,7 +10,7 @@ import okhttp3.ResponseBody;
 /**
  * @ProjectName: Test
  * @Package: com.example.administrator.test.mvp.model
- * @ClassName: DailyRecommendModel
+ * @ClassName: RecommendDailyModel
  * @Description: java类作用描述
  * @Author: koo
  * @CreateDate: 2019/1/23 9:14 AM
@@ -19,7 +19,7 @@ import okhttp3.ResponseBody;
  * @UpdateRemark: 更新说明
  * @Version: 1.0
  */
-public class DailyRecommendModel implements DailyRecommendContract.Model {
+public class RecommendDailyModel implements RecommendDailyContract.Model {
     @Override
     public void getBannerImg(HttpCallback httpCallback) {
 

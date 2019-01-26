@@ -9,7 +9,7 @@ import android.widget.TextView;
 import com.example.administrator.test.R;
 import com.example.administrator.test.animation.AnimatorHelper;
 import com.example.administrator.test.base.adapter.BaseViewHolder;
-import com.example.administrator.test.entity.DailyRecommendArticleEntity;
+import com.example.administrator.test.entity.RecommendDailyArticleEntity;
 
 import java.util.List;
 
@@ -20,7 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 /**
  * @ProjectName: Test
  * @Package: com.example.administrator.test.viewholder.recommend
- * @ClassName: DailyRecommendArticleVH
+ * @ClassName: DailyArticleVH
  * @Description: java类作用描述
  * @Author: koo
  * @CreateDate: 2019/1/23 6:27 PM
@@ -29,11 +29,11 @@ import androidx.recyclerview.widget.RecyclerView;
  * @UpdateRemark: 更新说明
  * @Version: 1.0
  */
-public class DailyRecommendArticleVH extends BaseViewHolder {
+public class DailyArticleVH extends BaseViewHolder {
     RecyclerView rvArticle;
     TextView     tvType;
 
-    public DailyRecommendArticleVH(Context context, ViewGroup parent, int layoutId) {
+    public DailyArticleVH(Context context, ViewGroup parent, int layoutId) {
         super(context, parent, layoutId);
         tvType = retrieveView(R.id.tv_title);
         rvArticle = retrieveView(R.id.rv_article);
@@ -44,7 +44,7 @@ public class DailyRecommendArticleVH extends BaseViewHolder {
         rvArticle.requestFocus();
     }
 
-    public void setData(List<DailyRecommendArticleEntity> entityList) {
+    public void setData(List<RecommendDailyArticleEntity> entityList) {
         if (entityList.size() > 0) {
             tvType.setText(entityList.get(0)
                                      .getType());
@@ -55,9 +55,9 @@ public class DailyRecommendArticleVH extends BaseViewHolder {
 
     class DailyRecommendArticleAdapter extends RecyclerView.Adapter<DailyRecommendArticleAdapter.ArticleVH> {
 
-        private List<DailyRecommendArticleEntity> data;
+        private List<RecommendDailyArticleEntity> data;
 
-        public DailyRecommendArticleAdapter(List<DailyRecommendArticleEntity> data) {
+        public DailyRecommendArticleAdapter(List<RecommendDailyArticleEntity> data) {
             this.data = data;
         }
 
