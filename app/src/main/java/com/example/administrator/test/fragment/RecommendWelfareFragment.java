@@ -15,6 +15,7 @@ import com.example.administrator.test.mvp.model.RecommendWelfareModel;
 import com.example.administrator.test.mvp.presenter.RecommendWelfarePresenter;
 import com.example.administrator.test.viewholder.recommend.WelfareVH;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -31,7 +32,7 @@ import androidx.recyclerview.widget.RecyclerView;
  * @UpdateRemark: 更新说明
  * @Version: 1.0
  */
-public class RecommendWelfareFragment extends BaseListFragment<RecommendWelfareEntity.WelfareBean, RecommendWelfarePresenter> implements RecommendWelfareContract.View {
+public class RecommendWelfareFragment extends BaseListFragment<String, RecommendWelfarePresenter> implements RecommendWelfareContract.View {
     private static final int GRID_LAYOUT_ROWS = 2;
 
     @Override
@@ -46,16 +47,15 @@ public class RecommendWelfareFragment extends BaseListFragment<RecommendWelfareE
 
     @Override
     protected QuickDelegateAdapter getAdapter() {
-        return new QuickDelegateAdapter<RecommendWelfareEntity.WelfareBean>(getContext(), R.layout.recommend_welfare_vh_item) {
+        return new QuickDelegateAdapter<String>(getContext(), R.layout.recommend_welfare_vh_item) {
             @Override
-            protected void onSetItemData(BaseViewHolder holder, RecommendWelfareEntity.WelfareBean item, int viewType, int position) {
-                ((WelfareVH) holder).setData(item.getUrl());
+            protected void onSetItemData(BaseViewHolder holder, String item, int viewType, int position) {
+                ((WelfareVH) holder).setData((ArrayList<String>) data, position);
             }
 
             @Override
             public LayoutHelper onCreateLayoutHelper() {
                 return new GridLayoutHelper(GRID_LAYOUT_ROWS);
-//                return new LinearLayoutHelper();
             }
 
             @Override
@@ -90,15 +90,10 @@ public class RecommendWelfareFragment extends BaseListFragment<RecommendWelfareE
         return new RecommendWelfarePresenter(new RecommendWelfareModel(), this);
     }
 
-
     @Override
-    public void onSuccess(List<RecommendWelfareEntity.WelfareBean> entity) {
+    public void onSuccess(String imgUrl) {
         stopRefresh();
-        //此处不用adapter.addAll(entity) 因为这样recyclerview会整体刷新，导致闪烁的效果
-        for (RecommendWelfareEntity.WelfareBean data : entity) {
-            adapter.add(data);
-        }
-
+        adapter.add(imgUrl);
     }
 
     @Override

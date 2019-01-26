@@ -6,9 +6,9 @@ import android.view.ViewGroup;
 import com.example.administrator.test.R;
 import com.example.administrator.test.base.adapter.BaseViewHolder;
 import com.example.administrator.test.util.GlideImageLoader;
-import com.youth.banner.Banner;
-import com.youth.banner.BannerConfig;
-import com.youth.banner.Transformer;
+import com.loomis.banner.Banner;
+import com.loomis.banner.BannerConfig;
+import com.loomis.banner.Transformer;
 
 import java.util.ArrayList;
 import java.util.List;

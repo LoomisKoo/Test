@@ -1,21 +1,18 @@
 package com.example.administrator.test.viewholder.playandroid;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.alibaba.android.arouter.launcher.ARouter;
 import com.example.administrator.test.R;
-import com.example.administrator.test.animation.AnimatorHelper;
 import com.example.administrator.test.base.adapter.BaseViewHolder;
 import com.example.administrator.test.entity.BannerEntity;
 import com.example.administrator.test.util.ArouteHelper;
 import com.example.administrator.test.util.GlideImageLoader;
+import com.loomis.banner.Banner;
+import com.loomis.banner.BannerConfig;
+import com.loomis.banner.Transformer;
 import com.orhanobut.logger.Logger;
-import com.youth.banner.Banner;
-import com.youth.banner.BannerConfig;
-import com.youth.banner.Transformer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,7 +45,6 @@ public class PlayAndroidBannerVH extends BaseViewHolder {
     public void setData(BannerEntity data) {
         startBanner(data.getData());
     }
-
 
     private void startBanner(List<BannerEntity.DataBean> entity) {
         if (null == entity || 0 == entity.size()) {

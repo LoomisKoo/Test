@@ -14,6 +14,9 @@ import com.example.administrator.test.R;
 import com.example.administrator.test.base.adapter.BaseViewHolder;
 import com.example.administrator.test.util.ArouteHelper;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import androidx.core.app.ActivityOptionsCompat;
 
 /**
@@ -37,13 +40,14 @@ public class WelfareVH extends BaseViewHolder {
     }
 
     @SuppressLint("CheckResult")
-    public void setData(String imgUrl) {
+    public void setData(ArrayList<String> urlList, int curImgPosition) {
+
         RequestOptions options = new RequestOptions();
         options.error(R.mipmap.ic_launcher)
                .placeholder(R.mipmap.ic_launcher);
         Glide.with(context)
              .setDefaultRequestOptions(options)
-             .load(imgUrl)
+             .load(urlList.get(curImgPosition))
              .into(imageView);
         imageView.setOnClickListener(v -> {
             ActivityOptionsCompat optionsCompat =
@@ -52,8 +56,9 @@ public class WelfareVH extends BaseViewHolder {
             ARouter.getInstance()
                    .build(ArouteHelper.ROUTE_ACTIVITY_BIG_IMAGE)
                    .withString("activityTitle", "福利")
+                   .withInt("curImgPosition", curImgPosition)
                    .withOptionsCompat(optionsCompat)
-                   .withString("url", imgUrl)
+                   .withStringArrayList("urlList", urlList)
                    .navigation(context);
         });
     }

@@ -5,7 +5,7 @@ import android.net.Uri;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
-import com.youth.banner.loader.ImageLoader;
+import com.loomis.banner.loader.ImageLoader;
 
 /**
  * @ProjectName: Test

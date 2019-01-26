@@ -35,9 +35,9 @@ public interface RecommendWelfareContract {
         /**
          * 数据请求成功回调
          *
-         * @param entity
+         * @param imgUrl
          */
-        void onSuccess(List<RecommendWelfareEntity.WelfareBean> entity);
+        void onSuccess(String imgUrl);
 
         void onError(String msg);
     }

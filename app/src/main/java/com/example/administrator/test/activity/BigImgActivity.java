@@ -6,14 +6,16 @@ import android.view.View;
 
 import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
-import com.bumptech.glide.Glide;
 import com.example.administrator.test.R;
 import com.example.administrator.test.base.activity.BaseActivity;
 import com.example.administrator.test.mvp.base.IBasePresenter;
 import com.example.administrator.test.util.ArouteHelper;
-import com.github.chrisbanes.photoview.PhotoView;
+import com.example.administrator.test.util.GlideImageLoader;
+import com.loomis.banner.BannerConfig;
+import com.loomis.banner.BannerNotCircle;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @ProjectName: Test
@@ -29,12 +31,17 @@ import java.util.ArrayList;
  */
 @Route(path = ArouteHelper.ROUTE_ACTIVITY_BIG_IMAGE)
 public class BigImgActivity extends BaseActivity {
-    PhotoView photoView;
+    BannerNotCircle banner;
 
     @Autowired
-    public String url;
+    public List<String> urlList;
     @Autowired
-    public String activityTitle;
+    public String       url;
+    @Autowired
+    public int          curImgPosition;
+    @Autowired
+    public String       activityTitle;
+
 
     @Override
     public void widgetClick(View v) {
@@ -76,10 +83,25 @@ public class BigImgActivity extends BaseActivity {
         setAllowActivityAnimator(false);
         setCenterTitle(activityTitle);
         showCenterTitle(true);
-        photoView = (PhotoView) findViewById(R.id.photo_view);
-        photoView.setEnabled(true);
-        photoView.setOnClickListener(view -> finishAfterTransition());
-        photoView.setOnLongClickListener(view -> {
+
+        urlList = getIntent().getStringArrayListExtra("urlList");
+        if (null == urlList) {
+            urlList = new ArrayList<>();
+            urlList.add(url);
+            curImgPosition = 0;
+        }
+
+        banner = (BannerNotCircle) findViewById(R.id.banner);
+        banner.setImages(urlList)
+              .setBannerStyle(BannerConfig.NUM_INDICATOR)
+              .setImageLoader(new GlideImageLoader())
+//              .setIndicatorGravity(BannerConfig.CENTER)
+              .isAutoPlay(false)
+              .start()
+              .setCurPosition(curImgPosition)
+              .setOnBannerListener(position -> finishAfterTransition());
+
+        banner.setOnLongClickListener(view -> {
             ArrayList<String> tips = new ArrayList<>();
             tips.add("保存图片");
             //TODO 待完善
@@ -101,9 +123,7 @@ public class BigImgActivity extends BaseActivity {
 //            });
             return false;
         });
-        Glide.with(this)
-             .load(url)
-             .into(photoView);
+
     }
 
     @Override
