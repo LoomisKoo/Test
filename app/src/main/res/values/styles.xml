@@ -61,4 +61,9 @@
         <item name="android:paddingStart">10dp</item>
         <item name="android:background">?attr/selectableItemBackground</item>
     </style>
+
+    <!--允许共享动画-->
+    <style name="TransitionsTheme" parent="AppTheme">
+        <item name="android:windowContentTransitions">true</item>
+    </style>
 </resources>

@@ -73,16 +73,17 @@ public class BigImgActivity extends BaseActivity {
 
     @Override
     public void initView(Bundle savedInstanceState) {
+        setAllowActivityAnimator(false);
         setTooBarTitle(activityTitle);
         photoView = (PhotoView) findViewById(R.id.photo_view);
         photoView.setEnabled(true);
-        photoView.setOnClickListener(view -> finish());
+        photoView.setOnClickListener(view -> finishAfterTransition());
         photoView.setOnLongClickListener(view -> {
             ArrayList<String> tips = new ArrayList<>();
             tips.add("保存图片");
             //TODO 待完善
 //            DialogUtils.showListDialog(BigImgActivity.this, "", tips, position -> {
-//                Bitmap saveBitmap = null;
+//                Bitmap saveBitmap\ = null;
 //                saveBitmap = ((BitmapDrawable) (photoView).getDrawable()).getBitmap();
 //                if (null != saveBitmap) {
 //                    File file = FileUtil.savePictureToAlbum(BigImgActivity.this, saveBitmap);
@@ -122,5 +123,15 @@ public class BigImgActivity extends BaseActivity {
     @Override
     public void initData(Context mContext) {
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        finishAfterTransition();
+    }
+
+    @Override
+    protected void OnNavigationOnClick() {
+        finishAfterTransition();
     }
 }

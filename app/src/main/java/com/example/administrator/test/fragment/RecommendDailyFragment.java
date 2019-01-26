@@ -139,10 +139,16 @@ public class RecommendDailyFragment extends BaseListFragment<DailyRecommendViewE
     @Override
     public void onSuccess(DailyRecommendEntity entity) {
         DailyRecommendViewEntity data;
+        //福利
+        data = new DailyRecommendViewEntity(entity.getResults()
+                                                  .getWelfareBeanList(), DailyRecommendViewEntity.VIEW_TYPE_PHOTO);
+        adapter.add(data);
+
         //android
         data = new DailyRecommendViewEntity(entity.getResults()
                                                   .getAndroid(), DailyRecommendViewEntity.VIEW_TYPE_ARTICLE);
         adapter.add(data);
+
         //ios
         data = new DailyRecommendViewEntity(entity.getResults()
                                                   .getIOS(), DailyRecommendViewEntity.VIEW_TYPE_ARTICLE);
@@ -162,10 +168,6 @@ public class RecommendDailyFragment extends BaseListFragment<DailyRecommendViewE
         //瞎推荐
         data = new DailyRecommendViewEntity(entity.getResults()
                                                   .getRecommendBeanList(), DailyRecommendViewEntity.VIEW_TYPE_ARTICLE);
-        adapter.add(data);
-        //福利
-        data = new DailyRecommendViewEntity(entity.getResults()
-                                                  .getWelfareBeanList(), DailyRecommendViewEntity.VIEW_TYPE_PHOTO);
         adapter.add(data);
 
         checkRvEmpty();

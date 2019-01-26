@@ -1,5 +1,6 @@
 package com.example.administrator.test.viewholder.recommend;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -19,6 +20,7 @@ import com.example.administrator.test.util.ArouteHelper;
 import java.util.List;
 
 import androidx.annotation.NonNull;
+import androidx.core.app.ActivityOptionsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -86,14 +88,14 @@ public class DailyRecommendPhotoVH extends BaseViewHolder {
             holder.itemView.setOnClickListener(v -> {
                 String url = data.get(position)
                                  .getUrl();
+                ActivityOptionsCompat optionsCompat =
+                        ActivityOptionsCompat.makeSceneTransitionAnimation((Activity) context, holder.ivWelfare, "translation_img");
                 ARouter.getInstance()
                        .build(ArouteHelper.ROUTE_ACTIVITY_BIG_IMAGE)
-                       .withFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
                        .withString("activityTitle", data.get(position)
                                                         .getType())
+                       .withOptionsCompat(optionsCompat)
                        .withString("url", url)
-                       .withInt("x", AnimatorHelper.getDownX())
-                       .withInt("y", AnimatorHelper.getDownY())
                        .navigation(context);
             });
         }
