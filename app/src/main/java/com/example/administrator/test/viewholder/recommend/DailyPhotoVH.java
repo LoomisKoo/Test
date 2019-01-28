@@ -2,6 +2,7 @@ package com.example.administrator.test.viewholder.recommend;
 
 import android.app.Activity;
 import android.content.Context;
+import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,11 +16,15 @@ import com.example.administrator.test.animation.AnimatorHelper;
 import com.example.administrator.test.base.adapter.BaseViewHolder;
 import com.example.administrator.test.entity.RecommendDailyArticleEntity;
 import com.example.administrator.test.util.ArouteHelper;
+import com.example.administrator.test.widget.imgViewPager.GlideSimpleLoader;
+import com.example.administrator.test.widget.imgViewPager.ImageWatcherHelper;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityOptionsCompat;
+import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -36,11 +41,15 @@ import androidx.recyclerview.widget.RecyclerView;
  * @Version: 1.0
  */
 public class DailyPhotoVH extends BaseViewHolder {
-    RecyclerView rvArticle;
-    TextView     tvType;
+
+
+    private RecyclerView rvArticle;
+    private TextView     tvType;
+
 
     public DailyPhotoVH(Context context, ViewGroup parent, int layoutId) {
         super(context, parent, layoutId);
+
         tvType = retrieveView(R.id.tv_title);
         rvArticle = retrieveView(R.id.rv_article);
 
@@ -51,6 +60,7 @@ public class DailyPhotoVH extends BaseViewHolder {
     }
 
     public void setData(List<RecommendDailyArticleEntity> entityList) {
+
         if (entityList.size() > 0) {
             tvType.setText(entityList.get(0)
                                      .getType());
@@ -60,11 +70,17 @@ public class DailyPhotoVH extends BaseViewHolder {
     }
 
     class DailyRecommendArticleAdapter extends RecyclerView.Adapter<DailyRecommendArticleAdapter.ArticleVH> {
+        private ImageWatcherHelper     iwHelper;
+        private SparseArray<ImageView> mapping;
 
         private List<RecommendDailyArticleEntity> data;
+        private List<String>                      urlList;
 
         public DailyRecommendArticleAdapter(List<RecommendDailyArticleEntity> data) {
             this.data = data;
+            initUrlList();
+            mapping = new SparseArray<>();
+            iwHelper = ImageWatcherHelper.with((FragmentActivity) context, new GlideSimpleLoader());
         }
 
         @NonNull
@@ -84,19 +100,10 @@ public class DailyPhotoVH extends BaseViewHolder {
                  .load(data.get(position)
                            .getUrl())
                  .into(holder.ivWelfare);
-            holder.itemView.setOnClickListener(v -> {
-                String url = data.get(position)
-                                 .getUrl();
-                ActivityOptionsCompat optionsCompat =
-                        ActivityOptionsCompat.makeSceneTransitionAnimation((Activity) context, holder.ivWelfare, "translation_img");
-                ARouter.getInstance()
-                       .build(ArouteHelper.ROUTE_ACTIVITY_BIG_IMAGE)
-                       .withString("activityTitle", data.get(position)
-                                                        .getType())
-                       .withOptionsCompat(optionsCompat)
-                       .withString("url", url)
-                       .navigation(context);
-            });
+
+            mapping.append(position, holder.ivWelfare);
+
+            holder.itemView.setOnClickListener(v -> iwHelper.show(holder.ivWelfare, mapping, urlList, position));
         }
 
         @Override
@@ -110,6 +117,15 @@ public class DailyPhotoVH extends BaseViewHolder {
             public ArticleVH(@NonNull View itemView) {
                 super(itemView);
                 ivWelfare = itemView.findViewById(R.id.iv_welfare);
+            }
+        }
+
+        private void initUrlList() {
+            urlList = new ArrayList<>();
+            int dataSize = data.size();
+            for (int i = 0; i < dataSize; i++) {
+                urlList.add(data.get(i)
+                                .getUrl());
             }
         }
     }

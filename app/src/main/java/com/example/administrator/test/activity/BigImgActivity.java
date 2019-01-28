@@ -3,6 +3,7 @@ package com.example.administrator.test.activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
@@ -99,7 +100,11 @@ public class BigImgActivity extends BaseActivity {
               .isAutoPlay(false)
               .start()
               .setCurPosition(curImgPosition)
-              .setOnBannerListener(position -> finishAfterTransition());
+              .setOnBannerListener(position ->
+                                   {
+                                       finishAfterTransition();
+                                   }
+                                          );
 
         banner.setOnLongClickListener(view -> {
             ArrayList<String> tips = new ArrayList<>();

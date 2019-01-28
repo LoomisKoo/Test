@@ -1,7 +1,9 @@
 package com.example.administrator.test.fragment;
 
+import android.util.SparseArray;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.alibaba.android.vlayout.LayoutHelper;
 import com.alibaba.android.vlayout.layout.LinearLayoutHelper;
@@ -20,6 +22,7 @@ import com.example.administrator.test.viewholder.recommend.DailyBannerVH;
 import com.example.administrator.test.viewholder.recommend.DailyMenuVH;
 import com.example.administrator.test.viewholder.recommend.DailyPhotoVH;
 import com.example.administrator.test.viewholder.recommend.DailyVideoVH;
+import com.example.administrator.test.widget.imgViewPager.ImageWatcherHelper;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -90,8 +90,8 @@ public class RecommendFragment extends BaseFragmentNew {
         fragments.clear();
         fragments.add(new RecommendDailyFragment());
         fragments.add(new RecommendWelfareFragment());
-        fragments.add(new RecommendDailyFragment());
-        fragments.add(new RecommendDailyFragment());
+        fragments.add(new RecommendWelfareFragment());
+        fragments.add(new RecommendWelfareFragment());
     }
 
     private void initViewPager(View view) {

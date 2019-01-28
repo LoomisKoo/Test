@@ -3,6 +3,7 @@ package com.example.administrator.test.viewholder.recommend;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
+import android.util.SparseArray;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -13,11 +14,14 @@ import com.bumptech.glide.request.RequestOptions;
 import com.example.administrator.test.R;
 import com.example.administrator.test.base.adapter.BaseViewHolder;
 import com.example.administrator.test.util.ArouteHelper;
+import com.example.administrator.test.widget.imgViewPager.GlideSimpleLoader;
+import com.example.administrator.test.widget.imgViewPager.ImageWatcherHelper;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import androidx.core.app.ActivityOptionsCompat;
+import androidx.fragment.app.FragmentActivity;
 
 /**
  * @ProjectName: Test
@@ -32,15 +36,21 @@ import androidx.core.app.ActivityOptionsCompat;
  * @Version: 1.0
  */
 public class WelfareVH extends BaseViewHolder {
-    ImageView imageView;
+    private ImageWatcherHelper     iwHelper;
+    private SparseArray<ImageView> mapping;
+
+    public ImageView imageView;
 
     public WelfareVH(Context context, ViewGroup parent, int layoutId) {
         super(context, parent, layoutId);
         imageView = getView(R.id.image);
+        mapping = new SparseArray<>();
+        iwHelper = ImageWatcherHelper.with((FragmentActivity) context, new GlideSimpleLoader());
     }
 
     @SuppressLint("CheckResult")
     public void setData(ArrayList<String> urlList, int curImgPosition) {
+        mapping.append(curImgPosition, imageView);
 
         RequestOptions options = new RequestOptions();
         options.error(R.mipmap.ic_launcher)
@@ -49,17 +59,20 @@ public class WelfareVH extends BaseViewHolder {
              .setDefaultRequestOptions(options)
              .load(urlList.get(curImgPosition))
              .into(imageView);
-        imageView.setOnClickListener(v -> {
-            ActivityOptionsCompat optionsCompat =
-                    ActivityOptionsCompat.makeSceneTransitionAnimation((Activity) context, imageView, "translation_img");
 
-            ARouter.getInstance()
-                   .build(ArouteHelper.ROUTE_ACTIVITY_BIG_IMAGE)
-                   .withString("activityTitle", "福利")
-                   .withInt("curImgPosition", curImgPosition)
-                   .withOptionsCompat(optionsCompat)
-                   .withStringArrayList("urlList", urlList)
-                   .navigation(context);
+        imageView.setOnClickListener(v -> {
+            iwHelper.show(imageView, mapping, urlList, curImgPosition);
+
+//            ActivityOptionsCompat optionsCompat =
+//                    ActivityOptionsCompat.makeSceneTransitionAnimation((Activity) context, imageView, "translation_img");
+//
+//            ARouter.getInstance()
+//                   .build(ArouteHelper.ROUTE_ACTIVITY_BIG_IMAGE)
+//                   .withString("activityTitle", "福利")
+//                   .withInt("curImgPosition", curImgPosition)
+//                   .withOptionsCompat(optionsCompat)
+//                   .withStringArrayList("urlList", urlList)
+//                   .navigation(context);
         });
     }
 }

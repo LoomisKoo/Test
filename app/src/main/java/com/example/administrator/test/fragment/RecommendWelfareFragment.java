@@ -9,14 +9,12 @@ import com.example.administrator.test.R;
 import com.example.administrator.test.base.adapter.BaseViewHolder;
 import com.example.administrator.test.base.adapter.QuickDelegateAdapter;
 import com.example.administrator.test.base.fragment.BaseListFragment;
-import com.example.administrator.test.entity.RecommendWelfareEntity;
 import com.example.administrator.test.mvp.contract.RecommendWelfareContract;
 import com.example.administrator.test.mvp.model.RecommendWelfareModel;
 import com.example.administrator.test.mvp.presenter.RecommendWelfarePresenter;
 import com.example.administrator.test.viewholder.recommend.WelfareVH;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -43,6 +41,8 @@ public class RecommendWelfareFragment extends BaseListFragment<String, Recommend
     @Override
     protected void initView(View view) {
         super.initView(view);
+//        mapping = new SparseArray<>();
+//        iwHelper = ImageWatcherHelper.with(getActivity(), new GlideSimpleLoader());
     }
 
     @Override
@@ -51,6 +51,7 @@ public class RecommendWelfareFragment extends BaseListFragment<String, Recommend
             @Override
             protected void onSetItemData(BaseViewHolder holder, String item, int viewType, int position) {
                 ((WelfareVH) holder).setData((ArrayList<String>) data, position);
+                System.out.println("possssss:" + position);
             }
 
             @Override
@@ -60,7 +61,8 @@ public class RecommendWelfareFragment extends BaseListFragment<String, Recommend
 
             @Override
             public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-                return new WelfareVH(context, parent, R.layout.recommend_welfare_vh_item);
+                WelfareVH welfareVH = new WelfareVH(getActivity(), parent, R.layout.recommend_welfare_vh_item);
+                return welfareVH;
             }
 
             @Override

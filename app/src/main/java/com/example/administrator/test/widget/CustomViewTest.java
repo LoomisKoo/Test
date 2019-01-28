@@ -1,4 +1,4 @@
-package com.example.administrator.test.weidge;
+package com.example.administrator.test.widget;
 
 import android.content.Context;
 import android.util.AttributeSet;

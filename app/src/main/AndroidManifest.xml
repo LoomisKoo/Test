@@ -41,6 +41,9 @@
         <activity
             android:name=".activity.BigImgActivity"
             android:theme="@style/TransitionsTheme" />
+        <activity
+            android:name=".activity.ViewBigImageActivity"
+            android:theme="@style/TransitionsTheme" />
     </application>
 
 </manifest>
