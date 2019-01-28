@@ -111,21 +111,19 @@ class ViewState {
             if (vsResult != null) {
                 animator = ValueAnimator.ofFloat(0, 1)
                                         .setDuration(200);
-                animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                    @Override
-                    public void onAnimationUpdate(ValueAnimator animation) {
-                        float p = (float) animation.getAnimatedValue();
-                        view.setTranslationX(vsCurrent.translationX + (vsResult.translationX - vsCurrent.translationX) * p);
-                        view.setTranslationY(vsCurrent.translationY + (vsResult.translationY - vsCurrent.translationY) * p);
-                        view.setScaleX(vsCurrent.scaleX + (vsResult.scaleX - vsCurrent.scaleX) * p);
-                        view.setScaleY(vsCurrent.scaleY + (vsResult.scaleY - vsCurrent.scaleY) * p);
-                        view.setAlpha((vsCurrent.alpha + (vsResult.alpha - vsCurrent.alpha) * p));
-                        if (vsCurrent.width != vsResult.width && vsCurrent.height != vsResult.height
-                                && vsResult.width != 0 && vsResult.height != 0) {
-                            view.getLayoutParams().width = (int) (vsCurrent.width + (vsResult.width - vsCurrent.width) * p);
-                            view.getLayoutParams().height = (int) (vsCurrent.height + (vsResult.height - vsCurrent.height) * p);
-                            view.requestLayout();
-                        }
+                animator.addUpdateListener(animation -> {
+                    float p = (float) animation.getAnimatedValue();
+                    view.setTranslationX(vsCurrent.translationX + (vsResult.translationX - vsCurrent.translationX) * p);
+                    view.setTranslationY(vsCurrent.translationY + (vsResult.translationY - vsCurrent.translationY) * p);
+                    view.setScaleX(vsCurrent.scaleX + (vsResult.scaleX - vsCurrent.scaleX) * p);
+                    view.setScaleY(vsCurrent.scaleY + (vsResult.scaleY - vsCurrent.scaleY) * p);
+                    view.setAlpha((vsCurrent.alpha + (vsResult.alpha - vsCurrent.alpha) * p));
+
+                    if (vsCurrent.width != vsResult.width && vsCurrent.height != vsResult.height
+                            && vsResult.width != 0 && vsResult.height != 0) {
+                        view.getLayoutParams().width = (int) (vsCurrent.width + (vsResult.width - vsCurrent.width) * p);
+                        view.getLayoutParams().height = (int) (vsCurrent.height + (vsResult.height - vsCurrent.height) * p);
+                        view.requestLayout();
                     }
                 });
             }

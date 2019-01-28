@@ -995,11 +995,15 @@ public class ImageWatcher extends FrameLayout implements GestureDetector.OnGestu
      * 还需要还原背景色
      */
     private void handleExitTouchResult() {
-        if (iSource == null) return;
+        if (iSource == null) {
+            return;
+        }
 
         if (mExitRef > 0.75f) {
             ViewState vsExit = ViewState.read(iSource, ViewState.STATE_EXIT);
-            if (vsExit != null) animSourceViewStateTransform(iSource, vsExit);
+            if (vsExit != null) {
+                animSourceViewStateTransform(iSource, vsExit);
+            }
             animBackgroundTransform(0xFF000000, 0);
         }
         else {
@@ -1096,7 +1100,6 @@ public class ImageWatcher extends FrameLayout implements GestureDetector.OnGestu
             imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
             itemView.addView(imageView);
             mImageSparseArray.put(position, imageView);
-
             View loadView = null;
             if (loadingUIProvider != null) {
                 loadView = loadingUIProvider.initialView(container.getContext());
@@ -1503,8 +1506,12 @@ public class ImageWatcher extends FrameLayout implements GestureDetector.OnGestu
      * 将指定的ImageView形态(尺寸大小，缩放，旋转，平移，透明度)逐步转化到期望值
      */
     private void animSourceViewStateTransform(ImageView view, final ViewState vsResult) {
-        if (view == null) return;
-        if (animImageTransform != null) animImageTransform.cancel();
+        if (view == null) {
+            return;
+        }
+        if (animImageTransform != null) {
+            animImageTransform.cancel();
+        }
 
         animImageTransform = ViewState.restoreByAnim(view, vsResult.mTag)
                                       .addListener(mAnimTransitionStateListener)
@@ -1533,16 +1540,13 @@ public class ImageWatcher extends FrameLayout implements GestureDetector.OnGestu
         final int mCurrentBackgroundColor = mBackgroundColor;
         animBackground = ValueAnimator.ofFloat(0, 1)
                                       .setDuration(200);
-        animBackground.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator animation) {
-                float p = (float) animation.getAnimatedValue();
-                setBackgroundColor(mColorEvaluator.evaluate(p, mCurrentBackgroundColor, colorResult));
+        animBackground.addUpdateListener(animation -> {
+            float p = (float) animation.getAnimatedValue();
+            setBackgroundColor(mColorEvaluator.evaluate(p, mCurrentBackgroundColor, colorResult));
 
-                if (!onStateChangedListeners.isEmpty()) {
-                    for (OnStateChangedListener stateChangedListener : onStateChangedListeners) {
-                        stateChangedListener.onStateChangeUpdate(ImageWatcher.this, iSource, getCurrentPosition(), getDisplayingUri(), p, tag);
-                    }
+            if (!onStateChangedListeners.isEmpty()) {
+                for (OnStateChangedListener stateChangedListener : onStateChangedListeners) {
+                    stateChangedListener.onStateChangeUpdate(ImageWatcher.this, iSource, getCurrentPosition(), getDisplayingUri(), p, tag);
                 }
             }
         });

@@ -241,12 +241,9 @@ public class ImageWatcherHelper {
                 });
 
         final BackPressedFragment backPressedFragment = new BackPressedFragment();
-        backPressedFragment.cb = new Runnable() {
-            @Override
-            public void run() {
-                if (handleBackPressed()) {
-                    addToBackStack(activity, helper);
-                }
+        backPressedFragment.cb = () -> {
+            if (handleBackPressed()) {
+                addToBackStack(activity, helper);
             }
         };
 
