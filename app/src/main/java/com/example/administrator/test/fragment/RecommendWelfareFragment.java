@@ -67,7 +67,7 @@ public class RecommendWelfareFragment extends BaseListFragment<String, Recommend
             @Override
             public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
                 WelfareVH welfareVH = new WelfareVH(getActivity(), parent, R.layout.recommend_welfare_vh_item);
-                welfareVH.setIsRecyclable(false);
+//                welfareVH.setIsRecyclable(false);
 
                 return welfareVH;
             }

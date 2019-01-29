@@ -7,7 +7,7 @@ import androidx.viewpager.widget.ViewPager;
 import android.view.View;
 
 import com.example.administrator.test.R;
-import com.example.administrator.test.base.fragment.BaseFragmentNew;
+import com.example.administrator.test.base.fragment.BaseFragment;
 import com.roughike.bottombar.BottomBar;
 
 import java.util.ArrayList;
@@ -15,7 +15,7 @@ import java.util.ArrayList;
 /**
  * @author koo
  */
-public class BasicKnowledgeFragment extends BaseFragmentNew {
+public class BasicKnowledgeFragment extends BaseFragment {
     /**
      * viewpager数量
      */

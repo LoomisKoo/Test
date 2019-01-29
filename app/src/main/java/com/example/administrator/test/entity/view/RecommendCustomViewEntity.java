@@ -3,7 +3,7 @@ package com.example.administrator.test.entity.view;
 /**
  * @ProjectName: Test
  * @Package: com.example.administrator.test.entity
- * @ClassName: PlayAndroidViewEntity
+ * @ClassName: RecommendCustomViewEntity
  * @Description: java类作用描述
  * @Author: koo
  * @CreateDate: 2018/11/27 5:05 PM
@@ -12,31 +12,19 @@ package com.example.administrator.test.entity.view;
  * @UpdateRemark: 更新说明
  * @Version: 1.0
  */
-public class DailyRecommendViewEntity {
+public class RecommendCustomViewEntity {
     /**
-     * banner（广告）
+     * title
      */
-    public static final int VIEW_TYPE_BANNER    = 0;
+    public static final int VIEW_TYPE_TITLE        = 0;
     /**
-     * 主菜单 4个按钮
+     * 文章列表
      */
-    public static final int VIEW_TYPE_MAIN_MENU = 1;
-    /**
-     * 文章列表（包括android/ios等类型）
-     */
-    public static final int VIEW_TYPE_ARTICLE   = 2;
-    /**
-     * 视频（一个）
-     */
-    public static final int VIEW_TYPE_VIDEO     = 3;
-    /**
-     * 福利（一张照片）
-     */
-    public static final int VIEW_TYPE_PHOTO     = 4;
+    public static final int VIEW_TYPE_ARTICLE_LIST = 1;
 
     private int viewType = -1;
 
-    public DailyRecommendViewEntity(Object data, int viewType) {
+    public RecommendCustomViewEntity(Object data, int viewType) {
         this.data = data;
         this.viewType = viewType;
     }

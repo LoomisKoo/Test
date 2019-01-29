@@ -3,7 +3,7 @@ package com.example.administrator.test.fragment;
 import android.view.View;
 
 import com.example.administrator.test.R;
-import com.example.administrator.test.base.fragment.BaseFragmentNew;
+import com.example.administrator.test.base.fragment.BaseFragment;
 import com.roughike.bottombar.BottomBar;
 
 import java.util.ArrayList;
@@ -24,7 +24,7 @@ import androidx.viewpager.widget.ViewPager;
  * @UpdateRemark: 更新说明
  * @Version: 1.0
  */
-public class RecommendFragment extends BaseFragmentNew {
+public class RecommendFragment extends BaseFragment {
     /**
      * viewpager数量
      */
@@ -90,7 +90,7 @@ public class RecommendFragment extends BaseFragmentNew {
         fragments.clear();
         fragments.add(new RecommendDailyFragment());
         fragments.add(new RecommendWelfareFragment());
-        fragments.add(new RecommendWelfareFragment());
+        fragments.add(new RecommendCustomFragment());
         fragments.add(new RecommendWelfareFragment());
     }
 

@@ -1,6 +1,5 @@
 package com.example.administrator.test.fragment;
 
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,8 +7,7 @@ import android.widget.TextView;
 
 import com.example.administrator.test.R;
 import com.example.administrator.test.animation.AnimatorHelper;
-import com.example.administrator.test.base.adapter.QuickDelegateAdapter;
-import com.example.administrator.test.base.fragment.BaseFragmentNew;
+import com.example.administrator.test.base.fragment.BaseFragment;
 import com.example.administrator.test.entity.NaviEntity;
 import com.example.administrator.test.mvp.contract.NaviContract;
 import com.example.administrator.test.mvp.model.NaviModel;
@@ -39,7 +37,7 @@ import androidx.recyclerview.widget.RecyclerView;
  * @UpdateRemark: 更新说明
  * @Version: 1.0
  */
-public class BasicKnowledgeNaviFragment extends BaseFragmentNew<NaviPresenter> implements NaviContract.View {
+public class BasicKnowledgeNaviFragment extends BaseFragment<NaviPresenter> implements NaviContract.View {
 
     List<ContentTypeEntity> titleData;
     /**

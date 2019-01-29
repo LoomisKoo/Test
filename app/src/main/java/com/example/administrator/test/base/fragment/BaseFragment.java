@@ -24,7 +24,7 @@ import androidx.fragment.app.Fragment;
 /**
  * @author koo
  */
-public abstract class BaseFragmentNew<P> extends Fragment implements FragmentUserVisibleManager.UserVisibleCallback {
+public abstract class BaseFragment<P> extends Fragment implements FragmentUserVisibleManager.UserVisibleCallback {
     private FragmentUserVisibleManager userVisibleManager;
 
     /**
@@ -42,7 +42,7 @@ public abstract class BaseFragmentNew<P> extends Fragment implements FragmentUse
     protected SmartRefreshLayout    refreshLayout;
     protected HeaderFooterViewModel headerViewModel, footerViewModel;
 
-    public BaseFragmentNew() {
+    public BaseFragment() {
         userVisibleManager = new FragmentUserVisibleManager(this, this);
     }
 

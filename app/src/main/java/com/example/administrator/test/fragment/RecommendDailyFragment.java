@@ -1,9 +1,7 @@
 package com.example.administrator.test.fragment;
 
-import android.util.SparseArray;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
 import com.alibaba.android.vlayout.LayoutHelper;
 import com.alibaba.android.vlayout.layout.LinearLayoutHelper;
@@ -13,7 +11,7 @@ import com.example.administrator.test.base.adapter.QuickDelegateAdapter;
 import com.example.administrator.test.base.fragment.BaseListFragment;
 import com.example.administrator.test.entity.RecommendDailyArticleEntity;
 import com.example.administrator.test.entity.RecommendDailyEntity;
-import com.example.administrator.test.entity.view.DailyRecommendViewEntity;
+import com.example.administrator.test.entity.view.RecommendDailyViewEntity;
 import com.example.administrator.test.mvp.contract.RecommendDailyContract;
 import com.example.administrator.test.mvp.model.RecommendDailyModel;
 import com.example.administrator.test.mvp.presenter.RecommendDailyPresenter;
@@ -22,7 +20,6 @@ import com.example.administrator.test.viewholder.recommend.DailyBannerVH;
 import com.example.administrator.test.viewholder.recommend.DailyMenuVH;
 import com.example.administrator.test.viewholder.recommend.DailyPhotoVH;
 import com.example.administrator.test.viewholder.recommend.DailyVideoVH;
-import com.example.administrator.test.widget.imgViewPager.ImageWatcherHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,7 +38,7 @@ import androidx.recyclerview.widget.RecyclerView;
  * @UpdateRemark: 更新说明
  * @Version: 1.0
  */
-public class RecommendDailyFragment extends BaseListFragment<DailyRecommendViewEntity, RecommendDailyPresenter> implements RecommendDailyContract.View {
+public class RecommendDailyFragment extends BaseListFragment<RecommendDailyViewEntity, RecommendDailyPresenter> implements RecommendDailyContract.View {
 
     @Override
     protected void getData(int page, int pageSize) {
@@ -67,23 +64,23 @@ public class RecommendDailyFragment extends BaseListFragment<DailyRecommendViewE
 
     @Override
     protected QuickDelegateAdapter getAdapter() {
-        return new QuickDelegateAdapter<DailyRecommendViewEntity>(getContext(), 0) {
+        return new QuickDelegateAdapter<RecommendDailyViewEntity>(getContext(), 0) {
             @Override
             @SuppressWarnings("unchecked")
-            protected void onSetItemData(BaseViewHolder holder, DailyRecommendViewEntity item, int viewType, int position) {
+            protected void onSetItemData(BaseViewHolder holder, RecommendDailyViewEntity item, int viewType, int position) {
                 switch (viewType) {
-                    case DailyRecommendViewEntity.VIEW_TYPE_BANNER:
+                    case RecommendDailyViewEntity.VIEW_TYPE_BANNER:
                         ((DailyBannerVH) holder).setData((List<String>) item.getData());
                         break;
-                    case DailyRecommendViewEntity.VIEW_TYPE_MAIN_MENU:
+                    case RecommendDailyViewEntity.VIEW_TYPE_MAIN_MENU:
                         break;
-                    case DailyRecommendViewEntity.VIEW_TYPE_ARTICLE:
+                    case RecommendDailyViewEntity.VIEW_TYPE_ARTICLE:
                         ((DailyArticleVH) holder).setData((List<RecommendDailyArticleEntity>) item.getData());
                         break;
-                    case DailyRecommendViewEntity.VIEW_TYPE_VIDEO:
+                    case RecommendDailyViewEntity.VIEW_TYPE_VIDEO:
                         ((DailyVideoVH) holder).setData((List<RecommendDailyArticleEntity>) item.getData());
                         break;
-                    case DailyRecommendViewEntity.VIEW_TYPE_PHOTO:
+                    case RecommendDailyViewEntity.VIEW_TYPE_PHOTO:
                         ((DailyPhotoVH) holder).setData((List<RecommendDailyArticleEntity>) item.getData());
                         break;
                     default:
@@ -99,15 +96,15 @@ public class RecommendDailyFragment extends BaseListFragment<DailyRecommendViewE
             @Override
             public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
                 switch (viewType) {
-                    case DailyRecommendViewEntity.VIEW_TYPE_BANNER:
+                    case RecommendDailyViewEntity.VIEW_TYPE_BANNER:
                         return new DailyBannerVH(getActivity(), parent, R.layout.recommend_daily_vh_banner);
-                    case DailyRecommendViewEntity.VIEW_TYPE_MAIN_MENU:
+                    case RecommendDailyViewEntity.VIEW_TYPE_MAIN_MENU:
                         return new DailyMenuVH(getActivity(), parent, R.layout.recommend_daily_vh_menu);
-                    case DailyRecommendViewEntity.VIEW_TYPE_ARTICLE:
+                    case RecommendDailyViewEntity.VIEW_TYPE_ARTICLE:
                         return new DailyArticleVH(getActivity(), parent, R.layout.recommend_daily_vh_common);
-                    case DailyRecommendViewEntity.VIEW_TYPE_VIDEO:
+                    case RecommendDailyViewEntity.VIEW_TYPE_VIDEO:
                         return new DailyVideoVH(getActivity(), parent, R.layout.recommend_daily_vh_common);
-                    case DailyRecommendViewEntity.VIEW_TYPE_PHOTO:
+                    case RecommendDailyViewEntity.VIEW_TYPE_PHOTO:
                         return new DailyPhotoVH(getActivity(), parent, R.layout.recommend_daily_vh_common);
                     default:
                         break;
@@ -141,36 +138,36 @@ public class RecommendDailyFragment extends BaseListFragment<DailyRecommendViewE
 
     @Override
     public void onSuccess(RecommendDailyEntity entity) {
-        DailyRecommendViewEntity data;
+        RecommendDailyViewEntity data;
         //福利
-        data = new DailyRecommendViewEntity(entity.getResults()
-                                                  .getWelfareBeanList(), DailyRecommendViewEntity.VIEW_TYPE_PHOTO);
+        data = new RecommendDailyViewEntity(entity.getResults()
+                                                  .getWelfareBeanList(), RecommendDailyViewEntity.VIEW_TYPE_PHOTO);
         adapter.add(data);
 
         //android
-        data = new DailyRecommendViewEntity(entity.getResults()
-                                                  .getAndroid(), DailyRecommendViewEntity.VIEW_TYPE_ARTICLE);
+        data = new RecommendDailyViewEntity(entity.getResults()
+                                                  .getAndroid(), RecommendDailyViewEntity.VIEW_TYPE_ARTICLE);
         adapter.add(data);
 
         //ios
-        data = new DailyRecommendViewEntity(entity.getResults()
-                                                  .getIOS(), DailyRecommendViewEntity.VIEW_TYPE_ARTICLE);
+        data = new RecommendDailyViewEntity(entity.getResults()
+                                                  .getIOS(), RecommendDailyViewEntity.VIEW_TYPE_ARTICLE);
         adapter.add(data);
         //app
-        data = new DailyRecommendViewEntity(entity.getResults()
-                                                  .getApp(), DailyRecommendViewEntity.VIEW_TYPE_ARTICLE);
+        data = new RecommendDailyViewEntity(entity.getResults()
+                                                  .getApp(), RecommendDailyViewEntity.VIEW_TYPE_ARTICLE);
         adapter.add(data);
         //拓展资源
-        data = new DailyRecommendViewEntity(entity.getResults()
-                                                  .getExpandBeanList(), DailyRecommendViewEntity.VIEW_TYPE_ARTICLE);
+        data = new RecommendDailyViewEntity(entity.getResults()
+                                                  .getExpandBeanList(), RecommendDailyViewEntity.VIEW_TYPE_ARTICLE);
         adapter.add(data);
         //视频
-        data = new DailyRecommendViewEntity(entity.getResults()
-                                                  .getVideoBeanList(), DailyRecommendViewEntity.VIEW_TYPE_VIDEO);
+        data = new RecommendDailyViewEntity(entity.getResults()
+                                                  .getVideoBeanList(), RecommendDailyViewEntity.VIEW_TYPE_VIDEO);
         adapter.add(data);
         //瞎推荐
-        data = new DailyRecommendViewEntity(entity.getResults()
-                                                  .getRecommendBeanList(), DailyRecommendViewEntity.VIEW_TYPE_ARTICLE);
+        data = new RecommendDailyViewEntity(entity.getResults()
+                                                  .getRecommendBeanList(), RecommendDailyViewEntity.VIEW_TYPE_ARTICLE);
         adapter.add(data);
 
         checkRvEmpty();
@@ -199,13 +196,13 @@ public class RecommendDailyFragment extends BaseListFragment<DailyRecommendViewE
         imgList.add("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1548312536332&di=77ecb35f710f883f5e12ad9e90bcb003&imgtype=0&src=http%3A%2F%2Fwww.deskier.com%2Fuploads%2Fallimg%2F170706%2F1-1FF6153306.jpg");
         //钢铁侠logo
         imgList.add("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1548318266090&di=a85615596dec381e7d33b1074e8c14e3&imgtype=0&src=http%3A%2F%2Fgss0.baidu.com%2F-vo3dSag_xI4khGko9WTAnF6hhy%2Fzhidao%2Fpic%2Fitem%2Ffaf2b2119313b07e9f2e75030dd7912397dd8c2d.jpg");
-        adapter.add(new DailyRecommendViewEntity(imgList, DailyRecommendViewEntity.VIEW_TYPE_BANNER));
+        adapter.add(new RecommendDailyViewEntity(imgList, RecommendDailyViewEntity.VIEW_TYPE_BANNER));
     }
 
     /**
      * 主菜单
      */
     private void addMenu() {
-        adapter.add(new DailyRecommendViewEntity(null, DailyRecommendViewEntity.VIEW_TYPE_MAIN_MENU));
+        adapter.add(new RecommendDailyViewEntity(null, RecommendDailyViewEntity.VIEW_TYPE_MAIN_MENU));
     }
 }

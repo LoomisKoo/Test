@@ -9,9 +9,7 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.animation.AccelerateInterpolator;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -23,8 +21,6 @@ import com.example.administrator.test.base.activity.BaseActivity;
 import com.example.administrator.test.base.adapter.HeaderFooterAdapter;
 import com.example.administrator.test.base.adapter.HeaderFooterViewModel;
 import com.example.administrator.test.base.adapter.QuickDelegateAdapter;
-import com.scwang.smartrefresh.layout.SmartRefreshLayout;
-import com.scwang.smartrefresh.layout.constant.RefreshState;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -37,7 +33,7 @@ import jp.wasabeef.recyclerview.animators.SlideInLeftAnimator;
 /**
  * @author koo
  */
-public abstract class BaseListFragment<T, P> extends BaseFragmentNew<P> {
+public abstract class BaseListFragment<T, P> extends BaseFragment<P> {
 
     protected int page     = 1;
     protected int pageSize = 20;
