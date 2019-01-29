@@ -25,7 +25,7 @@ import androidx.fragment.app.Fragment;
  * @author koo
  */
 public abstract class BaseFragment<P> extends Fragment implements FragmentUserVisibleManager.UserVisibleCallback {
-    private FragmentUserVisibleManager userVisibleManager;
+    protected FragmentUserVisibleManager userVisibleManager;
 
     /**
      * 是否已经加载数据

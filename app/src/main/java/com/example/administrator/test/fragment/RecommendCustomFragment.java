@@ -183,8 +183,19 @@ public class RecommendCustomFragment extends BaseListFragment<RecommendCustomVie
         set.connect(R.id.view_menu_btn, ConstraintSet.END, ConstraintSet.PARENT_ID, ConstraintSet.END);
         set.connect(R.id.view_menu_btn, ConstraintSet.BOTTOM, ConstraintSet.PARENT_ID, ConstraintSet.BOTTOM);
         set.setMargin(R.id.view_menu_btn, ConstraintSet.END, ConvertUtils.dp2px(10));
-        set.setMargin(R.id.view_menu_btn, ConstraintSet.BOTTOM, ConvertUtils.dp2px(50));
+        set.setMargin(R.id.view_menu_btn, ConstraintSet.BOTTOM, ConvertUtils.dp2px(100));
         set.applyTo(rootLayout);
+    }
+
+
+    public void resetMenuBtnLayout(int offset) {
+
+        if (userVisibleManager.isVisibleToUser() ) {
+            ConstraintSet set = new ConstraintSet();
+            set.clone(rootLayout);
+            set.setMargin(R.id.view_menu_btn, ConstraintSet.BOTTOM, ConvertUtils.dp2px(100) + offset);
+            set.applyTo(rootLayout);
+        }
     }
 
 

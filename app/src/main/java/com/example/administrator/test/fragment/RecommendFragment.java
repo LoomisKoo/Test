@@ -1,13 +1,17 @@
 package com.example.administrator.test.fragment;
 
+import android.os.Build;
+import android.view.DragEvent;
 import android.view.View;
 
 import com.example.administrator.test.R;
 import com.example.administrator.test.base.fragment.BaseFragment;
+import com.google.android.material.appbar.AppBarLayout;
 import com.roughike.bottombar.BottomBar;
 
 import java.util.ArrayList;
 
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
@@ -41,12 +45,15 @@ public class RecommendFragment extends BaseFragment {
     private ArrayList<Fragment> fragments = new ArrayList<>(VIEW_PAGER_COUNT);
     private ViewPager           viewPager;
     private BottomBar           mBottomBar;
+    private AppBarLayout        mAppBarLayout;
 
 
     @Override
     protected void initView(View view) {
+
         mBottomBar = view.findViewById(R.id.bottomBar);
         viewPager = view.findViewById(R.id.view_pager);
+        mAppBarLayout = view.findViewById(R.id.appbar);
         initFragmentList();
         initViewPager(view);
         initBottomBar(view);
@@ -57,6 +64,15 @@ public class RecommendFragment extends BaseFragment {
         //禁止上拉加载
         refreshLayout.setEnableLoadmore(false);
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            initAppBarLayout();
+        }
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    private void initAppBarLayout() {
+        //verticalOffset是当前appbarLayout的高度与最开始appbarlayout高度的差，向上滑动的话是负数
+        mAppBarLayout.addOnOffsetChangedListener((appBarLayout, verticalOffset) -> ((RecommendCustomFragment) fragments.get(VIEW_PAGER_PAGE_3)).resetMenuBtnLayout(verticalOffset));
     }
 
     @Override
@@ -116,7 +132,6 @@ public class RecommendFragment extends BaseFragment {
 
             @Override
             public void onPageSelected(int position) {
-                System.out.println("position：" + position);
                 if (mBottomBar.getTabCount() - 1 >= position) {
                     mBottomBar.selectTabAtPosition(position, true);
                 }

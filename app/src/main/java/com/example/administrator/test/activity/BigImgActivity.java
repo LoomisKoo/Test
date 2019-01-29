@@ -1,9 +1,9 @@
 package com.example.administrator.test.activity;
 
 import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ImageView;
 
 import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
@@ -17,6 +17,8 @@ import com.loomis.banner.BannerNotCircle;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.annotation.RequiresApi;
 
 /**
  * @ProjectName: Test
@@ -128,7 +130,6 @@ public class BigImgActivity extends BaseActivity {
 //            });
             return false;
         });
-
     }
 
     @Override
@@ -136,9 +137,9 @@ public class BigImgActivity extends BaseActivity {
         return null;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void setListener() {
-
     }
 
     @Override
