@@ -1,6 +1,7 @@
 package com.example.administrator.test.fragment;
 
 import android.annotation.SuppressLint;
+import android.graphics.Rect;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -40,14 +41,30 @@ import androidx.recyclerview.widget.RecyclerView;
  * @Version: 1.0
  */
 public class RecommendCustomFragment extends BaseListFragment<RecommendCustomViewEntity, RecommendCustomPresenter> implements RecommendCustomContract.View {
-
-    private static final String[] DATE_TYPE         = new String[]{"全部", "IOS", "App", "前端", "休息视频", "拓展资源"};
-    private static final String[] DATE_REQUEST_TYPE = new String[]{"all", "iOS", "App", "前端", "休息视频", "拓展资源"};
-
-    private String dataType        = DATE_TYPE[0];
-    private String dataRequestType = DATE_REQUEST_TYPE[0];
-
-    private BoomMenuButton menuButton;
+    /**
+     * 选择菜单的icon
+     */
+    private static final int[]          MENU_IC_LIST      = new int[]{R.mipmap.recommend_ic_custom_all, R.mipmap.recommend_ic_custom_ios, R.mipmap.recommend_ic_custom_app, R.mipmap.recommend_ic_custom_web, R.mipmap.recommend_ic_custom_video, R.mipmap.recommend_ic_custom_more};
+    /**
+     * 定制类型
+     */
+    private static final String[]       DATE_TYPE         = new String[]{"全部", "IOS", "App", "前端", "休息视频", "拓展资源"};
+    /**
+     * 定制类型的请求码
+     */
+    private static final String[]       DATE_REQUEST_TYPE = new String[]{"all", "iOS", "App", "前端", "休息视频", "拓展资源"};
+    /**
+     * 当前类型
+     */
+    private              String         dataType          = DATE_TYPE[0];
+    /**
+     * 当前类型请求码
+     */
+    private              String         dataRequestType   = DATE_REQUEST_TYPE[0];
+    /**
+     * 爆炸菜单按钮
+     */
+    private              BoomMenuButton menuButton;
 
     @Override
     protected void getData(int page, int pageSize) {
@@ -178,12 +195,13 @@ public class RecommendCustomFragment extends BaseListFragment<RecommendCustomVie
         menuButton.setButtonEnum(ButtonEnum.TextInsideCircle);
         menuButton.setPiecePlaceEnum(PiecePlaceEnum.DOT_6_6);
         menuButton.setButtonPlaceEnum(ButtonPlaceEnum.SC_6_1);
-
+        int imgPadding = ConvertUtils.dp2px(15);
         for (int i = 0; i < menuButton.getButtonPlaceEnum()
                                       .buttonNumber(); i++) {
             TextInsideCircleButton.Builder builder = new TextInsideCircleButton.Builder()
-                    .normalImageRes(R.mipmap.ic_back_black)
+                    .normalImageRes(MENU_IC_LIST[i])
                     .normalText(DATE_TYPE[i])
+                    .imagePadding(new Rect(imgPadding, imgPadding, imgPadding, imgPadding))
                     .listener(index -> {
                         adapter.clear();
                         refreshLayout.autoRefresh();
@@ -193,5 +211,4 @@ public class RecommendCustomFragment extends BaseListFragment<RecommendCustomVie
             menuButton.addBuilder(builder);
         }
     }
-
 }
