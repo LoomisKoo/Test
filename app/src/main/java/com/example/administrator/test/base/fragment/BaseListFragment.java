@@ -7,6 +7,7 @@ import androidx.annotation.DrawableRes;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.View;
@@ -73,7 +74,6 @@ public abstract class BaseListFragment<T, P> extends BaseFragment<P> {
      */
     private void initRecycleView() {
         layoutManager = new VirtualLayoutManager(getContext());
-
         //添加Android自带的分割线
 //        recyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
 

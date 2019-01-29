@@ -7,6 +7,7 @@ import android.widget.ImageView;
 
 import com.alibaba.android.vlayout.LayoutHelper;
 import com.alibaba.android.vlayout.layout.GridLayoutHelper;
+import com.alibaba.android.vlayout.layout.LinearLayoutHelper;
 import com.example.administrator.test.R;
 import com.example.administrator.test.base.adapter.BaseViewHolder;
 import com.example.administrator.test.base.adapter.QuickDelegateAdapter;
@@ -20,6 +21,7 @@ import com.example.administrator.test.widget.imgViewPager.ImageWatcherHelper;
 
 import java.util.ArrayList;
 
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 /**
@@ -67,8 +69,6 @@ public class RecommendWelfareFragment extends BaseListFragment<String, Recommend
             @Override
             public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
                 WelfareVH welfareVH = new WelfareVH(getActivity(), parent, R.layout.recommend_welfare_vh_item);
-//                welfareVH.setIsRecyclable(false);
-
                 return welfareVH;
             }
 

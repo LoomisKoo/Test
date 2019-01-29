@@ -56,6 +56,8 @@ public class KnowledgeSystemVH extends BaseViewHolder {
         };
         rvKnowledgePoint.setLayoutManager(manager);
 
+        rvKnowledgePoint.setNestedScrollingEnabled(false);
+
     }
 
     public void setData(KnowledgeSystemEntity.KnowledgeType knowledgeType) {

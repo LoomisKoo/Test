@@ -43,7 +43,7 @@ import androidx.recyclerview.widget.RecyclerView;
 public class DailyPhotoVH extends BaseViewHolder {
 
 
-    private RecyclerView rvArticle;
+    private RecyclerView rvPhoto;
     private TextView     tvType;
 
 
@@ -51,12 +51,14 @@ public class DailyPhotoVH extends BaseViewHolder {
         super(context, parent, layoutId);
 
         tvType = retrieveView(R.id.tv_title);
-        rvArticle = retrieveView(R.id.rv_article);
+        rvPhoto = retrieveView(R.id.rv_article);
 
-        rvArticle.setLayoutManager(new LinearLayoutManager(context));
+        rvPhoto.setLayoutManager(new LinearLayoutManager(context));
         //设置不需要焦点 否则切换tab后，嵌套的recyclerview会自动滚动
-        rvArticle.setFocusableInTouchMode(false);
-        rvArticle.requestFocus();
+        rvPhoto.setFocusableInTouchMode(false);
+        rvPhoto.requestFocus();
+
+        rvPhoto.setNestedScrollingEnabled(false);
     }
 
     public void setData(List<RecommendDailyArticleEntity> entityList) {
@@ -64,7 +66,7 @@ public class DailyPhotoVH extends BaseViewHolder {
         if (entityList.size() > 0) {
             tvType.setText(entityList.get(0)
                                      .getType());
-            rvArticle.setAdapter(new DailyRecommendArticleAdapter(entityList));
+            rvPhoto.setAdapter(new DailyRecommendArticleAdapter(entityList));
         }
 
     }

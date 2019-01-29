@@ -42,6 +42,8 @@ public class DailyArticleVH extends BaseViewHolder {
         //设置不需要焦点 否则切换tab后，嵌套的recyclerview会自动滚动
         rvArticle.setFocusableInTouchMode(false);
         rvArticle.requestFocus();
+
+        rvArticle.setNestedScrollingEnabled(false);
     }
 
     public void setData(List<RecommendDailyArticleEntity> entityList) {
