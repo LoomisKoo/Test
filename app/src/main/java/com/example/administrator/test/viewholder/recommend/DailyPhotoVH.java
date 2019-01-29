@@ -102,7 +102,7 @@ public class DailyPhotoVH extends BaseViewHolder {
                  .into(holder.ivWelfare);
 
             mapping.append(position, holder.ivWelfare);
-
+            //点击图片显示大图
             holder.itemView.setOnClickListener(v -> iwHelper.show(holder.ivWelfare, mapping, urlList, position));
         }
 
