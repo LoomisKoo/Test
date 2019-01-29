@@ -10,4 +10,6 @@
     <item name="state_touch_scale" type="id" />
     <item name="view_image_watcher" type="id" />
     <item name="view_decoration" type="id"/>
+
+    <item name="view_menu_btn" type="id"/>
 </resources>

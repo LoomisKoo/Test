@@ -38,7 +38,7 @@ public abstract class BaseFragment<P> extends Fragment implements FragmentUserVi
 
     protected TextView     emptyTv;
     protected LinearLayout topLay, bottomLay, llContent;
-    protected ConstraintLayout      rootLay;
+    protected ConstraintLayout      rootLayout;
     protected SmartRefreshLayout    refreshLayout;
     protected HeaderFooterViewModel headerViewModel, footerViewModel;
 
@@ -53,7 +53,7 @@ public abstract class BaseFragment<P> extends Fragment implements FragmentUserVi
      */
     protected void initRootView(View view) {
         emptyTv = view.findViewById(R.id.base_pager_list_empty_tv);
-        rootLay = view.findViewById(R.id.base_pager_list_root);
+        rootLayout = view.findViewById(R.id.base_pager_list_root);
         topLay = view.findViewById(R.id.base_pager_list_topLay);
         bottomLay = view.findViewById(R.id.base_pager_list_bottomLay);
         llContent = view.findViewById(R.id.base_pager_list_ll);
@@ -154,7 +154,7 @@ public abstract class BaseFragment<P> extends Fragment implements FragmentUserVi
     public abstract int bindBottomLayout();
 
     protected void setRootBackground(int color) {
-        rootLay.setBackgroundColor(color);
+        rootLayout.setBackgroundColor(color);
     }
 
     protected void setLoadMoreEnable(boolean enable) {

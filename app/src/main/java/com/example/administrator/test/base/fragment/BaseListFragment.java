@@ -45,9 +45,6 @@ public abstract class BaseListFragment<T, P> extends BaseFragment<P> {
 
     protected BaseActivity mActivity;
 
-    protected TextView     emptyTv;
-    protected LinearLayout topLay, bottomLay;
-    protected ConstraintLayout     rootLay;
     protected VirtualLayoutManager layoutManager;
 
     /**
@@ -67,12 +64,7 @@ public abstract class BaseListFragment<T, P> extends BaseFragment<P> {
      */
     @Override
     protected void initView(View view) {
-        emptyTv = view.findViewById(R.id.base_pager_list_empty_tv);
-        rootLay = view.findViewById(R.id.base_pager_list_root);
-        topLay = view.findViewById(R.id.base_pager_list_topLay);
-        bottomLay = view.findViewById(R.id.base_pager_list_bottomLay);
         recyclerView = view.findViewById(R.id.base_pager_list_rv);
-
         initRecycleView();
     }
 
@@ -196,18 +188,6 @@ public abstract class BaseListFragment<T, P> extends BaseFragment<P> {
     protected HeaderFooterViewModel getFooterView() {
         return null;
     }
-
-//    /**
-//     * 显示空列表提示
-//     *
-//     * @param text
-//     * @param resId
-//     */
-//    protected void showEmptyView(String text, @DrawableRes int resId) {
-//        emptyTv.setVisibility(View.VISIBLE);
-//        emptyTv.setText(text);
-//        emptyTv.setCompoundDrawablesWithIntrinsicBounds(0, resId, 0, 0);
-//    }
 
     /**
      * 检查列表是否为空

@@ -1,13 +1,12 @@
 package com.example.administrator.test.fragment;
 
-import android.util.SparseArray;
+import android.annotation.SuppressLint;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
 import com.alibaba.android.vlayout.LayoutHelper;
-import com.alibaba.android.vlayout.layout.GridLayoutHelper;
 import com.alibaba.android.vlayout.layout.LinearLayoutHelper;
+import com.blankj.utilcode.util.ConvertUtils;
 import com.example.administrator.test.R;
 import com.example.administrator.test.base.adapter.BaseViewHolder;
 import com.example.administrator.test.base.adapter.QuickDelegateAdapter;
@@ -15,20 +14,17 @@ import com.example.administrator.test.base.fragment.BaseListFragment;
 import com.example.administrator.test.entity.RecommendCustomEntity;
 import com.example.administrator.test.entity.view.RecommendCustomViewEntity;
 import com.example.administrator.test.mvp.contract.RecommendCustomContract;
-import com.example.administrator.test.mvp.contract.RecommendWelfareContract;
 import com.example.administrator.test.mvp.model.RecommendCustomModel;
-import com.example.administrator.test.mvp.model.RecommendWelfareModel;
 import com.example.administrator.test.mvp.presenter.RecommendCustomPresenter;
-import com.example.administrator.test.mvp.presenter.RecommendWelfarePresenter;
 import com.example.administrator.test.viewholder.recommend.CustomArticleVH;
 import com.example.administrator.test.viewholder.recommend.CustomTitleVH;
-import com.example.administrator.test.viewholder.recommend.WelfareVH;
-import com.example.administrator.test.widget.imgViewPager.GlideSimpleLoader;
-import com.example.administrator.test.widget.imgViewPager.ImageWatcherHelper;
+import com.nightonke.boommenu.BoomButtons.ButtonPlaceEnum;
+import com.nightonke.boommenu.BoomButtons.TextInsideCircleButton;
 import com.nightonke.boommenu.BoomMenuButton;
+import com.nightonke.boommenu.ButtonEnum;
+import com.nightonke.boommenu.Piece.PiecePlaceEnum;
 
-import java.util.ArrayList;
-
+import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.recyclerview.widget.RecyclerView;
 
 /**
@@ -44,27 +40,38 @@ import androidx.recyclerview.widget.RecyclerView;
  * @Version: 1.0
  */
 public class RecommendCustomFragment extends BaseListFragment<RecommendCustomViewEntity, RecommendCustomPresenter> implements RecommendCustomContract.View {
-    private String dataType = "all";
 
-    BoomMenuButton menuButton;
+    private static final String[] DATE_TYPE         = new String[]{"全部", "IOS", "App", "前端", "休息视频", "拓展资源"};
+    private static final String[] DATE_REQUEST_TYPE = new String[]{"all", "iOS", "App", "前端", "休息视频", "拓展资源"};
+
+    private String dataType        = DATE_TYPE[0];
+    private String dataRequestType = DATE_REQUEST_TYPE[0];
+
+    private BoomMenuButton menuButton;
 
     @Override
     protected void getData(int page, int pageSize) {
         if (0 == page) {
             //加入title布局，不需要数据
-            RecommendCustomViewEntity entity = new RecommendCustomViewEntity(null, RecommendCustomViewEntity.VIEW_TYPE_TITLE);
+            RecommendCustomViewEntity entity = new RecommendCustomViewEntity(dataType, RecommendCustomViewEntity.VIEW_TYPE_TITLE);
             adapter.add(entity);
         }
         //该api是page是从1开始
         page++;
         //请求文章列表数据
-        presenter.getCustomData(dataType, pageSize, page);
+        presenter.getCustomData(dataRequestType, pageSize, page);
     }
 
+    @SuppressLint("ResourceType")
     @Override
     protected void initView(View view) {
         super.initView(view);
         menuButton = new BoomMenuButton(getContext());
+        menuButton.setId(R.id.view_menu_btn);
+        rootLayout.addView(menuButton);
+        initMenuBtnLayout();
+        initMenuBtnEvent();
+
     }
 
     @Override
@@ -74,7 +81,9 @@ public class RecommendCustomFragment extends BaseListFragment<RecommendCustomVie
             protected void onSetItemData(BaseViewHolder holder, RecommendCustomViewEntity item, int viewType, int position) {
                 switch (viewType) {
                     case RecommendCustomViewEntity.VIEW_TYPE_TITLE:
-                        ((CustomTitleVH) holder).setData();
+                        if (item.getData() instanceof String) {
+                            ((CustomTitleVH) holder).setData((String) item.getData());
+                        }
                         break;
                     case RecommendCustomViewEntity.VIEW_TYPE_ARTICLE_LIST:
                         if (item.getData() instanceof RecommendCustomEntity.CustomInfoEntity) {
@@ -95,13 +104,7 @@ public class RecommendCustomFragment extends BaseListFragment<RecommendCustomVie
             public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
                 switch (viewType) {
                     case RecommendCustomViewEntity.VIEW_TYPE_TITLE:
-                        CustomTitleVH vh = new CustomTitleVH(context, parent, R.layout.recommend_custom_title_vh);
-                        vh.tvChooseType.setOnClickListener(v -> {
-                            adapter.clear();
-                            dataType = "休息视频";
-                            refreshLayout.autoRefresh();
-                        });
-                        return vh;
+                        return new CustomTitleVH(context, parent, R.layout.recommend_custom_title_vh);
                     case RecommendCustomViewEntity.VIEW_TYPE_ARTICLE_LIST:
                         return new CustomArticleVH(context, parent, R.layout.recommend_custom_article_vh);
                     default:
@@ -153,4 +156,42 @@ public class RecommendCustomFragment extends BaseListFragment<RecommendCustomVie
     public void onError(String msg) {
         stopRefresh();
     }
+
+    /**
+     * 初始化菜单按钮布局
+     */
+    private void initMenuBtnLayout() {
+        ConstraintSet set = new ConstraintSet();
+        set.clone(rootLayout);
+        set.connect(R.id.view_menu_btn, ConstraintSet.END, ConstraintSet.PARENT_ID, ConstraintSet.END);
+        set.connect(R.id.view_menu_btn, ConstraintSet.BOTTOM, ConstraintSet.PARENT_ID, ConstraintSet.BOTTOM);
+        set.setMargin(R.id.view_menu_btn, ConstraintSet.END, ConvertUtils.dp2px(10));
+        set.setMargin(R.id.view_menu_btn, ConstraintSet.BOTTOM, ConvertUtils.dp2px(50));
+        set.applyTo(rootLayout);
+    }
+
+
+    /**
+     * 初始化菜单按钮的事件
+     */
+    private void initMenuBtnEvent() {
+        menuButton.setButtonEnum(ButtonEnum.TextInsideCircle);
+        menuButton.setPiecePlaceEnum(PiecePlaceEnum.DOT_6_6);
+        menuButton.setButtonPlaceEnum(ButtonPlaceEnum.SC_6_1);
+
+        for (int i = 0; i < menuButton.getButtonPlaceEnum()
+                                      .buttonNumber(); i++) {
+            TextInsideCircleButton.Builder builder = new TextInsideCircleButton.Builder()
+                    .normalImageRes(R.mipmap.ic_back_black)
+                    .normalText(DATE_TYPE[i])
+                    .listener(index -> {
+                        adapter.clear();
+                        refreshLayout.autoRefresh();
+                        dataType = DATE_TYPE[index];
+                        dataRequestType = DATE_REQUEST_TYPE[index];
+                    });
+            menuButton.addBuilder(builder);
+        }
+    }
+
 }
