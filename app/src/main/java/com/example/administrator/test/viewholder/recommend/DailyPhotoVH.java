@@ -66,10 +66,12 @@ public class DailyPhotoVH extends BaseViewHolder {
         if (entityList.size() > 0) {
             tvType.setText(entityList.get(0)
                                      .getType());
-            rvPhoto.setAdapter(new DailyRecommendArticleAdapter(entityList));
+            rvPhoto.setAdapter(adapter = new DailyRecommendArticleAdapter(entityList));
         }
 
     }
+
+    DailyRecommendArticleAdapter adapter;
 
     class DailyRecommendArticleAdapter extends RecyclerView.Adapter<DailyRecommendArticleAdapter.ArticleVH> {
         private ImageWatcherHelper     iwHelper;
@@ -130,5 +132,21 @@ public class DailyPhotoVH extends BaseViewHolder {
                                 .getUrl());
             }
         }
+
+        public boolean onBackPressed() {
+            if (!iwHelper.handleBackPressed()) {
+                return false;
+            }
+            return true;
+        }
     }
+
+    /**
+     * 返回事件
+     * @return
+     */
+    public boolean onBackPressed() {
+        return adapter.onBackPressed();
+    }
+
 }

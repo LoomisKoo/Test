@@ -111,4 +111,13 @@ public class RecommendWelfareFragment extends BaseListFragment<String, Recommend
     public void onError(String msg) {
         stopRefresh();
     }
+
+
+    @Override
+    public boolean onBackPressed() {
+        if (!iwHelper.handleBackPressed()) {
+            return false;
+        }
+        return true;
+    }
 }

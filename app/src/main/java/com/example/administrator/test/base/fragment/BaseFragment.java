@@ -319,4 +319,13 @@ public abstract class BaseFragment<P> extends Fragment implements FragmentUserVi
              .show();
     }
 
+    /**
+     * 返回按钮回调
+     *
+     * @return
+     */
+    public boolean onBackPressed() {
+        return false;
+    }
+
 }

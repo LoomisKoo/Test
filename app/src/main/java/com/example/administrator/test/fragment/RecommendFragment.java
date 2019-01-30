@@ -42,10 +42,10 @@ public class RecommendFragment extends BaseFragment {
     private static final int VIEW_PAGER_PAGE_3 = 2;
     private static final int VIEW_PAGER_PAGE_4 = 3;
 
-    private ArrayList<Fragment> fragments = new ArrayList<>(VIEW_PAGER_COUNT);
-    private ViewPager           viewPager;
-    private BottomBar           mBottomBar;
-    private AppBarLayout        mAppBarLayout;
+    private ArrayList<BaseFragment> fragments = new ArrayList<>(VIEW_PAGER_COUNT);
+    private ViewPager               viewPager;
+    private BottomBar               mBottomBar;
+    private AppBarLayout            mAppBarLayout;
 
 
     @Override
@@ -189,6 +189,19 @@ public class RecommendFragment extends BaseFragment {
 
             return false;
         });
+    }
+
+
+    @Override
+    public boolean onBackPressed() {
+        int fragmentSize = fragments.size();
+        for (int i = 0; i < fragmentSize; i++) {
+            if (fragments.get(i)
+                         .isVisibleToUser()) {
+                return fragments.get(i).onBackPressed();
+            }
+        }
+        return false;
     }
 
 }

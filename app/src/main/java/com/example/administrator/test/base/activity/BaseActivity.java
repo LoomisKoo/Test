@@ -1,8 +1,6 @@
 package com.example.administrator.test.base.activity;
 
 import android.animation.Animator;
-import android.annotation.SuppressLint;
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -16,7 +14,6 @@ import androidx.annotation.ColorRes;
 import androidx.annotation.DrawableRes;
 import androidx.annotation.StringRes;
 
-import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.example.administrator.test.animation.AnimatorHelper;
 import com.google.android.material.navigation.NavigationView;
@@ -27,7 +24,6 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.util.Log;
 import android.view.Menu;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
@@ -120,7 +116,7 @@ public abstract class BaseActivity<P extends IBasePresenter> extends SwipeBackAc
         initToolbar();
 
         drawerRootLayout = (DrawerLayout) findViewById(R.id.base_root_dl);
-        lockdrawer(true);
+        lockDrawer(true);
         navView = (NavigationView) findViewById(R.id.base_root_nav_view);
         presenter = createPresenter();
 
@@ -788,7 +784,7 @@ public abstract class BaseActivity<P extends IBasePresenter> extends SwipeBackAc
     /**
      * 禁止/打开手势滑动
      */
-    protected void lockdrawer(boolean lock) {
+    protected void lockDrawer(boolean lock) {
         if (lock) {
             drawerRootLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
         }

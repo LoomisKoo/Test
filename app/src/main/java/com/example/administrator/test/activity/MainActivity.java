@@ -19,6 +19,7 @@ import com.alibaba.android.arouter.launcher.ARouter;
 import com.example.administrator.test.R;
 import com.example.administrator.test.animation.AnimatorHelper;
 import com.example.administrator.test.base.activity.BaseActivity;
+import com.example.administrator.test.base.fragment.BaseFragment;
 import com.example.administrator.test.fragment.Fragment1;
 import com.example.administrator.test.fragment.BasicKnowledgeFragment;
 import com.example.administrator.test.fragment.RecommendFragment;
@@ -51,9 +52,9 @@ public class MainActivity extends BaseActivity {
     public static final String CIRCULAR_REVEAL_X = "CIRCULAR_REVEAL_X";
     public static final String CIRCULAR_REVEAL_Y = "CIRCULAR_REVEAL_Y";
 
-    private BottomBar      mBottomBar;
-    private List<Fragment> fragments;
-    private ViewPager      viewPager;
+    private BottomBar          mBottomBar;
+    private List<BaseFragment> fragments;
+    private ViewPager          viewPager;
 
     @Override
     public void widgetClick(View v) {
@@ -104,7 +105,7 @@ public class MainActivity extends BaseActivity {
         initDrawerLayout();
         setEnableGesture(false);
         //打开侧边栏手势滑动呼出
-        lockdrawer(false);
+        lockDrawer(false);
     }
 
     @Override
@@ -342,5 +343,23 @@ public class MainActivity extends BaseActivity {
         super.onSaveInstanceState(outState);
         //保存BottomBar的状态
         mBottomBar.onSaveInstanceState();
+    }
+
+    @Override
+    public void onBackPressed() {
+        boolean isChildViewHandler = false;
+        //通知所有子view返回shijian
+        int fragmentSize = fragments.size();
+        for (int i = 0; i < fragmentSize; i++) {
+            if (fragments.get(i)
+                         .isVisibleToUser()) {
+                isChildViewHandler = fragments.get(i)
+                                              .onBackPressed();
+                break;
+            }
+        }
+        if (!isChildViewHandler) {
+            super.onBackPressed();
+        }
     }
 }

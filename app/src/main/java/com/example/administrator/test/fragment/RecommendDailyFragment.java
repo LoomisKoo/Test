@@ -47,6 +47,8 @@ public class RecommendDailyFragment extends BaseListFragment<RecommendDailyViewE
         presenter.getDailyRecommend();
     }
 
+    DailyPhotoVH vh;
+
     @Override
     protected void initView(View view) {
         super.initView(view);
@@ -105,7 +107,8 @@ public class RecommendDailyFragment extends BaseListFragment<RecommendDailyViewE
                     case RecommendDailyViewEntity.VIEW_TYPE_VIDEO:
                         return new DailyVideoVH(getActivity(), parent, R.layout.recommend_daily_vh_common);
                     case RecommendDailyViewEntity.VIEW_TYPE_PHOTO:
-                        return new DailyPhotoVH(getActivity(), parent, R.layout.recommend_daily_vh_common);
+                        vh = new DailyPhotoVH(getActivity(), parent, R.layout.recommend_daily_vh_common);
+                        return vh;
                     default:
                         break;
                 }
@@ -204,5 +207,10 @@ public class RecommendDailyFragment extends BaseListFragment<RecommendDailyViewE
      */
     private void addMenu() {
         adapter.add(new RecommendDailyViewEntity(null, RecommendDailyViewEntity.VIEW_TYPE_MAIN_MENU));
+    }
+
+    @Override
+    public boolean onBackPressed() {
+        return vh.onBackPressed();
     }
 }
