@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.blankj.utilcode.util.ToastUtils;
 import com.example.administrator.test.R;
 import com.example.administrator.test.animation.AnimatorHelper;
 import com.example.administrator.test.base.activity.BaseActivity;
@@ -49,8 +50,14 @@ public class MainActivity extends BaseActivity {
     private static final int TAB_TYPE_FRIENDS  = 1;
     private static final int TAB_TYPE_MUSIC    = 2;
 
-    public static final String CIRCULAR_REVEAL_X = "CIRCULAR_REVEAL_X";
-    public static final String CIRCULAR_REVEAL_Y = "CIRCULAR_REVEAL_Y";
+    /**
+     * 记录用户首次点击返回键的时间
+     */
+    private long firstBackPressTime = 0;
+    /**
+     * 防误触返回间隔时间
+     */
+    private static final int BACK_PRESS_INTERVAL_TIME = 2000;
 
     private BottomBar          mBottomBar;
     private List<BaseFragment> fragments;
@@ -347,19 +354,26 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void onBackPressed() {
-        boolean isChildViewHandler = false;
-        //通知所有子view返回shijian
+        boolean isChildViewHandled = false;
+        //通知所有子view返回时间
         int fragmentSize = fragments.size();
         for (int i = 0; i < fragmentSize; i++) {
+            //可见的fragment就通知
             if (fragments.get(i)
                          .isVisibleToUser()) {
-                isChildViewHandler = fragments.get(i)
+                isChildViewHandled = fragments.get(i)
                                               .onBackPressed();
                 break;
             }
         }
-        if (!isChildViewHandler) {
-            super.onBackPressed();
+        if (!isChildViewHandled) {
+            if (System.currentTimeMillis() - firstBackPressTime > BACK_PRESS_INTERVAL_TIME) {
+                ToastUtils.showShort("再按一次退出程序");
+                firstBackPressTime = System.currentTimeMillis();
+            }
+            else {
+                super.onBackPressed();
+            }
         }
     }
 }

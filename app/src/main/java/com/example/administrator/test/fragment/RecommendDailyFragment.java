@@ -140,7 +140,6 @@ public class RecommendDailyFragment extends BaseListFragment<RecommendDailyViewE
 
     @Override
     public void onSuccess(RecommendDailyEntity entity) {
-        RecommendDailyViewEntity data;
         //福利
         addArticleData(entity.getResults()
                              .getWelfareBeanList(), RecommendDailyViewEntity.VIEW_TYPE_PHOTO);
