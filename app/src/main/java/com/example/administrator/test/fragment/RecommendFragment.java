@@ -73,6 +73,7 @@ public class RecommendFragment extends BaseFragment {
     private void initAppBarLayout() {
         //verticalOffset是当前appbarLayout的高度与最开始appbarlayout高度的差，向上滑动的话是负数
         mAppBarLayout.addOnOffsetChangedListener((appBarLayout, verticalOffset) -> ((RecommendCustomFragment) fragments.get(VIEW_PAGER_PAGE_3)).resetMenuBtnLayout(verticalOffset));
+
     }
 
     @Override
