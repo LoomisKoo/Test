@@ -39,6 +39,7 @@ import androidx.recyclerview.widget.RecyclerView;
  * @Version: 1.0
  */
 public class RecommendDailyFragment extends BaseListFragment<RecommendDailyViewEntity, RecommendDailyPresenter> implements RecommendDailyContract.View {
+    private DailyPhotoVH dailyPhotoVH;
 
     @Override
     protected void getData(int page, int pageSize) {
@@ -46,8 +47,6 @@ public class RecommendDailyFragment extends BaseListFragment<RecommendDailyViewE
         addMenu();
         presenter.getDailyRecommend();
     }
-
-    DailyPhotoVH vh;
 
     @Override
     protected void initView(View view) {
@@ -107,8 +106,8 @@ public class RecommendDailyFragment extends BaseListFragment<RecommendDailyViewE
                     case RecommendDailyViewEntity.VIEW_TYPE_VIDEO:
                         return new DailyVideoVH(getActivity(), parent, R.layout.recommend_daily_vh_common);
                     case RecommendDailyViewEntity.VIEW_TYPE_PHOTO:
-                        vh = new DailyPhotoVH(getActivity(), parent, R.layout.recommend_daily_vh_common);
-                        return vh;
+                        dailyPhotoVH = new DailyPhotoVH(getActivity(), parent, R.layout.recommend_daily_vh_common);
+                        return dailyPhotoVH;
                     default:
                         break;
                 }
@@ -143,36 +142,26 @@ public class RecommendDailyFragment extends BaseListFragment<RecommendDailyViewE
     public void onSuccess(RecommendDailyEntity entity) {
         RecommendDailyViewEntity data;
         //福利
-        data = new RecommendDailyViewEntity(entity.getResults()
-                                                  .getWelfareBeanList(), RecommendDailyViewEntity.VIEW_TYPE_PHOTO);
-        adapter.add(data);
-
+        addArticleData(entity.getResults()
+                             .getWelfareBeanList(), RecommendDailyViewEntity.VIEW_TYPE_PHOTO);
         //android
-        data = new RecommendDailyViewEntity(entity.getResults()
-                                                  .getAndroid(), RecommendDailyViewEntity.VIEW_TYPE_ARTICLE);
-        adapter.add(data);
-
+        addArticleData(entity.getResults()
+                             .getAndroid(), RecommendDailyViewEntity.VIEW_TYPE_ARTICLE);
         //ios
-        data = new RecommendDailyViewEntity(entity.getResults()
-                                                  .getIOS(), RecommendDailyViewEntity.VIEW_TYPE_ARTICLE);
-        adapter.add(data);
+        addArticleData(entity.getResults()
+                             .getIOS(), RecommendDailyViewEntity.VIEW_TYPE_ARTICLE);
         //app
-        data = new RecommendDailyViewEntity(entity.getResults()
-                                                  .getApp(), RecommendDailyViewEntity.VIEW_TYPE_ARTICLE);
-        adapter.add(data);
+        addArticleData(entity.getResults()
+                             .getApp(), RecommendDailyViewEntity.VIEW_TYPE_ARTICLE);
         //拓展资源
-        data = new RecommendDailyViewEntity(entity.getResults()
-                                                  .getExpandBeanList(), RecommendDailyViewEntity.VIEW_TYPE_ARTICLE);
-        adapter.add(data);
+        addArticleData(entity.getResults()
+                             .getExpandBeanList(), RecommendDailyViewEntity.VIEW_TYPE_ARTICLE);
         //视频
-        data = new RecommendDailyViewEntity(entity.getResults()
-                                                  .getVideoBeanList(), RecommendDailyViewEntity.VIEW_TYPE_VIDEO);
-        adapter.add(data);
+        addArticleData(entity.getResults()
+                             .getVideoBeanList(), RecommendDailyViewEntity.VIEW_TYPE_VIDEO);
         //瞎推荐
-        data = new RecommendDailyViewEntity(entity.getResults()
-                                                  .getRecommendBeanList(), RecommendDailyViewEntity.VIEW_TYPE_ARTICLE);
-        adapter.add(data);
-
+        addArticleData(entity.getResults()
+                             .getRecommendBeanList(), RecommendDailyViewEntity.VIEW_TYPE_ARTICLE);
         checkRvEmpty();
     }
 
@@ -209,8 +198,19 @@ public class RecommendDailyFragment extends BaseListFragment<RecommendDailyViewE
         adapter.add(new RecommendDailyViewEntity(null, RecommendDailyViewEntity.VIEW_TYPE_MAIN_MENU));
     }
 
+    /**
+     * 根据不同该数据加入不同布局
+     *
+     * @param entities
+     * @param viewType
+     */
+    public void addArticleData(List<RecommendDailyArticleEntity> entities, int viewType) {
+        RecommendDailyViewEntity data = new RecommendDailyViewEntity(entities, viewType);
+        adapter.add(data);
+    }
+
     @Override
     public boolean onBackPressed() {
-        return vh.onBackPressed();
+        return dailyPhotoVH.onBackPressed();
     }
 }
