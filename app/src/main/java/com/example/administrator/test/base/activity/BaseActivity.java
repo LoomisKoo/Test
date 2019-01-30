@@ -120,6 +120,7 @@ public abstract class BaseActivity<P extends IBasePresenter> extends SwipeBackAc
         initToolbar();
 
         drawerRootLayout = (DrawerLayout) findViewById(R.id.base_root_dl);
+        lockdrawer(true);
         navView = (NavigationView) findViewById(R.id.base_root_nav_view);
         presenter = createPresenter();
 
@@ -782,6 +783,18 @@ public abstract class BaseActivity<P extends IBasePresenter> extends SwipeBackAc
     protected void openDrawer() {
         // 开启菜单
         drawerRootLayout.openDrawer(GravityCompat.START);
+    }
+
+    /**
+     * 禁止/打开手势滑动
+     */
+    protected void lockdrawer(boolean lock) {
+        if (lock) {
+            drawerRootLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+        }
+        else {
+            drawerRootLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
+        }
     }
 
     public boolean isAllowActivityAnimator() {

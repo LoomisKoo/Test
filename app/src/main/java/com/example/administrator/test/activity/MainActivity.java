@@ -103,6 +103,8 @@ public class MainActivity extends BaseActivity {
         initBottomBar();
         initDrawerLayout();
         setEnableGesture(false);
+        //打开侧边栏手势滑动呼出
+        lockdrawer(false);
     }
 
     @Override
