@@ -110,6 +110,7 @@ public class RecommendWelfareFragment extends BaseListFragment<String, Recommend
     @Override
     public void onError(String msg) {
         stopRefresh();
+        showToast(msg);
     }
 
 

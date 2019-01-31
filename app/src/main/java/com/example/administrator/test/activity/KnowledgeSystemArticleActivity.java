@@ -129,6 +129,7 @@ public class KnowledgeSystemArticleActivity extends BaseListActivity<ArticleList
     @Override
     public void onError(String msg) {
         stopRefresh();
+        showToast(msg);
     }
 
 

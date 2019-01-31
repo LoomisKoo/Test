@@ -172,6 +172,7 @@ public class RecommendCustomFragment extends BaseListFragment<RecommendCustomVie
     @Override
     public void onError(String msg) {
         stopRefresh();
+        showToast(msg);
     }
 
     /**

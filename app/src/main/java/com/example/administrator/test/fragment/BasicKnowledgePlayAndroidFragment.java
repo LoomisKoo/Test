@@ -163,6 +163,7 @@ public class BasicKnowledgePlayAndroidFragment extends BaseListFragment<PlayAndr
 
     @Override
     public void onError(String msg) {
+        showToast(msg);
         stopRefresh();
         checkEmpty(getString(R.string.common_empty_list_load_failed), R.mipmap.ic_load_err);
     }

@@ -27,6 +27,7 @@ import com.example.administrator.test.fragment.RecommendFragment;
 import com.example.administrator.test.mvp.base.IBasePresenter;
 import com.example.administrator.test.util.ACache;
 import com.example.administrator.test.util.ArouteHelper;
+import com.example.administrator.test.util.UserUtil;
 import com.roughike.bottombar.BottomBar;
 
 import java.util.ArrayList;
@@ -372,6 +373,9 @@ public class MainActivity extends BaseActivity {
                 firstBackPressTime = System.currentTimeMillis();
             }
             else {
+                ACache mCache = ACache.get(this);
+                mCache.remove("user");
+                UserUtil.handleLoginFailure();
                 super.onBackPressed();
             }
         }

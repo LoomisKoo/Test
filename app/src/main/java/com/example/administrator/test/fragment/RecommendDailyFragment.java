@@ -167,6 +167,7 @@ public class RecommendDailyFragment extends BaseListFragment<RecommendDailyViewE
     @Override
     public void onError(String msg) {
         checkRvEmpty();
+        showToast(msg);
     }
 
     /**
