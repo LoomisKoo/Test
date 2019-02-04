@@ -2,7 +2,7 @@ package com.example.administrator.test.mvp.presenter;
 
 import com.alibaba.fastjson.JSON;
 import com.example.administrator.test.entity.RecommendCustomEntity;
-import com.example.administrator.test.entity.view.RecommendCustomViewEntity;
+import com.example.administrator.test.entity.view.BaseViewEntity;
 import com.example.administrator.test.http.HttpCallback;
 import com.example.administrator.test.mvp.contract.RecommendCustomContract;
 
@@ -51,7 +51,7 @@ public class RecommendCustomPresenter implements RecommendCustomContract.Present
                 //封装数据
                 for (int i = 0; i < dataListSize; i++) {
                     RecommendCustomEntity.CustomInfoEntity data             = dataList.get(i);
-                    RecommendCustomViewEntity              customViewEntity = new RecommendCustomViewEntity(data, RecommendCustomViewEntity.VIEW_TYPE_ARTICLE_LIST);
+                    BaseViewEntity                         customViewEntity = new BaseViewEntity(data, BaseViewEntity.RECOMMEND_CUSTOM_VIEW_TYPE_ARTICLE_LIST);
                     view.onSuccess(customViewEntity);
                 }
             }

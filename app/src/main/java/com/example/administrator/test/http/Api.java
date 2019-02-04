@@ -202,4 +202,12 @@ public interface Api {
      */
     @GET("v2/movie/top250")
     Observable<ResponseBody> getMovieTop250(@Query("start") int start, @Query("count") int count);
+
+    /**
+     * 获取电影详情
+     *
+     * @param id 电影bean里的id
+     */
+    @GET("v2/movie/subject/{id}")
+    Observable<ResponseBody> getMovieDetail(@Path("id") String id);
 }

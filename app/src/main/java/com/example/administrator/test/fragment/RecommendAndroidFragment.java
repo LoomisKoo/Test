@@ -1,31 +1,22 @@
 package com.example.administrator.test.fragment;
 
 import android.annotation.SuppressLint;
-import android.graphics.Rect;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.alibaba.android.vlayout.LayoutHelper;
 import com.alibaba.android.vlayout.layout.LinearLayoutHelper;
-import com.blankj.utilcode.util.ConvertUtils;
 import com.example.administrator.test.R;
 import com.example.administrator.test.base.adapter.BaseViewHolder;
 import com.example.administrator.test.base.adapter.QuickDelegateAdapter;
 import com.example.administrator.test.base.fragment.BaseListFragment;
 import com.example.administrator.test.entity.RecommendCustomEntity;
-import com.example.administrator.test.entity.view.RecommendCustomViewEntity;
+import com.example.administrator.test.entity.view.BaseViewEntity;
 import com.example.administrator.test.mvp.contract.RecommendCustomContract;
 import com.example.administrator.test.mvp.model.RecommendCustomModel;
 import com.example.administrator.test.mvp.presenter.RecommendCustomPresenter;
 import com.example.administrator.test.viewholder.recommend.CustomArticleVH;
-import com.example.administrator.test.viewholder.recommend.CustomTitleVH;
-import com.nightonke.boommenu.BoomButtons.ButtonPlaceEnum;
-import com.nightonke.boommenu.BoomButtons.TextInsideCircleButton;
-import com.nightonke.boommenu.BoomMenuButton;
-import com.nightonke.boommenu.ButtonEnum;
-import com.nightonke.boommenu.Piece.PiecePlaceEnum;
 
-import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.recyclerview.widget.RecyclerView;
 
 /**
@@ -40,7 +31,7 @@ import androidx.recyclerview.widget.RecyclerView;
  * @UpdateRemark: 更新说明
  * @Version: 1.0
  */
-public class RecommendAndroidFragment extends BaseListFragment<RecommendCustomViewEntity, RecommendCustomPresenter> implements RecommendCustomContract.View {
+public class RecommendAndroidFragment extends BaseListFragment<BaseViewEntity, RecommendCustomPresenter> implements RecommendCustomContract.View {
 
     @Override
     protected void getData(int page, int pageSize) {
@@ -58,9 +49,9 @@ public class RecommendAndroidFragment extends BaseListFragment<RecommendCustomVi
 
     @Override
     protected QuickDelegateAdapter getAdapter() {
-        return new QuickDelegateAdapter<RecommendCustomViewEntity>(getContext(), R.layout.recommend_welfare_vh_item) {
+        return new QuickDelegateAdapter<BaseViewEntity>(getContext(), R.layout.recommend_welfare_vh_item) {
             @Override
-            protected void onSetItemData(BaseViewHolder holder, RecommendCustomViewEntity item, int viewType, int position) {
+            protected void onSetItemData(BaseViewHolder holder, BaseViewEntity item, int viewType, int position) {
                 if (item.getData() instanceof RecommendCustomEntity.CustomInfoEntity) {
                     ((CustomArticleVH) holder).setData((RecommendCustomEntity.CustomInfoEntity) item.getData());
                 }
@@ -110,7 +101,7 @@ public class RecommendAndroidFragment extends BaseListFragment<RecommendCustomVi
     }
 
     @Override
-    public void onSuccess(RecommendCustomViewEntity entity) {
+    public void onSuccess(BaseViewEntity entity) {
         stopRefresh();
         adapter.add(entity);
     }

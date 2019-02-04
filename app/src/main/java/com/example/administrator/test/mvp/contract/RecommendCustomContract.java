@@ -1,7 +1,6 @@
 package com.example.administrator.test.mvp.contract;
 
-import com.example.administrator.test.entity.RecommendCustomEntity;
-import com.example.administrator.test.entity.view.RecommendCustomViewEntity;
+import com.example.administrator.test.entity.view.BaseViewEntity;
 import com.example.administrator.test.http.HttpCallback;
 
 /**
@@ -22,7 +21,7 @@ public interface RecommendCustomContract {
     }
 
     interface View {
-        void onSuccess(RecommendCustomViewEntity entity);
+        void onSuccess(BaseViewEntity entity);
 
         void onError(String msg);
     }

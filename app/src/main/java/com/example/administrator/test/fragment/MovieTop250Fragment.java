@@ -5,7 +5,6 @@ import android.view.ViewGroup;
 
 import com.alibaba.android.vlayout.LayoutHelper;
 import com.alibaba.android.vlayout.layout.GridLayoutHelper;
-import com.alibaba.android.vlayout.layout.LinearLayoutHelper;
 import com.example.administrator.test.R;
 import com.example.administrator.test.base.adapter.BaseViewHolder;
 import com.example.administrator.test.base.adapter.QuickDelegateAdapter;
@@ -14,8 +13,7 @@ import com.example.administrator.test.entity.MovieTop250Entity;
 import com.example.administrator.test.mvp.contract.MovieTop250Contract;
 import com.example.administrator.test.mvp.model.MovieTop250Model;
 import com.example.administrator.test.mvp.presenter.MovieTop250Presenter;
-import com.example.administrator.test.viewholder.movie.MovieTop250Vh;
-import com.example.administrator.test.viewholder.movie.MovieVh;
+import com.example.administrator.test.viewholder.movie.MovieTop250VH;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -48,7 +46,7 @@ public class MovieTop250Fragment extends BaseListFragment<MovieTop250Entity.Subj
                                                                           R.layout.fragment_base_list) {
             @Override
             protected void onSetItemData(BaseViewHolder holder, MovieTop250Entity.SubjectsEntity item, int viewType, int position) {
-                ((MovieTop250Vh) holder).setData(item);
+                ((MovieTop250VH) holder).setData(item);
             }
 
             @Override
@@ -58,7 +56,7 @@ public class MovieTop250Fragment extends BaseListFragment<MovieTop250Entity.Subj
 
             @Override
             public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-                return new MovieTop250Vh(getContext(), parent, R.layout.movie_top_250_vh_item);
+                return new MovieTop250VH(getContext(), parent, R.layout.movie_top_250_vh_item);
             }
         };
     }

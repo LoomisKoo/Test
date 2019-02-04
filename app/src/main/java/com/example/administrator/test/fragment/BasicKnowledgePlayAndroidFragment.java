@@ -15,7 +15,7 @@ import com.example.administrator.test.base.adapter.QuickDelegateAdapter;
 import com.example.administrator.test.base.fragment.BaseListFragment;
 import com.example.administrator.test.entity.ArticleListEntity;
 import com.example.administrator.test.entity.BannerEntity;
-import com.example.administrator.test.entity.view.PlayAndroidViewEntity;
+import com.example.administrator.test.entity.view.BaseViewEntity;
 import com.example.administrator.test.mvp.contract.PlayAndroidContract;
 import com.example.administrator.test.mvp.model.PlayAndroidModel;
 import com.example.administrator.test.mvp.presenter.PlayAndroidPresenter;
@@ -39,7 +39,7 @@ import com.like.OnLikeListener;
  * @UpdateRemark: 更新说明
  * @Version: 1.0
  */
-public class BasicKnowledgePlayAndroidFragment extends BaseListFragment<PlayAndroidViewEntity, PlayAndroidPresenter> implements PlayAndroidContract.View {
+public class BasicKnowledgePlayAndroidFragment extends BaseListFragment<BaseViewEntity, PlayAndroidPresenter> implements PlayAndroidContract.View {
 
     @Override
     protected void getData(int page, int pageSize) {
@@ -66,14 +66,14 @@ public class BasicKnowledgePlayAndroidFragment extends BaseListFragment<PlayAndr
 
     @Override
     protected QuickDelegateAdapter getAdapter() {
-        return new QuickDelegateAdapter<PlayAndroidViewEntity>(getContext(), 0) {
+        return new QuickDelegateAdapter<BaseViewEntity>(getContext(), 0) {
             @Override
-            protected void onSetItemData(BaseViewHolder holder, PlayAndroidViewEntity item, int viewType, int position) {
+            protected void onSetItemData(BaseViewHolder holder, BaseViewEntity item, int viewType, int position) {
                 switch (viewType) {
-                    case PlayAndroidViewEntity.VIEW_TYPE_BANNER:
+                    case BaseViewEntity.PLAY_ANDROID_VIEW_TYPE_BANNER:
                         ((PlayAndroidBannerVH) holder).setData((BannerEntity) item.getData());
                         break;
-                    case PlayAndroidViewEntity.VIEW_TYPE_ARTICLE_LIST:
+                    case BaseViewEntity.PLAY_ANDROID_VIEW_TYPE_ARTICLE_LIST:
                         ArticleListEntity.DataBean.ArticleInfoBean entity = (ArticleListEntity.DataBean.ArticleInfoBean) item.getData();
                         ((PlayAndroidArticleListVH) holder).setData(entity);
                         LikeButton checkBox = holder.getView(R.id.cbCollect);
@@ -104,15 +104,15 @@ public class BasicKnowledgePlayAndroidFragment extends BaseListFragment<PlayAndr
             @Override
             public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
                 switch (viewType) {
-                    case PlayAndroidViewEntity.VIEW_TYPE_BANNER:
+                    case BaseViewEntity.PLAY_ANDROID_VIEW_TYPE_BANNER:
                         PlayAndroidBannerVH bannerVH = new PlayAndroidBannerVH(getActivity(), parent, R.layout.header_play_android);
                         AnimatorHelper.setViewTouchListener(bannerVH.itemView);
                         return bannerVH;
-                    case PlayAndroidViewEntity.VIEW_TYPE_ARTICLE_LIST:
+                    case BaseViewEntity.PLAY_ANDROID_VIEW_TYPE_ARTICLE_LIST:
                         PlayAndroidArticleListVH vh = new PlayAndroidArticleListVH(getContext(), parent, R.layout.play_android_item_article);
                         vh.itemView.setOnClickListener(v -> {
                             int position = recyclerView.getChildAdapterPosition(v);
-                            PlayAndroidViewEntity entity = adapter.getData()
+                            BaseViewEntity entity = adapter.getData()
                                                                   .get(position);
                             ArticleListEntity.DataBean.ArticleInfoBean bean  = (ArticleListEntity.DataBean.ArticleInfoBean) entity.getData();
                             String                                     title = bean.getTitle();
@@ -150,14 +150,14 @@ public class BasicKnowledgePlayAndroidFragment extends BaseListFragment<PlayAndr
     }
 
     @Override
-    public void onSuccess(PlayAndroidViewEntity playAndroidViewEntity, int maxPage) {
+    public void onSuccess(BaseViewEntity entity, int maxPage) {
         stopRefresh();
-        if (playAndroidViewEntity.getViewType() == PlayAndroidViewEntity.VIEW_TYPE_BANNER) {
-            adapter.add(0, playAndroidViewEntity);
+        if (entity.getViewType() == BaseViewEntity.PLAY_ANDROID_VIEW_TYPE_BANNER) {
+            adapter.add(0, entity);
         }
         else {
             this.maxPage = maxPage;
-            adapter.add(playAndroidViewEntity);
+            adapter.add(entity);
         }
     }
 

@@ -1,6 +1,6 @@
 package com.example.administrator.test.mvp.contract;
 
-import com.example.administrator.test.entity.view.PlayAndroidViewEntity;
+import com.example.administrator.test.entity.view.BaseViewEntity;
 import com.example.administrator.test.http.HttpCallback;
 import com.example.administrator.test.mvp.base.IBasePresenter;
 import com.example.administrator.test.mvp.presenter.PlayAndroidPresenter;
@@ -43,10 +43,10 @@ public interface PlayAndroidContract {
         /**
          * banner图请求成功回调
          *
-         * @param playAndroidViewEntity
+         * @param entity
          * @param maxPage
          */
-        void onSuccess(PlayAndroidViewEntity playAndroidViewEntity, int maxPage);
+        void onSuccess(BaseViewEntity entity, int maxPage);
 
         void onError(String msg);
 

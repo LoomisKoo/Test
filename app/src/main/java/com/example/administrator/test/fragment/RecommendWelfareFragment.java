@@ -43,6 +43,7 @@ public class RecommendWelfareFragment extends BaseListFragment<String, Recommend
 
     @Override
     protected void getData(int page, int pageSize) {
+        page++;
         presenter.getWelfare("福利", pageSize, page);
     }
 

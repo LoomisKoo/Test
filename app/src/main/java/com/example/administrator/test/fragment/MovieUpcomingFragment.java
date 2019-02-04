@@ -14,7 +14,7 @@ import com.example.administrator.test.mvp.contract.MovieHitContract;
 import com.example.administrator.test.mvp.contract.MovieUpcomingContract;
 import com.example.administrator.test.mvp.model.MovieUpcomingModel;
 import com.example.administrator.test.mvp.presenter.MovieUpcomingPresenter;
-import com.example.administrator.test.viewholder.movie.MovieVh;
+import com.example.administrator.test.viewholder.movie.MovieVH;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -42,7 +42,7 @@ public class MovieUpcomingFragment extends BaseListFragment<MoviewHitEntity.Subj
                                                                         R.layout.fragment_base_list) {
             @Override
             protected void onSetItemData(BaseViewHolder holder, MoviewHitEntity.SubjectsEntity item, int viewType, int position) {
-                ((MovieVh) holder).setData(item);
+                ((MovieVH) holder).setData(item);
             }
 
             @Override
@@ -52,7 +52,7 @@ public class MovieUpcomingFragment extends BaseListFragment<MoviewHitEntity.Subj
 
             @Override
             public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-                return new MovieVh(getContext(), parent, R.layout.movie_hit_vh_item);
+                return new MovieVH(getContext(), parent, R.layout.movie_hit_vh_item);
             }
         };
     }

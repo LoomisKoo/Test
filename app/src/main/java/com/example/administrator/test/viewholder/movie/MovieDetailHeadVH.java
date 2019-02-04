@@ -1,67 +1,66 @@
 package com.example.administrator.test.viewholder.movie;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
 import com.example.administrator.test.R;
 import com.example.administrator.test.base.adapter.BaseViewHolder;
-import com.example.administrator.test.entity.MoviewHitEntity;
+import com.example.administrator.test.entity.MovieDetailEntity;
 
 /**
  * @ProjectName: Test
  * @Package: com.example.administrator.test.viewholder.movie
- * @ClassName: MovieVh
+ * @ClassName: MovieDetailHeadVH
  * @Description: java类作用描述
  * @Author: koo
- * @CreateDate: 2019/2/3 11:54 AM
+ * @CreateDate: 2019/2/4 3:36 PM
  * @UpdateUser:
- * @UpdateDate: 2019/2/3 11:54 AM
+ * @UpdateDate: 2019/2/4 3:36 PM
  * @UpdateRemark: 更新说明
  * @Version: 1.0
  */
-public class MovieVh extends BaseViewHolder {
+public class MovieDetailHeadVH extends BaseViewHolder {
     private ImageView ivPosters;
-    private TextView  tvTitle, tvDirector, tvCasts, tvGenres, tvScore;
+    private TextView  tvScore, tvNumOfScore, tvDirector, tvStarring, tvGenres, tvDate, tvRegion;
 
-    public MovieVh(Context context, ViewGroup parent, int layoutId) {
+    public MovieDetailHeadVH(Context context, ViewGroup parent, int layoutId) {
         super(context, parent, layoutId);
         ivPosters = getView(R.id.iv_posters);
-        tvTitle = getView(R.id.tv_title);
-        tvDirector = getView(R.id.tv_director);
-        tvCasts = getView(R.id.tv_casts);
-        tvGenres = getView(R.id.tv_genres);
         tvScore = getView(R.id.tv_score);
+        tvNumOfScore = getView(R.id.tv_num_of_score);
+        tvDirector = getView(R.id.tv_director);
+        tvStarring = getView(R.id.tv_starring);
+        tvGenres = getView(R.id.tv_genres);
+        tvDate = getView(R.id.tv_date);
+        tvRegion = getView(R.id.tv_region);
+
     }
 
-    @SuppressLint("CheckResult")
-    public void setData(MoviewHitEntity.SubjectsEntity entity) {
-        RequestOptions options = new RequestOptions();
-        options.error(R.mipmap.ic_launcher);
-        options.placeholder(R.mipmap.ic_launcher);
-
+    public void setData(MovieDetailEntity entity) {
         Glide.with(context)
-             .setDefaultRequestOptions(options)
              .load(entity.getImages()
                          .getLarge())
              .into(ivPosters);
 
-        String title         = entity.getTitle();
-        String directorsName = "导演：" + getDirectorName(entity);
-        String castsName     = "主演：" + getCastsName(entity);
+        String score = "评分：" + entity.getRating()
+                                     .getAverage() + "";
+        String numOfScore = entity.getWish_count() + "人评分";
+        String director   = "导演：" + getDirectorName(entity);
+        String starring   = "主演：" + getCastsName(entity);
         String genres        = "类型：" + getGenres(entity);
-        String score = "评分：" + String.valueOf(entity.getRating()
-                                                    .getAverage());
+        String year        = "上映日期：" + entity.getYear();
+        String region        = "制片国家/地区：" + entity.getCountries();
 
-        tvTitle.setText(title);
-        tvDirector.setText(directorsName);
-        tvCasts.setText(castsName);
-        tvGenres.setText(genres);
         tvScore.setText(score);
+        tvNumOfScore.setText(numOfScore);
+        tvDirector.setText(director);
+        tvStarring.setText(starring);
+        tvGenres.setText(genres);
+        tvDate.setText(year);
+        tvRegion.setText(region);
     }
 
     /**
@@ -70,7 +69,7 @@ public class MovieVh extends BaseViewHolder {
      * @param entity
      * @return
      */
-    private String getDirectorName(MoviewHitEntity.SubjectsEntity entity) {
+    private String getDirectorName(MovieDetailEntity entity) {
         if (entity.getDirectors()
                   .size() == 0) {
             return "";
@@ -91,12 +90,12 @@ public class MovieVh extends BaseViewHolder {
     }
 
     /**
-     * 获取所有演员姓名
+     * 获取所有主演姓名
      *
      * @param entity
      * @return
      */
-    private String getCastsName(MoviewHitEntity.SubjectsEntity entity) {
+    private String getCastsName(MovieDetailEntity entity) {
         if (entity.getCasts()
                   .size() == 0) {
             return "";
@@ -123,7 +122,7 @@ public class MovieVh extends BaseViewHolder {
      * @param entity
      * @return
      */
-    private String getGenres(MoviewHitEntity.SubjectsEntity entity) {
+    private String getGenres(MovieDetailEntity entity) {
         if (entity.getGenres()
                   .size() == 0) {
             return "";

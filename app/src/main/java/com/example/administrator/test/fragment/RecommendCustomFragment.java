@@ -13,7 +13,7 @@ import com.example.administrator.test.base.adapter.BaseViewHolder;
 import com.example.administrator.test.base.adapter.QuickDelegateAdapter;
 import com.example.administrator.test.base.fragment.BaseListFragment;
 import com.example.administrator.test.entity.RecommendCustomEntity;
-import com.example.administrator.test.entity.view.RecommendCustomViewEntity;
+import com.example.administrator.test.entity.view.BaseViewEntity;
 import com.example.administrator.test.mvp.contract.RecommendCustomContract;
 import com.example.administrator.test.mvp.model.RecommendCustomModel;
 import com.example.administrator.test.mvp.presenter.RecommendCustomPresenter;
@@ -40,7 +40,7 @@ import androidx.recyclerview.widget.RecyclerView;
  * @UpdateRemark: 更新说明
  * @Version: 1.0
  */
-public class RecommendCustomFragment extends BaseListFragment<RecommendCustomViewEntity, RecommendCustomPresenter> implements RecommendCustomContract.View {
+public class RecommendCustomFragment extends BaseListFragment<BaseViewEntity, RecommendCustomPresenter> implements RecommendCustomContract.View {
     /**
      * 选择菜单的icon
      */
@@ -70,7 +70,7 @@ public class RecommendCustomFragment extends BaseListFragment<RecommendCustomVie
     protected void getData(int page, int pageSize) {
         if (0 == page) {
             //加入title布局，不需要数据
-            RecommendCustomViewEntity entity = new RecommendCustomViewEntity(dataType, RecommendCustomViewEntity.VIEW_TYPE_TITLE);
+            BaseViewEntity entity = new BaseViewEntity(dataType, BaseViewEntity.RECOMMEND_CUSTOM_VIEW_TYPE_TITLE);
             adapter.add(entity);
         }
         //该api是page是从1开始
@@ -93,16 +93,16 @@ public class RecommendCustomFragment extends BaseListFragment<RecommendCustomVie
 
     @Override
     protected QuickDelegateAdapter getAdapter() {
-        return new QuickDelegateAdapter<RecommendCustomViewEntity>(getContext(), R.layout.recommend_welfare_vh_item) {
+        return new QuickDelegateAdapter<BaseViewEntity>(getContext(), R.layout.recommend_welfare_vh_item) {
             @Override
-            protected void onSetItemData(BaseViewHolder holder, RecommendCustomViewEntity item, int viewType, int position) {
+            protected void onSetItemData(BaseViewHolder holder, BaseViewEntity item, int viewType, int position) {
                 switch (viewType) {
-                    case RecommendCustomViewEntity.VIEW_TYPE_TITLE:
+                    case BaseViewEntity.RECOMMEND_CUSTOM_VIEW_TYPE_TITLE:
                         if (item.getData() instanceof String) {
                             ((CustomTitleVH) holder).setData((String) item.getData());
                         }
                         break;
-                    case RecommendCustomViewEntity.VIEW_TYPE_ARTICLE_LIST:
+                    case BaseViewEntity.RECOMMEND_CUSTOM_VIEW_TYPE_ARTICLE_LIST:
                         if (item.getData() instanceof RecommendCustomEntity.CustomInfoEntity) {
                             ((CustomArticleVH) holder).setData((RecommendCustomEntity.CustomInfoEntity) item.getData());
                         }
@@ -120,9 +120,9 @@ public class RecommendCustomFragment extends BaseListFragment<RecommendCustomVie
             @Override
             public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
                 switch (viewType) {
-                    case RecommendCustomViewEntity.VIEW_TYPE_TITLE:
+                    case BaseViewEntity.RECOMMEND_CUSTOM_VIEW_TYPE_TITLE:
                         return new CustomTitleVH(context, parent, R.layout.recommend_custom_title_vh);
-                    case RecommendCustomViewEntity.VIEW_TYPE_ARTICLE_LIST:
+                    case BaseViewEntity.RECOMMEND_CUSTOM_VIEW_TYPE_ARTICLE_LIST:
                         return new CustomArticleVH(context, parent, R.layout.recommend_custom_article_vh);
                     default:
                         break;
@@ -164,7 +164,7 @@ public class RecommendCustomFragment extends BaseListFragment<RecommendCustomVie
     }
 
     @Override
-    public void onSuccess(RecommendCustomViewEntity entity) {
+    public void onSuccess(BaseViewEntity entity) {
         stopRefresh();
         adapter.add(entity);
     }

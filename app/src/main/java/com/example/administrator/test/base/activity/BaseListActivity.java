@@ -100,6 +100,8 @@ public abstract class BaseListActivity<T, P extends IBasePresenter> extends Base
         refreshLayout.setOnRefreshListener(refreshLayout -> refresh());
         refreshLayout.setOnLoadmoreListener(refreshLayout -> loadMore());
         refreshLayout.autoRefresh();
+        //不启用列表惯性滑动到底部时自动加载更多
+        refreshLayout.setEnableAutoLoadmore(false);
         if (getTopLayId() != 0) {
             getLayoutInflater().inflate(getTopLayId(), topLay, true);
         }

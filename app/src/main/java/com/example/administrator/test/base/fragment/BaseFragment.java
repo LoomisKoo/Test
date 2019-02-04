@@ -60,6 +60,8 @@ public abstract class BaseFragment<P> extends Fragment implements FragmentUserVi
         refreshLayout = view.findViewById(R.id.base_pager_list_refreshLayout);
         refreshLayout.setOnRefreshListener(refreshLayout -> refreshData());
         refreshLayout.setOnLoadmoreListener(refreshLayout -> loadMoreData());
+        //不启用列表惯性滑动到底部时自动加载更多
+        refreshLayout.setEnableAutoLoadmore(false);
         initMainLayout();
     }
 

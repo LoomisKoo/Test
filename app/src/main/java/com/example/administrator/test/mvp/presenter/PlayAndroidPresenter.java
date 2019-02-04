@@ -3,7 +3,7 @@ package com.example.administrator.test.mvp.presenter;
 import com.alibaba.fastjson.JSON;
 import com.example.administrator.test.entity.ArticleListEntity;
 import com.example.administrator.test.entity.BannerEntity;
-import com.example.administrator.test.entity.view.PlayAndroidViewEntity;
+import com.example.administrator.test.entity.view.BaseViewEntity;
 import com.example.administrator.test.http.HttpCallback;
 import com.example.administrator.test.mvp.contract.PlayAndroidContract;
 
@@ -20,7 +20,7 @@ public class PlayAndroidPresenter implements PlayAndroidContract.Presenter {
     private PlayAndroidContract.View  view;
     private PlayAndroidContract.Model model;
 
-    private PlayAndroidViewEntity playAndroidViewEntity;
+    private BaseViewEntity viewEntity;
 
     public PlayAndroidPresenter(PlayAndroidContract.View view, PlayAndroidContract.Model model) {
         this.view = view;
@@ -39,8 +39,8 @@ public class PlayAndroidPresenter implements PlayAndroidContract.Presenter {
                 catch (IOException e) {
                     e.printStackTrace();
                 }
-                playAndroidViewEntity = new PlayAndroidViewEntity(bannerEntity, PlayAndroidViewEntity.VIEW_TYPE_BANNER);
-                view.onSuccess(playAndroidViewEntity, 0);
+                viewEntity = new BaseViewEntity(bannerEntity, BaseViewEntity.PLAY_ANDROID_VIEW_TYPE_BANNER);
+                view.onSuccess(viewEntity, 0);
             }
 
             @Override
@@ -67,9 +67,9 @@ public class PlayAndroidPresenter implements PlayAndroidContract.Presenter {
                     List<ArticleListEntity.DataBean.ArticleInfoBean> entityList = articleListEntity.getData()
                                                                                                    .getArticleListBean();
                     for (ArticleListEntity.DataBean.ArticleInfoBean entity : entityList) {
-                        playAndroidViewEntity = new PlayAndroidViewEntity(entity, PlayAndroidViewEntity.VIEW_TYPE_ARTICLE_LIST);
-                        view.onSuccess(playAndroidViewEntity, articleListEntity.getData()
-                                                                               .getPageCount());
+                        viewEntity = new BaseViewEntity(entity, BaseViewEntity.PLAY_ANDROID_VIEW_TYPE_ARTICLE_LIST);
+                        view.onSuccess(viewEntity, articleListEntity.getData()
+                                                                    .getPageCount());
                     }
                 }
                 catch (IOException e) {
