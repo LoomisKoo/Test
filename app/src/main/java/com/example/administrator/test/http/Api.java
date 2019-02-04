@@ -194,4 +194,12 @@ public interface Api {
     @GET("v2/movie/coming_soon")
     Observable<ResponseBody> getUpcomming(@Query("start") int start, @Query("count") int count);
 
+    /**
+     * 获取豆瓣电影top250
+     *
+     * @param start 从多少开始，如从"0"开始
+     * @param count 一次请求的数目，如"10"条，最多100
+     */
+    @GET("v2/movie/top250")
+    Observable<ResponseBody> getMovieTop250(@Query("start") int start, @Query("count") int count);
 }

@@ -92,8 +92,7 @@ public class MovieFragment extends BaseFragment {
         fragments.clear();
         fragments.add(new MovieHitFragment());
         fragments.add(new MovieUpcomingFragment());
-        fragments.add(new MovieHitFragment());
-        fragments.add(new MovieHitFragment());
+        fragments.add(new MovieTop250Fragment());
     }
 
     private void initViewPager(View view) {
