@@ -15,7 +15,7 @@ import com.example.administrator.test.entity.MoviewHitEntity;
 /**
  * @ProjectName: Test
  * @Package: com.example.administrator.test.viewholder.movie
- * @ClassName: MovieHitVh
+ * @ClassName: MovieVh
  * @Description: java类作用描述
  * @Author: koo
  * @CreateDate: 2019/2/3 11:54 AM
@@ -24,11 +24,11 @@ import com.example.administrator.test.entity.MoviewHitEntity;
  * @UpdateRemark: 更新说明
  * @Version: 1.0
  */
-public class MovieHitVh extends BaseViewHolder {
+public class MovieVh extends BaseViewHolder {
     private ImageView ivPosters;
     private TextView  tvTitle, tvDirector, tvCasts, tvGenres, tvScore;
 
-    public MovieHitVh(Context context, ViewGroup parent, int layoutId) {
+    public MovieVh(Context context, ViewGroup parent, int layoutId) {
         super(context, parent, layoutId);
         ivPosters = getView(R.id.iv_posters);
         tvTitle = getView(R.id.tv_title);
@@ -106,7 +106,7 @@ public class MovieHitVh extends BaseViewHolder {
         castsName.append(entity.getCasts()
                                .get(0)
                                .getName());
-        int castsNameSize = entity.getDirectors()
+        int castsNameSize = entity.getCasts()
                                   .size();
         for (int i = 1; i < castsNameSize; i++) {
             castsName.append("/")

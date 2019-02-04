@@ -11,16 +11,17 @@ import com.example.administrator.test.base.adapter.QuickDelegateAdapter;
 import com.example.administrator.test.base.fragment.BaseListFragment;
 import com.example.administrator.test.entity.MoviewHitEntity;
 import com.example.administrator.test.mvp.contract.MovieHitContract;
-import com.example.administrator.test.mvp.model.MovieHitModel;
-import com.example.administrator.test.mvp.presenter.MovieHitPresenter;
-import com.example.administrator.test.viewholder.movie.MovieHitVh;
+import com.example.administrator.test.mvp.contract.MovieUpcomingContract;
+import com.example.administrator.test.mvp.model.MovieUpcomingModel;
+import com.example.administrator.test.mvp.presenter.MovieUpcomingPresenter;
+import com.example.administrator.test.viewholder.movie.MovieVh;
 
 import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * @ProjectName: Test
  * @Package: com.example.administrator.test.fragment
- * @ClassName: MovieUpcommingFragment   即将上映电影
+ * @ClassName: MovieUpcomingFragment   即将上映电影
  * @Description: java类作用描述
  * @Author: koo
  * @CreateDate: 2019/2/3 11:04 AM
@@ -29,10 +30,10 @@ import androidx.recyclerview.widget.RecyclerView;
  * @UpdateRemark: 更新说明
  * @Version: 1.0
  */
-public class MovieUpcommingFragment extends BaseListFragment<MoviewHitEntity.SubjectsEntity, MovieHitPresenter> implements MovieHitContract.View {
+public class MovieUpcomingFragment extends BaseListFragment<MoviewHitEntity.SubjectsEntity, MovieUpcomingPresenter> implements MovieHitContract.View, MovieUpcomingContract.View {
     @Override
     protected void getData(int page, int pageSize) {
-        presenter.loadData();
+        presenter.loadData(page, pageSize);
     }
 
     @Override
@@ -41,7 +42,7 @@ public class MovieUpcommingFragment extends BaseListFragment<MoviewHitEntity.Sub
                                                                         R.layout.fragment_base_list) {
             @Override
             protected void onSetItemData(BaseViewHolder holder, MoviewHitEntity.SubjectsEntity item, int viewType, int position) {
-                ((MovieHitVh) holder).setData(item);
+                ((MovieVh) holder).setData(item);
             }
 
             @Override
@@ -51,7 +52,7 @@ public class MovieUpcommingFragment extends BaseListFragment<MoviewHitEntity.Sub
 
             @Override
             public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-                return new MovieHitVh(getContext(), parent, R.layout.movie_hit_vh_item);
+                return new MovieVh(getContext(), parent, R.layout.movie_hit_vh_item);
             }
         };
     }
@@ -72,16 +73,14 @@ public class MovieUpcommingFragment extends BaseListFragment<MoviewHitEntity.Sub
     }
 
     @Override
-    protected MovieHitPresenter getPresenter() {
-        return new MovieHitPresenter(this, new MovieHitModel());
+    protected MovieUpcomingPresenter getPresenter() {
+        return new MovieUpcomingPresenter(this, new MovieUpcomingModel());
     }
 
     @Override
     public void onLoadSuccess(MoviewHitEntity entity) {
         stopRefresh();
         adapter.addAll(entity.getSubjects());
-        //电影接口只有一页数据，此处maxPage = -1；为了上拉不会继续加载
-        maxPage = -1;
     }
 
     @Override

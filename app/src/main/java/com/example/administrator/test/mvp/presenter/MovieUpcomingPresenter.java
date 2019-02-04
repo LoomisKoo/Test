@@ -3,8 +3,7 @@ package com.example.administrator.test.mvp.presenter;
 import com.alibaba.fastjson.JSON;
 import com.example.administrator.test.entity.MoviewHitEntity;
 import com.example.administrator.test.http.HttpCallback;
-import com.example.administrator.test.mvp.contract.MovieHitContract;
-import com.example.administrator.test.mvp.contract.MovieHitContract.Model;
+import com.example.administrator.test.mvp.contract.MovieUpcomingContract;
 
 import java.io.IOException;
 
@@ -13,28 +12,28 @@ import okhttp3.ResponseBody;
 /**
  * @ProjectName: Test
  * @Package: com.example.administrator.test.mvp.presenter
- * @ClassName: MovieHitPresenter
+ * @ClassName: MovieUpcomingPresenter
  * @Description: java类作用描述
  * @Author: koo
- * @CreateDate: 2019/2/3 11:22 AM
+ * @CreateDate: 2019/2/4 1:20 PM
  * @UpdateUser:
- * @UpdateDate: 2019/2/3 11:22 AM
+ * @UpdateDate: 2019/2/4 1:20 PM
  * @UpdateRemark: 更新说明
  * @Version: 1.0
  */
-public class MovieHitPresenter implements MovieHitContract.Presenter {
-    private MovieHitContract.View  view;
-    private Model model;
+public class MovieUpcomingPresenter implements MovieUpcomingContract.Presenter {
+    private MovieUpcomingContract.View  view;
+    private MovieUpcomingContract.Model model;
 
 
-    public MovieHitPresenter(MovieHitContract.View view, Model model) {
+    public MovieUpcomingPresenter(MovieUpcomingContract.View view, MovieUpcomingContract.Model model) {
         this.view = view;
         this.model = model;
     }
 
     @Override
-    public void loadData() {
-        model.loadData(new HttpCallback<ResponseBody>() {
+    public void loadData(int start, int count) {
+        model.loadData(start, count, new HttpCallback<ResponseBody>() {
             @Override
             public void onSuccess(ResponseBody result) {
                 MoviewHitEntity entity = null;

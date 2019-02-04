@@ -13,7 +13,7 @@ import com.example.administrator.test.entity.MoviewHitEntity;
 import com.example.administrator.test.mvp.contract.MovieHitContract;
 import com.example.administrator.test.mvp.model.MovieHitModel;
 import com.example.administrator.test.mvp.presenter.MovieHitPresenter;
-import com.example.administrator.test.viewholder.movie.MovieHitVh;
+import com.example.administrator.test.viewholder.movie.MovieVh;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -41,7 +41,7 @@ public class MovieHitFragment extends BaseListFragment<MoviewHitEntity.SubjectsE
                                                                         R.layout.fragment_base_list) {
             @Override
             protected void onSetItemData(BaseViewHolder holder, MoviewHitEntity.SubjectsEntity item, int viewType, int position) {
-                ((MovieHitVh) holder).setData(item);
+                ((MovieVh) holder).setData(item);
             }
 
             @Override
@@ -51,7 +51,7 @@ public class MovieHitFragment extends BaseListFragment<MoviewHitEntity.SubjectsE
 
             @Override
             public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-                return new MovieHitVh(getContext(), parent, R.layout.movie_hit_vh_item);
+                return new MovieVh(getContext(), parent, R.layout.movie_hit_vh_item);
             }
         };
     }

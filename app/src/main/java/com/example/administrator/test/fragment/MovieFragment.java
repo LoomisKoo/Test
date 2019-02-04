@@ -1,6 +1,5 @@
 package com.example.administrator.test.fragment;
 
-import android.os.Build;
 import android.view.View;
 
 import com.example.administrator.test.R;
@@ -10,7 +9,6 @@ import com.roughike.bottombar.BottomBar;
 
 import java.util.ArrayList;
 
-import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
@@ -93,7 +91,7 @@ public class MovieFragment extends BaseFragment {
     private void initFragmentList() {
         fragments.clear();
         fragments.add(new MovieHitFragment());
-        fragments.add(new MovieUpcommingFragment());
+        fragments.add(new MovieUpcomingFragment());
         fragments.add(new MovieHitFragment());
         fragments.add(new MovieHitFragment());
     }
