@@ -21,8 +21,8 @@ import com.example.administrator.test.R;
 import com.example.administrator.test.animation.AnimatorHelper;
 import com.example.administrator.test.base.activity.BaseActivity;
 import com.example.administrator.test.base.fragment.BaseFragment;
-import com.example.administrator.test.fragment.Fragment1;
 import com.example.administrator.test.fragment.BasicKnowledgeFragment;
+import com.example.administrator.test.fragment.MovieFragment;
 import com.example.administrator.test.fragment.RecommendFragment;
 import com.example.administrator.test.mvp.base.IBasePresenter;
 import com.example.administrator.test.util.ACache;
@@ -270,7 +270,7 @@ public class MainActivity extends BaseActivity {
         fragments = new ArrayList<>();
         fragments.add(new BasicKnowledgeFragment());
         fragments.add(new RecommendFragment());
-        fragments.add(new Fragment1());
+        fragments.add(new MovieFragment());
         viewPager = (ViewPager) findViewById(R.id.view_pager);
         viewPager.setOffscreenPageLimit(VIEW_PAGER_OFFSCREEN_PAGE_LIMIT);
 

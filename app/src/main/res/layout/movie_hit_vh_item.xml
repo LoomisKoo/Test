@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_marginTop="5dp"
+    android:layout_height="wrap_content">
+
+    <ImageView
+android:layout_marginStart="8dp"
+        android:layout_width="90dp"
+        android:layout_height="127dp"
+        android:scaleType="fitXY"
+        android:id="@+id/iv_posters"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:src="@mipmap/ic_launcher" />
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="title"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/tv_director"
+        app:layout_constraintStart_toEndOf="@id/iv_posters"
+        app:layout_constraintTop_toTopOf="@id/iv_posters"
+        app:layout_constraintVertical_chainStyle="spread" />
+
+    <TextView
+        android:id="@+id/tv_director"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="director"
+        app:layout_constraintBottom_toTopOf="@+id/tv_casts"
+        app:layout_constraintStart_toStartOf="@id/tv_title"
+        app:layout_constraintTop_toBottomOf="@id/tv_title" />
+
+    <TextView
+        android:id="@+id/tv_casts"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="casts"
+        app:layout_constraintBottom_toTopOf="@+id/tv_genres"
+        app:layout_constraintStart_toStartOf="@id/tv_title"
+        app:layout_constraintTop_toBottomOf="@id/tv_director" />
+
+    <TextView
+        android:id="@+id/tv_genres"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="genres"
+        app:layout_constraintBottom_toTopOf="@+id/tv_score"
+        app:layout_constraintStart_toStartOf="@id/tv_title"
+        app:layout_constraintTop_toBottomOf="@id/tv_casts" />
+
+    <TextView
+        android:id="@+id/tv_score"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="score"
+        app:layout_constraintBottom_toBottomOf="@id/iv_posters"
+        app:layout_constraintStart_toStartOf="@id/tv_title"
+        app:layout_constraintTop_toBottomOf="@id/tv_genres" />
+</androidx.constraintlayout.widget.ConstraintLayout>

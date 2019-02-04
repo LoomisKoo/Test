@@ -11,4 +11,6 @@ public class HttpConfigUtil {
 
     public final static String BASE_URL_PLAY_ANDROID = "http://www.wanandroid.com";
     public final static String BASE_URL_GANK         = "https://gank.io/api/";
+    public final static String BASE_URL_DOUBAN       = "Https://api.douban.com/";
+
 }

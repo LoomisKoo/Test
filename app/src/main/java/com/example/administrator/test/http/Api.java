@@ -35,6 +35,11 @@ public interface Api {
                              .create(HttpConfigUtil.BASE_URL_GANK);
     }
 
+    static Api getDoubanService() {
+        return BuilderFactory.getInstance()
+                             .create(HttpConfigUtil.BASE_URL_DOUBAN);
+    }
+
     static <T> void query(Observable<T> observable, HttpCallback<T> callBack) {
         observable.subscribeOn(Schedulers.newThread())
                   .subscribeOn(Schedulers.io())
@@ -174,4 +179,19 @@ public interface Api {
      */
     @GET("data/{type}/{pre_page}/{page}")
     Observable<ResponseBody> getGankIoData(@Path("type") String id, @Path("pre_page") int pre_page, @Path("page") int page);
+
+    //---------------------------------- 豆瓣 ------------------------------------
+
+    /**
+     * 豆瓣热映电影，每日更新
+     */
+    @GET("v2/movie/in_theaters")
+    Observable<ResponseBody> getHitMovie();
+
+    /**
+     * 豆瓣即将上映电影
+     */
+    @GET("v2/movie/coming_soon")
+    Observable<ResponseBody> getUpcomming(@Query("start") int start, @Query("count") int count);
+
 }

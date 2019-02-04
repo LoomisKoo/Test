@@ -18,6 +18,7 @@ public class BuilderFactory {
     private static BuilderFactory instance;
     private        Api            playAndroidApi;
     private        Api            gankApi;
+    private        Api            doubanApi;
 
     public static BuilderFactory getInstance() {
         if (instance == null) {
@@ -36,6 +37,8 @@ public class BuilderFactory {
                 return create(playAndroidApi, baseUrl);
             case HttpConfigUtil.BASE_URL_GANK:
                 return create(gankApi, baseUrl);
+            case HttpConfigUtil.BASE_URL_DOUBAN:
+                return create(doubanApi, baseUrl);
             default:
                 break;
         }
