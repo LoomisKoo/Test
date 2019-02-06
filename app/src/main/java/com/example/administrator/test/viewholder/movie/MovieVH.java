@@ -1,8 +1,10 @@
 package com.example.administrator.test.viewholder.movie;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -13,8 +15,11 @@ import com.bumptech.glide.request.RequestOptions;
 import com.example.administrator.test.R;
 import com.example.administrator.test.animation.AnimatorHelper;
 import com.example.administrator.test.base.adapter.BaseViewHolder;
+import com.example.administrator.test.entity.MovieBriefInformation;
 import com.example.administrator.test.entity.MoviewHitEntity;
 import com.example.administrator.test.util.ArouteHelper;
+
+import androidx.core.app.ActivityOptionsCompat;
 
 /**
  * @ProjectName: Test
@@ -29,7 +34,7 @@ import com.example.administrator.test.util.ArouteHelper;
  * @Version: 1.0
  */
 public class MovieVH extends BaseViewHolder {
-    private ImageView ivPosters;
+    public  ImageView ivPosters;
     private TextView  tvTitle, tvDirector, tvCasts, tvGenres, tvScore;
 
     public MovieVH(Context context, ViewGroup parent, int layoutId) {
@@ -43,7 +48,7 @@ public class MovieVH extends BaseViewHolder {
     }
 
     @SuppressLint("CheckResult")
-    public void setData(MoviewHitEntity.SubjectsEntity entity) {
+    public void setData(MovieBriefInformation entity) {
         RequestOptions options = new RequestOptions();
         options.error(R.mipmap.ic_launcher);
         options.placeholder(R.mipmap.ic_launcher);
@@ -66,16 +71,6 @@ public class MovieVH extends BaseViewHolder {
         tvCasts.setText(castsName);
         tvGenres.setText(genres);
         tvScore.setText(score);
-
-        AnimatorHelper.setViewTouchListener(itemView);
-        //点击跳转web
-        itemView.setOnClickListener(v -> ARouter.getInstance()
-                                                .build(ArouteHelper.ROUTE_ACTIVITY_MOVIE_DETAIL)
-                                                .withString("movieID", entity.getId())
-                                                .withFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
-                                                .withInt("x", AnimatorHelper.getDownX())
-                                                .withInt("y", AnimatorHelper.getDownY())
-                                                .navigation());
     }
 
     /**
@@ -84,7 +79,7 @@ public class MovieVH extends BaseViewHolder {
      * @param entity
      * @return
      */
-    private String getDirectorName(MoviewHitEntity.SubjectsEntity entity) {
+    private String getDirectorName(MovieBriefInformation entity) {
         if (entity.getDirectors()
                   .size() == 0) {
             return "";
@@ -110,7 +105,7 @@ public class MovieVH extends BaseViewHolder {
      * @param entity
      * @return
      */
-    private String getCastsName(MoviewHitEntity.SubjectsEntity entity) {
+    private String getCastsName(MovieBriefInformation entity) {
         if (entity.getCasts()
                   .size() == 0) {
             return "";
@@ -137,7 +132,7 @@ public class MovieVH extends BaseViewHolder {
      * @param entity
      * @return
      */
-    private String getGenres(MoviewHitEntity.SubjectsEntity entity) {
+    private String getGenres(MovieBriefInformation entity) {
         if (entity.getGenres()
                   .size() == 0) {
             return "";

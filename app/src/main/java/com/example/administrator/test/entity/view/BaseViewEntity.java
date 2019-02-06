@@ -57,17 +57,13 @@ public class BaseViewEntity {
 
     //----------------------------------电影详情页面------------------------------------//
     /**
-     * 头部布局
-     */
-    public static final int MOVIE_DETAIL_VIEW_TYPE_HEAD             = 0;
-    /**
      * 电影简介
      */
-    public static final int MOVIE_DETAIL_VIEW_TYPE_INTRODUCTION     = 1;
+    public static final int MOVIE_DETAIL_VIEW_TYPE_INTRODUCTION     = 0;
     /**
      * 演员信息
      */
-    public static final int MOVIE_DETAIL_VIEW_TYPE_ACTORS_INFOATION = 2;
+    public static final int MOVIE_DETAIL_VIEW_TYPE_ACTORS_INFOATION = 1;
 
 
     private int viewType = -1;

@@ -9,6 +9,7 @@ import com.example.administrator.test.R;
 import com.example.administrator.test.base.adapter.BaseViewHolder;
 import com.example.administrator.test.base.adapter.QuickDelegateAdapter;
 import com.example.administrator.test.base.fragment.BaseListFragment;
+import com.example.administrator.test.entity.MovieBriefInformation;
 import com.example.administrator.test.entity.MovieTop250Entity;
 import com.example.administrator.test.mvp.contract.MovieTop250Contract;
 import com.example.administrator.test.mvp.model.MovieTop250Model;
@@ -29,7 +30,7 @@ import androidx.recyclerview.widget.RecyclerView;
  * @UpdateRemark: 更新说明
  * @Version: 1.0
  */
-public class MovieTop250Fragment extends BaseListFragment<MovieTop250Entity.SubjectsEntity, MovieTop250Presenter> implements MovieTop250Contract.View {
+public class MovieTop250Fragment extends BaseListFragment<MovieBriefInformation, MovieTop250Presenter> implements MovieTop250Contract.View {
     /**
      * 网格列表列数
      */
@@ -42,10 +43,10 @@ public class MovieTop250Fragment extends BaseListFragment<MovieTop250Entity.Subj
 
     @Override
     protected QuickDelegateAdapter getAdapter() {
-        return new QuickDelegateAdapter<MovieTop250Entity.SubjectsEntity>(getContext(),
-                                                                          R.layout.fragment_base_list) {
+        return new QuickDelegateAdapter<MovieBriefInformation>(getContext(),
+                                                               R.layout.fragment_base_list) {
             @Override
-            protected void onSetItemData(BaseViewHolder holder, MovieTop250Entity.SubjectsEntity item, int viewType, int position) {
+            protected void onSetItemData(BaseViewHolder holder, MovieBriefInformation item, int viewType, int position) {
                 ((MovieTop250VH) holder).setData(item);
             }
 

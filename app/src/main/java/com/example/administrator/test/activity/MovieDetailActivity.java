@@ -1,5 +1,6 @@
 package com.example.administrator.test.activity;
 
+import android.os.Bundle;
 import android.view.ViewGroup;
 
 import com.alibaba.android.arouter.facade.annotation.Autowired;
@@ -10,6 +11,7 @@ import com.example.administrator.test.R;
 import com.example.administrator.test.base.activity.BaseListActivity;
 import com.example.administrator.test.base.adapter.BaseViewHolder;
 import com.example.administrator.test.base.adapter.QuickDelegateAdapter;
+import com.example.administrator.test.entity.MovieBriefInformation;
 import com.example.administrator.test.entity.MovieDetailEntity;
 import com.example.administrator.test.entity.view.BaseViewEntity;
 import com.example.administrator.test.mvp.contract.MovieDetailContract;
@@ -36,13 +38,27 @@ import androidx.recyclerview.widget.RecyclerView;
  */
 @Route(path = ArouteHelper.ROUTE_ACTIVITY_MOVIE_DETAIL)
 public class MovieDetailActivity extends BaseListActivity<BaseViewEntity, MovieDetailPresenter> implements MovieDetailContract.View {
+    /**
+     * 电影ID
+     */
     @Autowired
     public String movieID;
+    /**
+     * 头部布局数据
+     */
+    @Autowired
+    MovieBriefInformation movieBriefInformation;
+
+    /**
+     * 电影头部ViewHolder
+     */
+    private MovieDetailHeadVH headVH;
 
     @Override
     protected void getData(int page, int pageSize) {
         presenter.getMovieDetail(movieID);
     }
+
 
     @Override
     protected QuickDelegateAdapter getAdapter() {
@@ -51,9 +67,6 @@ public class MovieDetailActivity extends BaseListActivity<BaseViewEntity, MovieD
             protected void onSetItemData(BaseViewHolder holder, BaseViewEntity item, int viewType, int position) {
 
                 switch (viewType) {
-                    case BaseViewEntity.MOVIE_DETAIL_VIEW_TYPE_HEAD:
-                        ((MovieDetailHeadVH) holder).setData((MovieDetailEntity) item.getData());
-                        break;
                     case BaseViewEntity.MOVIE_DETAIL_VIEW_TYPE_INTRODUCTION:
                         ((MovieDetailIntroductionVH) holder).setData((MovieDetailEntity) item.getData());
                         break;
@@ -73,8 +86,6 @@ public class MovieDetailActivity extends BaseListActivity<BaseViewEntity, MovieD
             @Override
             protected RecyclerView.ViewHolder onGetViewHolder(ViewGroup parent, int viewType) {
                 switch (viewType) {
-                    case BaseViewEntity.MOVIE_DETAIL_VIEW_TYPE_HEAD:
-                        return new MovieDetailHeadVH(context, parent, R.layout.movie_detail_head);
                     case BaseViewEntity.MOVIE_DETAIL_VIEW_TYPE_INTRODUCTION:
                         return new MovieDetailIntroductionVH(context, parent, R.layout.movie_detail_introduction_vh_item);
                     case BaseViewEntity.MOVIE_DETAIL_VIEW_TYPE_ACTORS_INFOATION:
@@ -96,7 +107,7 @@ public class MovieDetailActivity extends BaseListActivity<BaseViewEntity, MovieD
 
     @Override
     public int bindTopLayout() {
-        return 0;
+        return R.layout.movie_detail_head;
     }
 
     @Override
@@ -110,13 +121,19 @@ public class MovieDetailActivity extends BaseListActivity<BaseViewEntity, MovieD
     }
 
     @Override
+    public void initView(Bundle savedInstanceState) {
+        super.initView(savedInstanceState);
+        setAllowActivityAnimator(false);
+        initHeadVH();
+    }
+
+
+    @Override
     public void onLoadSuccess(MovieDetailEntity entity) {
         stopRefresh();
+        headVH.setRegion(entity.getCountries());
 
         BaseViewEntity viewEntity;
-        viewEntity = new BaseViewEntity(entity, BaseViewEntity.MOVIE_DETAIL_VIEW_TYPE_HEAD);
-        adapter.add(viewEntity);
-
         viewEntity = new BaseViewEntity(entity, BaseViewEntity.MOVIE_DETAIL_VIEW_TYPE_INTRODUCTION);
         adapter.add(viewEntity);
 
@@ -128,5 +145,27 @@ public class MovieDetailActivity extends BaseListActivity<BaseViewEntity, MovieD
     public void onLoadFailed(String msg) {
         stopRefresh();
         showToast(msg);
+    }
+
+    @Override
+    public void onBackPressed() {
+        finishAfterTransition();
+    }
+
+    @Override
+    protected void OnNavigationOnClick() {
+        finishAfterTransition();
+    }
+
+    /**
+     * 初始化HeadVH
+     */
+    private void initHeadVH() {
+        movieBriefInformation = (MovieBriefInformation) getIntent().getSerializableExtra("movieBriefInformation");
+        if (null == movieBriefInformation) {
+            return;
+        }
+        headVH = new MovieDetailHeadVH(this, getWindow().getDecorView());
+        headVH.setData(movieBriefInformation);
     }
 }

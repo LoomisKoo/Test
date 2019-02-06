@@ -9,6 +9,7 @@ import com.example.administrator.test.R;
 import com.example.administrator.test.base.adapter.BaseViewHolder;
 import com.example.administrator.test.base.adapter.QuickDelegateAdapter;
 import com.example.administrator.test.base.fragment.BaseListFragment;
+import com.example.administrator.test.entity.MovieBriefInformation;
 import com.example.administrator.test.entity.MoviewHitEntity;
 import com.example.administrator.test.mvp.contract.MovieHitContract;
 import com.example.administrator.test.mvp.contract.MovieUpcomingContract;
@@ -30,7 +31,7 @@ import androidx.recyclerview.widget.RecyclerView;
  * @UpdateRemark: 更新说明
  * @Version: 1.0
  */
-public class MovieUpcomingFragment extends BaseListFragment<MoviewHitEntity.SubjectsEntity, MovieUpcomingPresenter> implements MovieHitContract.View, MovieUpcomingContract.View {
+public class MovieUpcomingFragment extends BaseListFragment<MovieBriefInformation, MovieUpcomingPresenter> implements MovieHitContract.View, MovieUpcomingContract.View {
     @Override
     protected void getData(int page, int pageSize) {
         presenter.loadData(page, pageSize);
@@ -38,10 +39,10 @@ public class MovieUpcomingFragment extends BaseListFragment<MoviewHitEntity.Subj
 
     @Override
     protected QuickDelegateAdapter getAdapter() {
-        return new QuickDelegateAdapter<MoviewHitEntity.SubjectsEntity>(getContext(),
+        return new QuickDelegateAdapter<MovieBriefInformation>(getContext(),
                                                                         R.layout.fragment_base_list) {
             @Override
-            protected void onSetItemData(BaseViewHolder holder, MoviewHitEntity.SubjectsEntity item, int viewType, int position) {
+            protected void onSetItemData(BaseViewHolder holder, MovieBriefInformation item, int viewType, int position) {
                 ((MovieVH) holder).setData(item);
             }
 

@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@color/gray_e1dada"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="@color/gray_e1dada">
 
     <ImageView
         android:id="@+id/iv_posters"
@@ -13,7 +13,9 @@
         android:layout_marginStart="24dp"
         android:layout_marginTop="15dp"
         android:layout_marginBottom="15dp"
+        android:scaleType="centerCrop"
         android:src="@mipmap/ic_launcher"
+        android:transitionName="movie_detail"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -97,7 +99,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
-        android:text="region"
+        android:text="制片国家/地区："
         app:layout_constraintBottom_toBottomOf="@id/iv_posters"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"

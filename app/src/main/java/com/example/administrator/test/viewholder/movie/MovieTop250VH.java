@@ -12,6 +12,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.administrator.test.R;
 import com.example.administrator.test.base.adapter.BaseViewHolder;
+import com.example.administrator.test.entity.MovieBriefInformation;
 import com.example.administrator.test.entity.MovieTop250Entity;
 import com.example.administrator.test.entity.MoviewHitEntity;
 import com.example.administrator.test.util.ArouteHelper;
@@ -40,7 +41,7 @@ public class MovieTop250VH extends BaseViewHolder {
     }
 
     @SuppressLint("CheckResult")
-    public void setData(MovieTop250Entity.SubjectsEntity entity) {
+    public void setData(MovieBriefInformation entity) {
         RequestOptions options = new RequestOptions();
         options.error(R.mipmap.ic_launcher);
         options.placeholder(R.mipmap.ic_launcher);
