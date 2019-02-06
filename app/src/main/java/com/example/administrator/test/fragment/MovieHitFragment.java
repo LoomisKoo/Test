@@ -63,16 +63,10 @@ public class MovieHitFragment extends BaseListFragment<MovieBriefInformation, Mo
             protected void onBindViewHolderWithOffset(RecyclerView.ViewHolder holder, int position, int offsetTotal) {
                 super.onBindViewHolderWithOffset(holder, position, offsetTotal);
                 holder.itemView.setOnClickListener(v -> {
-                    ActivityOptionsCompat optionsCompat =
-                            ActivityOptionsCompat.makeSceneTransitionAnimation((Activity) context, ((MovieVH) holder).ivPosters, "movie_detail");
                     MovieBriefInformation movieBriefInformation = data.get(position);
-                    ARouter.getInstance()
-                           .build(ArouteHelper.ROUTE_ACTIVITY_MOVIE_DETAIL)
-                           .withSerializable("movieBriefInformation", movieBriefInformation)
-                           .withString("movieID", data.get(position)
-                                                      .getId())
-                           .withOptionsCompat(optionsCompat)
-                           .navigation(context);
+                    View                  shareView             = ((MovieVH) holder).ivPosters;
+
+                    ArouteHelper.buildMovieDetail(context, movieBriefInformation, shareView);
                 });
             }
         };

@@ -1,10 +1,16 @@
 package com.example.administrator.test.util;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.view.View;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.example.administrator.test.animation.AnimatorHelper;
+import com.example.administrator.test.entity.MovieBriefInformation;
+import com.example.administrator.test.viewholder.movie.MovieVH;
+
+import androidx.core.app.ActivityOptionsCompat;
 
 /**
  * @ProjectName: Test
@@ -39,6 +45,16 @@ public class ArouteHelper {
                .withString("url", url)
                .withInt("x", AnimatorHelper.getDownX())
                .withInt("y", AnimatorHelper.getDownY())
+               .navigation(context);
+    }
+
+    public static void buildMovieDetail(Context context, MovieBriefInformation entity, View shareView){
+        ActivityOptionsCompat optionsCompat =
+                ActivityOptionsCompat.makeSceneTransitionAnimation((Activity) context, shareView, "movie_detail");
+        ARouter.getInstance()
+               .build(ArouteHelper.ROUTE_ACTIVITY_MOVIE_DETAIL)
+               .withSerializable("movieBriefInformation", entity)
+               .withOptionsCompat(optionsCompat)
                .navigation(context);
     }
 }

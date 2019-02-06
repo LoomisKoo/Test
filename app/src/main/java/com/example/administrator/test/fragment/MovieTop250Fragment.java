@@ -18,6 +18,7 @@ import com.example.administrator.test.mvp.model.MovieTop250Model;
 import com.example.administrator.test.mvp.presenter.MovieTop250Presenter;
 import com.example.administrator.test.util.ArouteHelper;
 import com.example.administrator.test.viewholder.movie.MovieTop250VH;
+
 import androidx.core.app.ActivityOptionsCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -66,20 +67,11 @@ public class MovieTop250Fragment extends BaseListFragment<MovieBriefInformation,
             @Override
             public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
                 super.onBindViewHolder(holder, position);
-                holder.itemView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        ActivityOptionsCompat optionsCompat =
-                                ActivityOptionsCompat.makeSceneTransitionAnimation((Activity) context, ((MovieTop250VH) holder).ivPosters, "movie_detail");
-                        MovieBriefInformation movieBriefInformation = data.get(position);
-                        ARouter.getInstance()
-                               .build(ArouteHelper.ROUTE_ACTIVITY_MOVIE_DETAIL)
-                               .withSerializable("movieBriefInformation", movieBriefInformation)
-                               .withString("movieID", data.get(position)
-                                                          .getId())
-                               .withOptionsCompat(optionsCompat)
-                               .navigation(context);
-                    }
+                holder.itemView.setOnClickListener(v -> {
+                    MovieBriefInformation movieBriefInformation = data.get(position);
+                    View                  shareView             = ((MovieTop250VH) holder).ivPosters;
+
+                    ArouteHelper.buildMovieDetail(context, movieBriefInformation, shareView);
                 });
             }
         };

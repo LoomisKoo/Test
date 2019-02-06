@@ -1,8 +1,10 @@
 package com.example.administrator.test.fragment;
 
+import android.app.Activity;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.alibaba.android.vlayout.LayoutHelper;
 import com.alibaba.android.vlayout.layout.LinearLayoutHelper;
 import com.example.administrator.test.R;
@@ -15,8 +17,10 @@ import com.example.administrator.test.mvp.contract.MovieHitContract;
 import com.example.administrator.test.mvp.contract.MovieUpcomingContract;
 import com.example.administrator.test.mvp.model.MovieUpcomingModel;
 import com.example.administrator.test.mvp.presenter.MovieUpcomingPresenter;
+import com.example.administrator.test.util.ArouteHelper;
 import com.example.administrator.test.viewholder.movie.MovieVH;
 
+import androidx.core.app.ActivityOptionsCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 /**
@@ -40,7 +44,7 @@ public class MovieUpcomingFragment extends BaseListFragment<MovieBriefInformatio
     @Override
     protected QuickDelegateAdapter getAdapter() {
         return new QuickDelegateAdapter<MovieBriefInformation>(getContext(),
-                                                                        R.layout.fragment_base_list) {
+                                                               R.layout.fragment_base_list) {
             @Override
             protected void onSetItemData(BaseViewHolder holder, MovieBriefInformation item, int viewType, int position) {
                 ((MovieVH) holder).setData(item);
@@ -54,6 +58,17 @@ public class MovieUpcomingFragment extends BaseListFragment<MovieBriefInformatio
             @Override
             public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
                 return new MovieVH(getContext(), parent, R.layout.movie_hit_vh_item);
+            }
+
+            @Override
+            public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+                super.onBindViewHolder(holder, position);
+                holder.itemView.setOnClickListener(v -> {
+                    MovieBriefInformation movieBriefInformation = data.get(position);
+                    View                  shareView             = ((MovieVH) holder).ivPosters;
+
+                    ArouteHelper.buildMovieDetail(context, movieBriefInformation, shareView);
+                });
             }
         };
     }

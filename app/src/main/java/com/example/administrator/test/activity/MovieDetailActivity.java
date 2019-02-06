@@ -41,7 +41,6 @@ public class MovieDetailActivity extends BaseListActivity<BaseViewEntity, MovieD
     /**
      * 电影ID
      */
-    @Autowired
     public String movieID;
     /**
      * 头部布局数据
@@ -165,6 +164,7 @@ public class MovieDetailActivity extends BaseListActivity<BaseViewEntity, MovieD
         if (null == movieBriefInformation) {
             return;
         }
+        movieID = movieBriefInformation.getId();
         headVH = new MovieDetailHeadVH(this, getWindow().getDecorView());
         headVH.setData(movieBriefInformation);
     }
