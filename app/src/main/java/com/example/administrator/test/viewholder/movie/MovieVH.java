@@ -2,6 +2,7 @@ package com.example.administrator.test.viewholder.movie;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -10,6 +11,7 @@ import com.alibaba.android.arouter.launcher.ARouter;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.administrator.test.R;
+import com.example.administrator.test.animation.AnimatorHelper;
 import com.example.administrator.test.base.adapter.BaseViewHolder;
 import com.example.administrator.test.entity.MoviewHitEntity;
 import com.example.administrator.test.util.ArouteHelper;
@@ -65,11 +67,15 @@ public class MovieVH extends BaseViewHolder {
         tvGenres.setText(genres);
         tvScore.setText(score);
 
+        AnimatorHelper.setViewTouchListener(itemView);
         //点击跳转web
         itemView.setOnClickListener(v -> ARouter.getInstance()
-                                            .build(ArouteHelper.ROUTE_ACTIVITY_MOVIE_DETAIL)
-                                            .withString("movieID", entity.getId())
-                                            .navigation());
+                                                .build(ArouteHelper.ROUTE_ACTIVITY_MOVIE_DETAIL)
+                                                .withString("movieID", entity.getId())
+                                                .withFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
+                                                .withInt("x", AnimatorHelper.getDownX())
+                                                .withInt("y", AnimatorHelper.getDownY())
+                                                .navigation());
     }
 
     /**
