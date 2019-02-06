@@ -30,7 +30,7 @@ import com.example.administrator.test.util.ArouteHelper;
  * @Version: 1.0
  */
 public class MovieTop250VH extends BaseViewHolder {
-    private ImageView ivPosters;
+    public ImageView ivPosters;
     private TextView  tvTitle, tvScore;
 
     public MovieTop250VH(Context context, ViewGroup parent, int layoutId) {
