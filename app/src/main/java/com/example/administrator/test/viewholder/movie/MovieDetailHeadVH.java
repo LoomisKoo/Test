@@ -1,15 +1,22 @@
 package com.example.administrator.test.viewholder.movie;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.administrator.test.R;
 import com.example.administrator.test.entity.MovieBriefInformation;
 
 import java.util.List;
+
+import jp.wasabeef.glide.transformations.BlurTransformation;
+
+import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade;
 
 /**
  * @ProjectName: Test
@@ -25,12 +32,13 @@ import java.util.List;
  */
 public class MovieDetailHeadVH {
     private Context   context;
-    private ImageView ivPosters;
-    private TextView  tvScore, tvNumOfScore, tvDirector, tvStarring, tvGenres, tvDate, tvRegion;
+    private ImageView ivPosters, ivBG;
+    private TextView tvScore, tvNumOfScore, tvDirector, tvStarring, tvGenres, tvDate, tvRegion;
 
     public MovieDetailHeadVH(Context context, View rootView) {
         this.context = context;
         ivPosters = rootView.findViewById(R.id.iv_posters);
+        ivBG = rootView.findViewById(R.id.iv_bg);
         tvScore = rootView.findViewById(R.id.tv_score);
         tvNumOfScore = rootView.findViewById(R.id.tv_num_of_score);
         tvDirector = rootView.findViewById(R.id.tv_director);
@@ -45,9 +53,14 @@ public class MovieDetailHeadVH {
         if (null == entity) {
             return;
         }
+        String imgUrl = entity.getImages()
+                              .getLarge();
+
+        initBackGround(imgUrl);
+
         Glide.with(context)
-             .load(entity.getImages()
-                         .getLarge())
+             .load(imgUrl)
+             .transition(withCrossFade())
              .into(ivPosters);
 
         String score = "评分：" + entity.getRating()
@@ -64,7 +77,19 @@ public class MovieDetailHeadVH {
         tvStarring.setText(starring);
         tvGenres.setText(genres);
         tvDate.setText(year);
-//
+    }
+
+    @SuppressLint("CheckResult")
+    private void initBackGround(String imgUrl) {
+        RequestOptions options = new RequestOptions();
+        options.error(R.mipmap.ic_launcher)
+               .placeholder(R.mipmap.ic_launcher);
+
+        Glide.with(context)
+             .setDefaultRequestOptions(options)
+             .load(imgUrl)
+             .apply(RequestOptions.bitmapTransform(new BlurTransformation(25, 20)))
+             .into(ivBG);
     }
 
     /**

@@ -51,16 +51,16 @@ public class MovieDetailIntroductionVH extends BaseViewHolder {
                   .size() == 0) {
             return "";
         }
-        StringBuilder directorsName = new StringBuilder();
-        directorsName.append(entity.getAka()
+        StringBuilder alias = new StringBuilder();
+        alias.append(entity.getAka()
                                    .get(0));
-        int directorSize = entity.getDirectors()
+        int aliasSize = entity.getAka()
                                  .size();
-        for (int i = 1; i < directorSize; i++) {
-            directorsName.append("/")
+        for (int i = 1; i < aliasSize; i++) {
+            alias.append("/")
                          .append(entity.getAka()
                                        .get(i));
         }
-        return directorsName.toString();
+        return alias.toString();
     }
 }

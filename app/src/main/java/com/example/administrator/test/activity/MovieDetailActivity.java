@@ -1,5 +1,6 @@
 package com.example.administrator.test.activity;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.ViewGroup;
 
