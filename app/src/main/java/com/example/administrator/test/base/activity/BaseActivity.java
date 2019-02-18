@@ -594,7 +594,7 @@ public abstract class BaseActivity<P extends IBasePresenter> extends SwipeBackAc
      *
      * @param title
      */
-    public void setTooBarTitle(String title) {
+    public void setToolBarTitle(String title) {
         mToolbar.setTitle(title);
     }
 
@@ -612,7 +612,7 @@ public abstract class BaseActivity<P extends IBasePresenter> extends SwipeBackAc
      *
      * @param subtitleId
      */
-    public void setToobarSubTitle(int subtitleId) {
+    public void setToolbarSubTitle(int subtitleId) {
         mToolbar.setSubtitle(subtitleId);
     }
 
@@ -621,7 +621,7 @@ public abstract class BaseActivity<P extends IBasePresenter> extends SwipeBackAc
      *
      * @param titleId
      */
-    public void setTooBarTitle(int titleId) {
+    public void setToolBarTitle(int titleId) {
         mToolbar.setTitle(titleId);
     }
 

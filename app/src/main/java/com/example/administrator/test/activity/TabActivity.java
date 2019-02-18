@@ -86,7 +86,7 @@ public class TabActivity extends BaseTabActivity {
      */
     private void initToolbar() {
         setSubtitle("subTitle");
-        setTooBarTitle("title");
+        setToolBarTitle("title");
         setCenterTitle("中心大标题");
         setBarNaviIcon(getResources().getDrawable(R.mipmap.ic_back_black));
         showCenterTitle(true);

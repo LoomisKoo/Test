@@ -126,6 +126,8 @@ public class MovieDetailActivity extends BaseListActivity<BaseViewEntity, MovieD
         super.initView(savedInstanceState);
         setAllowActivityAnimator(false);
         initHeadVH();
+
+        setToolBarTitle(movieBriefInformation.getTitle());
     }
 
 
