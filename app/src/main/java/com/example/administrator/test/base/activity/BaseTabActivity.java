@@ -21,7 +21,7 @@ import java.util.ArrayList;
 /**
  * @author koo
  */
-public abstract class BaseTabActivity extends BaseActivity {
+public abstract class BaseTabActivity extends BaseViewActivity {
     protected TabLayout                tabLayout;
     protected ArrayList<String>        tabTitles;
     protected ViewPager                viewPager;

@@ -21,7 +21,7 @@ import com.blankj.utilcode.util.StringUtils;
 import com.example.administrator.test.R;
 import com.example.administrator.test.animation.AnimatorHelper;
 import com.example.administrator.test.animation.interpolator.LoginInterpolator;
-import com.example.administrator.test.base.activity.BaseActivity;
+import com.example.administrator.test.base.activity.BaseViewActivity;
 import com.example.administrator.test.mvp.contract.LoginContract;
 import com.example.administrator.test.mvp.model.LoginModel;
 import com.example.administrator.test.mvp.presenter.LoginPresenter;
@@ -45,7 +45,7 @@ import butterknife.ButterKnife;
  * @Version: 1.0
  */
 @Route(path = ArouteHelper.ROUTE_ACTIVITY_LOGIN_PLAY_ANDROID)
-public class LoginPlayAndroidActivity extends BaseActivity<LoginPresenter> implements LoginContract.View {
+public class LoginPlayAndroidActivity extends BaseViewActivity<LoginPresenter> implements LoginContract.View {
     /**
      * 进度条动画参数
      */

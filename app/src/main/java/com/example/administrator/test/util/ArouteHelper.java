@@ -51,6 +51,7 @@ public class ArouteHelper {
     public static void buildMovieDetail(Context context, MovieBriefInformation entity, View shareView){
         ActivityOptionsCompat optionsCompat =
                 ActivityOptionsCompat.makeSceneTransitionAnimation((Activity) context, shareView, "movie_detail");
+
         ARouter.getInstance()
                .build(ArouteHelper.ROUTE_ACTIVITY_MOVIE_DETAIL)
                .withSerializable("movieBriefInformation", entity)

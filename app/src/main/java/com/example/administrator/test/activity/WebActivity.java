@@ -15,7 +15,7 @@ import android.widget.ProgressBar;
 import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.example.administrator.test.R;
-import com.example.administrator.test.base.activity.BaseActivity;
+import com.example.administrator.test.base.activity.BaseViewActivity;
 import com.example.administrator.test.mvp.base.IBasePresenter;
 import com.example.administrator.test.util.ArouteHelper;
 
@@ -37,7 +37,7 @@ import static android.view.KeyEvent.KEYCODE_BACK;
  * @Version: 1.0
  */
 @Route(path = ArouteHelper.ROUTE_ACTIVITY_WEB)
-public class WebActivity extends BaseActivity implements IWebPageView {
+public class WebActivity extends BaseViewActivity implements IWebPageView {
     /**
      * 进度条
      */

@@ -8,7 +8,7 @@ import android.view.View;
 import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.example.administrator.test.R;
-import com.example.administrator.test.base.activity.BaseActivity;
+import com.example.administrator.test.base.activity.BaseViewActivity;
 import com.example.administrator.test.mvp.base.IBasePresenter;
 import com.example.administrator.test.util.ArouteHelper;
 import com.example.administrator.test.util.GlideImageLoader;
@@ -33,7 +33,7 @@ import androidx.annotation.RequiresApi;
  * @Version: 1.0
  */
 @Route(path = ArouteHelper.ROUTE_ACTIVITY_BIG_IMAGE)
-public class BigImgActivity extends BaseActivity {
+public class BigImgActivity extends BaseViewActivity {
     BannerNotCircle banner;
 
     @Autowired

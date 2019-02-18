@@ -19,7 +19,7 @@ import com.alibaba.android.arouter.launcher.ARouter;
 import com.blankj.utilcode.util.ToastUtils;
 import com.example.administrator.test.R;
 import com.example.administrator.test.animation.AnimatorHelper;
-import com.example.administrator.test.base.activity.BaseActivity;
+import com.example.administrator.test.base.activity.BaseViewActivity;
 import com.example.administrator.test.base.fragment.BaseFragment;
 import com.example.administrator.test.fragment.BasicKnowledgeFragment;
 import com.example.administrator.test.fragment.MovieFragment;
@@ -38,7 +38,7 @@ import java.util.List;
  * @author
  */
 @Route(path = ArouteHelper.ROUTE_ACTIVITY_MAIN)
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseViewActivity {
     /**
      * viewpager缓存数量
      */

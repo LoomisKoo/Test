@@ -40,7 +40,7 @@ import jp.wasabeef.recyclerview.animators.SlideInLeftAnimator;
  * @param <T>
  * @author koo
  */
-public abstract class BaseListActivity<T, P extends IBasePresenter> extends BaseActivity<P> {
+public abstract class BaseListActivity<T, P extends IBasePresenter> extends BaseViewActivity<P> {
     protected int page     = 1;
     protected int pageSize = 20;
     protected int maxPage  = 1;

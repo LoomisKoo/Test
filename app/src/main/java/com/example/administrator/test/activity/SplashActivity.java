@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.bumptech.glide.Glide;
 import com.example.administrator.test.R;
-import com.example.administrator.test.base.activity.BaseActivity;
+import com.example.administrator.test.base.activity.BaseViewActivity;
 import com.example.administrator.test.mvp.contract.SplashContract;
 import com.example.administrator.test.mvp.presenter.SplashPresenter;
 import com.example.administrator.test.util.ArouteHelper;
@@ -27,7 +27,7 @@ import com.example.administrator.test.util.OnMultiClickListener;
  * @UpdateRemark: 更新说明
  * @Version: 1.0
  */
-public class SplashActivity extends BaseActivity<SplashPresenter> implements SplashContract.View {
+public class SplashActivity extends BaseViewActivity<SplashPresenter> implements SplashContract.View {
     /**
      * 开屏广告的imageView
      */

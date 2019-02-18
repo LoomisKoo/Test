@@ -17,7 +17,7 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.example.administrator.test.R;
 import com.example.administrator.test.animation.AnimatorHelper;
-import com.example.administrator.test.base.activity.BaseActivity;
+import com.example.administrator.test.base.activity.BaseViewActivity;
 import com.example.administrator.test.mvp.contract.LogoutContract;
 import com.example.administrator.test.mvp.model.LogoutModel;
 import com.example.administrator.test.mvp.presenter.LogoutPresenter;
@@ -40,7 +40,7 @@ import butterknife.BindView;
  * @Version: 1.0
  */
 @Route(path = ArouteHelper.ROUTE_ACTIVITY_LOGIN)
-public class LoginActivity extends BaseActivity<LogoutPresenter> implements LogoutContract.View {
+public class LoginActivity extends BaseViewActivity<LogoutPresenter> implements LogoutContract.View {
     @BindView(R.id.login_github_btn)
     Button           loginGithubBtn;
     @BindView(R.id.login_play_android_btn)
