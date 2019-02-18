@@ -54,11 +54,11 @@ public class MainActivity extends BaseActivity {
     /**
      * 记录用户首次点击返回键的时间
      */
-    private long firstBackPressTime = 0;
+    private              long firstBackPressTime       = 0;
     /**
      * 防误触返回间隔时间
      */
-    private static final int BACK_PRESS_INTERVAL_TIME = 2000;
+    private static final int  BACK_PRESS_INTERVAL_TIME = 2000;
 
     private BottomBar          mBottomBar;
     private List<BaseFragment> fragments;
@@ -211,14 +211,12 @@ public class MainActivity extends BaseActivity {
             showToast("关于");
         });
         //登录
-        loginTv.setOnClickListener(v -> {
-            ARouter.getInstance()
-                   .build(ArouteHelper.ROUTE_ACTIVITY_LOGIN)
-                   .withFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
-                   .withInt("x", AnimatorHelper.getDownX())
-                   .withInt("y", AnimatorHelper.getDownY())
-                   .navigation(this);
-        });
+        loginTv.setOnClickListener(v -> ARouter.getInstance()
+                                               .build(ArouteHelper.ROUTE_ACTIVITY_LOGIN_PLAY_ANDROID)
+                                               .withFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
+                                               .withInt("x", AnimatorHelper.getDownX())
+                                               .withInt("y", AnimatorHelper.getDownY())
+                                               .navigation(this));
         //我的收藏
         collectionTv.setOnClickListener(v -> {
             showToast("我的收藏");

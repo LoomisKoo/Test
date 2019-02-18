@@ -19,6 +19,8 @@ public interface LoginContract {
     interface Model {
         void login(String userName, String passWord, HttpCallback httpCallback);
 
+        void logout(HttpCallback httpCallback);
+
         void register(String userName, String password, String rePassword, HttpCallback httpCallback);
     }
 
@@ -27,6 +29,10 @@ public interface LoginContract {
 
         void loginFail(String msg);
 
+        void logoutSuccess();
+
+        void logoutFail(String msg);
+
         void registerSuccess();
 
         void registerFail(String msg);
@@ -34,6 +40,8 @@ public interface LoginContract {
 
     interface Presenter extends IBasePresenter {
         void login(String userName, String passWord);
+
+        void logout();
 
         void register(String userName, String password, String rePassword);
     }

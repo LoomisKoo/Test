@@ -29,6 +29,13 @@ public class LoginModel implements LoginContract.Model {
     }
 
     @Override
+    public void logout(HttpCallback httpCallback) {
+        Observable<ResponseBody> observable = Api.getPlayAndroidService()
+                                                 .logout();
+        Api.query(observable, httpCallback);
+    }
+
+    @Override
     public void register(String userName, String password, String rePassword, HttpCallback httpCallback) {
         Observable<ResponseBody> observable = Api.getPlayAndroidService()
                                                  .register(userName, password, rePassword);

@@ -1,6 +1,6 @@
 package com.example.administrator.test.activity;
 
-import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.ViewGroup;
 
@@ -119,6 +119,7 @@ public class MovieDetailActivity extends BaseListActivity<BaseViewEntity, MovieD
     protected MovieDetailPresenter createPresenter() {
         return new MovieDetailPresenter(this, new MovieDetailModel());
     }
+
 
     @Override
     public void initView(Bundle savedInstanceState) {

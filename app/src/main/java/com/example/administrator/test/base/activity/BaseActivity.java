@@ -18,6 +18,7 @@ import com.alibaba.android.arouter.launcher.ARouter;
 import com.example.administrator.test.animation.AnimatorHelper;
 import com.google.android.material.navigation.NavigationView;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.widget.Toolbar;
@@ -30,6 +31,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.AccelerateDecelerateInterpolator;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -45,32 +47,34 @@ import me.imid.swipebacklayout.lib.app.SwipeBackActivity;
  * @author koo
  */
 public abstract class BaseActivity<P extends IBasePresenter> extends SwipeBackActivity implements View.OnClickListener {
-    protected       DrawerLayout    drawerRootLayout;
-    protected       NavigationView  navView;
-    protected       Toolbar         mToolbar;
-    private         TextView        tvCenterTitle;
-    protected       P               presenter;
-    private         SwipeBackLayout backLayout;
+    protected DrawerLayout     drawerRootLayout;
+    protected NavigationView   navView;
+    protected Toolbar          mToolbar;
+    private   TextView         tvCenterTitle;
+    protected P                presenter;
+    private   SwipeBackLayout  backLayout;
+    protected LinearLayout     topLayout;
+    protected ConstraintLayout clContentLayout;
     /**
      * 是否沉浸状态栏
      **/
-    private         boolean         isSetStatusBar          = true;
+    private   boolean          isSetStatusBar          = true;
     /**
      * 是否允许全屏
      **/
-    private         boolean         mAllowFullScreen        = true;
+    private   boolean          mAllowFullScreen        = true;
     /**
      * 是否禁止旋转屏幕
      **/
-    private         boolean         isAllowScreenRoate      = false;
+    private   boolean          isAllowScreenRoate      = false;
     /**
      * 是否允许activity转场动画
      */
-    private         boolean         isAllowActivityAnimator = true;
+    private   boolean          isAllowActivityAnimator = true;
     /**
      * 当前Activity渲染的视图View
      **/
-    private         View            mContextView            = null;
+    private   View             mContextView            = null;
     /**
      * 日志输出标志
      **/
@@ -110,11 +114,10 @@ public abstract class BaseActivity<P extends IBasePresenter> extends SwipeBackAc
         Bundle bundle = getIntent().getExtras();
         initParameter(bundle);
 
-
         initMainLayout();
         ButterKnife.bind(this);
         initToolbar();
-
+        clContentLayout = (ConstraintLayout) findViewById(R.id.base_root_cl);
         drawerRootLayout = (DrawerLayout) findViewById(R.id.base_root_dl);
         lockDrawer(true);
         navView = (NavigationView) findViewById(R.id.base_root_nav_view);
@@ -196,7 +199,8 @@ public abstract class BaseActivity<P extends IBasePresenter> extends SwipeBackAc
             getLayoutInflater().inflate(bindContentLayout(), (ViewGroup) findViewById(R.id.content_layout_ll));
         }
         if (0 != bindTopLayout()) {
-            getLayoutInflater().inflate(bindTopLayout(), (ViewGroup) findViewById(R.id.base_root_top_layout_ll));
+            topLayout = (LinearLayout) findViewById(R.id.base_root_top_layout_ll);
+            getLayoutInflater().inflate(bindTopLayout(), topLayout);
         }
         if (0 != bindBottomLayout()) {
             getLayoutInflater().inflate(bindBottomLayout(), (ViewGroup) findViewById(R.id.base_root_bottom_layout_ll));
@@ -718,7 +722,7 @@ public abstract class BaseActivity<P extends IBasePresenter> extends SwipeBackAc
      * @param color
      */
     public void setRootLayoutBackGround(int color) {
-        findViewById(R.id.base_root_cl).setBackgroundColor(color);
+        clContentLayout.setBackgroundColor(color);
     }
 
     public void hideToolBar() {

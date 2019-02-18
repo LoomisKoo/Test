@@ -78,6 +78,26 @@ public class LoginPresenter implements LoginContract.Presenter {
     }
 
     @Override
+    public void logout() {
+        model.logout(new HttpCallback() {
+            @Override
+            public void onSuccess(Object result) {
+                view.logoutSuccess();
+            }
+
+            @Override
+            public void onError(String msg) {
+                view.logoutFail(msg);
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        });
+    }
+
+    @Override
     public void register(String userName, String password, String rePassword) {
         model.register(userName, password, rePassword, new HttpCallback<ResponseBody>() {
             @Override

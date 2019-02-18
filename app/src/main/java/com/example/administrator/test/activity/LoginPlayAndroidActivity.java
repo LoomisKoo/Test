@@ -20,15 +20,17 @@ import com.alibaba.android.arouter.launcher.ARouter;
 import com.blankj.utilcode.util.StringUtils;
 import com.example.administrator.test.R;
 import com.example.administrator.test.animation.AnimatorHelper;
-import com.example.administrator.test.base.activity.BaseActivity;
 import com.example.administrator.test.animation.interpolator.LoginInterpolator;
+import com.example.administrator.test.base.activity.BaseActivity;
 import com.example.administrator.test.mvp.contract.LoginContract;
 import com.example.administrator.test.mvp.model.LoginModel;
 import com.example.administrator.test.mvp.presenter.LoginPresenter;
+import com.example.administrator.test.util.ACache;
 import com.example.administrator.test.util.ArouteHelper;
 
 import androidx.cardview.widget.CardView;
 import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * @ProjectName: Test
@@ -57,6 +59,7 @@ public class LoginPlayAndroidActivity extends BaseActivity<LoginPresenter> imple
     private static final float LOGIN_INSERT_LAYOUT_ANIMATOR_SCALE_MAX = 1f;
     private static final float LOGIN_INSERT_LAYOUT_ANIMATOR_SCALE_MIN = 0.4f;
 
+
     private AnimatorSet    LoginLayoutAnimatorSet;
     private ObjectAnimator loadAnimator;
 
@@ -69,12 +72,15 @@ public class LoginPlayAndroidActivity extends BaseActivity<LoginPresenter> imple
     AutoCompleteTextView tvPassword;
     @BindView(R.id.btn_login)
     Button               btnLogin;
+    @BindView(R.id.btn_logout)
+    Button               btnLogout;
     @BindView(R.id.btn_register)
     Button               btnRegister;
     @BindView(R.id.pgb_loading)
     ProgressBar          pgbLoading;
     @BindView(R.id.card_view)
     CardView             cardView;
+
 
     @Override
     public void widgetClick(View v) {
@@ -116,6 +122,16 @@ public class LoginPlayAndroidActivity extends BaseActivity<LoginPresenter> imple
         showCenterTitle(true);
         setCenterTitle("登录");
         AnimatorHelper.setViewTouchListener(btnRegister);
+
+        ACache mCache = ACache.get(this);
+        //已登录
+        if (null != mCache.getAsObject("user")) {
+            cardView.setVisibility(View.INVISIBLE);
+            pgbLoading.setVisibility(View.INVISIBLE);
+            btnRegister.setVisibility(View.INVISIBLE);
+            btnLogin.setVisibility(View.INVISIBLE);
+            btnLogout.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
@@ -137,9 +153,10 @@ public class LoginPlayAndroidActivity extends BaseActivity<LoginPresenter> imple
             boolean isInsertEmpty = isInsertEmpty(userName, password);
             if (!isInsertEmpty) {
                 login();
-//                inputAnimator(true);
             }
         });
+        //退出登录
+        btnLogout.setOnClickListener(v -> presenter.logout());
 
         //注册
         btnRegister.setOnClickListener(v -> {
@@ -326,6 +343,20 @@ public class LoginPlayAndroidActivity extends BaseActivity<LoginPresenter> imple
     }
 
     @Override
+    public void logoutSuccess() {
+        cardView.setVisibility(View.VISIBLE);
+        pgbLoading.setVisibility(View.VISIBLE);
+        btnRegister.setVisibility(View.VISIBLE);
+        btnLogin.setVisibility(View.VISIBLE);
+        btnLogout.setVisibility(View.INVISIBLE);
+    }
+
+    @Override
+    public void logoutFail(String msg) {
+        showToast(msg);
+    }
+
+    @Override
     public void registerSuccess() {
 
     }
@@ -333,5 +364,12 @@ public class LoginPlayAndroidActivity extends BaseActivity<LoginPresenter> imple
     @Override
     public void registerFail(String msg) {
         showToast(msg);
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
     }
 }
