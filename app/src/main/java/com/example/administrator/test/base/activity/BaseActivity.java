@@ -1,43 +1,18 @@
 package com.example.administrator.test.base.activity;
 
-import android.animation.Animator;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
-import android.content.res.Resources;
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.os.Bundle;
 
-import androidx.annotation.ColorRes;
-import androidx.annotation.DrawableRes;
 import androidx.annotation.StringRes;
 
 import com.alibaba.android.arouter.launcher.ARouter;
-import com.example.administrator.test.animation.AnimatorHelper;
-import com.google.android.material.navigation.NavigationView;
-
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.appcompat.widget.Toolbar;
 
 import android.util.Log;
-import android.view.Menu;
 import android.view.View;
-import android.view.ViewAnimationUtils;
-import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
-import android.view.animation.AccelerateDecelerateInterpolator;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.administrator.test.R;
 import com.example.administrator.test.mvp.base.IBasePresenter;
-import com.example.administrator.test.util.OnMultiClickListener;
 
 import butterknife.ButterKnife;
 import me.imid.swipebacklayout.lib.SwipeBackLayout;

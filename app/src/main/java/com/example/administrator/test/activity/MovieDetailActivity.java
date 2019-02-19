@@ -1,6 +1,5 @@
 package com.example.administrator.test.activity;
 
-import android.os.Build;
 import android.os.Bundle;
 import android.view.ViewGroup;
 

@@ -17,7 +17,6 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.alibaba.android.arouter.launcher.ARouter;
 import com.example.administrator.test.R;
 import com.example.administrator.test.animation.AnimatorHelper;
 import com.example.administrator.test.mvp.base.IBasePresenter;
@@ -30,7 +29,6 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import butterknife.ButterKnife;
 
 /**
  * @ProjectName: Test
@@ -67,10 +65,6 @@ public abstract class BaseViewActivity<P extends IBasePresenter> extends BaseAct
      * 是否允许activity转场动画
      */
     private         boolean          isAllowActivityAnimator = true;
-    /**
-     * 当前Activity渲染的视图View
-     **/
-    private         View             mContextView            = null;
     /**
      * 日志输出标志
      **/

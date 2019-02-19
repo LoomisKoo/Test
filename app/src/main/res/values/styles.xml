@@ -66,4 +66,13 @@
     <style name="TransitionsTheme" parent="AppTheme">
         <item name="android:windowContentTransitions">true</item>
     </style>
+
+    <style name="CollapsingToolbarExpandedStyle" >
+        <item name="android:textSize">25sp</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+    <style name="CollapsingToolbarCollapsedStyle" >
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
 </resources>
