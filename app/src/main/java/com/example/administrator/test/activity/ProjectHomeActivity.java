@@ -10,7 +10,7 @@ import android.view.WindowManager;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.example.administrator.test.R;
-import com.example.administrator.test.base.activity.BaseActivity;
+import com.example.administrator.test.base.activity.BaseAnimationActivity;
 import com.example.administrator.test.mvp.base.IBasePresenter;
 import com.example.administrator.test.util.ArouteHelper;
 
@@ -29,7 +29,7 @@ import androidx.appcompat.widget.Toolbar;
  * @Version: 1.0
  */
 @Route(path = ArouteHelper.ROUTE_ACTIVITY_PROJECT_HOME)
-public class ProjectHomeActivity extends BaseActivity {
+public class ProjectHomeActivity extends BaseAnimationActivity {
     private Toolbar mToolbar;
 
     @Override
@@ -57,7 +57,7 @@ public class ProjectHomeActivity extends BaseActivity {
 
     @Override
     public void setListener() {
-        mToolbar.setNavigationOnClickListener(v -> finish());
+        mToolbar.setNavigationOnClickListener(v -> finishActivity());
     }
 
     @Override

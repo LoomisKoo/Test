@@ -57,13 +57,6 @@ public abstract class BaseActivity<P extends IBasePresenter> extends SwipeBackAc
         initData(this);
     }
 
-    @Override
-    public void finish() {
-        super.finish();
-        //防止转场动画闪屏
-        overridePendingTransition(0, 0);
-    }
-
     /**
      * 初始化滑动布局
      */

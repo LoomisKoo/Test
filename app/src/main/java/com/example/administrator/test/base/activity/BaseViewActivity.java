@@ -1,6 +1,5 @@
 package com.example.administrator.test.base.activity;
 
-import android.animation.Animator;
 import android.content.pm.ActivityInfo;
 import android.content.res.Resources;
 import android.graphics.Color;
@@ -9,16 +8,13 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
-import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.administrator.test.R;
-import com.example.administrator.test.animation.AnimatorHelper;
 import com.example.administrator.test.mvp.base.IBasePresenter;
 import com.example.administrator.test.util.OnMultiClickListener;
 import com.google.android.material.navigation.NavigationView;
@@ -42,7 +38,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
  * @UpdateRemark: 更新说明
  * @Version: 1.0
  */
-public abstract class BaseViewActivity<P extends IBasePresenter> extends BaseActivity<P> implements View.OnClickListener {
+public abstract class BaseViewActivity<P extends IBasePresenter> extends BaseAnimationActivity<P> implements View.OnClickListener {
     protected       DrawerLayout     drawerRootLayout;
     protected       NavigationView   navView;
     protected       Toolbar          mToolbar;
@@ -61,28 +57,12 @@ public abstract class BaseViewActivity<P extends IBasePresenter> extends BaseAct
      * 是否禁止旋转屏幕
      **/
     private         boolean          isAllowScreenRoate      = false;
-    /**
-     * 是否允许activity转场动画
-     */
-    private         boolean          isAllowActivityAnimator = true;
+
     /**
      * 日志输出标志
      **/
     protected final String           TAG                     = this.getClass()
                                                                    .getSimpleName();
-
-    /**
-     * 转场动画中心坐标
-     */
-    private int revealX;
-    private int revealY;
-
-    /**
-     * activity转场动画持续时间
-     */
-    private static final int ACTIVITY_ANIMATOR_DURATION = 400;
-
-    private boolean isFinishBeforeAnimator = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,10 +83,6 @@ public abstract class BaseViewActivity<P extends IBasePresenter> extends BaseAct
 
         super.onCreate(savedInstanceState);
 
-        if (isAllowActivityAnimator) {
-            startActivityAnimation();
-        }
-
         if (isSetStatusBar) {
             steepStatusBar();
         }
@@ -118,51 +94,6 @@ public abstract class BaseViewActivity<P extends IBasePresenter> extends BaseAct
                 setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
             }
         }
-    }
-
-    @Override
-    public void onBackPressed() {
-        finishActivity();
-    }
-
-    /**
-     * 结束activity
-     */
-    protected void finishActivity() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            Animator animator = createRevealAnimator(true, revealX, revealY);
-            animator.start();
-        }
-        else {
-            finish();
-        }
-    }
-
-    @Override
-    public void finish() {
-        super.finish();
-        //防止转场动画闪屏
-        overridePendingTransition(0, 0);
-    }
-
-    /**
-     * activity跳转时揭露动画
-     */
-    private void startActivityAnimation() {
-        //view绘制完成后开始动画
-        drawerRootLayout.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
-            @Override
-            public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    v.removeOnLayoutChangeListener(this);
-                    revealX = getIntent().getIntExtra("x", 0);
-                    revealY = getIntent().getIntExtra("y", 0);
-                    AnimatorHelper.resetXY();
-                    Animator animator = createRevealAnimator(false, revealX, revealY);
-                    animator.start();
-                }
-            }
-        });
     }
 
     /**
@@ -243,58 +174,6 @@ public abstract class BaseViewActivity<P extends IBasePresenter> extends BaseAct
             //虚拟键盘也透明
 //            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
         }
-    }
-
-    /**
-     * 揭露动画
-     *
-     * @param reversed
-     * @param x
-     * @param y
-     * @return
-     */
-    private Animator createRevealAnimator(boolean reversed, int x, int y) {
-        float maxRadius   = (float) Math.hypot(drawerRootLayout.getHeight(), drawerRootLayout.getWidth());
-        float startRadius = reversed ? maxRadius : 0;
-        float endRadius   = reversed ? 0 : maxRadius;
-
-        Animator animator = null;
-        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            animator = ViewAnimationUtils.createCircularReveal(
-                    drawerRootLayout, x, y,
-                    startRadius,
-                    endRadius);
-        }
-        animator.setDuration(ACTIVITY_ANIMATOR_DURATION);
-        animator.setInterpolator(new AccelerateDecelerateInterpolator());
-        animator.addListener(new Animator.AnimatorListener() {
-            @Override
-            public void onAnimationStart(Animator animation) {
-
-            }
-
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                if (reversed) {
-                    drawerRootLayout.setVisibility(View.INVISIBLE);
-                    finish();
-                }
-                if (isFinishBeforeAnimator) {
-                    finish();
-                }
-            }
-
-            @Override
-            public void onAnimationCancel(Animator animation) {
-
-            }
-
-            @Override
-            public void onAnimationRepeat(Animator animation) {
-
-            }
-        });
-        return animator;
     }
 
     /**
@@ -588,21 +467,5 @@ public abstract class BaseViewActivity<P extends IBasePresenter> extends BaseAct
         else {
             drawerRootLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
         }
-    }
-
-    public boolean isAllowActivityAnimator() {
-        return isAllowActivityAnimator;
-    }
-
-    public void setAllowActivityAnimator(boolean allowActivityAnimator) {
-        isAllowActivityAnimator = allowActivityAnimator;
-    }
-
-    public boolean isFinishBeforeAnimator() {
-        return isFinishBeforeAnimator;
-    }
-
-    public void setFinishBeforeAnimator(boolean finishBeforeAnimator) {
-        isFinishBeforeAnimator = finishBeforeAnimator;
     }
 }

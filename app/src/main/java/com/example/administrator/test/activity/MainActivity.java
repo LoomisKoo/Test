@@ -195,14 +195,12 @@ public class MainActivity extends BaseViewActivity {
 
         exitTv = headerView.findViewById(R.id.exit_tv);
         //项目主页
-        homePageTv.setOnClickListener(v -> {
-            ARouter.getInstance()
-                   .build(ArouteHelper.ROUTE_ACTIVITY_PROJECT_HOME)
-                   .withFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
-                   .withInt("x", AnimatorHelper.getDownX())
-                   .withInt("y", AnimatorHelper.getDownY())
-                   .navigation(this);
-        });
+        homePageTv.setOnClickListener(v -> ARouter.getInstance()
+                                              .build(ArouteHelper.ROUTE_ACTIVITY_PROJECT_HOME)
+                                              .withFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
+                                              .withInt("x", AnimatorHelper.getDownX())
+                                              .withInt("y", AnimatorHelper.getDownY())
+                                              .navigation(this));
         //扫码下载
         downLoadTv.setOnClickListener(v -> {
             showToast("扫码下载");
