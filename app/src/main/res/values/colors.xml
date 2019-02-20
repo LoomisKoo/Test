@@ -9,8 +9,8 @@
     <color name="transparent">#00000000</color>
 
 
-
-    <color name="tool_bar_base_background">#5a93d4</color>
+    <!--特斯拉红-->
+    <color name="tool_bar_base_background">#df001e</color>
     <color name="activity_root_layout_background">#00000000</color>
 
     <!--水波纹或5.0以下选择器颜色-->
