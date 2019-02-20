@@ -14,13 +14,15 @@
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:layout_width="match_parent"
+            app:expandedTitleMarginTop="15dp"
             android:layout_height="match_parent"
             app:collapsedTitleTextAppearance="@style/CollapsingToolbarCollapsedStyle"
             app:contentScrim="@color/tool_bar_base_background"
+            app:expandedTitleGravity="right|top"
             app:expandedTitleTextAppearance="@style/CollapsingToolbarExpandedStyle"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             app:statusBarScrim="@color/tool_bar_base_background"
-            app:titleEnabled="false">
+            app:titleEnabled="true">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
