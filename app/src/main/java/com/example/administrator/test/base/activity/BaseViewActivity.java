@@ -39,30 +39,30 @@ import androidx.drawerlayout.widget.DrawerLayout;
  * @Version: 1.0
  */
 public abstract class BaseViewActivity<P extends IBasePresenter> extends BaseAnimationActivity<P> implements View.OnClickListener {
-    protected       DrawerLayout     drawerRootLayout;
-    protected       NavigationView   navView;
-    protected       Toolbar          mToolbar;
-    private         TextView         tvCenterTitle;
-    protected       LinearLayout     topLayout;
-    protected       ConstraintLayout clContentLayout;
+    protected DrawerLayout     drawerRootLayout;
+    protected NavigationView   navView;
+    protected Toolbar          mToolbar;
+    private   TextView         tvCenterTitle;
+    protected LinearLayout     topLayout;
+    protected ConstraintLayout clContentLayout;
     /**
      * 是否沉浸状态栏
      **/
-    private         boolean          isSetStatusBar          = true;
+    private   boolean          isSetStatusBar     = true;
     /**
      * 是否允许全屏
      **/
-    private         boolean          mAllowFullScreen        = true;
+    private   boolean          mAllowFullScreen   = true;
     /**
      * 是否禁止旋转屏幕
      **/
-    private         boolean          isAllowScreenRoate      = false;
+    private   boolean          isAllowScreenRoate = false;
 
     /**
      * 日志输出标志
      **/
-    protected final String           TAG                     = this.getClass()
-                                                                   .getSimpleName();
+    protected final String TAG = this.getClass()
+                                     .getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

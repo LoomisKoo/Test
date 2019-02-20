@@ -11,6 +11,7 @@ import androidx.core.view.GravityCompat;
 import androidx.viewpager.widget.ViewPager;
 
 import android.util.TypedValue;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 
@@ -178,29 +179,28 @@ public class MainActivity extends BaseViewActivity {
      * inflateHeaderView 进来的布局要宽一些
      */
     private void initDrawerLayout() {
-        navView.inflateHeaderView(R.layout.layout_main_drawer_view);
-        View headerView = navView.getHeaderView(0);
+        View view = LayoutInflater.from(this)
+                                  .inflate(R.layout.layout_main_drawer_view, navView);
         //夜间模式
 //        bind.dayNightSwitch.setChecked(SPUtils.getNightMode());
         //TODO 设置头像和等级
 //        ImageLoadUtil.displayCircle(bind.ivAvatar, ConstantsImageUrl.IC_AVATAR);
         TextView homePageTv, downLoadTv, feedBackTv, aboutTv, loginTv, collectionTv, exitTv;
-        homePageTv = headerView.findViewById(R.id.project_home_page_tv);
-        downLoadTv = headerView.findViewById(R.id.down_load_tv);
-        feedBackTv = headerView.findViewById(R.id.feed_back_tv);
-        aboutTv = headerView.findViewById(R.id.about_tv);
-        loginTv = headerView.findViewById(R.id.login_tv);
-        collectionTv = headerView.findViewById(R.id.collection_tv);
+        homePageTv = view.findViewById(R.id.project_home_page_tv);
+        downLoadTv = view.findViewById(R.id.down_load_tv);
+        feedBackTv = view.findViewById(R.id.feed_back_tv);
+        aboutTv = view.findViewById(R.id.about_tv);
+        loginTv = view.findViewById(R.id.login_tv);
+        collectionTv = view.findViewById(R.id.collection_tv);
 
-
-        exitTv = headerView.findViewById(R.id.exit_tv);
+        exitTv = view.findViewById(R.id.exit_tv);
         //项目主页
         homePageTv.setOnClickListener(v -> ARouter.getInstance()
-                                              .build(ArouteHelper.ROUTE_ACTIVITY_PROJECT_HOME)
-                                              .withFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
-                                              .withInt("x", AnimatorHelper.getDownX())
-                                              .withInt("y", AnimatorHelper.getDownY())
-                                              .navigation(this));
+                                                  .build(ArouteHelper.ROUTE_ACTIVITY_PROJECT_HOME)
+                                                  .withFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
+                                                  .withInt("x", AnimatorHelper.getDownX())
+                                                  .withInt("y", AnimatorHelper.getDownY())
+                                                  .navigation(this));
         //扫码下载
         downLoadTv.setOnClickListener(v -> {
             showToast("扫码下载");
@@ -226,7 +226,7 @@ public class MainActivity extends BaseViewActivity {
         });
         //退出应用
         exitTv.setOnClickListener(v -> {
-            System.exit(0);
+            finishActivity();
         });
 
         setMenuEvent(homePageTv);

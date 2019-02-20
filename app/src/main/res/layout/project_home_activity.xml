@@ -10,13 +10,11 @@
         android:id="@+id/app_bar"
         android:layout_width="match_parent"
         android:layout_height="250dp"
-        android:background="@color/white"
         android:fitsSystemWindows="true">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/white"
             app:collapsedTitleTextAppearance="@style/CollapsingToolbarCollapsedStyle"
             app:contentScrim="@color/tool_bar_base_background"
             app:expandedTitleTextAppearance="@style/CollapsingToolbarExpandedStyle"
@@ -28,12 +26,13 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@mipmap/ic_nav_bg_drawerlayout"
+                android:background="@mipmap/bg_freedom"
                 android:fitsSystemWindows="true"
                 android:scaleType="fitXY"
                 app:layout_collapseMode="parallax" />
 
             <androidx.appcompat.widget.Toolbar
+
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
@@ -50,8 +49,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="8dp">
+            android:layout_height="match_parent">
 
             <TextView
                 android:id="@+id/textView2"
@@ -69,6 +67,7 @@
                 android:id="@+id/card_introduce"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="8dp"
                 app:cardCornerRadius="5dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -100,13 +99,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="8dp"
+                app:cardCornerRadius="5dp"
                 app:layout_constraintEnd_toEndOf="@+id/card_introduce"
                 app:layout_constraintStart_toStartOf="@+id/tv_contact_me"
                 app:layout_constraintTop_toBottomOf="@+id/tv_contact_me">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:padding="8dp">
 
                     <TextView
                         android:id="@+id/tv_email"

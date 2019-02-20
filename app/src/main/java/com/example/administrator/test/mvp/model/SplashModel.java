@@ -43,7 +43,7 @@ public class SplashModel implements SplashContract.Model {
     /**
      * 广告倒计时结束时间（秒）
      */
-    private static final int                     AD_COUNTDOWN_END_SECOND    = 0;
+    private static final int                     AD_COUNTDOWN_END_SECOND    = 2;
     /**
      * 广告倒计时延迟时间（秒）
      */
@@ -96,9 +96,7 @@ public class SplashModel implements SplashContract.Model {
     @Override
     public void countDownAD() {
         countDownDisposable = Observable.intervalRange(AD_COUNTDOWN_START_SECOND, AD_COUNTDOWN_END_SECOND, AD_COUNTDOWN_DELAY_SECOND, AD_COUNTDOWN_PERIOD_SECOND, TimeUnit.SECONDS)
-                                        .subscribe(aLong -> {
-                                            ((Activity) context).runOnUiThread(() -> CallBack.countDown(convertCountDownTime(aLong)));
-                                        });
+                                        .subscribe(aLong -> ((Activity) context).runOnUiThread(() -> CallBack.countDown(convertCountDownTime(aLong))));
         if (AD_COUNTDOWN_END_SECOND == 0) {
             CallBack.countDown(0);
         }
