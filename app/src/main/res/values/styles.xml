@@ -67,12 +67,27 @@
         <item name="android:windowContentTransitions">true</item>
     </style>
 
-    <style name="CollapsingToolbarExpandedStyle" >
+    <style name="CollapsingToolbarExpandedStyle">
         <item name="android:textSize">25sp</item>
         <item name="android:textColor">@color/white</item>
     </style>
-    <style name="CollapsingToolbarCollapsedStyle" >
+
+    <style name="CollapsingToolbarCollapsedStyle">
         <item name="android:textSize">20sp</item>
         <item name="android:textColor">@color/white</item>
     </style>
+
+    <!--************************************************************电影详情页面************************************************************-->
+    <!-- 设置Toolbar标题字体的颜色大小 -->
+    <style name="movieDetailTitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textSize">18sp</item><!--toolbar标题字体大小-->
+        <item name="android:textColor">#6c5ee9</item><!--toolbar标题字体颜色-->
+    </style>
+
+    <!-- 设置Toolbar 子标题subtitle标题字体的大小 -->
+    <style name="movieDetailSubTitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textSize">11sp</item><!--子标题字体大小-->
+        <item name="android:textColor">#10000000</item><!--子标题字体颜色-->
+    </style>
+
 </resources>

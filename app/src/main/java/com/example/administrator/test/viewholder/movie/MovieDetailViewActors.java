@@ -1,22 +1,19 @@
 package com.example.administrator.test.viewholder.movie;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.alibaba.android.arouter.launcher.ARouter;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.administrator.test.R;
 import com.example.administrator.test.animation.AnimatorHelper;
-import com.example.administrator.test.base.adapter.BaseViewHolder;
-import com.example.administrator.test.entity.KnowledgeSystemEntity;
 import com.example.administrator.test.entity.MovieDetailEntity;
 import com.example.administrator.test.util.ArouteHelper;
-import com.example.administrator.test.viewholder.knowledgesystem.KnowledgeSystemVH;
+import com.example.administrator.test.util.GlideCornersTransform;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +25,7 @@ import androidx.recyclerview.widget.RecyclerView;
 /**
  * @ProjectName: Test
  * @Package: com.example.administrator.test.viewholder.movie
- * @ClassName: MovieDetailHeadVH
+ * @ClassName: MovieDetailViewInfo
  * @Description: java类作用描述
  * @Author: koo
  * @CreateDate: 2019/2/4 3:36 PM
@@ -37,12 +34,13 @@ import androidx.recyclerview.widget.RecyclerView;
  * @UpdateRemark: 更新说明
  * @Version: 1.0
  */
-public class MovieDetailActorsVH extends BaseViewHolder {
+public class MovieDetailViewActors {
+    private Context      context;
     private RecyclerView recyclerView;
 
-    public MovieDetailActorsVH(Context context, ViewGroup parent, int layoutId) {
-        super(context, parent, layoutId);
-        recyclerView = getView(R.id.rv_actors);
+    public MovieDetailViewActors(Context context, View rootView) {
+        this.context = context;
+        recyclerView = rootView.findViewById(R.id.rv_actors);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
         //设置不需要焦点 否则切换tab后，嵌套的recyclerview会自动滚动
         recyclerView.setFocusableInTouchMode(false);
@@ -82,12 +80,16 @@ public class MovieDetailActorsVH extends BaseViewHolder {
                                 .getAvatars()
                                 .getLarge();
             //头像
+//            Glide.with(context)
+//                 .load(imgUrl)
+//                 .into(holder.ivPortrait);
             Glide.with(context)
                  .load(imgUrl)
+                 .apply(RequestOptions.bitmapTransform(new GlideCornersTransform(10)))
                  .into(holder.ivPortrait);
             //姓名
-            String name  = data.get(position)
-                               .getName();
+            String name = data.get(position)
+                              .getName();
             //职位
             String clerk = data.get(position)
                                .getClerkType() == MovieDetailEntity.ClerkEntity.CLERK_TYPE_ACTOR ? "演员" : "导演";

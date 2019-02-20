@@ -21,7 +21,7 @@ import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOption
 /**
  * @ProjectName: Test
  * @Package: com.example.administrator.test.viewholder.movie
- * @ClassName: MovieDetailHeadVH
+ * @ClassName: MovieDetailViewInfo
  * @Description: java类作用描述
  * @Author: koo
  * @CreateDate: 2019/2/4 3:36 PM
@@ -30,12 +30,12 @@ import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOption
  * @UpdateRemark: 更新说明
  * @Version: 1.0
  */
-public class MovieDetailHeadVH {
+public class MovieDetailViewInfo {
     private Context   context;
     private ImageView ivPosters, ivBG;
     private TextView tvScore, tvNumOfScore, tvDirector, tvStarring, tvGenres, tvDate, tvRegion;
 
-    public MovieDetailHeadVH(Context context, View rootView) {
+    public MovieDetailViewInfo(Context context, View rootView) {
         this.context = context;
         ivPosters = rootView.findViewById(R.id.iv_posters);
         ivBG = rootView.findViewById(R.id.iv_bg);
@@ -82,9 +82,6 @@ public class MovieDetailHeadVH {
     @SuppressLint("CheckResult")
     private void initBackGround(String imgUrl) {
         RequestOptions options = new RequestOptions();
-        options.error(R.mipmap.ic_launcher)
-               .placeholder(R.mipmap.ic_launcher);
-
         Glide.with(context)
              .setDefaultRequestOptions(options)
              .load(imgUrl)
@@ -124,7 +121,7 @@ public class MovieDetailHeadVH {
      * @param entity
      * @return
      */
-    private String getCastsName(MovieBriefInformation entity) {
+    public String getCastsName(MovieBriefInformation entity) {
         if (entity.getCasts()
                   .size() == 0) {
             return "";

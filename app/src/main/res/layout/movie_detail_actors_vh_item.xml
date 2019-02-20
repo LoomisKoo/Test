@@ -3,42 +3,50 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@color/gray_e1dada"
+    android:background="?android:attr/selectableItemBackground"
     android:layout_height="wrap_content">
 
+    <View
+        android:id="@+id/line"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="#33df001e"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
     <ImageView
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:id="@+id/iv_portrait"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
         android:layout_marginStart="8dp"
         android:scaleType="centerCrop"
-        android:id="@+id/iv_portrait"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/line"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@mipmap/ic_launcher" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:textSize="22sp"
         android:id="@+id/tv_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="name"
+        android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/tv_jobs"
         app:layout_constraintStart_toEndOf="@id/iv_portrait"
         app:layout_constraintTop_toTopOf="@id/iv_portrait" />
 
     <TextView
-        android:textSize="18sp"
         android:id="@+id/tv_jobs"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:text="jobs"
+        android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="@id/iv_portrait"
         app:layout_constraintStart_toStartOf="@id/tv_name"
         app:layout_constraintTop_toBottomOf="@id/tv_name" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -46,8 +46,6 @@ public class ProjectHomeActivity extends BaseAnimationActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         setStatusBarFullTransparent();
-
-        mToolbar.setTitle("项目主页");
     }
 
     @Override

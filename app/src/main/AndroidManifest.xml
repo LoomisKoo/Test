@@ -47,8 +47,7 @@
         <activity
             android:name=".activity.ViewBigImageActivity"
             android:theme="@style/TransitionsTheme" />
-        <activity
-            android:name=".activity.ProjectHomeActivity" />
+        <activity android:name=".activity.ProjectHomeActivity" />
     </application>
 
 </manifest>
