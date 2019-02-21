@@ -23,7 +23,7 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_scrollFlags="scroll|enterAlways"
+            app:layout_scrollFlags="scroll|enterAlways|snap"
             app:popupTheme="@style/ToolbarPopupTheme" />
 
     </com.google.android.material.appbar.AppBarLayout>

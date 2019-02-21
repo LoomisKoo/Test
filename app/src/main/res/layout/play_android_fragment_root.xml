@@ -13,7 +13,7 @@
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
         <com.roughike.bottombar.BottomBar
-            app:layout_scrollFlags="scroll|enterAlways"
+            app:layout_scrollFlags="scroll|enterAlways|snap"
             app:popupTheme="@style/ToolbarPopupTheme"
             android:id="@+id/bottomBar"
             android:layout_width="match_parent"

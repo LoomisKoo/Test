@@ -22,7 +22,7 @@
             android:layout_height="83dp"
             android:background="@color/colorPrimary"
             android:fitsSystemWindows="true"
-            app:layout_scrollFlags="scroll|enterAlways"
+            app:layout_scrollFlags="scroll|enterAlways|snap"
             app:popupTheme="@style/ToolbarPopupTheme"
             app:subtitle=""
             app:title=""

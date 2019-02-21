@@ -20,7 +20,7 @@
             app:expandedTitleGravity="right|top"
             app:expandedTitleMarginTop="15dp"
             app:expandedTitleTextAppearance="@style/CollapsingToolbarExpandedStyle"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
             app:statusBarScrim="@color/tool_bar_base_background"
             app:titleEnabled="true">
 
