@@ -1,15 +1,12 @@
 package com.example.administrator.test.activity;
 
 import android.content.Context;
-import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 
 import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.blankj.utilcode.util.BarUtils;
 import com.example.administrator.test.R;
 import com.example.administrator.test.base.activity.BaseActivity;
 import com.example.administrator.test.entity.MovieBriefInformation;
@@ -96,7 +93,7 @@ public class MovieDetailActivity extends BaseActivity<MovieDetailPresenter> impl
     @Override
     public void initView(Bundle savedInstanceState) {
         setContentView(R.layout.movie_detail_activity);
-        setStatusBarFullTransparent();
+        BarUtils.setStatusBarAlpha(this, 0);
 
         movieInfoView = new MovieDetailViewInfo(this, getWindow().getDecorView());
         initToolbar();
@@ -144,25 +141,4 @@ public class MovieDetailActivity extends BaseActivity<MovieDetailPresenter> impl
         introductionView.setData(entity);
     }
 
-    /**
-     * 全透状态栏
-     */
-    protected void setStatusBarFullTransparent() {
-        //高于Android5.0
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            Window window = getWindow();
-            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            window.getDecorView()
-                  .setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                                                 | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
-            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            window.setStatusBarColor(Color.TRANSPARENT);
-        }
-        //高于Android 4.4
-        else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            //虚拟键盘也透明
-//            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
-        }
-    }
 }

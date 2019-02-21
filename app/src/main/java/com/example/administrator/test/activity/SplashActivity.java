@@ -1,6 +1,7 @@
 package com.example.administrator.test.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -9,7 +10,9 @@ import android.widget.ImageView;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.bumptech.glide.Glide;
 import com.example.administrator.test.R;
+import com.example.administrator.test.animation.AnimatorHelper;
 import com.example.administrator.test.base.activity.BaseViewActivity;
+import com.example.administrator.test.manager.ActivityManager;
 import com.example.administrator.test.mvp.contract.SplashContract;
 import com.example.administrator.test.mvp.presenter.SplashPresenter;
 import com.example.administrator.test.util.ArouteHelper;
@@ -149,9 +152,12 @@ public class SplashActivity extends BaseViewActivity<SplashPresenter> implements
     private void startMainActivity() {
         ARouter.getInstance()
                .build(ArouteHelper.ROUTE_ACTIVITY_MAIN)
+               .withFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
+               .withInt("x", AnimatorHelper.getDownX())
+               .withInt("y", AnimatorHelper.getDownY())
                .navigation();
-        //跳转动画
-        overridePendingTransition(R.anim.screen_zoom_in, R.anim.screen_zoom_out);
-        finish();
+
+        //先入栈，待跳转的activity动画结束后再finish
+        ActivityManager.getAppManager().addActivity(this);
     }
 }

@@ -152,6 +152,7 @@ public abstract class BaseAnimationActivity<P extends IBasePresenter> extends Ba
 
             @Override
             public void onAnimationEnd(Animator animation) {
+                onActivityAnimationFinish();
                 if (reversed) {
                     //避免闪屏问题
                     getWindow().getDecorView()
@@ -190,5 +191,12 @@ public abstract class BaseAnimationActivity<P extends IBasePresenter> extends Ba
 
     public void setFinishBeforeAnimator(boolean finishBeforeAnimator) {
         isFinishBeforeAnimator = finishBeforeAnimator;
+    }
+
+    /**
+     * 转场动画结束回调
+     */
+    protected void onActivityAnimationFinish() {
+
     }
 }

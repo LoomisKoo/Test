@@ -25,6 +25,7 @@ import com.example.administrator.test.base.fragment.BaseFragment;
 import com.example.administrator.test.fragment.BasicKnowledgeFragment;
 import com.example.administrator.test.fragment.MovieFragment;
 import com.example.administrator.test.fragment.RecommendFragment;
+import com.example.administrator.test.manager.ActivityManager;
 import com.example.administrator.test.mvp.base.IBasePresenter;
 import com.example.administrator.test.util.ACache;
 import com.example.administrator.test.util.ArouteHelper;
@@ -380,5 +381,11 @@ public class MainActivity extends BaseViewActivity {
                 super.onBackPressed();
             }
         }
+    }
+
+    @Override
+    protected void onActivityAnimationFinish() {
+        ActivityManager.getAppManager()
+                       .finishAllExcept("MainActivity");
     }
 }

@@ -331,8 +331,6 @@ public class LoginPlayAndroidActivity extends BaseViewActivity<LoginPresenter> i
                .withInt("y", getLoadingViewPoint()[1])
                .navigation(this);
         setFinishBeforeAnimator(true);
-        finishActivity();
-
     }
 
     @Override

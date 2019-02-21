@@ -85,7 +85,7 @@ public class MovieDetailViewInfo {
         Glide.with(context)
              .setDefaultRequestOptions(options)
              .load(imgUrl)
-             .apply(RequestOptions.bitmapTransform(new BlurTransformation(25, 20)))
+             .apply(RequestOptions.bitmapTransform(new BlurTransformation(25, 100)))
              .into(ivBG);
     }
 
