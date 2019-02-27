@@ -1,6 +1,8 @@
 package com.example.administrator.test.viewholder.movie;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -73,6 +75,7 @@ public class MovieDetailViewActors {
             return vh;
         }
 
+        @SuppressLint("CheckResult")
         @Override
         public void onBindViewHolder(@NonNull ActorAdapterVH holder, int position) {
             AnimatorHelper.setViewTouchListener(holder.itemView);
@@ -80,10 +83,14 @@ public class MovieDetailViewActors {
                                 .getAvatars()
                                 .getLarge();
             //头像
-//            Glide.with(context)
-//                 .load(imgUrl)
-//                 .into(holder.ivPortrait);
+            RequestOptions options = new RequestOptions();
+            Drawable defaultDrawable = context.getResources()
+                                              .getDrawable(R.mipmap.ic_actor_avator_default);
+            options.placeholder(defaultDrawable)
+                   .error(defaultDrawable);
+
             Glide.with(context)
+                 .setDefaultRequestOptions(options)
                  .load(imgUrl)
                  .apply(RequestOptions.bitmapTransform(new GlideCornersTransform(10)))
                  .into(holder.ivPortrait);
@@ -93,7 +100,6 @@ public class MovieDetailViewActors {
             //职位
             String clerk = data.get(position)
                                .getClerkType() == MovieDetailEntity.ClerkEntity.CLERK_TYPE_ACTOR ? "演员" : "导演";
-
             holder.tvName.setText(name);
             holder.tvJobs.setText(clerk);
 

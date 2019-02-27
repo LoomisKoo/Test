@@ -30,8 +30,8 @@ public class DailyVideoVH extends DailyArticleVH {
     @Override
     public void setData(List<RecommendDailyArticleEntity> entityList) {
         super.setData(entityList);
-        clickCallBack = position -> ArouteHelper.buildWebWithAnimator(context, entityList.get(0)
-                                                                                         .getType(), entityList.get(0)
-                                                                                                               .getUrl());
+        clickCallBack = (data, position) -> ArouteHelper.buildWebWithAnimator(context, entityList.get(0)
+                                                                                                 .getType(), entityList.get(0)
+                                                                                                                       .getUrl());
     }
 }

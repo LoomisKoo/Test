@@ -5,6 +5,7 @@ import android.view.ViewGroup;
 
 import com.alibaba.android.vlayout.LayoutHelper;
 import com.alibaba.android.vlayout.layout.LinearLayoutHelper;
+import com.blankj.utilcode.util.ToastUtils;
 import com.example.administrator.test.R;
 import com.example.administrator.test.base.adapter.BaseViewHolder;
 import com.example.administrator.test.base.adapter.QuickDelegateAdapter;
@@ -15,6 +16,7 @@ import com.example.administrator.test.entity.view.BaseViewEntity;
 import com.example.administrator.test.mvp.contract.RecommendDailyContract;
 import com.example.administrator.test.mvp.model.RecommendDailyModel;
 import com.example.administrator.test.mvp.presenter.RecommendDailyPresenter;
+import com.example.administrator.test.util.ArouteHelper;
 import com.example.administrator.test.viewholder.recommend.DailyArticleVH;
 import com.example.administrator.test.viewholder.recommend.DailyBannerVH;
 import com.example.administrator.test.viewholder.recommend.DailyMenuVH;
@@ -102,7 +104,15 @@ public class RecommendDailyFragment extends BaseListFragment<BaseViewEntity, Rec
                     case BaseViewEntity.RECOMMEND_DAILY_VIEW_TYPE_MAIN_MENU:
                         return new DailyMenuVH(getActivity(), parent, R.layout.recommend_daily_vh_menu);
                     case BaseViewEntity.RECOMMEND_DAILY_VIEW_TYPE_ARTICLE:
-                        return new DailyArticleVH(getActivity(), parent, R.layout.recommend_daily_vh_common);
+                        DailyArticleVH dailyArticleVH = new DailyArticleVH(getActivity(), parent, R.layout.recommend_daily_vh_common);
+                        dailyArticleVH.setClickCallBack((data, position) -> {
+                            String url   = ((List<RecommendDailyArticleEntity>) data).get(position)
+                                                                                     .getUrl();
+                            String title = ((List<RecommendDailyArticleEntity>) data).get(position)
+                                                                                     .getDesc();
+                            ArouteHelper.buildWebWithAnimator(context, title, url);
+                        });
+                        return dailyArticleVH;
                     case BaseViewEntity.RECOMMEND_DAILY_VIEW_TYPE_VIDEO:
                         return new DailyVideoVH(getActivity(), parent, R.layout.recommend_daily_vh_common);
                     case BaseViewEntity.RECOMMEND_DAILY_VIEW_TYPE_PHOTO:

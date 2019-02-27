@@ -81,9 +81,7 @@ public class MovieDetailViewInfo {
 
     @SuppressLint("CheckResult")
     private void initBackGround(String imgUrl) {
-        RequestOptions options = new RequestOptions();
         Glide.with(context)
-             .setDefaultRequestOptions(options)
              .load(imgUrl)
              .apply(RequestOptions.bitmapTransform(new BlurTransformation(25, 100)))
              .into(ivBG);

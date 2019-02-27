@@ -8,8 +8,9 @@
     <color name="gray_e1dada">#f9f5f5</color>
     <color name="transparent">#00000000</color>
 
-
     <!--特斯拉红-->
+    <color name="tesla_red">#df001e</color>
+
     <color name="tool_bar_base_background">#df001e</color>
     <color name="activity_root_layout_background">#00000000</color>
 

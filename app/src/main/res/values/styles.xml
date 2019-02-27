@@ -90,5 +90,4 @@
         <item name="android:textSize">11sp</item><!--子标题字体大小-->
         <item name="android:textColor">#ffffff</item><!--子标题字体颜色-->
     </style>
-
 </resources>

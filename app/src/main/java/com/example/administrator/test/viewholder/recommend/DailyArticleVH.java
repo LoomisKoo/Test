@@ -55,6 +55,18 @@ public class DailyArticleVH extends BaseViewHolder {
 
     }
 
+    /**
+     * 列表点击回调
+     *
+     * @param clickCallBack
+     */
+    public void setClickCallBack(ClickCallBack clickCallBack) {
+        this.clickCallBack = clickCallBack;
+    }
+
+    /**
+     * 列表适配器
+     */
     class DailyRecommendArticleAdapter extends RecyclerView.Adapter<DailyRecommendArticleAdapter.ArticleVH> {
 
         private List<RecommendDailyArticleEntity> data;
@@ -80,7 +92,7 @@ public class DailyArticleVH extends BaseViewHolder {
                                        .getDesc());
             holder.itemView.setOnClickListener(v -> {
                 if (null != clickCallBack) {
-                    clickCallBack.onItemClick(position);
+                    clickCallBack.onItemClick(data, position);
                 }
             });
         }
@@ -100,9 +112,9 @@ public class DailyArticleVH extends BaseViewHolder {
         }
     }
 
-    ClickCallBack clickCallBack;
+    protected ClickCallBack clickCallBack;
 
-    interface ClickCallBack {
-        void onItemClick(int position);
+    public interface ClickCallBack {
+        void onItemClick(Object data, int position);
     }
 }
