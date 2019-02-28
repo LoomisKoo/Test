@@ -4,15 +4,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentStatePagerAdapter;
-import androidx.core.view.GravityCompat;
-import androidx.viewpager.widget.ViewPager;
-
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
@@ -35,6 +31,14 @@ import com.roughike.bottombar.BottomBar;
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.view.GravityCompat;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentStatePagerAdapter;
+import androidx.viewpager.widget.ViewPager;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 
 /**
  * @author
@@ -52,6 +56,10 @@ public class MainActivity extends BaseViewActivity {
     private static final int TAB_TYPE_DISCOVER = 0;
     private static final int TAB_TYPE_FRIENDS  = 1;
     private static final int TAB_TYPE_MUSIC    = 2;
+    @BindView(R.id.bottomBar)
+    BottomBar bottomBar;
+    @BindView(R.id.view_pager)
+    ViewPager viewPager;
 
     /**
      * 记录用户首次点击返回键的时间
@@ -62,9 +70,7 @@ public class MainActivity extends BaseViewActivity {
      */
     private static final int  BACK_PRESS_INTERVAL_TIME = 2000;
 
-    private BottomBar          mBottomBar;
     private List<BaseFragment> fragments;
-    private ViewPager          viewPager;
 
     @Override
     public void widgetClick(View v) {
@@ -161,7 +167,7 @@ public class MainActivity extends BaseViewActivity {
 
     @Override
     protected void OnNavigationOnClick() {
-        drawerRootLayout.openDrawer(GravityCompat.START);
+        baseRootDl.openDrawer(GravityCompat.START);
     }
 
     @Override
@@ -180,64 +186,54 @@ public class MainActivity extends BaseViewActivity {
      * inflateHeaderView 进来的布局要宽一些
      */
     private void initDrawerLayout() {
+
         View view = LayoutInflater.from(this)
-                                  .inflate(R.layout.layout_main_drawer_view, navView);
+                                  .inflate(R.layout.layout_main_drawer_view, baseRootNavView);
+        ViewHolder viewHolder = new ViewHolder(view);
         //夜间模式
 //        bind.dayNightSwitch.setChecked(SPUtils.getNightMode());
-        //TODO 设置头像和等级
-//        ImageLoadUtil.displayCircle(bind.ivAvatar, ConstantsImageUrl.IC_AVATAR);
-        TextView homePageTv, downLoadTv, feedBackTv, aboutTv, loginTv, collectionTv, exitTv;
-        homePageTv = view.findViewById(R.id.project_home_page_tv);
-        downLoadTv = view.findViewById(R.id.down_load_tv);
-        feedBackTv = view.findViewById(R.id.feed_back_tv);
-        aboutTv = view.findViewById(R.id.about_tv);
-        loginTv = view.findViewById(R.id.login_tv);
-        collectionTv = view.findViewById(R.id.collection_tv);
-
-        exitTv = view.findViewById(R.id.exit_tv);
         //项目主页
-        homePageTv.setOnClickListener(v -> ARouter.getInstance()
-                                                  .build(ArouteHelper.ROUTE_ACTIVITY_PROJECT_HOME)
-                                                  .withFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
-                                                  .withInt("x", AnimatorHelper.getDownX())
-                                                  .withInt("y", AnimatorHelper.getDownY())
-                                                  .navigation(this));
+        viewHolder.projectHomePageTv.setOnClickListener(v -> ARouter.getInstance()
+                                                                    .build(ArouteHelper.ROUTE_ACTIVITY_PROJECT_HOME)
+                                                                    .withFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
+                                                                    .withInt("x", AnimatorHelper.getDownX())
+                                                                    .withInt("y", AnimatorHelper.getDownY())
+                                                                    .navigation(this));
         //扫码下载
-        downLoadTv.setOnClickListener(v -> {
+        viewHolder.downLoadTv.setOnClickListener(v -> {
             showToast("扫码下载");
         });
         //问题反馈
-        feedBackTv.setOnClickListener(v -> {
+        viewHolder.feedBackTv.setOnClickListener(v -> {
             showToast("问题反馈");
         });
         //关于
-        aboutTv.setOnClickListener(v -> {
+        viewHolder.aboutTv.setOnClickListener(v -> {
             showToast("关于");
         });
         //登录
-        loginTv.setOnClickListener(v -> ARouter.getInstance()
-                                               .build(ArouteHelper.ROUTE_ACTIVITY_LOGIN_PLAY_ANDROID)
-                                               .withFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
-                                               .withInt("x", AnimatorHelper.getDownX())
-                                               .withInt("y", AnimatorHelper.getDownY())
-                                               .navigation(this));
+        viewHolder.loginTv.setOnClickListener(v -> ARouter.getInstance()
+                                                          .build(ArouteHelper.ROUTE_ACTIVITY_LOGIN_PLAY_ANDROID)
+                                                          .withFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
+                                                          .withInt("x", AnimatorHelper.getDownX())
+                                                          .withInt("y", AnimatorHelper.getDownY())
+                                                          .navigation(this));
         //我的收藏
-        collectionTv.setOnClickListener(v -> {
+        viewHolder.collectionTv.setOnClickListener(v -> {
             showToast("我的收藏");
         });
         //退出应用
-        exitTv.setOnClickListener(v -> {
+        viewHolder.exitTv.setOnClickListener(v -> {
             finishActivity();
         });
 
-        setMenuEvent(homePageTv);
-        setMenuEvent(downLoadTv);
-        setMenuEvent(feedBackTv);
-        setMenuEvent(aboutTv);
-        setMenuEvent(loginTv);
-        setMenuEvent(collectionTv);
-        setMenuEvent(exitTv);
-
+        setMenuEvent(viewHolder.projectHomePageTv);
+        setMenuEvent(viewHolder.downLoadTv);
+        setMenuEvent(viewHolder.feedBackTv);
+        setMenuEvent(viewHolder.aboutTv);
+        setMenuEvent(viewHolder.loginTv);
+        setMenuEvent(viewHolder.collectionTv);
+        setMenuEvent(viewHolder.exitTv);
     }
 
     /**
@@ -273,7 +269,6 @@ public class MainActivity extends BaseViewActivity {
         fragments.add(new BasicKnowledgeFragment());
         fragments.add(new RecommendFragment());
         fragments.add(new MovieFragment());
-        viewPager = (ViewPager) findViewById(R.id.view_pager);
         viewPager.setOffscreenPageLimit(VIEW_PAGER_OFFSCREEN_PAGE_LIMIT);
 
         viewPager.setAdapter(new FragmentStatePagerAdapter(getSupportFragmentManager()) {
@@ -295,7 +290,7 @@ public class MainActivity extends BaseViewActivity {
 
             @Override
             public void onPageSelected(int position) {
-                mBottomBar.selectTabAtPosition(position, true);
+                bottomBar.selectTabAtPosition(position, true);
             }
 
             @Override
@@ -308,11 +303,10 @@ public class MainActivity extends BaseViewActivity {
      * 初始化BottomBar
      */
     private void initBottomBar() {
-        mBottomBar = (BottomBar) findViewById(R.id.bottomBar);
         //以小红点形式显示新消息数量
 //        mBottomBar.getTabWithId(R.id.tab_discover).setBadgeCount(5);
 
-        mBottomBar.setOnTabSelectListener(tabId -> {
+        bottomBar.setOnTabSelectListener(tabId -> {
             switch (tabId) {
                 case R.id.tab_basic_knowledge:
                     viewPager.setCurrentItem(TAB_TYPE_DISCOVER);
@@ -328,15 +322,15 @@ public class MainActivity extends BaseViewActivity {
             }
         });
 
-        mBottomBar.setOnTabReselectListener(tabId -> {
+        bottomBar.setOnTabReselectListener(tabId -> {
             if (tabId == R.id.tab_recommended) {
                 // 已经选择了这个标签，又点击一次。即重选。
-                mBottomBar.getTabWithId(R.id.tab_recommended)
-                          .removeBadge();
+                bottomBar.getTabWithId(R.id.tab_recommended)
+                         .removeBadge();
             }
         });
 
-        mBottomBar.setTabSelectionInterceptor((oldTabId, newTabId) -> {
+        bottomBar.setTabSelectionInterceptor((oldTabId, newTabId) -> {
             // 点击无效
             if (newTabId == R.id.tab_film) {
                 // ......
@@ -352,7 +346,7 @@ public class MainActivity extends BaseViewActivity {
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         //保存BottomBar的状态
-        mBottomBar.onSaveInstanceState();
+        bottomBar.onSaveInstanceState();
     }
 
     @Override
@@ -387,5 +381,38 @@ public class MainActivity extends BaseViewActivity {
     protected void onActivityAnimationFinish() {
         ActivityManager.getAppManager()
                        .finishAllExcept("MainActivity");
+    }
+
+    class ViewHolder {
+        @BindView(R.id.top_view)
+        ImageView        topView;
+        @BindView(R.id.imageView3)
+        ImageView        imageView3;
+        @BindView(R.id.nick_name_tv)
+        TextView         nickNameTv;
+        @BindView(R.id.level_tv)
+        TextView         levelTv;
+        @BindView(R.id.constraintLayout)
+        ConstraintLayout constraintLayout;
+        @BindView(R.id.project_home_page_tv)
+        TextView         projectHomePageTv;
+        @BindView(R.id.down_load_tv)
+        TextView         downLoadTv;
+        @BindView(R.id.feed_back_tv)
+        TextView         feedBackTv;
+        @BindView(R.id.about_tv)
+        TextView         aboutTv;
+        @BindView(R.id.login_tv)
+        TextView         loginTv;
+        @BindView(R.id.collection_tv)
+        TextView         collectionTv;
+        @BindView(R.id.exit_tv)
+        TextView         exitTv;
+        @BindView(R.id.linearLayout)
+        LinearLayout     linearLayout;
+
+        ViewHolder(View view) {
+            ButterKnife.bind(this, view);
+        }
     }
 }

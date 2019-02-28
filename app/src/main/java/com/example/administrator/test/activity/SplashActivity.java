@@ -3,6 +3,7 @@ package com.example.administrator.test.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -17,6 +18,10 @@ import com.example.administrator.test.mvp.contract.SplashContract;
 import com.example.administrator.test.mvp.presenter.SplashPresenter;
 import com.example.administrator.test.util.ArouteHelper;
 import com.example.administrator.test.util.OnMultiClickListener;
+
+import androidx.annotation.Nullable;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * @ProjectName: Test
@@ -34,15 +39,18 @@ public class SplashActivity extends BaseViewActivity<SplashPresenter> implements
     /**
      * 开屏广告的imageView
      */
-    private              ImageView ivAD;
+    @BindView(R.id.welcome_ad_iv)
+    ImageView welcomeAdIv;
     /**
      * 开屏广告的 跳过 按钮
      */
-    private              Button    btnSkip;
+    @BindView(R.id.welcome_btn_skip)
+    Button    welcomeBtnSkip;
+
     /**
      * 倒计时结束秒数
      */
-    private static final int       COUNTDOWN_END_SECOND = 0;
+    private static final int COUNTDOWN_END_SECOND = 0;
 
     @Override
     public void widgetClick(View v) {
@@ -61,7 +69,7 @@ public class SplashActivity extends BaseViewActivity<SplashPresenter> implements
 
     @Override
     public int bindContentLayout() {
-        return 0;
+        return R.layout.activity_splash;
     }
 
     @Override
@@ -85,10 +93,6 @@ public class SplashActivity extends BaseViewActivity<SplashPresenter> implements
         //隐藏toolbar、把背景设透明，显示出欢迎页
         hideToolBar();
         setRootLayoutBackGround(getResources().getColor(R.color.activity_root_layout_background));
-        setContentView(R.layout.activity_splash);
-
-        ivAD = (ImageView) findViewById(R.id.welcome_ad_iv);
-        btnSkip = (Button) findViewById(R.id.welcome_btn_skip);
         presenter.showWelcome();
     }
 
@@ -100,7 +104,7 @@ public class SplashActivity extends BaseViewActivity<SplashPresenter> implements
     @Override
     public void setListener() {
         //点击跳过开屏广告
-        btnSkip.setOnClickListener(new OnMultiClickListener() {
+        welcomeBtnSkip.setOnClickListener(new OnMultiClickListener() {
             @Override
             public void onMultiClick(View v) {
                 startMainActivity();
@@ -127,19 +131,19 @@ public class SplashActivity extends BaseViewActivity<SplashPresenter> implements
 
     @Override
     public void showLocalAD(int imgRes) {
-        ivAD.setVisibility(View.VISIBLE);
-        btnSkip.setVisibility(View.VISIBLE);
+        welcomeAdIv.setVisibility(View.VISIBLE);
+        welcomeBtnSkip.setVisibility(View.VISIBLE);
         presenter.countDownAD();
         Glide.with(this)
              .load(imgRes)
-             .into(ivAD);
+             .into(welcomeAdIv);
     }
 
     @Override
     public void countDownAD(long countDown) {
         //开屏广告倒计时
         String skip = String.format(getString(R.string.splash_skip), countDown);
-        btnSkip.setText(skip);
+        welcomeBtnSkip.setText(skip);
         //倒计时为 0 则跳转主页面
         if (COUNTDOWN_END_SECOND == countDown) {
             startMainActivity();
@@ -158,6 +162,7 @@ public class SplashActivity extends BaseViewActivity<SplashPresenter> implements
                .navigation();
 
         //先入栈，待跳转的activity动画结束后再finish
-        ActivityManager.getAppManager().addActivity(this);
+        ActivityManager.getAppManager()
+                       .addActivity(this);
     }
 }

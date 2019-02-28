@@ -20,6 +20,8 @@ import androidx.annotation.DrawableRes;
 import androidx.annotation.StringRes;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * @author koo
@@ -36,11 +38,20 @@ public abstract class BaseFragment<P> extends Fragment implements FragmentUserVi
 
     protected BaseActivity mActivity;
 
-    protected TextView     emptyTv;
-    protected LinearLayout topLay, bottomLay, llContent;
-    protected ConstraintLayout      rootLayout;
-    protected SmartRefreshLayout    refreshLayout;
     protected HeaderFooterViewModel headerViewModel, footerViewModel;
+
+    @BindView(R.id.base_pager_list_topLay)
+    LinearLayout basePagerListTopLay;
+    @BindView(R.id.base_pager_list_ll)
+    protected LinearLayout       basePagerListLl;
+    @BindView(R.id.base_pager_list_refreshLayout)
+    protected SmartRefreshLayout basePagerListRefreshLayout;
+    @BindView(R.id.base_pager_list_empty_tv)
+    TextView     basePagerListEmptyTv;
+    @BindView(R.id.base_pager_list_bottomLay)
+    LinearLayout basePagerListBottomLay;
+    @BindView(R.id.base_pager_list_root)
+    protected ConstraintLayout basePagerListRoot;
 
     public BaseFragment() {
         userVisibleManager = new FragmentUserVisibleManager(this, this);
@@ -52,16 +63,10 @@ public abstract class BaseFragment<P> extends Fragment implements FragmentUserVi
      * @param view
      */
     protected void initRootView(View view) {
-        emptyTv = view.findViewById(R.id.base_pager_list_empty_tv);
-        rootLayout = view.findViewById(R.id.base_pager_list_root);
-        topLay = view.findViewById(R.id.base_pager_list_topLay);
-        bottomLay = view.findViewById(R.id.base_pager_list_bottomLay);
-        llContent = view.findViewById(R.id.base_pager_list_ll);
-        refreshLayout = view.findViewById(R.id.base_pager_list_refreshLayout);
-        refreshLayout.setOnRefreshListener(refreshLayout -> refreshData());
-        refreshLayout.setOnLoadmoreListener(refreshLayout -> loadMoreData());
+        basePagerListRefreshLayout.setOnRefreshListener(refreshLayout -> refreshData());
+        basePagerListRefreshLayout.setOnLoadmoreListener(refreshLayout -> loadMoreData());
         //不启用列表惯性滑动到底部时自动加载更多
-        refreshLayout.setEnableAutoLoadmore(false);
+        basePagerListRefreshLayout.setEnableAutoLoadmore(false);
         initMainLayout();
     }
 
@@ -70,13 +75,13 @@ public abstract class BaseFragment<P> extends Fragment implements FragmentUserVi
      */
     private void initMainLayout() {
         if (0 != bindContentLayout()) {
-            getLayoutInflater().inflate(bindContentLayout(), llContent);
+            getLayoutInflater().inflate(bindContentLayout(), basePagerListLl);
         }
         if (0 != bindTopLayout()) {
-            getLayoutInflater().inflate(bindTopLayout(), topLay);
+            getLayoutInflater().inflate(bindTopLayout(), basePagerListTopLay);
         }
         if (0 != bindBottomLayout()) {
-            getLayoutInflater().inflate(bindBottomLayout(), bottomLay);
+            getLayoutInflater().inflate(bindBottomLayout(), basePagerListBottomLay);
         }
     }
 
@@ -88,15 +93,15 @@ public abstract class BaseFragment<P> extends Fragment implements FragmentUserVi
     }
 
     protected void setRefreshEnable(boolean enable) {
-        refreshLayout.setEnableRefresh(enable);
+        basePagerListRefreshLayout.setEnableRefresh(enable);
     }
 
     /**
      * 隐藏空列表提示
      */
     protected void hideEmptyView() {
-        if (emptyTv.getVisibility() == View.VISIBLE) {
-            emptyTv.setVisibility(View.INVISIBLE);
+        if (basePagerListEmptyTv.getVisibility() == View.VISIBLE) {
+            basePagerListEmptyTv.setVisibility(View.INVISIBLE);
         }
     }
 
@@ -107,9 +112,9 @@ public abstract class BaseFragment<P> extends Fragment implements FragmentUserVi
      * @param resId
      */
     protected void showEmptyView(String text, @DrawableRes int resId) {
-        emptyTv.setVisibility(View.VISIBLE);
-        emptyTv.setText(text);
-        emptyTv.setCompoundDrawablesWithIntrinsicBounds(0, resId, 0, 0);
+        basePagerListEmptyTv.setVisibility(View.VISIBLE);
+        basePagerListEmptyTv.setText(text);
+        basePagerListEmptyTv.setCompoundDrawablesWithIntrinsicBounds(0, resId, 0, 0);
     }
 
     /**
@@ -122,15 +127,15 @@ public abstract class BaseFragment<P> extends Fragment implements FragmentUserVi
     }
 
     protected boolean isRefreshFinish() {
-        return refreshLayout.getState() == RefreshState.None;
+        return basePagerListRefreshLayout.getState() == RefreshState.None;
     }
 
     protected void stopRefresh() {
-        if (refreshLayout.isRefreshing()) {
-            refreshLayout.finishRefresh();
+        if (basePagerListRefreshLayout.isRefreshing()) {
+            basePagerListRefreshLayout.finishRefresh();
         }
-        else if (refreshLayout.isLoading()) {
-            refreshLayout.finishLoadmore();
+        else if (basePagerListRefreshLayout.isLoading()) {
+            basePagerListRefreshLayout.finishLoadmore();
         }
     }
 
@@ -156,11 +161,11 @@ public abstract class BaseFragment<P> extends Fragment implements FragmentUserVi
     public abstract int bindBottomLayout();
 
     protected void setRootBackground(int color) {
-        rootLayout.setBackgroundColor(color);
+        basePagerListRoot.setBackgroundColor(color);
     }
 
     protected void setLoadMoreEnable(boolean enable) {
-        refreshLayout.setEnableLoadmore(enable);
+        basePagerListRefreshLayout.setEnableLoadmore(enable);
     }
 
     @Override
@@ -177,14 +182,17 @@ public abstract class BaseFragment<P> extends Fragment implements FragmentUserVi
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_base, container, false);
+        View view = inflater.inflate(R.layout.fragment_base, container, false);
+        bingView(view);
+        return view;
     }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initRootView(view);
-        initView(llContent);
+        bingView(view);
+        initView(basePagerListLl);
     }
 
     @Override
@@ -238,7 +246,7 @@ public abstract class BaseFragment<P> extends Fragment implements FragmentUserVi
     protected abstract void initView(View view);
 
     protected void initData() {
-        refreshLayout.autoRefresh();
+        basePagerListRefreshLayout.autoRefresh();
     }
 
     @Override
@@ -330,4 +338,13 @@ public abstract class BaseFragment<P> extends Fragment implements FragmentUserVi
         return false;
     }
 
+
+    private void bingView(View view){
+        //ButterKnife会先找该activity的子类的view进行绑定，但是子类的view还没inflate，此处会崩溃。因此需要try-catch
+        try {
+            ButterKnife.bind(this, view);
+        }
+        catch (Exception e) {
+        }
+    }
 }

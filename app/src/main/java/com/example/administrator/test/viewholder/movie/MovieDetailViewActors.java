@@ -21,8 +21,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * @ProjectName: Test
@@ -37,16 +38,17 @@ import androidx.recyclerview.widget.RecyclerView;
  * @Version: 1.0
  */
 public class MovieDetailViewActors {
-    private Context      context;
-    private RecyclerView recyclerView;
+    @BindView(R.id.rv_actors)
+    RecyclerView rvActors;
+
+    private Context context;
 
     public MovieDetailViewActors(Context context, View rootView) {
         this.context = context;
-        recyclerView = rootView.findViewById(R.id.rv_actors);
-        recyclerView.setLayoutManager(new LinearLayoutManager(context));
+        ButterKnife.bind(this, rootView);
         //设置不需要焦点 否则切换tab后，嵌套的recyclerview会自动滚动
-        recyclerView.setFocusableInTouchMode(false);
-        recyclerView.requestFocus();
+        rvActors.setFocusableInTouchMode(false);
+        rvActors.requestFocus();
     }
 
     public void setData(MovieDetailEntity entity) {
@@ -54,11 +56,12 @@ public class MovieDetailViewActors {
         //导演和主演是分开的数据，这里做拼接
         clerkEntityList.addAll(entity.getDirectors());
         clerkEntityList.addAll(entity.getCasts());
-        recyclerView.setAdapter(new ActorAdapter(clerkEntityList));
+        rvActors.setAdapter(new ActorAdapter(clerkEntityList));
     }
 
 
     class ActorAdapter extends RecyclerView.Adapter<ActorAdapter.ActorAdapterVH> {
+
         private List<MovieDetailEntity.ClerkEntity> data;
 
         public ActorAdapter(List<MovieDetailEntity.ClerkEntity> data) {
@@ -120,15 +123,16 @@ public class MovieDetailViewActors {
         }
 
         class ActorAdapterVH extends RecyclerView.ViewHolder {
+            @BindView(R.id.iv_portrait)
             ImageView ivPortrait;
+            @BindView(R.id.tv_name)
             TextView  tvName;
+            @BindView(R.id.tv_jobs)
             TextView  tvJobs;
 
             public ActorAdapterVH(@NonNull View itemView) {
                 super(itemView);
-                ivPortrait = itemView.findViewById(R.id.iv_portrait);
-                tvName = itemView.findViewById(R.id.tv_name);
-                tvJobs = itemView.findViewById(R.id.tv_jobs);
+                ButterKnife.bind(this, itemView);
             }
         }
     }

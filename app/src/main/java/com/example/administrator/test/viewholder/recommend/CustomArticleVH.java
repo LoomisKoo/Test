@@ -1,7 +1,6 @@
 package com.example.administrator.test.viewholder.recommend;
 
 import android.content.Context;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -12,6 +11,8 @@ import com.example.administrator.test.animation.AnimatorHelper;
 import com.example.administrator.test.base.adapter.BaseViewHolder;
 import com.example.administrator.test.entity.RecommendCustomEntity;
 import com.example.administrator.test.util.ArouteHelper;
+
+import butterknife.BindView;
 
 /**
  * @ProjectName: Test
@@ -26,15 +27,17 @@ import com.example.administrator.test.util.ArouteHelper;
  * @Version: 1.0
  */
 public class CustomArticleVH extends BaseViewHolder {
-    private TextView tvTitle, tvFrom, tvDate;
-    private ImageView ivDemo;
+    @BindView(R.id.iv_demo)
+    ImageView ivDemo;
+    @BindView(R.id.tv_title)
+    TextView  tvTitle;
+    @BindView(R.id.tv_from)
+    TextView  tvFrom;
+    @BindView(R.id.tv_date)
+    TextView  tvDate;
 
     public CustomArticleVH(Context context, ViewGroup parent, int layoutId) {
         super(context, parent, layoutId);
-        tvTitle = getView(R.id.tv_title);
-        tvFrom = getView(R.id.tv_from);
-        tvDate = getView(R.id.tv_date);
-        ivDemo = getView(R.id.iv_demo);
     }
 
     public void setData(RecommendCustomEntity.CustomInfoEntity entity) {

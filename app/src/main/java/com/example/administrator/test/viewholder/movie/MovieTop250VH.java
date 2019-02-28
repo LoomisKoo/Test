@@ -2,7 +2,6 @@ package com.example.administrator.test.viewholder.movie;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -13,9 +12,9 @@ import com.bumptech.glide.request.RequestOptions;
 import com.example.administrator.test.R;
 import com.example.administrator.test.base.adapter.BaseViewHolder;
 import com.example.administrator.test.entity.MovieBriefInformation;
-import com.example.administrator.test.entity.MovieTop250Entity;
-import com.example.administrator.test.entity.MoviewHitEntity;
 import com.example.administrator.test.util.ArouteHelper;
+
+import butterknife.BindView;
 
 /**
  * @ProjectName: Test
@@ -30,14 +29,15 @@ import com.example.administrator.test.util.ArouteHelper;
  * @Version: 1.0
  */
 public class MovieTop250VH extends BaseViewHolder {
+    @BindView(R.id.iv_posters)
     public ImageView ivPosters;
-    private TextView  tvTitle, tvScore;
+    @BindView(R.id.tv_title)
+    TextView tvTitle;
+    @BindView(R.id.tv_score)
+    TextView tvScore;
 
     public MovieTop250VH(Context context, ViewGroup parent, int layoutId) {
         super(context, parent, layoutId);
-        ivPosters = getView(R.id.iv_posters);
-        tvTitle = getView(R.id.tv_title);
-        tvScore = getView(R.id.tv_score);
     }
 
     @SuppressLint("CheckResult")
@@ -59,8 +59,8 @@ public class MovieTop250VH extends BaseViewHolder {
         tvScore.setText(score);
 
         itemView.setOnClickListener(v -> ARouter.getInstance()
-                                        .build(ArouteHelper.ROUTE_ACTIVITY_MOVIE_DETAIL)
-                                        .withString("movieID", entity.getId())
-                                        .navigation());
+                                                .build(ArouteHelper.ROUTE_ACTIVITY_MOVIE_DETAIL)
+                                                .withString("movieID", entity.getId())
+                                                .navigation());
     }
 }

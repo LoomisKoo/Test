@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
-
 import android.view.KeyEvent;
 import android.view.View;
 import android.webkit.WebSettings;
@@ -18,9 +17,11 @@ import com.example.administrator.test.R;
 import com.example.administrator.test.base.activity.BaseViewActivity;
 import com.example.administrator.test.mvp.base.IBasePresenter;
 import com.example.administrator.test.util.ArouteHelper;
-
 import com.example.administrator.test.webview.CustomWebViewClient;
 import com.example.administrator.test.webview.IWebPageView;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 import static android.view.KeyEvent.KEYCODE_BACK;
 
@@ -39,14 +40,18 @@ import static android.view.KeyEvent.KEYCODE_BACK;
 @Route(path = ArouteHelper.ROUTE_ACTIVITY_WEB)
 public class WebActivity extends BaseViewActivity implements IWebPageView {
     /**
-     * 进度条
-     */
-    private ProgressBar mProgressBar;
-    private WebView     webView;
-    /**
      * 全屏时视频加载view
      */
-    private FrameLayout videoFullView;
+    @BindView(R.id.video_fullView)
+    FrameLayout videoFullView;
+    @BindView(R.id.webview_detail)
+    WebView     webviewDetail;
+    /**
+     * 进度条
+     */
+    @BindView(R.id.pb_progress)
+    ProgressBar pbProgress;
+
     //TODO 加载视频相关
 //    private MyWebChromeClient mWebChromeClient;
 
@@ -100,7 +105,7 @@ public class WebActivity extends BaseViewActivity implements IWebPageView {
     public void initView(Bundle savedInstanceState) {
         initTitle();
         initWebView();
-        webView.loadUrl(url);
+        webviewDetail.loadUrl(url);
     }
 
     @Override
@@ -125,8 +130,8 @@ public class WebActivity extends BaseViewActivity implements IWebPageView {
 
     @Override
     protected void OnNavigationOnClick() {
-        if (webView.canGoBack()) {
-            webView.goBack();
+        if (webviewDetail.canGoBack()) {
+            webviewDetail.goBack();
         }
         else {
             finishActivity();
@@ -134,9 +139,6 @@ public class WebActivity extends BaseViewActivity implements IWebPageView {
     }
 
     private void initTitle() {
-        mProgressBar = (ProgressBar) findViewById(R.id.pb_progress);
-        webView = (WebView) findViewById(R.id.webview_detail);
-        videoFullView = (FrameLayout) findViewById(R.id.video_fullView);
         //TODO  待完善
 //        webView.getSettings().setUserAgentString("电脑");
         initToolbar();
@@ -154,8 +156,8 @@ public class WebActivity extends BaseViewActivity implements IWebPageView {
 
     @SuppressLint("SetJavaScriptEnabled")
     private void initWebView() {
-        mProgressBar.setVisibility(View.VISIBLE);
-        WebSettings ws = webView.getSettings();
+        pbProgress.setVisibility(View.VISIBLE);
+        WebSettings ws = webviewDetail.getSettings();
         // 网页内容的宽度是否可大于WebView控件的宽度
         ws.setLoadWithOverviewMode(false);
         // 保存表单数据
@@ -172,7 +174,7 @@ public class WebActivity extends BaseViewActivity implements IWebPageView {
         // 设置此属性，可任意比例缩放。
         ws.setUseWideViewPort(true);
         // 不缩放
-        webView.setInitialScale(100);
+        webviewDetail.setInitialScale(100);
         // 告诉WebView启用JavaScript执行。默认的是false。
         ws.setJavaScriptEnabled(true);
         //  页面加载好以后，再放开图片
@@ -195,7 +197,7 @@ public class WebActivity extends BaseViewActivity implements IWebPageView {
 //        webView.setWebChromeClient(mWebChromeClient);
 //        // 与js交互
 //        webView.addJavascriptInterface(new ImageClickInterface(this), "injectedObject");
-        webView.setWebViewClient(new CustomWebViewClient(this));
+        webviewDetail.setWebViewClient(new CustomWebViewClient(this));
     }
 
     //
@@ -253,8 +255,8 @@ public class WebActivity extends BaseViewActivity implements IWebPageView {
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         //点击回退键时，不会退出浏览器而是返回网页上一页
-        if ((keyCode == KEYCODE_BACK) && webView.canGoBack()) {
-            webView.goBack();
+        if ((keyCode == KEYCODE_BACK) && webviewDetail.canGoBack()) {
+            webviewDetail.goBack();
             return true;
         }
         return super.onKeyDown(keyCode, event);
@@ -298,5 +300,12 @@ public class WebActivity extends BaseViewActivity implements IWebPageView {
     @Override
     public void hindVideoFullView() {
 
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
     }
 }

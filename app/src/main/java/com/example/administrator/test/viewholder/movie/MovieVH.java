@@ -1,25 +1,18 @@
 package com.example.administrator.test.viewholder.movie;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.alibaba.android.arouter.launcher.ARouter;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.administrator.test.R;
-import com.example.administrator.test.animation.AnimatorHelper;
 import com.example.administrator.test.base.adapter.BaseViewHolder;
 import com.example.administrator.test.entity.MovieBriefInformation;
-import com.example.administrator.test.entity.MoviewHitEntity;
-import com.example.administrator.test.util.ArouteHelper;
 
-import androidx.core.app.ActivityOptionsCompat;
+import butterknife.BindView;
 
 /**
  * @ProjectName: Test
@@ -34,17 +27,21 @@ import androidx.core.app.ActivityOptionsCompat;
  * @Version: 1.0
  */
 public class MovieVH extends BaseViewHolder {
-    public  ImageView ivPosters;
-    private TextView  tvTitle, tvDirector, tvCasts, tvGenres, tvScore;
+    @BindView(R.id.iv_posters)
+    public ImageView ivPosters;
+    @BindView(R.id.tv_title)
+    TextView tvTitle;
+    @BindView(R.id.tv_director)
+    TextView tvDirector;
+    @BindView(R.id.tv_casts)
+    TextView tvCasts;
+    @BindView(R.id.tv_genres)
+    TextView tvGenres;
+    @BindView(R.id.tv_score)
+    TextView tvScore;
 
     public MovieVH(Context context, ViewGroup parent, int layoutId) {
         super(context, parent, layoutId);
-        ivPosters = getView(R.id.iv_posters);
-        tvTitle = getView(R.id.tv_title);
-        tvDirector = getView(R.id.tv_director);
-        tvCasts = getView(R.id.tv_casts);
-        tvGenres = getView(R.id.tv_genres);
-        tvScore = getView(R.id.tv_score);
     }
 
     @SuppressLint("CheckResult")

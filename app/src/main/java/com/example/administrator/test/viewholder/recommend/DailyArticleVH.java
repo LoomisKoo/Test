@@ -16,6 +16,8 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * @ProjectName: Test
@@ -30,26 +32,25 @@ import androidx.recyclerview.widget.RecyclerView;
  * @Version: 1.0
  */
 public class DailyArticleVH extends BaseViewHolder {
+    @BindView(R.id.tv_title)
+    TextView     tvTitle;
+    @BindView(R.id.rv_article)
     RecyclerView rvArticle;
-    TextView     tvType;
 
     public DailyArticleVH(Context context, ViewGroup parent, int layoutId) {
         super(context, parent, layoutId);
-        tvType = retrieveView(R.id.tv_title);
-        rvArticle = retrieveView(R.id.rv_article);
 
         rvArticle.setLayoutManager(new LinearLayoutManager(context));
         //设置不需要焦点 否则切换tab后，嵌套的recyclerview会自动滚动
         rvArticle.setFocusableInTouchMode(false);
         rvArticle.requestFocus();
-
         rvArticle.setNestedScrollingEnabled(false);
     }
 
     public void setData(List<RecommendDailyArticleEntity> entityList) {
         if (entityList.size() > 0) {
-            tvType.setText(entityList.get(0)
-                                     .getType());
+            tvTitle.setText(entityList.get(0)
+                                      .getType());
             rvArticle.setAdapter(new DailyRecommendArticleAdapter(entityList));
         }
 
@@ -68,7 +69,6 @@ public class DailyArticleVH extends BaseViewHolder {
      * 列表适配器
      */
     class DailyRecommendArticleAdapter extends RecyclerView.Adapter<DailyRecommendArticleAdapter.ArticleVH> {
-
         private List<RecommendDailyArticleEntity> data;
 
         public DailyRecommendArticleAdapter(List<RecommendDailyArticleEntity> data) {
@@ -103,11 +103,12 @@ public class DailyArticleVH extends BaseViewHolder {
         }
 
         class ArticleVH extends RecyclerView.ViewHolder {
+            @BindView(R.id.tv_title)
             TextView tvTitle;
 
             public ArticleVH(@NonNull View itemView) {
                 super(itemView);
-                tvTitle = itemView.findViewById(R.id.tv_title);
+                ButterKnife.bind(this, itemView);
             }
         }
     }

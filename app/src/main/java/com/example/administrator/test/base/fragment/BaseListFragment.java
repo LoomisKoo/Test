@@ -2,18 +2,8 @@ package com.example.administrator.test.base.fragment;
 
 import android.app.Activity;
 import android.os.Bundle;
-
-import androidx.annotation.DrawableRes;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.core.content.ContextCompat;
-import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.alibaba.android.vlayout.DelegateAdapter;
 import com.alibaba.android.vlayout.VirtualLayoutManager;
@@ -27,6 +17,11 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+import androidx.annotation.DrawableRes;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.RecyclerView;
+import butterknife.BindView;
 import jp.wasabeef.recyclerview.adapters.AnimationAdapter;
 import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter;
 import jp.wasabeef.recyclerview.animators.SlideInLeftAnimator;
@@ -40,13 +35,15 @@ public abstract class BaseListFragment<T, P> extends BaseFragment<P> {
     protected int pageSize = 20;
     protected int maxPage  = Integer.MAX_VALUE;
 
-    protected RecyclerView            recyclerView;
     protected QuickDelegateAdapter<T> adapter;
-
 
     protected BaseActivity mActivity;
 
     protected VirtualLayoutManager layoutManager;
+
+    @BindView(R.id.base_pager_list_rv)
+    protected
+    RecyclerView basePagerListRv;
 
     /**
      * 是否显示recycleView自带的分割线
@@ -65,7 +62,6 @@ public abstract class BaseListFragment<T, P> extends BaseFragment<P> {
      */
     @Override
     protected void initView(View view) {
-        recyclerView = view.findViewById(R.id.base_pager_list_rv);
         initRecycleView();
     }
 
@@ -75,13 +71,13 @@ public abstract class BaseListFragment<T, P> extends BaseFragment<P> {
     private void initRecycleView() {
         layoutManager = new VirtualLayoutManager(getContext());
         //添加Android自带的分割线
-//        recyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
+//        basePagerListRv.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
 
-        recyclerView.setLayoutManager(layoutManager);
+        basePagerListRv.setLayoutManager(layoutManager);
 
         final RecyclerView.RecycledViewPool viewPool = new RecyclerView.RecycledViewPool();
 
-        recyclerView.setRecycledViewPool(viewPool);
+        basePagerListRv.setRecycledViewPool(viewPool);
 
         viewPool.setMaxRecycledViews(0, 28);
 
@@ -103,7 +99,7 @@ public abstract class BaseListFragment<T, P> extends BaseFragment<P> {
             adapters.add(getFooterViewAdapter());
         }
         if (isShowDefaultDivider) {
-            recyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
+            basePagerListRv.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
         }
 
         delegateAdapter.setAdapters(adapters);
@@ -135,14 +131,14 @@ public abstract class BaseListFragment<T, P> extends BaseFragment<P> {
             //删除动画
             SlideInLeftAnimator animator = new SlideInLeftAnimator();
             animator.setInterpolator(new AccelerateInterpolator());
-            recyclerView.setItemAnimator(animator);
-            recyclerView.getItemAnimator()
-                        .setRemoveDuration(300);
+            basePagerListRv.setItemAnimator(animator);
+            basePagerListRv.getItemAnimator()
+                           .setRemoveDuration(300);
 
-            recyclerView.setAdapter(animationAdapter);
+            basePagerListRv.setAdapter(animationAdapter);
         }
         else {
-            recyclerView.setAdapter(delegateAdapter);
+            basePagerListRv.setAdapter(delegateAdapter);
         }
     }
 
@@ -154,7 +150,7 @@ public abstract class BaseListFragment<T, P> extends BaseFragment<P> {
     public void addCustomDivider(@DrawableRes int drawableRes) {
         DividerItemDecoration divider = new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL);
         divider.setDrawable(ContextCompat.getDrawable(getContext(), drawableRes));
-        recyclerView.addItemDecoration(divider);
+        basePagerListRv.addItemDecoration(divider);
     }
 
     @Override
@@ -195,6 +191,7 @@ public abstract class BaseListFragment<T, P> extends BaseFragment<P> {
      * @param text
      * @param resId
      */
+    @Override
     public void checkEmpty(String text, @DrawableRes int resId) {
         if (adapter.getItemCount() == 0) {
             showEmptyView(text, resId);
@@ -214,15 +211,15 @@ public abstract class BaseListFragment<T, P> extends BaseFragment<P> {
     }
 
 //    protected boolean isRefreshFinish() {
-//        return refreshLayout.getState() == RefreshState.None;
+//        return basePagerListRefreshLayout.getState() == RefreshState.None;
 //    }
 
 //    protected void stopRefresh() {
-//        if (refreshLayout.isRefreshing()) {
-//            refreshLayout.finishRefresh();
+//        if (basePagerListRefreshLayout.isRefreshing()) {
+//            basePagerListRefreshLayout.finishRefresh();
 //        }
-//        else if (refreshLayout.isLoading()) {
-//            refreshLayout.finishLoadmore();
+//        else if (basePagerListRefreshLayout.isLoading()) {
+//            basePagerListRefreshLayout.finishLoadmore();
 //        }
 //    }
 
@@ -269,7 +266,7 @@ public abstract class BaseListFragment<T, P> extends BaseFragment<P> {
 
     @Override
     protected void initData() {
-        refreshLayout.autoRefresh();
+        basePagerListRefreshLayout.autoRefresh();
     }
 
     @Override

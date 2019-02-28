@@ -111,9 +111,9 @@ public class BasicKnowledgePlayAndroidFragment extends BaseListFragment<BaseView
                     case BaseViewEntity.PLAY_ANDROID_VIEW_TYPE_ARTICLE_LIST:
                         PlayAndroidArticleListVH vh = new PlayAndroidArticleListVH(getContext(), parent, R.layout.play_android_item_article);
                         vh.itemView.setOnClickListener(v -> {
-                            int position = recyclerView.getChildAdapterPosition(v);
+                            int position = basePagerListRv.getChildAdapterPosition(v);
                             BaseViewEntity entity = adapter.getData()
-                                                                  .get(position);
+                                                           .get(position);
                             ArticleListEntity.DataBean.ArticleInfoBean bean  = (ArticleListEntity.DataBean.ArticleInfoBean) entity.getData();
                             String                                     title = bean.getTitle();
                             ArouteHelper.buildWebWithAnimator(getActivity(), title, bean.getLink());

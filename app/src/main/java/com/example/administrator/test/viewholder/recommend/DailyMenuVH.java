@@ -1,13 +1,18 @@
 package com.example.administrator.test.viewholder.recommend;
 
 import android.content.Context;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import com.example.administrator.test.R;
 import com.example.administrator.test.animation.AnimatorHelper;
 import com.example.administrator.test.base.adapter.BaseViewHolder;
 import com.example.administrator.test.util.ArouteHelper;
+
+import androidx.constraintlayout.widget.ConstraintLayout;
+import butterknife.BindView;
 
 /**
  * @ProjectName: Test
@@ -34,17 +39,20 @@ public class DailyMenuVH extends BaseViewHolder {
     private static final String RECOMMEND_HIT_MOVIE_TITLE = "热映电影";
     private static final String RECOMMEND_HIT_MOVIE_URL   = "https://movie.douban.com";
 
-    private ImageButton ibReading;
-    private ImageButton ibDailyRecommend;
-    private ImageButton ibPlayAndroid;
-    private ImageButton ibHitMovies;
+    @BindView(R.id.line)
+    View        line;
+    @BindView(R.id.ib_play_android)
+    ImageButton ibPlayAndroid;
+    @BindView(R.id.ib_daily_recommend)
+    ImageButton ibDailyRecommend;
+    @BindView(R.id.ib_reading)
+    ImageButton ibReading;
+    @BindView(R.id.ib_hit_movies)
+    ImageButton ibHitMovies;
 
     public DailyMenuVH(Context context, ViewGroup parent, int layoutId) {
         super(context, parent, layoutId);
         ibReading = getView(R.id.ib_reading);
-        ibDailyRecommend = getView(R.id.ib_daily_recommend);
-        ibPlayAndroid = getView(R.id.ib_play_android);
-        ibHitMovies = getView(R.id.ib_hit_movies);
 
         AnimatorHelper.setViewTouchListener(ibReading);
         AnimatorHelper.setViewTouchListener(ibDailyRecommend);

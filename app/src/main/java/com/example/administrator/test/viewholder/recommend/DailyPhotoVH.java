@@ -1,6 +1,5 @@
 package com.example.administrator.test.viewholder.recommend;
 
-import android.app.Activity;
 import android.content.Context;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
@@ -24,6 +23,8 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * @ProjectName: Test
@@ -40,30 +41,29 @@ import androidx.recyclerview.widget.RecyclerView;
 public class DailyPhotoVH extends BaseViewHolder {
 
 
-    private RecyclerView rvPhoto;
-    private TextView     tvType;
+    @BindView(R.id.tv_title)
+    TextView     tvTitle;
+    @BindView(R.id.rv_article)
+    RecyclerView rvArticle;
 
 
     public DailyPhotoVH(Context context, ViewGroup parent, int layoutId) {
         super(context, parent, layoutId);
 
-        tvType = retrieveView(R.id.tv_title);
-        rvPhoto = retrieveView(R.id.rv_article);
-
-        rvPhoto.setLayoutManager(new LinearLayoutManager(context));
+        rvArticle.setLayoutManager(new LinearLayoutManager(context));
         //设置不需要焦点 否则切换tab后，嵌套的recyclerview会自动滚动
-        rvPhoto.setFocusableInTouchMode(false);
-        rvPhoto.requestFocus();
+        rvArticle.setFocusableInTouchMode(false);
+        rvArticle.requestFocus();
 
-        rvPhoto.setNestedScrollingEnabled(false);
+        rvArticle.setNestedScrollingEnabled(false);
     }
 
     public void setData(List<RecommendDailyArticleEntity> entityList) {
 
         if (entityList.size() > 0) {
-            tvType.setText(entityList.get(0)
-                                     .getType());
-            rvPhoto.setAdapter(adapter = new DailyRecommendArticleAdapter(entityList));
+            tvTitle.setText(entityList.get(0)
+                                      .getType());
+            rvArticle.setAdapter(adapter = new DailyRecommendArticleAdapter(entityList));
         }
 
     }
@@ -113,11 +113,12 @@ public class DailyPhotoVH extends BaseViewHolder {
         }
 
         class ArticleVH extends RecyclerView.ViewHolder {
+            @BindView(R.id.iv_welfare)
             ImageView ivWelfare;
 
             public ArticleVH(@NonNull View itemView) {
                 super(itemView);
-                ivWelfare = itemView.findViewById(R.id.iv_welfare);
+                ButterKnife.bind(this, itemView);
             }
         }
 
@@ -140,6 +141,7 @@ public class DailyPhotoVH extends BaseViewHolder {
 
     /**
      * 返回事件
+     *
      * @return
      */
     public boolean onBackPressed() {

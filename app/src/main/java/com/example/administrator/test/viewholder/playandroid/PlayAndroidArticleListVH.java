@@ -1,15 +1,15 @@
 package com.example.administrator.test.viewholder.playandroid;
 
 import android.content.Context;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
 import android.widget.TextView;
 
 import com.example.administrator.test.R;
 import com.example.administrator.test.base.adapter.BaseViewHolder;
 import com.example.administrator.test.entity.ArticleListEntity;
 import com.like.LikeButton;
+
+import butterknife.BindView;
 
 /**
  * @ProjectName: Test
@@ -24,21 +24,20 @@ import com.like.LikeButton;
  * @Version: 1.0
  */
 public class PlayAndroidArticleListVH extends BaseViewHolder {
-    private TextView   tvSubTitle;
-    private TextView   tvTitle;
-    private TextView   tvPublishInfo;
-    private LikeButton cbCollect;
+    @BindView(R.id.tvSubTitle)
+    TextView   tvSubTitle;
+    @BindView(R.id.tvTitle)
+    TextView   tvTitle;
+    @BindView(R.id.tvPublishInfo)
+    TextView   tvPublishInfo;
+    @BindView(R.id.cbCollect)
+    LikeButton cbCollect;
 
     public PlayAndroidArticleListVH(Context context, ViewGroup parent, int layoutId) {
         super(context, parent, layoutId);
-        tvSubTitle = retrieveView(R.id.tvSubTitle);
-        tvTitle = retrieveView(R.id.tvTitle);
-        tvPublishInfo = retrieveView(R.id.tvPublishInfo);
-        cbCollect = retrieveView(R.id.cbCollect);
     }
 
     public void setData(ArticleListEntity.DataBean.ArticleInfoBean data) {
-
         tvSubTitle.setText(data.getChapterName());
         tvTitle.setText(data.getTitle());
         tvPublishInfo.setText(data.getNiceDate() + "·" + data.getAuthor());

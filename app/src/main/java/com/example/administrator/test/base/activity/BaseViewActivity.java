@@ -7,7 +7,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -24,6 +23,8 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * @ProjectName: Test
@@ -38,30 +39,35 @@ import androidx.drawerlayout.widget.DrawerLayout;
  * @Version: 1.0
  */
 public abstract class BaseViewActivity<P extends IBasePresenter> extends BaseAnimationActivity<P> implements View.OnClickListener {
-    protected DrawerLayout     drawerRootLayout;
-    protected NavigationView   navView;
-    protected Toolbar          mToolbar;
-    private   TextView         tvCenterTitle;
-    protected LinearLayout     topLayout;
-    protected ConstraintLayout clContentLayout;
+    @BindView(R.id.base_root_title_tv)
+    TextView     baseRootTitleTv;
+    @BindView(R.id.toolbar)
+    Toolbar      toolbar;
+    @BindView(R.id.base_root_top_layout_ll)
+    LinearLayout baseRootTopLayoutLl;
+    @BindView(R.id.content_layout_ll)
+    protected LinearLayout contentLayoutLl;
+    @BindView(R.id.base_root_bottom_layout_ll)
+    LinearLayout     baseRootBottomLayoutLl;
+    @BindView(R.id.base_root_cl)
+    ConstraintLayout baseRootCl;
+    @BindView(R.id.base_root_nav_view)
+    protected NavigationView baseRootNavView;
+    @BindView(R.id.base_root_dl)
+    protected DrawerLayout   baseRootDl;
+
     /**
      * 是否沉浸状态栏
      **/
-    private   boolean          isSetStatusBar     = true;
+    private boolean isSetStatusBar     = true;
     /**
      * 是否允许全屏
      **/
-    private   boolean          mAllowFullScreen   = true;
+    private boolean mAllowFullScreen   = true;
     /**
      * 是否禁止旋转屏幕
      **/
-    private   boolean          isAllowScreenRoate = false;
-
-    /**
-     * 日志输出标志
-     **/
-    protected final String TAG = this.getClass()
-                                     .getSimpleName();
+    private boolean isAllowScreenRoate = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,12 +79,10 @@ public abstract class BaseViewActivity<P extends IBasePresenter> extends BaseAni
         initParameter(bundle);
 
         initMainLayout();
+
         initToolbar();
 
-        clContentLayout = (ConstraintLayout) findViewById(R.id.base_root_cl);
-        drawerRootLayout = (DrawerLayout) findViewById(R.id.base_root_dl);
         lockDrawer(true);
-        navView = (NavigationView) findViewById(R.id.base_root_nav_view);
 
         super.onCreate(savedInstanceState);
 
@@ -100,37 +104,58 @@ public abstract class BaseViewActivity<P extends IBasePresenter> extends BaseAni
      */
     private void initMainLayout() {
         setContentView(getRootLayoutId());
+        //ButterKnife会先找该activity的子类的view进行绑定，但是子类的view还没inflate，此处会崩溃。因此需要try-catch
+        try {
+            //这里绑定的是 父view（contentLayoutLl、baseRootTopLayoutLl、baseRootBottomLayoutLl等）
+            ButterKnife.bind(this);
+        }
+        catch (Exception e) {
+
+        }
 
         if (0 != bindContentLayout()) {
-            getLayoutInflater().inflate(bindContentLayout(), (ViewGroup) findViewById(R.id.content_layout_ll));
+            getLayoutInflater().inflate(bindContentLayout(), contentLayoutLl);
         }
         if (0 != bindTopLayout()) {
-            topLayout = (LinearLayout) findViewById(R.id.base_root_top_layout_ll);
-            getLayoutInflater().inflate(bindTopLayout(), topLayout);
+            getLayoutInflater().inflate(bindTopLayout(), baseRootTopLayoutLl);
         }
         if (0 != bindBottomLayout()) {
-            getLayoutInflater().inflate(bindBottomLayout(), (ViewGroup) findViewById(R.id.base_root_bottom_layout_ll));
+            getLayoutInflater().inflate(bindBottomLayout(), baseRootBottomLayoutLl);
         }
+
+        //ButterKnife会先找该activity的子类的view进行绑定，但是子类的view还没inflate，此处会崩溃。因此需要try-catch
+        try {
+            //这里绑定的是 子view
+            ButterKnife.bind(this);
+        }
+        catch (Exception e) {
+
+            int a = 0;
+        }
+    }
+
+    @Override
+    public void setContentView(int layoutResID) {
+        super.setContentView(layoutResID);
+
     }
 
     /**
      * 初始化toolbar
      */
     private void initToolbar() {
-        mToolbar = (Toolbar) findViewById(R.id.toolbar);
-        mToolbar.setTitle("");
-        tvCenterTitle = (TextView) findViewById(R.id.base_root_title_tv);
-        setSupportActionBar(mToolbar);
+        toolbar.setTitle("");
+        setSupportActionBar(toolbar);
         getSupportActionBar().setHomeButtonEnabled(getHomeButtonEnabled());
         getSupportActionBar().setDisplayHomeAsUpEnabled(getDisplayHomeAsUpEnabled());
-        mToolbar.setOnMenuItemClickListener(menuItem -> {
+        toolbar.setOnMenuItemClickListener(menuItem -> {
             onMenuClickListener(menuItem.getItemId());
             return true;
         });
 
-        mToolbar.setBackgroundResource(R.color.tool_bar_base_background);
+        toolbar.setBackgroundResource(R.color.tool_bar_base_background);
 
-        mToolbar.setNavigationOnClickListener(new OnMultiClickListener() {
+        toolbar.setNavigationOnClickListener(new OnMultiClickListener() {
             @Override
             public void onMultiClick(View v) {
                 OnNavigationOnClick();
@@ -259,7 +284,7 @@ public abstract class BaseViewActivity<P extends IBasePresenter> extends BaseAni
      * @param subtitle
      */
     public void setSubtitle(String subtitle) {
-        mToolbar.setSubtitle(subtitle);
+        toolbar.setSubtitle(subtitle);
     }
 
     /**
@@ -268,7 +293,7 @@ public abstract class BaseViewActivity<P extends IBasePresenter> extends BaseAni
      * @param title
      */
     public void setToolBarTitle(String title) {
-        mToolbar.setTitle(title);
+        toolbar.setTitle(title);
     }
 
     /**
@@ -277,7 +302,7 @@ public abstract class BaseViewActivity<P extends IBasePresenter> extends BaseAni
      * @param resId
      */
     public void setNavigationIcon(@DrawableRes int resId) {
-        mToolbar.setNavigationIcon(resId);
+        toolbar.setNavigationIcon(resId);
     }
 
     /**
@@ -286,7 +311,7 @@ public abstract class BaseViewActivity<P extends IBasePresenter> extends BaseAni
      * @param subtitleId
      */
     public void setToolbarSubTitle(int subtitleId) {
-        mToolbar.setSubtitle(subtitleId);
+        toolbar.setSubtitle(subtitleId);
     }
 
     /**
@@ -295,7 +320,7 @@ public abstract class BaseViewActivity<P extends IBasePresenter> extends BaseAni
      * @param titleId
      */
     public void setToolBarTitle(int titleId) {
-        mToolbar.setTitle(titleId);
+        toolbar.setTitle(titleId);
     }
 
     /**
@@ -304,7 +329,7 @@ public abstract class BaseViewActivity<P extends IBasePresenter> extends BaseAni
      * @param logo
      */
     public void setToolbarLogo(Drawable logo) {
-        mToolbar.setLogo(logo);
+        toolbar.setLogo(logo);
     }
 
     /**
@@ -314,10 +339,10 @@ public abstract class BaseViewActivity<P extends IBasePresenter> extends BaseAni
      */
     public void showCenterTitle(boolean isShowCenterTitle) {
         if (isShowCenterTitle) {
-            tvCenterTitle.setVisibility(View.VISIBLE);
+            baseRootTitleTv.setVisibility(View.VISIBLE);
         }
         else {
-            tvCenterTitle.setVisibility(View.GONE);
+            baseRootTitleTv.setVisibility(View.GONE);
         }
     }
 
@@ -327,7 +352,7 @@ public abstract class BaseViewActivity<P extends IBasePresenter> extends BaseAni
      * @param titleSize
      */
     public void setCenterTitleSize(int titleSize) {
-        tvCenterTitle.setTextSize(titleSize);
+        baseRootTitleTv.setTextSize(titleSize);
     }
 
     /**
@@ -336,7 +361,7 @@ public abstract class BaseViewActivity<P extends IBasePresenter> extends BaseAni
      * @param title
      */
     public void setCenterTitle(String title) {
-        tvCenterTitle.setText(title);
+        baseRootTitleTv.setText(title);
     }
 
     /**
@@ -345,7 +370,7 @@ public abstract class BaseViewActivity<P extends IBasePresenter> extends BaseAni
      * @param titleId
      */
     public void setCenterTitle(int titleId) {
-        tvCenterTitle.setText(titleId);
+        baseRootTitleTv.setText(titleId);
     }
 
     /**
@@ -354,7 +379,7 @@ public abstract class BaseViewActivity<P extends IBasePresenter> extends BaseAni
      * @param color
      */
     public void setBarTitleColor(int color) {
-        mToolbar.setTitleTextColor(color);
+        toolbar.setTitleTextColor(color);
     }
 
     /**
@@ -363,7 +388,7 @@ public abstract class BaseViewActivity<P extends IBasePresenter> extends BaseAni
      * @param icon
      */
     public void setBarNaviIcon(int icon) {
-        mToolbar.setNavigationIcon(icon);
+        toolbar.setNavigationIcon(icon);
     }
 
     /**
@@ -372,11 +397,11 @@ public abstract class BaseViewActivity<P extends IBasePresenter> extends BaseAni
      * @param color
      */
     public void setRootLayoutBackGround(int color) {
-        clContentLayout.setBackgroundColor(color);
+        baseRootCl.setBackgroundColor(color);
     }
 
     public void hideToolBar() {
-        mToolbar.setVisibility(View.GONE);
+        toolbar.setVisibility(View.GONE);
     }
 
     /**
@@ -385,19 +410,19 @@ public abstract class BaseViewActivity<P extends IBasePresenter> extends BaseAni
      * @param icon
      */
     public void setBarNaviIcon(Drawable icon) {
-        mToolbar.setNavigationIcon(icon);
+        toolbar.setNavigationIcon(icon);
     }
 
     public int getToolBarBottom() {
-        return mToolbar.getBottom();
+        return toolbar.getBottom();
     }
 
     public void setToolBarBackgroundColor(int color) {
-        mToolbar.setBackgroundColor(color);
+        toolbar.setBackgroundColor(color);
     }
 
     public void setToolBarBackgroundResource(@ColorRes int resource) {
-        mToolbar.setBackgroundResource(resource);
+        toolbar.setBackgroundResource(resource);
     }
 
     public void setToolBarVisible(boolean isVisible) {
@@ -407,24 +432,9 @@ public abstract class BaseViewActivity<P extends IBasePresenter> extends BaseAni
 
     /**
      * 获取根布局
-     *
-     * @return R.layout.layout_base_root(toolbar不会根据列表滑动而滑动)
-     * R.layout.layout_base_root_animation(toolbar会根据列表滑动而滑动)
      */
     private int getRootLayoutId() {
-        if (isToolBarAnimation()) {
-            return R.layout.layout_base_root_animation;
-        }
         return R.layout.layout_base_root;
-    }
-
-    /**
-     * 是否使用toolbar动画布局
-     *
-     * @return
-     */
-    protected boolean isToolBarAnimation() {
-        return false;
     }
 
     /**
@@ -432,7 +442,7 @@ public abstract class BaseViewActivity<P extends IBasePresenter> extends BaseAni
      */
     protected void openDrawer() {
         // 开启菜单
-        drawerRootLayout.openDrawer(GravityCompat.START);
+        baseRootDl.openDrawer(GravityCompat.START);
     }
 
     /**
@@ -440,10 +450,10 @@ public abstract class BaseViewActivity<P extends IBasePresenter> extends BaseAni
      */
     protected void lockDrawer(boolean lock) {
         if (lock) {
-            drawerRootLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+            baseRootDl.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
         }
         else {
-            drawerRootLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
+            baseRootDl.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
         }
     }
 }

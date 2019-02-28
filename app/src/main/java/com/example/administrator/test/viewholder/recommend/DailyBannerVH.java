@@ -13,6 +13,8 @@ import com.loomis.banner.Transformer;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+
 /**
  * @ProjectName: Test
  * @Package: com.example.administrator.test.viewholder.recommend
@@ -26,11 +28,11 @@ import java.util.List;
  * @Version: 1.0
  */
 public class DailyBannerVH extends BaseViewHolder {
+    @BindView(R.id.banner)
     Banner banner;
 
     public DailyBannerVH(Context context, ViewGroup parent, int layoutId) {
         super(context, parent, layoutId);
-        banner = retrieveView(R.id.banner);
     }
 
     public void setData(List<String> data) {

@@ -12,6 +12,8 @@ import com.example.administrator.test.base.adapter.BaseViewHolder;
 
 import java.util.ArrayList;
 
+import butterknife.BindView;
+
 /**
  * @ProjectName: Test
  * @Package: com.example.administrator.test.viewholder.recommend
@@ -26,11 +28,11 @@ import java.util.ArrayList;
  */
 public class WelfareVH extends BaseViewHolder {
 
-    public ImageView imageView;
+    @BindView(R.id.image)
+    public ImageView image;
 
     public WelfareVH(Context context, ViewGroup parent, int layoutId) {
         super(context, parent, layoutId);
-        imageView = getView(R.id.image);
     }
 
     @SuppressLint("CheckResult")
@@ -42,6 +44,6 @@ public class WelfareVH extends BaseViewHolder {
         Glide.with(context)
              .setDefaultRequestOptions(options)
              .load(urlList.get(curImgPosition))
-             .into(imageView);
+             .into(image);
     }
 }

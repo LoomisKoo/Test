@@ -1,19 +1,24 @@
 package com.example.administrator.test.viewholder.movie;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.administrator.test.R;
 import com.example.administrator.test.entity.MovieBriefInformation;
+import com.google.android.material.appbar.AppBarLayout;
 
 import java.util.List;
 
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.RecyclerView;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import jp.wasabeef.glide.transformations.BlurTransformation;
 
 import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade;
@@ -31,22 +36,29 @@ import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOption
  * @Version: 1.0
  */
 public class MovieDetailViewInfo {
-    private Context   context;
-    private ImageView ivPosters, ivBG;
-    private TextView tvScore, tvNumOfScore, tvDirector, tvStarring, tvGenres, tvDate, tvRegion;
+    @BindView(R.id.iv_bg)
+    ImageView    ivBg;
+    @BindView(R.id.iv_posters)
+    ImageView    ivPosters;
+    @BindView(R.id.tv_score)
+    TextView     tvScore;
+    @BindView(R.id.tv_num_of_score)
+    TextView     tvNumOfScore;
+    @BindView(R.id.tv_director)
+    TextView     tvDirector;
+    @BindView(R.id.tv_starring)
+    TextView     tvStarring;
+    @BindView(R.id.tv_genres)
+    TextView     tvGenres;
+    @BindView(R.id.tv_date)
+    TextView     tvDate;
+    @BindView(R.id.tv_region)
+    TextView     tvRegion;
+    private Context context;
 
     public MovieDetailViewInfo(Context context, View rootView) {
         this.context = context;
-        ivPosters = rootView.findViewById(R.id.iv_posters);
-        ivBG = rootView.findViewById(R.id.iv_bg);
-        tvScore = rootView.findViewById(R.id.tv_score);
-        tvNumOfScore = rootView.findViewById(R.id.tv_num_of_score);
-        tvDirector = rootView.findViewById(R.id.tv_director);
-        tvStarring = rootView.findViewById(R.id.tv_starring);
-        tvGenres = rootView.findViewById(R.id.tv_genres);
-        tvDate = rootView.findViewById(R.id.tv_date);
-        tvRegion = rootView.findViewById(R.id.tv_region);
-
+        ButterKnife.bind(this,rootView);
     }
 
     public void setData(MovieBriefInformation entity) {
@@ -84,7 +96,7 @@ public class MovieDetailViewInfo {
         Glide.with(context)
              .load(imgUrl)
              .apply(RequestOptions.bitmapTransform(new BlurTransformation(25, 100)))
-             .into(ivBG);
+             .into(ivBg);
     }
 
     /**

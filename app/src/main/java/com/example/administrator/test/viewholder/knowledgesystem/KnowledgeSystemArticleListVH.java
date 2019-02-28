@@ -2,13 +2,14 @@ package com.example.administrator.test.viewholder.knowledgesystem;
 
 import android.content.Context;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
 import android.widget.TextView;
 
 import com.example.administrator.test.R;
 import com.example.administrator.test.base.adapter.BaseViewHolder;
 import com.example.administrator.test.entity.ArticleListEntity;
 import com.like.LikeButton;
+
+import butterknife.BindView;
 
 /**
  * @ProjectName: Test
@@ -22,16 +23,16 @@ import com.like.LikeButton;
  * @UpdateRemark: 更新说明
  * @Version: 1.0
  */
-public class KnowledgeSystemArticleListVH2 extends BaseViewHolder {
-    private TextView   tvTitle;
-    private TextView   tvPublishInfo;
-    private LikeButton cbCollect;
+public class KnowledgeSystemArticleListVH extends BaseViewHolder {
+    @BindView(R.id.tvTitle)
+    TextView   tvTitle;
+    @BindView(R.id.tvPublishInfo)
+    TextView   tvPublishInfo;
+    @BindView(R.id.cbCollect)
+    LikeButton cbCollect;
 
-    public KnowledgeSystemArticleListVH2(Context context, ViewGroup parent, int layoutId) {
+    public KnowledgeSystemArticleListVH(Context context, ViewGroup parent, int layoutId) {
         super(context, parent, layoutId);
-        tvTitle = retrieveView(R.id.tvTitle);
-        tvPublishInfo = retrieveView(R.id.tvPublishInfo);
-        cbCollect = retrieveView(R.id.cbCollect);
     }
 
     public void setData(ArticleListEntity.DataBean.ArticleInfoBean data) {

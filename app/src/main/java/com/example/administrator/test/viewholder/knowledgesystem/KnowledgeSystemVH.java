@@ -22,6 +22,7 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * @ProjectName: Test
@@ -43,11 +44,6 @@ public class KnowledgeSystemVH extends BaseViewHolder {
 
     public KnowledgeSystemVH(Context context, ViewGroup parent, int layoutId) {
         super(context, parent, layoutId);
-        //TODO 使用ButterKnife不显示view
-//        View view = LayoutInflater.from(parent.getContext()).inflate(layoutId, parent, true);
-//        ButterKnife.bind(this, view);
-        rvKnowledgePoint = retrieveView(R.id.rv_knowledge_point);
-        tvTitle = retrieveView(R.id.tv_title);
         FlexboxLayoutManager manager = new FlexboxLayoutManager(context, FlexDirection.ROW, FlexWrap.WRAP) {
             @Override
             public boolean canScrollVertically() {
@@ -76,8 +72,8 @@ public class KnowledgeSystemVH extends BaseViewHolder {
         @Override
         public KnowledgeSystemPointVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             //实例化得到Item布局文件的View对象
-            View                   v  = LayoutInflater.from(context)
-                                                      .inflate(R.layout.play_android_item_knowledge_point, parent, false);
+            View v = LayoutInflater.from(context)
+                                   .inflate(R.layout.play_android_item_knowledge_point, parent, false);
             KnowledgeSystemPointVH vh = new KnowledgeSystemPointVH(v);
             return vh;
         }
@@ -106,11 +102,12 @@ public class KnowledgeSystemVH extends BaseViewHolder {
         }
 
         class KnowledgeSystemPointVH extends RecyclerView.ViewHolder {
+            @BindView(R.id.tv_point)
             TextView tvPoint;
 
             public KnowledgeSystemPointVH(@NonNull View itemView) {
                 super(itemView);
-                tvPoint = itemView.findViewById(R.id.tv_point);
+                ButterKnife.bind(this, itemView);
             }
         }
     }

@@ -19,7 +19,7 @@ import com.example.administrator.test.mvp.model.ArticleListModel;
 import com.example.administrator.test.mvp.presenter.ArticleListPresenter;
 import com.example.administrator.test.util.ArouteHelper;
 import com.example.administrator.test.util.UserUtil;
-import com.example.administrator.test.viewholder.knowledgesystem.KnowledgeSystemArticleListVH2;
+import com.example.administrator.test.viewholder.knowledgesystem.KnowledgeSystemArticleListVH;
 import com.like.LikeButton;
 import com.like.OnLikeListener;
 
@@ -61,7 +61,7 @@ public class KnowledgeSystemArticleActivity extends BaseListActivity<ArticleList
         return new QuickDelegateAdapter<ArticleListEntity.DataBean.ArticleInfoBean>(this, R.layout.play_android_item_article_2) {
             @Override
             protected void onSetItemData(BaseViewHolder holder, ArticleListEntity.DataBean.ArticleInfoBean item, int viewType, int position) {
-                ((KnowledgeSystemArticleListVH2) holder).setData(item);
+                ((KnowledgeSystemArticleListVH) holder).setData(item);
                 LikeButton checkBox = holder.getView(R.id.cbCollect);
                 checkBox.setOnLikeListener(new OnLikeListener() {
                     @Override
@@ -83,9 +83,9 @@ public class KnowledgeSystemArticleActivity extends BaseListActivity<ArticleList
 
             @Override
             public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-                KnowledgeSystemArticleListVH2 vh = new KnowledgeSystemArticleListVH2(context, parent, R.layout.play_android_item_article_2);
+                KnowledgeSystemArticleListVH vh = new KnowledgeSystemArticleListVH(context, parent, R.layout.play_android_item_article_2);
                 vh.itemView.setOnClickListener(v -> {
-                    int position = recyclerView.getChildAdapterPosition(v);
+                    int position = basePagerListRv.getChildAdapterPosition(v);
 
                     ArticleListEntity.DataBean.ArticleInfoBean entity = adapter.getData()
                                                                                .get(position);

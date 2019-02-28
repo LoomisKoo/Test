@@ -1,9 +1,6 @@
 package com.example.administrator.test.base;
 
 import android.content.Context;
-
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.view.LayoutInflater;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -16,11 +13,16 @@ import com.example.administrator.test.R;
 import com.example.administrator.test.base.adapter.BaseViewHolder;
 import com.example.administrator.test.base.adapter.HeaderFooterViewModel;
 import com.example.administrator.test.base.adapter.QuickDelegateAdapter;
+import com.koo.loomis.swiperecyclerview.SwipeMenuRecyclerView;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.recyclerview.widget.RecyclerView;
+import butterknife.BindView;
 
 /**
  * @param <T>
@@ -34,10 +36,18 @@ public abstract class BaseListView<T> extends LinearLayout {
     protected QuickDelegateAdapter<T> adapter;
     protected HeaderFooterViewModel   headerViewModel, footerViewModel;
 
-    protected LinearLayout topLay, bottomLay;
-    protected TextView           emptyTv;
-    protected RecyclerView       recyclerView;
-    protected SmartRefreshLayout refreshLayout;
+    @BindView(R.id.base_pager_list_topLay)
+    LinearLayout          basePagerListTopLay;
+    @BindView(R.id.base_pager_list_rv)
+    SwipeMenuRecyclerView basePagerListRv;
+    @BindView(R.id.base_pager_list_refreshLayout)
+    SmartRefreshLayout    basePagerListRefreshLayout;
+    @BindView(R.id.base_pager_list_empty_tv)
+    TextView              basePagerListEmptyTv;
+    @BindView(R.id.base_pager_list_bottomLay)
+    LinearLayout          basePagerListBottomLay;
+    @BindView(R.id.base_pager_list_root)
+    ConstraintLayout      basePagerListRoot;
 
     public BaseListView(Context context) {
         super(context);
@@ -52,22 +62,17 @@ public abstract class BaseListView<T> extends LinearLayout {
     private void initView(Context context) {
         LayoutInflater layoutInflater = LayoutInflater.from(context);
         layoutInflater.inflate(R.layout.layout_base_list, this);
-        emptyTv = findViewById(R.id.base_pager_list_empty_tv);
-        topLay = findViewById(R.id.base_pager_list_topLay);
-        bottomLay = findViewById(R.id.base_pager_list_bottomLay);
-        recyclerView = findViewById(R.id.base_pager_list_rv);
-        refreshLayout = findViewById(R.id.base_pager_list_refreshLayout);
-        refreshLayout.setOnRefreshListener(refreshLayout -> refresh());
-        refreshLayout.setOnLoadmoreListener(refreshLayout -> loadMore());
+        basePagerListRefreshLayout.setOnRefreshListener(refreshLayout -> refresh());
+        basePagerListRefreshLayout.setOnLoadmoreListener(refreshLayout -> loadMore());
 
         if (getTopLayId() != 0) {
-            layoutInflater.inflate(getTopLayId(), topLay, true);
+            layoutInflater.inflate(getTopLayId(), basePagerListTopLay, true);
         }
         if (getBottomLayId() != 0) {
-            layoutInflater.inflate(getBottomLayId(), bottomLay, true);
+            layoutInflater.inflate(getBottomLayId(), basePagerListBottomLay, true);
         }
         initRv();
-        postDelayed(() -> refreshLayout.autoRefresh(), 100);
+        postDelayed(() -> basePagerListRefreshLayout.autoRefresh(), 100);
         isInited = true;
 
     }
@@ -83,7 +88,7 @@ public abstract class BaseListView<T> extends LinearLayout {
     protected void initRv() {
         final VirtualLayoutManager layoutManager = new VirtualLayoutManager(getContext());
 
-        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+        basePagerListRv.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int scrollState) {
 
@@ -94,17 +99,17 @@ public abstract class BaseListView<T> extends LinearLayout {
             }
         });
 
-        recyclerView.setLayoutManager(layoutManager);
+        basePagerListRv.setLayoutManager(layoutManager);
 
         final RecyclerView.RecycledViewPool viewPool = new RecyclerView.RecycledViewPool();
 
-        recyclerView.setRecycledViewPool(viewPool);
+        basePagerListRv.setRecycledViewPool(viewPool);
 
         viewPool.setMaxRecycledViews(0, 28);
 
         final DelegateAdapter delegateAdapter = new DelegateAdapter(layoutManager, true);
 
-        recyclerView.setAdapter(delegateAdapter);
+        basePagerListRv.setAdapter(delegateAdapter);
 
         final List<DelegateAdapter.Adapter> adapters = new LinkedList<>();
         headerViewModel = getHeaderView();
@@ -171,11 +176,11 @@ public abstract class BaseListView<T> extends LinearLayout {
     }
 
     protected void stopRefresh() {
-        if (refreshLayout.isRefreshing()) {
-            refreshLayout.finishRefresh();
+        if (basePagerListRefreshLayout.isRefreshing()) {
+            basePagerListRefreshLayout.finishRefresh();
         }
-        else if (refreshLayout.isLoading()) {
-            refreshLayout.finishLoadmore();
+        else if (basePagerListRefreshLayout.isLoading()) {
+            basePagerListRefreshLayout.finishLoadmore();
         }
     }
 
@@ -191,11 +196,11 @@ public abstract class BaseListView<T> extends LinearLayout {
     }
 
     protected void setRefreshEnable(boolean enable) {
-        refreshLayout.setEnableRefresh(enable);
+        basePagerListRefreshLayout.setEnableRefresh(enable);
     }
 
     protected void setLoadMoreEnable(boolean enable) {
-        refreshLayout.setEnableLoadmore(enable);
+        basePagerListRefreshLayout.setEnableLoadmore(enable);
     }
 
     /**

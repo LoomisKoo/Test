@@ -4,14 +4,6 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
-
-import androidx.annotation.DrawableRes;
-import androidx.annotation.RequiresApi;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.core.content.ContextCompat;
-import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.widget.LinearLayout;
@@ -32,6 +24,14 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+import androidx.annotation.DrawableRes;
+import androidx.annotation.RequiresApi;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.RecyclerView;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import jp.wasabeef.recyclerview.adapters.AnimationAdapter;
 import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter;
 import jp.wasabeef.recyclerview.animators.SlideInLeftAnimator;
@@ -45,19 +45,25 @@ public abstract class BaseListActivity<T, P extends IBasePresenter> extends Base
     protected int pageSize = 20;
     protected int maxPage  = 1;
 
-    protected SwipeMenuRecyclerView   recyclerView;
     protected QuickDelegateAdapter<T> adapter;
     protected HeaderFooterViewModel   headerViewModel, footerViewModel;
 
-    protected SmartRefreshLayout refreshLayout;
-    protected LinearLayout       topLay;
-    protected LinearLayout       bottomLay;
-    protected ConstraintLayout   rootLay;
-    protected TextView           emptyTv;
+    @BindView(R.id.base_pager_list_topLay)
+    LinearLayout basePagerListTopLay;
+    @BindView(R.id.base_pager_list_rv)
+    protected SwipeMenuRecyclerView basePagerListRv;
+    @BindView(R.id.base_pager_list_refreshLayout)
+    SmartRefreshLayout basePagerListRefreshLayout;
+    @BindView(R.id.base_pager_list_empty_tv)
+    TextView           basePagerListEmptyTv;
+    @BindView(R.id.base_pager_list_bottomLay)
+    LinearLayout       basePagerListBottomLay;
+    @BindView(R.id.base_pager_list_root)
+    ConstraintLayout   basePagerListRoot;
     /**
      * 是否显示recycleView自带的分割线
      */
-    private   boolean            isShowDefaultDivider = false;
+    private boolean isShowDefaultDivider = false;
 
     /**
      * 是否显示recycleView的item增删动画
@@ -91,22 +97,16 @@ public abstract class BaseListActivity<T, P extends IBasePresenter> extends Base
 
     @Override
     public void initView(Bundle savedInstanceState) {
-        emptyTv = (TextView) findViewById(R.id.base_pager_list_empty_tv);
-        rootLay = (ConstraintLayout) findViewById(R.id.base_pager_list_root);
-        topLay = (LinearLayout) findViewById(R.id.base_pager_list_topLay);
-        bottomLay = (LinearLayout) findViewById(R.id.base_pager_list_bottomLay);
-        recyclerView = (SwipeMenuRecyclerView) findViewById(R.id.base_pager_list_rv);
-        refreshLayout = (SmartRefreshLayout) findViewById(R.id.base_pager_list_refreshLayout);
-        refreshLayout.setOnRefreshListener(refreshLayout -> refresh());
-        refreshLayout.setOnLoadmoreListener(refreshLayout -> loadMore());
-        refreshLayout.autoRefresh();
+        basePagerListRefreshLayout.setOnRefreshListener(refreshLayout -> refresh());
+        basePagerListRefreshLayout.setOnLoadmoreListener(refreshLayout -> loadMore());
+        basePagerListRefreshLayout.autoRefresh();
         //不启用列表惯性滑动到底部时自动加载更多
-        refreshLayout.setEnableAutoLoadmore(false);
+        basePagerListRefreshLayout.setEnableAutoLoadmore(false);
         if (getTopLayId() != 0) {
-            getLayoutInflater().inflate(getTopLayId(), topLay, true);
+            getLayoutInflater().inflate(getTopLayId(), basePagerListTopLay, true);
         }
         if (getBottomLayId() != 0) {
-            getLayoutInflater().inflate(getBottomLayId(), bottomLay, true);
+            getLayoutInflater().inflate(getBottomLayId(), basePagerListBottomLay, true);
         }
 
         initRecycleView();
@@ -115,10 +115,10 @@ public abstract class BaseListActivity<T, P extends IBasePresenter> extends Base
     protected void initRecycleView() {
         final VirtualLayoutManager layoutManager = new VirtualLayoutManager(this);
 
-        recyclerView.setLayoutManager(layoutManager);
+        basePagerListRv.setLayoutManager(layoutManager);
         final RecyclerView.RecycledViewPool viewPool = new RecyclerView.RecycledViewPool();
 
-        recyclerView.setRecycledViewPool(viewPool);
+        basePagerListRv.setRecycledViewPool(viewPool);
 
         viewPool.setMaxRecycledViews(0, 28);
 
@@ -140,7 +140,7 @@ public abstract class BaseListActivity<T, P extends IBasePresenter> extends Base
             adapters.add(getFooterViewAdapter());
         }
         if (isShowDefaultDivider) {
-            recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
+            basePagerListRv.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
         }
 
         delegateAdapter.setAdapters(adapters);
@@ -160,14 +160,14 @@ public abstract class BaseListActivity<T, P extends IBasePresenter> extends Base
             //删除动画
             SlideInLeftAnimator animator = new SlideInLeftAnimator();
             animator.setInterpolator(new AccelerateInterpolator());
-            recyclerView.setItemAnimator(animator);
-            recyclerView.getItemAnimator()
-                        .setRemoveDuration(300);
+            basePagerListRv.setItemAnimator(animator);
+            basePagerListRv.getItemAnimator()
+                           .setRemoveDuration(300);
 
-            recyclerView.setAdapter(animationAdapter);
+            basePagerListRv.setAdapter(animationAdapter);
         }
         else {
-            recyclerView.setAdapter(delegateAdapter);
+            basePagerListRv.setAdapter(delegateAdapter);
         }
     }
 
@@ -179,7 +179,7 @@ public abstract class BaseListActivity<T, P extends IBasePresenter> extends Base
     public void addCustomDivider(@DrawableRes int drawableRes) {
         DividerItemDecoration divider = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
         divider.setDrawable(ContextCompat.getDrawable(this, drawableRes));
-        recyclerView.addItemDecoration(divider);
+        basePagerListRv.addItemDecoration(divider);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -199,15 +199,15 @@ public abstract class BaseListActivity<T, P extends IBasePresenter> extends Base
     }
 
     protected boolean isRefreshFinish() {
-        return refreshLayout.getState() == RefreshState.None;
+        return basePagerListRefreshLayout.getState() == RefreshState.None;
     }
 
     protected void stopRefresh() {
-        if (refreshLayout.isRefreshing()) {
-            refreshLayout.finishRefresh();
+        if (basePagerListRefreshLayout.isRefreshing()) {
+            basePagerListRefreshLayout.finishRefresh();
         }
-        else if (refreshLayout.isLoading()) {
-            refreshLayout.finishLoadmore();
+        else if (basePagerListRefreshLayout.isLoading()) {
+            basePagerListRefreshLayout.finishLoadmore();
         }
     }
 
@@ -220,15 +220,15 @@ public abstract class BaseListActivity<T, P extends IBasePresenter> extends Base
     }
 
     protected void hideEmptyView() {
-        if (emptyTv.getVisibility() == View.VISIBLE) {
-            emptyTv.setVisibility(View.INVISIBLE);
+        if (basePagerListEmptyTv.getVisibility() == View.VISIBLE) {
+            basePagerListEmptyTv.setVisibility(View.INVISIBLE);
         }
     }
 
     protected void showEmptyView(String text, @DrawableRes int resId) {
-        emptyTv.setVisibility(View.VISIBLE);
-        emptyTv.setText(text);
-        emptyTv.setCompoundDrawablesWithIntrinsicBounds(0, resId, 0, 0);
+        basePagerListEmptyTv.setVisibility(View.VISIBLE);
+        basePagerListEmptyTv.setText(text);
+        basePagerListEmptyTv.setCompoundDrawablesWithIntrinsicBounds(0, resId, 0, 0);
     }
 
     public void checkEmpty(String text, @DrawableRes int resId) {
@@ -263,7 +263,7 @@ public abstract class BaseListActivity<T, P extends IBasePresenter> extends Base
     }
 
     protected void setRefreshEnable(boolean enable) {
-        refreshLayout.setEnableRefresh(enable);
+        basePagerListRefreshLayout.setEnableRefresh(enable);
     }
 
     protected HeaderFooterViewModel getHeaderView() {
@@ -287,11 +287,11 @@ public abstract class BaseListActivity<T, P extends IBasePresenter> extends Base
     }
 
     protected void setRootBackground(int color) {
-        rootLay.setBackgroundColor(color);
+        basePagerListRoot.setBackgroundColor(color);
     }
 
     protected void setLoadMoreEnable(boolean enable) {
-        refreshLayout.setEnableLoadmore(enable);
+        basePagerListRefreshLayout.setEnableLoadmore(enable);
     }
 
     protected abstract void getData(int page, int pageSize);
@@ -314,5 +314,12 @@ public abstract class BaseListActivity<T, P extends IBasePresenter> extends Base
      */
     public void setShowRvAnimation(boolean showRvAnimation) {
         isShowRvAnimation = showRvAnimation;
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
     }
 }

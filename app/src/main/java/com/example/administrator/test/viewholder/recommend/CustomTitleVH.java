@@ -7,6 +7,8 @@ import android.widget.TextView;
 import com.example.administrator.test.R;
 import com.example.administrator.test.base.adapter.BaseViewHolder;
 
+import butterknife.BindView;
+
 /**
  * @ProjectName: Test
  * @Package: com.example.administrator.test.viewholder.recommend
@@ -20,11 +22,11 @@ import com.example.administrator.test.base.adapter.BaseViewHolder;
  * @Version: 1.0
  */
 public class CustomTitleVH extends BaseViewHolder {
-    public TextView tvType;
+    @BindView(R.id.tv_type)
+    TextView tvType;
 
     public CustomTitleVH(Context context, ViewGroup parent, int layoutId) {
         super(context, parent, layoutId);
-        tvType = getView(R.id.tv_type);
     }
 
     public void setData(String chooseType) {

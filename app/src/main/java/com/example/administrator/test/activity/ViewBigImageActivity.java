@@ -10,12 +10,10 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.alibaba.android.arouter.facade.annotation.Route;
 import com.blankj.utilcode.util.NetworkUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.Glide;
 import com.example.administrator.test.R;
-import com.example.administrator.test.util.ArouteHelper;
 import com.github.chrisbanes.photoview.OnPhotoTapListener;
 import com.github.chrisbanes.photoview.PhotoView;
 
@@ -26,6 +24,8 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * 用于查看大图
@@ -34,19 +34,22 @@ import androidx.viewpager.widget.ViewPager;
  */
 //@Route(path = ArouteHelper.ROUTE_ACTIVITY_BIG_IMAGE)
 public class ViewBigImageActivity extends FragmentActivity implements ViewPager.OnPageChangeListener, OnPhotoTapListener {
-
-    /**
-     * 保存图片
-     */
-    private TextView     tvSaveBigImage;
     /**
      * 用于管理图片的滑动
      */
-    private ViewPager    veryImageViewpager;
+    @BindView(R.id.very_image_viewpager)
+    ViewPager veryImageViewpager;
     /**
      * 显示当前图片的页数
      */
-    private TextView     veryImageViewpagerText;
+    @BindView(R.id.very_image_viewpager_text)
+    TextView  veryImageViewpagerText;
+    /**
+     * 保存图片
+     */
+    @BindView(R.id.tv_save_big_image)
+    TextView  tvSaveBigImage;
+
     /**
      * 接收传过来的uri地址
      */
@@ -84,6 +87,7 @@ public class ViewBigImageActivity extends FragmentActivity implements ViewPager.
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_big_image);
+        ButterKnife.bind(this);
 
         initView();
         getIntentData();
@@ -122,10 +126,6 @@ public class ViewBigImageActivity extends FragmentActivity implements ViewPager.
     }
 
     private void initView() {
-        veryImageViewpagerText = findViewById(R.id.very_image_viewpager_text);
-        tvSaveBigImage = findViewById(R.id.tv_save_big_image);
-        veryImageViewpager = findViewById(R.id.very_image_viewpager);
-
         tvSaveBigImage.setOnClickListener(view -> {
 
             if (!NetworkUtils.isConnected()) {
@@ -153,7 +153,12 @@ public class ViewBigImageActivity extends FragmentActivity implements ViewPager.
     /**
      * ViewPager的适配器
      */
-    private class ViewPagerAdapter extends PagerAdapter {
+    protected class ViewPagerAdapter extends PagerAdapter {
+
+        @BindView(R.id.zoom_image_view)
+        PhotoView   zoomImageView;
+        @BindView(R.id.loading)
+        ProgressBar loading;
 
         private LayoutInflater inflater;
 
@@ -164,10 +169,7 @@ public class ViewBigImageActivity extends FragmentActivity implements ViewPager.
         @NonNull
         @Override
         public Object instantiateItem(@NonNull ViewGroup container, int position) {
-            View              view          = inflater.inflate(R.layout.viewpager_very_image, container, false);
-            final PhotoView   zoomImageView = view.findViewById(R.id.zoom_image_view);
-            final ProgressBar spinner       = view.findViewById(R.id.loading);
-            // 保存网络图片的路径
+            View   view               = inflater.inflate(R.layout.viewpager_very_image, container, false);
             String adapterImageEntity = (String) getItem(position);
             String imageUrl;
             if (isLocal) {
@@ -178,8 +180,8 @@ public class ViewBigImageActivity extends FragmentActivity implements ViewPager.
                 imageUrl = adapterImageEntity;
             }
 
-            spinner.setVisibility(View.VISIBLE);
-            spinner.setClickable(false);
+            loading.setVisibility(View.VISIBLE);
+            loading.setClickable(false);
             Glide.with(ViewBigImageActivity.this)
                  .load(imageUrl)
 //                 .crossFade(700)

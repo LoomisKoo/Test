@@ -2,31 +2,36 @@ package com.example.administrator.test.base.activity;
 
 import android.content.Context;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-
-import com.google.android.material.tabs.TabLayout;
-
-import androidx.viewpager.widget.PagerAdapter;
-import androidx.viewpager.widget.ViewPager;
-
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.administrator.test.R;
 import com.example.administrator.test.base.baseinterface.ITabPagerView;
+import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
+
+import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.viewpager.widget.PagerAdapter;
+import androidx.viewpager.widget.ViewPager;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * @author koo
  */
 public abstract class BaseTabActivity extends BaseViewActivity {
-    protected TabLayout                tabLayout;
     protected ArrayList<String>        tabTitles;
-    protected ViewPager                viewPager;
     protected BasePagerAdapter         adapter;
     protected ArrayList<ITabPagerView> viewList;
+
+    @BindView(R.id.act_nav_tab_pager_tl_tab)
+    TabLayout        actNavTabPagerTlTab;
+    @BindView(R.id.act_nav_tab_pager_vp)
+    ViewPager        actNavTabPagerVp;
+    @BindView(R.id.act_nav_tab_pager_ll)
+    ConstraintLayout actNavTabPagerLl;
 
     @Override
     public void widgetClick(View v) {
@@ -55,7 +60,6 @@ public abstract class BaseTabActivity extends BaseViewActivity {
 
     @Override
     public void initView(Bundle savedInstanceState) {
-        tabLayout = (TabLayout) findViewById(R.id.act_nav_tab_pager_tl_tab);
         tabTitles = getTabTitles();
         viewList = getViewList();
         if (tabTitles == null || viewList == null) {
@@ -63,14 +67,14 @@ public abstract class BaseTabActivity extends BaseViewActivity {
         }
 
         for (int i = 0; i < tabTitles.size(); i++) {
-            tabLayout.addTab(tabLayout.newTab()
-                                      .setText(tabTitles.get(i)));
+            actNavTabPagerTlTab.addTab(actNavTabPagerTlTab.newTab()
+                                                          .setText(tabTitles.get(i)));
         }
 
-        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+        actNavTabPagerTlTab.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                viewPager.setCurrentItem(tab.getPosition());
+                actNavTabPagerVp.setCurrentItem(tab.getPosition());
             }
 
             @Override
@@ -83,8 +87,7 @@ public abstract class BaseTabActivity extends BaseViewActivity {
             }
         });
 
-        viewPager = (ViewPager) findViewById(R.id.act_nav_tab_pager_vp);
-        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+        actNavTabPagerVp.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
@@ -92,8 +95,8 @@ public abstract class BaseTabActivity extends BaseViewActivity {
 
             @Override
             public void onPageSelected(int position) {
-                tabLayout.getTabAt(position)
-                         .select();
+                actNavTabPagerTlTab.getTabAt(position)
+                                   .select();
             }
 
             @Override
@@ -101,7 +104,7 @@ public abstract class BaseTabActivity extends BaseViewActivity {
 
             }
         });
-        viewPager.setAdapter(adapter = new BasePagerAdapter());
+        actNavTabPagerVp.setAdapter(adapter = new BasePagerAdapter());
     }
 
     @Override
@@ -117,6 +120,13 @@ public abstract class BaseTabActivity extends BaseViewActivity {
     @Override
     public void initData(Context mContext) {
 
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
     }
 
     class BasePagerAdapter extends PagerAdapter {

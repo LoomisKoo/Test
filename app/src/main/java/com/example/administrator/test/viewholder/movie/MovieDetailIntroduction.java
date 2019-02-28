@@ -1,15 +1,17 @@
 package com.example.administrator.test.viewholder.movie;
 
-import android.content.Context;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.example.administrator.test.R;
-import com.example.administrator.test.base.adapter.BaseViewHolder;
 import com.example.administrator.test.entity.MovieDetailEntity;
+import com.google.android.material.appbar.AppBarLayout;
+
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.RecyclerView;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * @ProjectName: Test
@@ -24,12 +26,13 @@ import com.example.administrator.test.entity.MovieDetailEntity;
  * @Version: 1.0
  */
 public class MovieDetailIntroduction {
-    private TextView tvAliasDetail, tvPlotDetail;
+    @BindView(R.id.tv_alias_detail)
+    TextView tvAliasDetail;
+    @BindView(R.id.tv_plot_detail)
+    TextView tvPlotDetail;
 
     public MovieDetailIntroduction(View rootView) {
-        tvAliasDetail = rootView.findViewById(R.id.tv_alias_detail);
-        tvPlotDetail = rootView.findViewById(R.id.tv_plot_detail);
-
+        ButterKnife.bind(this,rootView);
     }
 
     public void setData(MovieDetailEntity entity) {

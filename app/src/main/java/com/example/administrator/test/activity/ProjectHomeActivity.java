@@ -12,6 +12,8 @@ import com.example.administrator.test.mvp.base.IBasePresenter;
 import com.example.administrator.test.util.ArouteHelper;
 
 import androidx.appcompat.widget.Toolbar;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * @ProjectName: Test
@@ -27,7 +29,8 @@ import androidx.appcompat.widget.Toolbar;
  */
 @Route(path = ArouteHelper.ROUTE_ACTIVITY_PROJECT_HOME)
 public class ProjectHomeActivity extends BaseAnimationActivity {
-    private Toolbar mToolbar;
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
 
     @Override
     public void widgetClick(View v) {
@@ -37,12 +40,12 @@ public class ProjectHomeActivity extends BaseAnimationActivity {
     @Override
     public void initView(Bundle savedInstanceState) {
         setContentView(R.layout.project_home_activity);
-        mToolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(mToolbar);
+        ButterKnife.bind(this);
+        setSupportActionBar(toolbar);
         getSupportActionBar().setHomeButtonEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        BarUtils.setStatusBarAlpha(this,0);
+        BarUtils.setStatusBarAlpha(this, 0);
     }
 
     @Override
@@ -52,11 +55,16 @@ public class ProjectHomeActivity extends BaseAnimationActivity {
 
     @Override
     public void setListener() {
-        mToolbar.setNavigationOnClickListener(v -> finishActivity());
+        toolbar.setNavigationOnClickListener(v -> finishActivity());
     }
 
     @Override
     public void initData(Context mContext) {
 
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
     }
 }

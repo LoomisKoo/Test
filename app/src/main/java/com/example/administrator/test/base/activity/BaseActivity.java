@@ -49,7 +49,6 @@ public abstract class BaseActivity<P extends IBasePresenter> extends SwipeBackAc
         ARouter.getInstance()
                .inject(this);
 
-        ButterKnife.bind(this);
         presenter = createPresenter();
 
         initSwipeLayout();

@@ -76,8 +76,8 @@ public class RecommendWelfareFragment extends BaseListFragment<String, Recommend
             @Override
             public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
                 super.onBindViewHolder(holder, position);
-                mapping.append(position, ((WelfareVH) holder).imageView);
-                ((WelfareVH) holder).imageView.setOnClickListener(v -> iwHelper.show(((WelfareVH) holder).imageView, mapping, data, position));
+                mapping.append(position, ((WelfareVH) holder).image);
+                ((WelfareVH) holder).image.setOnClickListener(v -> iwHelper.show(((WelfareVH) holder).image, mapping, data, position));
             }
 
             @Override

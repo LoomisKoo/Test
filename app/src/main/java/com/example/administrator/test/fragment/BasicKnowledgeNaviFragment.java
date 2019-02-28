@@ -24,6 +24,8 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.LinearSmoothScroller;
 import androidx.recyclerview.widget.RecyclerView;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * @ProjectName: Test
@@ -39,19 +41,17 @@ import androidx.recyclerview.widget.RecyclerView;
  */
 public class BasicKnowledgeNaviFragment extends BaseFragment<NaviPresenter> implements NaviContract.View {
 
-    List<ContentTypeEntity> titleData;
-    /**
-     * 左边recyclerview
-     */
-    RecyclerView            rvName;
-    /**
-     * 右边recyclerview
-     */
-    RecyclerView            rvTitle;
+    private List<ContentTypeEntity> titleData;
 
-    RecyclerView.SmoothScroller titleSmoothScroller;
-    RecyclerView.SmoothScroller nameSmoothScroller;
-    GridLayoutManager           titleLayoutManager;
+    private RecyclerView.SmoothScroller titleSmoothScroller;
+    private RecyclerView.SmoothScroller nameSmoothScroller;
+    private GridLayoutManager           titleLayoutManager;
+
+    /**
+     * view类型
+     */
+    private static final int VIEW_TYPE_TITLE = 0;
+    private static final int VIEW_TYPE_NAME  = 1;
 
     /**
      * 右边列表滑动监听
@@ -60,6 +60,17 @@ public class BasicKnowledgeNaviFragment extends BaseFragment<NaviPresenter> impl
 
     NameAdapter  nameAdapter;
     TitleAdapter titleAdapter;
+
+    /**
+     * 左边recyclerview
+     */
+    @BindView(R.id.rv_name_new)
+    RecyclerView rvNameNew;
+    /**
+     * 右边recyclerview
+     */
+    @BindView(R.id.rv_title_new)
+    RecyclerView rvTitleNew;
 
     class ContentTypeEntity {
         private boolean isTitle = false;
@@ -84,8 +95,6 @@ public class BasicKnowledgeNaviFragment extends BaseFragment<NaviPresenter> impl
 
     @Override
     protected void initView(View view) {
-        rvName = llContent.findViewById(R.id.rv_name_new);
-        rvTitle = llContent.findViewById(R.id.rv_title_new);
         initRv();
     }
 
@@ -156,7 +165,7 @@ public class BasicKnowledgeNaviFragment extends BaseFragment<NaviPresenter> impl
             titles.add(data.get(i)
                            .getName());
         }
-        rvName.setAdapter(nameAdapter = new NameAdapter(titles));
+        rvNameNew.setAdapter(nameAdapter = new NameAdapter(titles));
     }
 
     /**
@@ -195,14 +204,14 @@ public class BasicKnowledgeNaviFragment extends BaseFragment<NaviPresenter> impl
                 titleData.add(viewEntity);
             }
         }
-        rvTitle.setAdapter(titleAdapter = new TitleAdapter(titleData));
+        rvTitleNew.setAdapter(titleAdapter = new TitleAdapter(titleData));
     }
 
     /**
      * 初始化recyclerview
      */
     private void initRv() {
-        rvName.setLayoutManager(new LinearLayoutManager(getContext()));
+        rvNameNew.setLayoutManager(new LinearLayoutManager(getContext()));
         titleLayoutManager = new GridLayoutManager(getContext(), 2);
         titleLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
@@ -211,7 +220,7 @@ public class BasicKnowledgeNaviFragment extends BaseFragment<NaviPresenter> impl
                                 .isTitle() ? 1 : 2;
             }
         });
-        rvTitle.setLayoutManager(titleLayoutManager);
+        rvTitleNew.setLayoutManager(titleLayoutManager);
         initScroller();
     }
 
@@ -271,19 +280,21 @@ public class BasicKnowledgeNaviFragment extends BaseFragment<NaviPresenter> impl
         }
 
         class NameVH extends RecyclerView.ViewHolder {
+            @BindView(R.id.tv_title)
             TextView tvName;
 
             public NameVH(@NonNull View itemView) {
                 super(itemView);
-                tvName = itemView.findViewById(R.id.tv_title);
+                ButterKnife.bind(this, itemView);
             }
         }
     }
 
+
     /**
      * 右边列表适配器
      */
-    class TitleAdapter extends RecyclerView.Adapter<TitleAdapter.TitleVH> {
+    class TitleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         private List<ContentTypeEntity> data;
 
         public TitleAdapter(List<ContentTypeEntity> data) {
@@ -292,43 +303,42 @@ public class BasicKnowledgeNaviFragment extends BaseFragment<NaviPresenter> impl
 
         @NonNull
         @Override
-        public TitleVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             View v = null;
             switch (viewType) {
                 //content
-                case 0:
+                case VIEW_TYPE_NAME:
                     v = LayoutInflater.from(getContext())
                                       .inflate(R.layout.play_android_navi_item_name, parent, false);
-                    break;
+                    return new NameVH(v);
                 //title
-                case 1:
+                case VIEW_TYPE_TITLE:
                     v = LayoutInflater.from(getContext())
                                       .inflate(R.layout.play_android_navi_item_title, parent, false);
-                    break;
+                    return new TitleVH(v);
                 default:
                     break;
             }
-
-            return new TitleVH(v);
+            return onCreateViewHolder(parent, viewType);
         }
 
         @Override
-        public void onBindViewHolder(@NonNull TitleVH holder, int position) {
+        public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
             int viewType = getItemViewType(position);
             switch (viewType) {
                 //name
-                case 0:
+                case VIEW_TYPE_NAME:
                     String title = (String) data.get(position)
                                                 .getData();
-                    holder.tvName.setText(title);
+                    ((NameVH) holder).tvName.setText(title);
                     break;
                 //title
-                case 1:
-                    AnimatorHelper.setViewTouchListener(holder.tvTitle);
+                case VIEW_TYPE_TITLE:
+                    AnimatorHelper.setViewTouchListener(((TitleVH) holder).tvTitle);
                     NaviEntity.DataBean.ArticlesBean entity = (NaviEntity.DataBean.ArticlesBean) data.get(position)
                                                                                                      .getData();
-                    holder.tvTitle.setText(entity.getTitle());
-                    holder.tvTitle.setOnClickListener(v -> ArouteHelper.buildWebWithAnimator(getActivity(), entity.getTitle(), entity.getLink()));
+                    ((TitleVH) holder).tvTitle.setText(entity.getTitle());
+                    ((TitleVH) holder).tvTitle.setOnClickListener(v -> ArouteHelper.buildWebWithAnimator(getActivity(), entity.getTitle(), entity.getLink()));
                     break;
                 default:
                     break;
@@ -347,13 +357,22 @@ public class BasicKnowledgeNaviFragment extends BaseFragment<NaviPresenter> impl
         }
 
         class TitleVH extends RecyclerView.ViewHolder {
+            @BindView(R.id.tv_title)
             TextView tvTitle;
+
+            TitleVH(@NonNull View itemView) {
+                super(itemView);
+                ButterKnife.bind(this, itemView);
+            }
+        }
+
+        class NameVH extends RecyclerView.ViewHolder {
+            @BindView(R.id.tv_name)
             TextView tvName;
 
-            public TitleVH(@NonNull View itemView) {
+            public NameVH(@NonNull View itemView) {
                 super(itemView);
-                tvTitle = itemView.findViewById(R.id.tv_title);
-                tvName = itemView.findViewById(R.id.tv_name);
+                ButterKnife.bind(this, itemView);
             }
         }
     }
@@ -388,7 +407,7 @@ public class BasicKnowledgeNaviFragment extends BaseFragment<NaviPresenter> impl
         };
 
         titleScrollListener = new RecyclerViewListener();
-        rvTitle.addOnScrollListener(titleScrollListener);
+        rvTitleNew.addOnScrollListener(titleScrollListener);
     }
 
     private class RecyclerViewListener extends RecyclerView.OnScrollListener {
@@ -414,7 +433,7 @@ public class BasicKnowledgeNaviFragment extends BaseFragment<NaviPresenter> impl
                                             .equals(titleData.get(firstVisiblePosition)
                                                              .getData())) {
                             nameAdapter.selectPosition = i;
-                            rvName.scrollToPosition(i);
+                            rvNameNew.scrollToPosition(i);
                             nameAdapter.notifyDataSetChanged();
                         }
                     }

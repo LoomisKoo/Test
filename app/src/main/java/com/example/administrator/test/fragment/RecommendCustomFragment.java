@@ -85,7 +85,7 @@ public class RecommendCustomFragment extends BaseListFragment<BaseViewEntity, Re
         super.initView(view);
         menuButton = new BoomMenuButton(getContext());
         menuButton.setId(R.id.view_menu_btn);
-        rootLayout.addView(menuButton);
+        basePagerListRoot.addView(menuButton);
         initMenuBtnLayout();
         initMenuBtnEvent();
 
@@ -180,12 +180,12 @@ public class RecommendCustomFragment extends BaseListFragment<BaseViewEntity, Re
      */
     private void initMenuBtnLayout() {
         ConstraintSet set = new ConstraintSet();
-        set.clone(rootLayout);
+        set.clone(basePagerListRoot);
         set.connect(R.id.view_menu_btn, ConstraintSet.END, ConstraintSet.PARENT_ID, ConstraintSet.END);
         set.connect(R.id.view_menu_btn, ConstraintSet.BOTTOM, ConstraintSet.PARENT_ID, ConstraintSet.BOTTOM);
         set.setMargin(R.id.view_menu_btn, ConstraintSet.END, ConvertUtils.dp2px(10));
         set.setMargin(R.id.view_menu_btn, ConstraintSet.BOTTOM, ConvertUtils.dp2px(100));
-        set.applyTo(rootLayout);
+        set.applyTo(basePagerListRoot);
     }
 
 
@@ -193,9 +193,9 @@ public class RecommendCustomFragment extends BaseListFragment<BaseViewEntity, Re
 
         if (userVisibleManager.isVisibleToUser() ) {
             ConstraintSet set = new ConstraintSet();
-            set.clone(rootLayout);
+            set.clone(basePagerListRoot);
             set.setMargin(R.id.view_menu_btn, ConstraintSet.BOTTOM, ConvertUtils.dp2px(100) + offset);
-            set.applyTo(rootLayout);
+            set.applyTo(basePagerListRoot);
         }
     }
 
@@ -216,7 +216,7 @@ public class RecommendCustomFragment extends BaseListFragment<BaseViewEntity, Re
                     .imagePadding(new Rect(imgPadding, imgPadding, imgPadding, imgPadding))
                     .listener(index -> {
                         adapter.clear();
-                        refreshLayout.autoRefresh();
+                        basePagerListRefreshLayout.autoRefresh();
                         dataType = DATE_TYPE[index];
                         dataRequestType = DATE_REQUEST_TYPE[index];
                     });

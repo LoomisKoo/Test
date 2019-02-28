@@ -19,6 +19,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.RequiresApi;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * @ProjectName: Test
@@ -34,7 +36,6 @@ import androidx.annotation.RequiresApi;
  */
 @Route(path = ArouteHelper.ROUTE_ACTIVITY_BIG_IMAGE)
 public class BigImgActivity extends BaseViewActivity {
-    BannerNotCircle banner;
 
     @Autowired
     public List<String> urlList;
@@ -44,6 +45,9 @@ public class BigImgActivity extends BaseViewActivity {
     public int          curImgPosition;
     @Autowired
     public String       activityTitle;
+
+    @BindView(R.id.banner)
+    BannerNotCircle banner;
 
 
     @Override
@@ -94,7 +98,6 @@ public class BigImgActivity extends BaseViewActivity {
             curImgPosition = 0;
         }
 
-        banner = (BannerNotCircle) findViewById(R.id.banner);
         banner.setImages(urlList)
               .setBannerStyle(BannerConfig.NUM_INDICATOR)
               .setImageLoader(new GlideImageLoader())
@@ -106,7 +109,7 @@ public class BigImgActivity extends BaseViewActivity {
                                    {
                                        finishAfterTransition();
                                    }
-                                          );
+              );
 
         banner.setOnLongClickListener(view -> {
             ArrayList<String> tips = new ArrayList<>();
@@ -160,5 +163,12 @@ public class BigImgActivity extends BaseViewActivity {
     @Override
     protected void OnNavigationOnClick() {
         finishAfterTransition();
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
     }
 }

@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
+import butterknife.BindView;
 
 /**
  * @ProjectName: Test
@@ -37,28 +38,27 @@ public class MovieFragment extends BaseFragment {
     private static final int VIEW_PAGER_PAGE_1 = 0;
     private static final int VIEW_PAGER_PAGE_2 = 1;
     private static final int VIEW_PAGER_PAGE_3 = 2;
+    @BindView(R.id.bottomBar)
+    BottomBar    bottomBar;
+    @BindView(R.id.appbar)
+    AppBarLayout appbar;
+    @BindView(R.id.view_pager)
+    ViewPager    viewPager;
 
     private ArrayList<BaseFragment> fragments = new ArrayList<>(VIEW_PAGER_COUNT);
-    private ViewPager               viewPager;
-    private BottomBar               mBottomBar;
-    private AppBarLayout            mAppBarLayout;
 
 
     @Override
     protected void initView(View view) {
-
-        mBottomBar = view.findViewById(R.id.bottomBar);
-        viewPager = view.findViewById(R.id.view_pager);
-        mAppBarLayout = view.findViewById(R.id.appbar);
         initFragmentList();
         initViewPager(view);
         initBottomBar(view);
         //禁止越界拖动
-        refreshLayout.setEnableOverScrollDrag(false);
+        basePagerListRefreshLayout.setEnableOverScrollDrag(false);
         //禁止下拉刷新
-        refreshLayout.setEnableRefresh(false);
+        basePagerListRefreshLayout.setEnableRefresh(false);
         //禁止上拉加载
-        refreshLayout.setEnableLoadmore(false);
+        basePagerListRefreshLayout.setEnableLoadmore(false);
     }
 
     @Override
@@ -96,7 +96,6 @@ public class MovieFragment extends BaseFragment {
     }
 
     private void initViewPager(View view) {
-        viewPager = view.findViewById(R.id.view_pager);
         viewPager.setOffscreenPageLimit(VIEW_PAGER_COUNT);
         viewPager.setAdapter(new FragmentStatePagerAdapter(getChildFragmentManager()) {
             @Override
@@ -117,8 +116,8 @@ public class MovieFragment extends BaseFragment {
 
             @Override
             public void onPageSelected(int position) {
-                if (mBottomBar.getTabCount() - 1 >= position) {
-                    mBottomBar.selectTabAtPosition(position, true);
+                if (bottomBar.getTabCount() - 1 >= position) {
+                    bottomBar.selectTabAtPosition(position, true);
                 }
             }
 
@@ -133,11 +132,10 @@ public class MovieFragment extends BaseFragment {
      * 初始化BottomBar
      */
     private void initBottomBar(View view) {
-        mBottomBar = view.findViewById(R.id.bottomBar);
         //已小红点形式显示新消息数量
-//        mBottomBar.getTabWithId(R.id.tab_discover).setBadgeCount(5);
+//        bottomBar.getTabWithId(R.id.tab_discover).setBadgeCount(5);
 
-        mBottomBar.setOnTabSelectListener(tabId -> {
+        bottomBar.setOnTabSelectListener(tabId -> {
             switch (tabId) {
                 case R.id.daily_recommendation:
                     viewPager.setCurrentItem(VIEW_PAGER_PAGE_1);
@@ -153,14 +151,14 @@ public class MovieFragment extends BaseFragment {
             }
         });
 
-        mBottomBar.setOnTabReselectListener(tabId -> {
+        bottomBar.setOnTabReselectListener(tabId -> {
             if (tabId == R.id.play_android) {
                 // 已经选择了这个标签，又点击一次。即重选。
-                mBottomBar.getTabWithId(R.id.play_android)
-                          .removeBadge();
+                bottomBar.getTabWithId(R.id.play_android)
+                         .removeBadge();
             }
         });
-        mBottomBar.setTabSelectionInterceptor((oldTabId, newTabId) -> {
+        bottomBar.setTabSelectionInterceptor((oldTabId, newTabId) -> {
             // 点击无效
             if (newTabId == R.id.tree) {
                 // ......

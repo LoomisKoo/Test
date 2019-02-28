@@ -16,10 +16,12 @@ import com.example.administrator.test.mvp.model.MovieDetailModel;
 import com.example.administrator.test.mvp.presenter.MovieDetailPresenter;
 import com.example.administrator.test.util.ArouteHelper;
 import com.example.administrator.test.viewholder.movie.MovieDetailIntroduction;
-import com.example.administrator.test.viewholder.movie.MovieDetailViewInfo;
 import com.example.administrator.test.viewholder.movie.MovieDetailViewActors;
+import com.example.administrator.test.viewholder.movie.MovieDetailViewInfo;
 
 import androidx.appcompat.widget.Toolbar;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * @ProjectName: Test
@@ -35,10 +37,8 @@ import androidx.appcompat.widget.Toolbar;
  */
 @Route(path = ArouteHelper.ROUTE_ACTIVITY_MOVIE_DETAIL)
 public class MovieDetailActivity extends BaseActivity<MovieDetailPresenter> implements MovieDetailContract.View {
-    /**
-     * toolbar
-     */
-    private Toolbar                 mToolbar;
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
     /**
      * 电影基本信息view
      */
@@ -69,7 +69,7 @@ public class MovieDetailActivity extends BaseActivity<MovieDetailPresenter> impl
 
     @Override
     public void setListener() {
-        mToolbar.setNavigationOnClickListener(v -> finishAfterTransition());
+        toolbar.setNavigationOnClickListener(v -> finishAfterTransition());
     }
 
     @Override
@@ -80,8 +80,8 @@ public class MovieDetailActivity extends BaseActivity<MovieDetailPresenter> impl
         presenter.getMovieDetail(movieID);
         movieInfoView.setData(movieBriefInformation);
 
-        mToolbar.setTitle(movieBriefInformation.getTitle());
-        mToolbar.setSubtitle("主演：" + movieInfoView.getCastsName(movieBriefInformation));
+        toolbar.setTitle(movieBriefInformation.getTitle());
+        toolbar.setSubtitle("主演：" + movieInfoView.getCastsName(movieBriefInformation));
     }
 
 
@@ -94,7 +94,6 @@ public class MovieDetailActivity extends BaseActivity<MovieDetailPresenter> impl
     public void initView(Bundle savedInstanceState) {
         setContentView(R.layout.movie_detail_activity);
         BarUtils.setStatusBarAlpha(this, 0);
-
         movieInfoView = new MovieDetailViewInfo(this, getWindow().getDecorView());
         initToolbar();
 
@@ -125,11 +124,10 @@ public class MovieDetailActivity extends BaseActivity<MovieDetailPresenter> impl
      * 初始化toolbar
      */
     private void initToolbar() {
-        mToolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(mToolbar);
+        setSupportActionBar(toolbar);
         getSupportActionBar().setHomeButtonEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        //不设置的话，mToolbar.setTitle();无效
+        //不设置的话，toolbar.setTitle();无效
         getSupportActionBar().setTitle("");
     }
 
@@ -141,4 +139,8 @@ public class MovieDetailActivity extends BaseActivity<MovieDetailPresenter> impl
         introductionView.setData(entity);
     }
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
 }

@@ -9,6 +9,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 
 import androidx.recyclerview.widget.RecyclerView;
+import butterknife.ButterKnife;
 
 import android.text.util.Linkify;
 import android.util.SparseArray;
@@ -39,12 +40,14 @@ public class BaseViewHolder extends RecyclerView.ViewHolder {
                             .inflate(layoutId, parent, false));
         this.context = context;
         this.views = new SparseArray<>();
+        ButterKnife.bind(this, itemView);
     }
 
     public BaseViewHolder(Context context, View itemView) {
         super(itemView);
         this.context = context;
         this.views = new SparseArray<>();
+        ButterKnife.bind(this, itemView);
     }
 
     /**

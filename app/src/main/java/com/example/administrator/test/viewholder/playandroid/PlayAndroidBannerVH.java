@@ -1,7 +1,6 @@
 package com.example.administrator.test.viewholder.playandroid;
 
 import android.content.Context;
-import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.administrator.test.R;
@@ -17,6 +16,8 @@ import com.orhanobut.logger.Logger;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+
 /**
  * @ProjectName: Test
  * @Package: com.example.administrator.test.viewholder
@@ -30,16 +31,11 @@ import java.util.List;
  * @Version: 1.0
  */
 public class PlayAndroidBannerVH extends BaseViewHolder {
-    private Banner banner;
+    @BindView(R.id.banner)
+    Banner banner;
 
     public PlayAndroidBannerVH(Context context, ViewGroup parent, int layoutId) {
         super(context, parent, layoutId);
-        banner = retrieveView(R.id.banner);
-
-    }
-
-    public PlayAndroidBannerVH(Context context, View itemView) {
-        super(context, itemView);
     }
 
     public void setData(BannerEntity data) {
