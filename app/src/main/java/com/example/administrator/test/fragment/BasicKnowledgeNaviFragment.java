@@ -48,6 +48,11 @@ public class BasicKnowledgeNaviFragment extends BaseFragment<NaviPresenter> impl
     private GridLayoutManager           titleLayoutManager;
 
     /**
+     * 是否刷新左边列表的位置
+     */
+    private boolean isRefreshNameRvPosition = false;
+
+    /**
      * view类型
      */
     private static final int VIEW_TYPE_TITLE = 0;
@@ -353,7 +358,7 @@ public class BasicKnowledgeNaviFragment extends BaseFragment<NaviPresenter> impl
 
         @Override
         public int getItemViewType(int position) {
-            return data.get(position).isTitle ? 1 : 0;
+            return data.get(position).isTitle ? VIEW_TYPE_TITLE : VIEW_TYPE_NAME;
         }
 
         class TitleVH extends RecyclerView.ViewHolder {
@@ -423,9 +428,9 @@ public class BasicKnowledgeNaviFragment extends BaseFragment<NaviPresenter> impl
         public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
             super.onScrolled(recyclerView, dx, dy);
             if (!isTitleRVMoving) {
-                //TODO 该处滑动时候多次调用，待优化
                 int firstVisiblePosition = titleLayoutManager.findFirstVisibleItemPosition();
-                if (titleData.size() <= firstVisiblePosition && !titleData.get(firstVisiblePosition).isTitle) {
+                if (!isRefreshNameRvPosition && !titleData.get(firstVisiblePosition).isTitle) {
+                    isRefreshNameRvPosition = true;
                     // 如果此项对应的是左边的大类的index
                     int nameSize = nameAdapter.data.size();
                     for (int i = 0; i < nameSize; i++) {
@@ -437,6 +442,9 @@ public class BasicKnowledgeNaviFragment extends BaseFragment<NaviPresenter> impl
                             nameAdapter.notifyDataSetChanged();
                         }
                     }
+                }
+                else if (titleData.get(firstVisiblePosition).isTitle) {
+                    isRefreshNameRvPosition = false;
                 }
             }
         }
