@@ -386,12 +386,10 @@ public class MainActivity extends BaseViewActivity {
     class ViewHolder {
         @BindView(R.id.top_view)
         ImageView        topView;
-        @BindView(R.id.imageView3)
+        @BindView(R.id.iv_avatar)
         ImageView        imageView3;
         @BindView(R.id.nick_name_tv)
         TextView         nickNameTv;
-        @BindView(R.id.level_tv)
-        TextView         levelTv;
         @BindView(R.id.constraintLayout)
         ConstraintLayout constraintLayout;
         @BindView(R.id.project_home_page_tv)

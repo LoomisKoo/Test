@@ -21,14 +21,14 @@
             android:background="@mipmap/ic_nav_bg_drawerlayout" />
 
         <ImageView
-            android:id="@+id/imageView3"
+            android:id="@+id/iv_avatar"
             android:layout_width="65dp"
             android:layout_height="65dp"
             android:layout_marginStart="12dp"
             android:layout_marginTop="48dp"
+            android:src="@mipmap/ic_avatar"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@android:drawable/btn_star" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/nick_name_tv"
@@ -37,24 +37,13 @@
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
             android:clickable="true"
-            android:text="nickName"
+            android:text="LoomisKoo"
             android:textColor="@color/white"
             android:textSize="20sp"
-            app:layout_constraintBottom_toBottomOf="@+id/top_view"
-            app:layout_constraintStart_toStartOf="@+id/imageView3"
-            app:layout_constraintTop_toBottomOf="@+id/imageView3" />
+            app:layout_constraintBottom_toBottomOf="@id/top_view"
+            app:layout_constraintStart_toStartOf="@id/iv_avatar"
+            app:layout_constraintTop_toBottomOf="@id/iv_avatar" />
 
-        <TextView
-            android:id="@+id/level_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:text="lv 1"
-            android:textColor="@color/white"
-            android:textSize="10sp"
-            android:textStyle="italic|bold"
-            app:layout_constraintBaseline_toBaselineOf="@id/nick_name_tv"
-            app:layout_constraintStart_toEndOf="@id/nick_name_tv" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <LinearLayout

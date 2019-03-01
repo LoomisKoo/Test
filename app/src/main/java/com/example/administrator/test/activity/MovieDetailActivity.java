@@ -93,6 +93,7 @@ public class MovieDetailActivity extends BaseActivity<MovieDetailPresenter> impl
     @Override
     public void initView(Bundle savedInstanceState) {
         setContentView(R.layout.movie_detail_activity);
+        ButterKnife.bind(this);
         BarUtils.setStatusBarAlpha(this, 0);
         movieInfoView = new MovieDetailViewInfo(this, getWindow().getDecorView());
         initToolbar();
