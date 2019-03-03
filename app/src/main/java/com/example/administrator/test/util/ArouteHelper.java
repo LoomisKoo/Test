@@ -36,6 +36,7 @@ public class ArouteHelper {
     public final static String ROUTE_ACTIVITY_BIG_IMAGE       = "/koo/big_image";
     public final static String ROUTE_ACTIVITY_MOVIE_DETAIL       = "/koo/movie_detail";
     public final static String ROUTE_ACTIVITY_PROJECT_HOME       = "/koo/project_home";
+    public final static String ROUTE_ACTIVITY_LOTTIE       = "/koo/lottie";
 
 
     public static void buildWebWithAnimator(Context context, String title, String url) {

@@ -145,7 +145,8 @@ public class MainActivity extends BaseViewActivity {
                 break;
             case R.id.action_notification:
                 ARouter.getInstance()
-                       .build(ArouteHelper.ROUTE_ACTIVITY_LIST_ACTIVITY)
+//                       .build(ArouteHelper.ROUTE_ACTIVITY_LIST_ACTIVITY)
+                       .build(ArouteHelper.ROUTE_ACTIVITY_LOTTIE)
                        .withFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
                        .navigation();
                 break;

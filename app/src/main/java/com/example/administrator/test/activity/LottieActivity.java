@@ -1,0 +1,69 @@
+package com.example.administrator.test.activity;
+
+import android.animation.Animator;
+import android.animation.ValueAnimator;
+import android.os.Bundle;
+
+import com.airbnb.lottie.LottieAnimationView;
+import com.alibaba.android.arouter.facade.annotation.Route;
+import com.example.administrator.test.R;
+import com.example.administrator.test.base.activity.BaseAnimationActivity;
+import com.example.administrator.test.util.ArouteHelper;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
+/**
+ * @ProjectName: Test
+ * @Package: com.example.administrator.test.activity
+ * @ClassName: LottieActivity
+ * @Description: java类作用描述
+ * @Author: koo
+ * @CreateDate: 2019/3/3 14:24
+ * @UpdateUser:
+ * @UpdateDate: 2019/3/3 14:24
+ * @UpdateRemark: 更新说明
+ * @Version: 1.0
+ */
+@Route(path = ArouteHelper.ROUTE_ACTIVITY_LOTTIE)
+public class LottieActivity extends BaseAnimationActivity {
+    @BindView(R.id.lottie)
+    LottieAnimationView lottie;
+
+    @Override
+    public void initView(Bundle savedInstanceState) {
+        super.initView(savedInstanceState);
+        setContentView(R.layout.layout_lottie);
+        ButterKnife.bind(this);
+
+        lottie.loop(true);
+        lottie.addAnimatorListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+
+            }
+        });
+
+
+        lottie.addAnimatorUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+            }
+        });
+    }
+}
