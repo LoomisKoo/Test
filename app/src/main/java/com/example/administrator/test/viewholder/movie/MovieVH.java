@@ -56,16 +56,22 @@ public class MovieVH extends BaseViewHolder {
                          .getLarge())
              .into(ivPosters);
 
-        String title         = entity.getTitle();
-        String directorsName = "导演：" + getDirectorName(entity);
-        String castsName     = "主演：" + getCastsName(entity);
-        String genres        = "类型：" + getGenres(entity);
-        String score = "评分：" + String.valueOf(entity.getRating()
-                                                    .getAverage());
+        String title      = entity.getTitle();
+        String coreFormat = context.getString(R.string.movie_detail_score);
+        String score = String.format(coreFormat, entity.getRating()
+                                                       .getAverage());
+        String directorNameFormat = context.getString(R.string.movie_detail_director_name);
+        String directorName       = String.format(directorNameFormat, getDirectorName(entity));
+
+        String starringNameFormat = context.getString(R.string.movie_detail_starring_name);
+        String starringName       = String.format(starringNameFormat, getCastsName(entity));
+
+        String genresFormat = context.getString(R.string.movie_detail_genres);
+        String genres       = String.format(genresFormat, getGenres(entity));
 
         tvTitle.setText(title);
-        tvDirector.setText(directorsName);
-        tvCasts.setText(castsName);
+        tvDirector.setText(directorName);
+        tvCasts.setText(starringName);
         tvGenres.setText(genres);
         tvScore.setText(score);
     }

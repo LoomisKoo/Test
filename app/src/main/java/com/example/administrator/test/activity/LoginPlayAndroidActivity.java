@@ -120,7 +120,7 @@ public class LoginPlayAndroidActivity extends BaseViewActivity<LoginPresenter> i
     @Override
     public void initView(Bundle savedInstanceState) {
         showCenterTitle(true);
-        setCenterTitle("登录");
+        setCenterTitle(getString(R.string.login_bar_title));
         AnimatorHelper.setViewTouchListener(btnRegister);
 
         ACache mCache = ACache.get(this);
@@ -201,7 +201,7 @@ public class LoginPlayAndroidActivity extends BaseViewActivity<LoginPresenter> i
         boolean isEmptyUserName = StringUtils.isEmpty(userName);
         boolean isEmptyPassword = StringUtils.isEmpty(password);
         if (isEmptyUserName || isEmptyPassword) {
-            showToast("账号和密码不能为空");
+            showToast(getString(R.string.login_input_error));
             return true;
         }
         else {
@@ -323,7 +323,7 @@ public class LoginPlayAndroidActivity extends BaseViewActivity<LoginPresenter> i
 
     @Override
     public void loginSuccess() {
-        showToast("登录成功");
+        showToast(getString(R.string.login_successful));
         ARouter.getInstance()
                .build(ArouteHelper.ROUTE_ACTIVITY_MAIN)
                .withFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)

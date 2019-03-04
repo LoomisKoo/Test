@@ -81,7 +81,9 @@ public class MovieDetailActivity extends BaseActivity<MovieDetailPresenter> impl
         movieInfoView.setData(movieBriefInformation);
 
         toolbar.setTitle(movieBriefInformation.getTitle());
-        toolbar.setSubtitle("主演：" + movieInfoView.getCastsName(movieBriefInformation));
+        String starringNameFormat = getString(R.string.movie_detail_starring_name);
+        String starringName       = String.format(starringNameFormat, movieInfoView.getCastsName(movieBriefInformation));
+        toolbar.setSubtitle(starringName);
     }
 
 

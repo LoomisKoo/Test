@@ -1,10 +1,22 @@
 <resources>
     <string name="app_name">Test</string>
     <!--*******************各个页面*******************-->
-    <!--主页-->
-    <string name="main_title">主页</string>
-    <string name="main_subtitle">subtitle</string>
-    <!--开屏页-->
+    <!--****主页****-->
+    <string name="home_bar_title">主页</string>
+    <string name="home_subtitle">subtitle</string>
+    <string name="home_exit_program_prompt">再按一次退出程序</string>
+    <!--****电影详情页面****-->
+    <string name="movie_detail_actor">演员</string>
+    <string name="movie_detail_director">导演</string>
+    <string name="movie_detail_score">评分：%1$f</string>
+    <string name="movie_detail_score_num">%1$s 人评分</string>
+    <string name="movie_detail_director_name">导演：%1$s</string>
+    <string name="movie_detail_starring_name">主演：%1$s</string>
+    <string name="movie_detail_genres">类型：%1$s</string>
+    <string name="movie_detail_year">上映日期：%1$s</string>
+    <string name="movie_detail_region">制片国家/地区：</string>
+
+    <!--****开屏页****-->
     <string name="splash_skip">跳过（%1$d）</string>
     <!--侧拉菜单-->
     <string name="drawer_layout_project_home_page">项目主页</string>
@@ -14,6 +26,30 @@
     <string name="drawer_layout_login">账号登录</string>
     <string name="drawer_layout_my_collection">我的收藏</string>
     <string name="drawer_layout_exit">退出登录</string>
+
+    <!--****登录页面****-->
+    <string name="login_bar_title">登录</string>
+    <string name="login_input_error">账号和密码不能为空</string>
+    <string name="login_successful">登录成功</string>
+
+    <!--****自定义推荐页面****-->
+    <string-array name="data_type">
+        <item>全部</item>
+        <item>IOS</item>
+        <item>App</item>
+        <item>前端</item>
+        <item>休息视频</item>
+        <item>拓展资源</item>
+    </string-array>
+    <string-array name="request_data_type">
+        <item>all</item>
+        <item>iOS</item>
+        <item>App</item>
+        <item>前端</item>
+        <item>休息视频</item>
+        <item>拓展资源</item>
+    </string-array>
+
 
     <!--****安卓资料****-->
     <!--安卓资料fragment-->
@@ -30,6 +66,5 @@
     <!--列表空状态-->
     <string name="common_empty_list_load_failed">加载失败，请拉下重试！</string>
     <!--Log相关-->
-
 
 </resources>

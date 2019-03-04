@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -49,6 +50,7 @@ public class MovieDetailViewActors {
         //设置不需要焦点 否则切换tab后，嵌套的recyclerview会自动滚动
         rvActors.setFocusableInTouchMode(false);
         rvActors.requestFocus();
+        rvActors.setLayoutManager(new LinearLayoutManager(context));
     }
 
     public void setData(MovieDetailEntity entity) {
@@ -102,7 +104,7 @@ public class MovieDetailViewActors {
                               .getName();
             //职位
             String clerk = data.get(position)
-                               .getClerkType() == MovieDetailEntity.ClerkEntity.CLERK_TYPE_ACTOR ? "演员" : "导演";
+                               .getClerkType() == MovieDetailEntity.ClerkEntity.CLERK_TYPE_ACTOR ? context.getString(R.string.movie_detail_actor) : context.getString(R.string.movie_detail_director);
             holder.tvName.setText(name);
             holder.tvJobs.setText(clerk);
 

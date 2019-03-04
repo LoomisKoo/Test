@@ -37,28 +37,28 @@ import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOption
  */
 public class MovieDetailViewInfo {
     @BindView(R.id.iv_bg)
-    ImageView    ivBg;
+    ImageView ivBg;
     @BindView(R.id.iv_posters)
-    ImageView    ivPosters;
+    ImageView ivPosters;
     @BindView(R.id.tv_score)
-    TextView     tvScore;
+    TextView  tvScore;
     @BindView(R.id.tv_num_of_score)
-    TextView     tvNumOfScore;
+    TextView  tvNumOfScore;
     @BindView(R.id.tv_director)
-    TextView     tvDirector;
+    TextView  tvDirector;
     @BindView(R.id.tv_starring)
-    TextView     tvStarring;
+    TextView  tvStarring;
     @BindView(R.id.tv_genres)
-    TextView     tvGenres;
+    TextView  tvGenres;
     @BindView(R.id.tv_date)
-    TextView     tvDate;
+    TextView  tvDate;
     @BindView(R.id.tv_region)
-    TextView     tvRegion;
+    TextView  tvRegion;
     private Context context;
 
     public MovieDetailViewInfo(Context context, View rootView) {
         this.context = context;
-        ButterKnife.bind(this,rootView);
+        ButterKnife.bind(this, rootView);
     }
 
     public void setData(MovieBriefInformation entity) {
@@ -75,18 +75,28 @@ public class MovieDetailViewInfo {
              .transition(withCrossFade())
              .into(ivPosters);
 
-        String score = "评分：" + entity.getRating()
-                                     .getAverage() + "";
-        String numOfScore = entity.getCollect_count() + "人评分";
-        String director   = "导演：" + getDirectorName(entity);
-        String starring   = "主演：" + getCastsName(entity);
-        String genres     = "类型：" + getGenres(entity);
-        String year       = "上映日期：" + entity.getYear();
+        String coreFormat = context.getString(R.string.movie_detail_score);
+        String score = String.format(coreFormat, entity.getRating()
+                                                       .getAverage());
+        String coreNumFormat = context.getString(R.string.movie_detail_score_num);
+        String scoreNum = String.format(coreNumFormat, entity.getCollect_count());
+
+        String directorNameFormat = context.getString(R.string.movie_detail_director_name);
+        String directorName = String.format(directorNameFormat, getDirectorName(entity));
+
+        String starringNameFormat = context.getString(R.string.movie_detail_starring_name);
+        String starringName = String.format(starringNameFormat, getCastsName(entity));
+
+        String genresFormat = context.getString(R.string.movie_detail_genres);
+        String genres = String.format(genresFormat, getGenres(entity));
+
+        String yearFormat = context.getString(R.string.movie_detail_year);
+        String year = String.format(yearFormat,  entity.getYear());
 
         tvScore.setText(score);
-        tvNumOfScore.setText(numOfScore);
-        tvDirector.setText(director);
-        tvStarring.setText(starring);
+        tvNumOfScore.setText(scoreNum);
+        tvDirector.setText(directorName);
+        tvStarring.setText(starringName);
         tvGenres.setText(genres);
         tvDate.setText(year);
     }
@@ -181,7 +191,8 @@ public class MovieDetailViewInfo {
      */
     public void setRegion(List<String> regions) {
         StringBuilder sbRegions = new StringBuilder();
-        sbRegions.append("制片国家/地区：");
+        String        region    = context.getString(R.string.movie_detail_region);
+        sbRegions.append(region);
 
         if (regions.size() != 0) {
             sbRegions.append(regions.get(0));

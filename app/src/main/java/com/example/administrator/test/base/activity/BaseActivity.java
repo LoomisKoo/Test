@@ -15,7 +15,6 @@ import android.widget.Toast;
 import com.example.administrator.test.manager.ActivityManager;
 import com.example.administrator.test.mvp.base.IBasePresenter;
 
-import butterknife.ButterKnife;
 import me.imid.swipebacklayout.lib.SwipeBackLayout;
 import me.imid.swipebacklayout.lib.app.SwipeBackActivity;
 
@@ -56,7 +55,8 @@ public abstract class BaseActivity<P extends IBasePresenter> extends SwipeBackAc
         setListener();
         initData(this);
 
-        ActivityManager.getAppManager().addActivity(this);
+        ActivityManager.getAppManager()
+                       .addActivity(this);
     }
 
     /**

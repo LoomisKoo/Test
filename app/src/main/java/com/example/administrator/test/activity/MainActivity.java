@@ -366,7 +366,7 @@ public class MainActivity extends BaseViewActivity {
         }
         if (!isChildViewHandled) {
             if (System.currentTimeMillis() - firstBackPressTime > BACK_PRESS_INTERVAL_TIME) {
-                ToastUtils.showShort("再按一次退出程序");
+                ToastUtils.showShort(getString(R.string.home_exit_program_prompt));
                 firstBackPressTime = System.currentTimeMillis();
             }
             else {
@@ -381,7 +381,7 @@ public class MainActivity extends BaseViewActivity {
     @Override
     protected void onActivityAnimationFinish() {
         ActivityManager.getAppManager()
-                       .finishAllExcept("MainActivity");
+                       .finishAllExcept(getClass().getSimpleName());
     }
 
     class ViewHolder {

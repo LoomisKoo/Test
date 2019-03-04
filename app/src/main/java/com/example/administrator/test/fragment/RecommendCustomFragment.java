@@ -44,23 +44,23 @@ public class RecommendCustomFragment extends BaseListFragment<BaseViewEntity, Re
     /**
      * 选择菜单的icon
      */
-    private static final int[]          MENU_IC_LIST      = new int[]{R.mipmap.recommend_ic_custom_all, R.mipmap.recommend_ic_custom_ios, R.mipmap.recommend_ic_custom_app, R.mipmap.recommend_ic_custom_web, R.mipmap.recommend_ic_custom_video, R.mipmap.recommend_ic_custom_more};
+    private static final int[]          MENU_IC_LIST = new int[]{R.mipmap.recommend_ic_custom_all, R.mipmap.recommend_ic_custom_ios, R.mipmap.recommend_ic_custom_app, R.mipmap.recommend_ic_custom_web, R.mipmap.recommend_ic_custom_video, R.mipmap.recommend_ic_custom_more};
     /**
      * 定制类型
      */
-    private static final String[]       DATE_TYPE         = new String[]{"全部", "IOS", "App", "前端", "休息视频", "拓展资源"};
+    private              String[]       dataTypes;
     /**
      * 定制类型的请求码
      */
-    private static final String[]       DATE_REQUEST_TYPE = new String[]{"all", "iOS", "App", "前端", "休息视频", "拓展资源"};
+    private              String[]       dataRequestTypes;
     /**
      * 当前类型
      */
-    private              String         dataType          = DATE_TYPE[0];
+    private              String         dataType;
     /**
      * 当前类型请求码
      */
-    private              String         dataRequestType   = DATE_REQUEST_TYPE[0];
+    private              String         dataRequestType;
     /**
      * 爆炸菜单按钮
      */
@@ -86,9 +86,21 @@ public class RecommendCustomFragment extends BaseListFragment<BaseViewEntity, Re
         menuButton = new BoomMenuButton(getContext());
         menuButton.setId(R.id.view_menu_btn);
         basePagerListRoot.addView(menuButton);
+    }
+
+    @Override
+    protected void initData() {
+        super.initData();
+        dataTypes = getActivity().getResources()
+                                 .getStringArray(R.array.data_type);
+        dataRequestTypes = getActivity().getResources()
+                                        .getStringArray(R.array.request_data_type);
+
+        dataType = dataTypes[0];
+        dataRequestType = dataRequestTypes[0];
+
         initMenuBtnLayout();
         initMenuBtnEvent();
-
     }
 
     @Override
@@ -191,7 +203,7 @@ public class RecommendCustomFragment extends BaseListFragment<BaseViewEntity, Re
 
     public void resetMenuBtnLayout(int offset) {
 
-        if (userVisibleManager.isVisibleToUser() ) {
+        if (userVisibleManager.isVisibleToUser()) {
             ConstraintSet set = new ConstraintSet();
             set.clone(basePagerListRoot);
             set.setMargin(R.id.view_menu_btn, ConstraintSet.BOTTOM, ConvertUtils.dp2px(100) + offset);
@@ -212,13 +224,13 @@ public class RecommendCustomFragment extends BaseListFragment<BaseViewEntity, Re
                                       .buttonNumber(); i++) {
             TextInsideCircleButton.Builder builder = new TextInsideCircleButton.Builder()
                     .normalImageRes(MENU_IC_LIST[i])
-                    .normalText(DATE_TYPE[i])
+                    .normalText(dataTypes[i])
                     .imagePadding(new Rect(imgPadding, imgPadding, imgPadding, imgPadding))
                     .listener(index -> {
                         adapter.clear();
                         basePagerListRefreshLayout.autoRefresh();
-                        dataType = DATE_TYPE[index];
-                        dataRequestType = DATE_REQUEST_TYPE[index];
+                        dataType = dataTypes[index];
+                        dataRequestType = dataRequestTypes[index];
                     });
             menuButton.addBuilder(builder);
         }
