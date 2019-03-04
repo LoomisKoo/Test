@@ -20,7 +20,7 @@
             app:expandedTitleTextAppearance="@style/CollapsingToolbarExpandedStyle"
             app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
             app:statusBarScrim="@color/tool_bar_base_background"
-            app:title="项目主页"
+            app:title="@string/drawer_layout_project_home_page"
             app:titleEnabled="true">
 
             <ImageView

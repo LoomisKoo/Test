@@ -4,17 +4,17 @@
         barColorWhenSelected="#8387f7"
         icon="@mipmap/main_ic_tab_basic_knowledge"
         id="@+id/tab_basic_knowledge"
-        title="基础知识" />
+        title="@string/home_tab_name_basic_knowledge" />
     <tab
         barColorWhenSelected="#FE3D81"
         icon="@mipmap/main_ic_tab_recommended"
         id="@+id/tab_recommended"
-        title="推荐" />
+        title="@string/home_tab_name_recommended" />
     <tab
         barColorWhenSelected="#f21628"
         icon="@mipmap/main_ic_tab_film"
         id="@+id/tab_film"
-        title="电影" />
+        title="@string/home_tab_name_film" />
 </tabs>
 
 

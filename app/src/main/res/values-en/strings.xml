@@ -1,0 +1,87 @@
+<resources>
+    <string name="app_name">Test</string>
+    <!--*******************各个页面*******************-->
+    <!--****主页****-->
+    <string name="home_bar_title">homePage</string>
+    <string name="home_subtitle">subtitle</string>
+    <string name="home_exit_program_prompt">Press exit again</string>
+    <string name="home_tab_name_basic_knowledge">knowledge</string>
+    <string name="home_tab_name_recommended">recommended</string>
+    <string name="home_tab_name_film">film</string>
+    <!--Tab-电影页面-->
+    <string name="film_page_tab_name_hit_list">HitList</string>
+    <string name="film_page_tab_name_upcoming">Upcoming</string>
+    <string name="film_page_tab_name_top_250">Top250</string>
+    <!--Tab-基础知识页面-->
+    <string name="basic_knowledge_page_tab_name_android">Android</string>
+    <string name="basic_knowledge_page_tab_name_system">knowledge system</string>
+    <string name="basic_knowledge_page_tab_name_navigation">navigation</string>
+    <!--Tab-基础知识页面-->
+    <string name="recommend_page_tab_name_daily">daily</string>
+    <string name="recommend_page_tab_name_welfare">welfare</string>
+    <string name="recommend_page_tab_name_custom">custom</string>
+    <string name="recommend_page_tab_name_android">android</string>
+
+    <!--****电影详情页面****-->
+    <string name="movie_detail_actor">actors</string>
+    <string name="movie_detail_director">directors</string>
+    <string name="movie_detail_score">score：%1$f</string>
+    <string name="movie_detail_score_num">%1$s people score</string>
+    <string name="movie_detail_director_name">directors：%1$s</string>
+    <string name="movie_detail_starring_name">starring：%1$s</string>
+    <string name="movie_detail_genres">genres：%1$s</string>
+    <string name="movie_detail_year">year：%1$s</string>
+    <string name="movie_detail_region">country/region：</string>
+
+    <!--****开屏页****-->
+    <string name="splash_skip">skip（%1$d）</string>
+    <!--侧拉菜单-->
+    <string name="drawer_layout_project_home_page">Project home page</string>
+    <string name="drawer_layout_down_load">download</string>
+    <string name="drawer_layout_feed_back">feedback</string>
+    <string name="drawer_layout_about">about</string>
+    <string name="drawer_layout_login">login</string>
+    <string name="drawer_layout_my_collection">collection</string>
+    <string name="drawer_layout_exit">exit</string>
+
+    <!--****登录页面****-->
+    <string name="login_bar_title">login</string>
+    <string name="login_input_error">Account number and password cannot be empty</string>
+    <string name="login_successful">Login successful</string>
+
+    <!--****自定义推荐页面****-->
+    <string-array name="data_type">
+        <item>ALL</item>
+        <item>IOS</item>
+        <item>App</item>
+        <item>Web</item>
+        <item>video</item>
+        <item>Expand</item>
+    </string-array>
+    <string-array name="request_data_type">
+        <item>all</item>
+        <item>iOS</item>
+        <item>App</item>
+        <item>前端</item>
+        <item>休息视频</item>
+        <item>拓展资源</item>
+    </string-array>
+
+
+    <!--****安卓资料****-->
+    <!--安卓资料fragment-->
+    <string name="android_data_play_android">Play Android</string>
+    <string name="android_data_knowledge_system">android</string>
+    <string name="android_data_navigation">Navigation</string>
+    <!--玩安卓-->
+    <string name="play_android_collection_successfully">Collection successfully</string>
+    <string name="play_android_collection_failed">Collection failed</string>
+    <string name="play_android_cancel_collection_successfully">Cancel collection successfully</string>
+    <string name="play_android_cancel_collection_failed">Cancel collection failed</string>
+
+    <!--*******************共同*******************-->
+    <!--列表空状态-->
+    <string name="common_empty_list_load_failed">Failed to load, please try again!</string>
+    <!--Log相关-->
+
+</resources>

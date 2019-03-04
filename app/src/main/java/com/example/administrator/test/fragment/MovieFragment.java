@@ -137,13 +137,13 @@ public class MovieFragment extends BaseFragment {
 
         bottomBar.setOnTabSelectListener(tabId -> {
             switch (tabId) {
-                case R.id.daily_recommendation:
+                case R.id.hit_list:
                     viewPager.setCurrentItem(VIEW_PAGER_PAGE_1);
                     break;
-                case R.id.welfare:
+                case R.id.upcoming:
                     viewPager.setCurrentItem(VIEW_PAGER_PAGE_2);
                     break;
-                case R.id.custom:
+                case R.id.top_250:
                     viewPager.setCurrentItem(VIEW_PAGER_PAGE_3);
                     break;
                 default:
@@ -152,15 +152,15 @@ public class MovieFragment extends BaseFragment {
         });
 
         bottomBar.setOnTabReselectListener(tabId -> {
-            if (tabId == R.id.play_android) {
+            if (tabId == R.id.hit_list) {
                 // 已经选择了这个标签，又点击一次。即重选。
-                bottomBar.getTabWithId(R.id.play_android)
+                bottomBar.getTabWithId(R.id.hit_list)
                          .removeBadge();
             }
         });
         bottomBar.setTabSelectionInterceptor((oldTabId, newTabId) -> {
             // 点击无效
-            if (newTabId == R.id.tree) {
+            if (newTabId == R.id.upcoming) {
                 // ......
                 // 返回 true 。代表：这里我处理了，你不用管了。
                 return false;

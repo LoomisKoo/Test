@@ -20,7 +20,7 @@
             android:layout_height="55dp"
             android:layout_alignParentBottom="true"
             app:bb_behavior="shifting"
-            app:bb_tabXmlResource="@xml/play_android_bottom_bar"
+            app:bb_tabXmlResource="@xml/basic_knowledge_bottom_bar"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"

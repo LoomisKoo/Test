@@ -170,15 +170,15 @@ public class RecommendFragment extends BaseFragment {
         });
 
         bottomBar.setOnTabReselectListener(tabId -> {
-            if (tabId == R.id.play_android) {
+            if (tabId == R.id.daily_recommendation) {
                 // 已经选择了这个标签，又点击一次。即重选。
-                bottomBar.getTabWithId(R.id.play_android)
+                bottomBar.getTabWithId(R.id.daily_recommendation)
                          .removeBadge();
             }
         });
         bottomBar.setTabSelectionInterceptor((oldTabId, newTabId) -> {
             // 点击无效
-            if (newTabId == R.id.tree) {
+            if (newTabId == R.id.custom) {
                 // ......
                 // 返回 true 。代表：这里我处理了，你不用管了。
                 return false;

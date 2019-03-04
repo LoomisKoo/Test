@@ -5,6 +5,23 @@
     <string name="home_bar_title">主页</string>
     <string name="home_subtitle">subtitle</string>
     <string name="home_exit_program_prompt">再按一次退出程序</string>
+    <string name="home_tab_name_basic_knowledge">基础知识</string>
+    <string name="home_tab_name_recommended">推荐</string>
+    <string name="home_tab_name_film">电影</string>
+    <!--Tab-电影页面-->
+    <string name="film_page_tab_name_hit_list">热映榜</string>
+    <string name="film_page_tab_name_upcoming">即将上映</string>
+    <string name="film_page_tab_name_top_250">Top250</string>
+    <!--Tab-基础知识页面-->
+    <string name="basic_knowledge_page_tab_name_android">玩安卓</string>
+    <string name="basic_knowledge_page_tab_name_system">知识体系</string>
+    <string name="basic_knowledge_page_tab_name_navigation">导航数据</string>
+    <!--Tab-基础知识页面-->
+    <string name="recommend_page_tab_name_daily">每日推荐</string>
+    <string name="recommend_page_tab_name_welfare">福利</string>
+    <string name="recommend_page_tab_name_custom">干货定制</string>
+    <string name="recommend_page_tab_name_android">安卓</string>
+
     <!--****电影详情页面****-->
     <string name="movie_detail_actor">演员</string>
     <string name="movie_detail_director">导演</string>

@@ -3,16 +3,16 @@
     <tab
         barColorWhenSelected="#bfc0f1"
         icon="@mipmap/recommend_ic_tab_daily_recommendation"
-        id="@+id/daily_recommendation"
-        title="热映榜" />
+        id="@+id/hit_list"
+        title="@string/film_page_tab_name_hit_list" />
     <tab
         barColorWhenSelected="#5b8f4b"
         icon="@mipmap/recommend_ic_tab_welfare"
-        id="@+id/welfare"
-        title="即将上映" />
+        id="@+id/upcoming"
+        title="@string/film_page_tab_name_upcoming" />
     <tab
         barColorWhenSelected="#e72034"
         icon="@mipmap/recommend_ic_tab_custom"
-        id="@+id/custom"
-        title="Top250" />
+        id="@+id/top_250"
+        title="@string/film_page_tab_name_top_250" />
 </tabs>
