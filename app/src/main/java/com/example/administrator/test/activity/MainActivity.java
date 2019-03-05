@@ -172,6 +172,12 @@ public class MainActivity extends BaseViewActivity {
     }
 
     @Override
+    protected void onPause() {
+        super.onPause();
+        closeDrawer();
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
         ACache mCache = ACache.get(this);

@@ -446,6 +446,13 @@ public abstract class BaseViewActivity<P extends IBasePresenter> extends BaseAni
     }
 
     /**
+     * 关闭侧边菜单
+     */
+    protected void closeDrawer() {
+        baseRootDl.closeDrawers();
+    }
+
+    /**
      * 禁止/打开手势滑动
      */
     protected void lockDrawer(boolean lock) {
