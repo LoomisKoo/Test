@@ -60,11 +60,6 @@ public abstract class BaseAnimationActivity<P extends IBasePresenter> extends Ba
     }
 
     @Override
-    protected P createPresenter() {
-        return null;
-    }
-
-    @Override
     public void setListener() {
 
     }

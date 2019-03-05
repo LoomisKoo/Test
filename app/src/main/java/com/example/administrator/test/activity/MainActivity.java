@@ -220,13 +220,14 @@ public class MainActivity extends BaseViewActivity {
                                                           .withInt("y", AnimatorHelper.getDownY())
                                                           .navigation(this));
         //我的收藏
-        viewHolder.collectionTv.setOnClickListener(v -> {
-            showToast("我的收藏");
-        });
+        viewHolder.collectionTv.setOnClickListener(v -> ARouter.getInstance()
+                                                               .build(ArouteHelper.ROUTE_ACTIVITY_COLLECTION_ARTICLE_LIST)
+                                                               .withFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
+                                                               .withInt("x", AnimatorHelper.getDownX())
+                                                               .withInt("y", AnimatorHelper.getDownY())
+                                                               .navigation(this));
         //退出应用
-        viewHolder.exitTv.setOnClickListener(v -> {
-            finishActivity();
-        });
+        viewHolder.exitTv.setOnClickListener(v -> finishActivity());
 
         setMenuEvent(viewHolder.projectHomePageTv);
         setMenuEvent(viewHolder.downLoadTv);

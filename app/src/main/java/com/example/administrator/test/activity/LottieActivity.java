@@ -8,6 +8,7 @@ import com.airbnb.lottie.LottieAnimationView;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.example.administrator.test.R;
 import com.example.administrator.test.base.activity.BaseAnimationActivity;
+import com.example.administrator.test.mvp.base.IBasePresenter;
 import com.example.administrator.test.util.ArouteHelper;
 
 import butterknife.BindView;
@@ -65,5 +66,10 @@ public class LottieActivity extends BaseAnimationActivity {
             public void onAnimationUpdate(ValueAnimator animation) {
             }
         });
+    }
+
+    @Override
+    protected IBasePresenter createPresenter() {
+        return null;
     }
 }

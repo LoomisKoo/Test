@@ -165,6 +165,7 @@ public class ArticleListEntity {
             private String         link;
             private String         niceDate;
             private String         origin;
+            private int            originId;
             private String         projectLink;
             private long           publishTime;
             private int            superChapterId;
@@ -358,6 +359,14 @@ public class ArticleListEntity {
 
             public void setTags(List<TagsBean> tags) {
                 this.tags = tags;
+            }
+
+            public int getOriginId() {
+                return originId;
+            }
+
+            public void setOriginId(int originId) {
+                this.originId = originId;
             }
 
             public static class TagsBean {

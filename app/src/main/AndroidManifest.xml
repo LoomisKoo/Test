@@ -39,6 +39,7 @@
         <activity android:name=".activity.LoginPlayAndroidActivity" />
         <activity android:name=".activity.KnowledgeSystemArticleActivity" />
         <activity android:name=".activity.LottieActivity" />
+        <activity android:name=".activity.CollectionArticleActivity" />
         <activity
             android:name=".activity.MovieDetailActivity"
             android:theme="@style/TransitionsTheme" />

@@ -114,18 +114,6 @@ public interface Api {
     Observable<ResponseBody> unCollectArticleOrigin(@Path("id") int id);
 
     /**
-     * 取消收藏，我的收藏页面（该页面包含自己录入的内容）
-     *
-     * @param id       文章id
-     * @param originId 列表页下发，无则为-1
-     *                 (代表的是你收藏之前的那篇文章本身的id；
-     *                 但是收藏支持主动添加，这种情况下，没有originId则为-1)
-     */
-    @FormUrlEncoded
-    @POST("lg/uncollect/{id}/json")
-    Observable<ResponseBody> unCollectArticle(@Path("id") int id, @Field("originId") int originId);
-
-    /**
      * 玩安卓登录
      *
      * @param username 用户名
@@ -160,6 +148,23 @@ public interface Api {
      */
     @GET("navi/json")
     Observable<ResponseBody> getNaviData();
+
+    /**
+     * 收藏文章列表
+     */
+    @GET("lg/collect/list/{page}/json")
+    Observable<ResponseBody> getCollectionArticleList(@Path("page") int page);
+    /**
+     * 取消收藏，我的收藏页面（该页面包含自己录入的内容）
+     *
+     * @param id       文章id
+     * @param originId 列表页下发，无则为-1
+     *                 (代表的是你收藏之前的那篇文章本身的id；
+     *                 但是收藏支持主动添加，这种情况下，没有originId则为-1)
+     */
+    @FormUrlEncoded
+    @POST("lg/uncollect/{id}/json")
+    Observable<ResponseBody> unCollectArticleList(@Path("id") int id, @Field("originId") int originId);
 
 
     //---------------------------------- gank ------------------------------------

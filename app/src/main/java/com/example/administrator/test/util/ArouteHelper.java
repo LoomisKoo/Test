@@ -25,18 +25,19 @@ import androidx.core.app.ActivityOptionsCompat;
  * @Version: 1.0
  */
 public class ArouteHelper {
-    public final static String ROUTE_ACTIVITY_MAIN               = "/koo/MainActivity";
-    public final static String ROUTE_ACTIVITY_SECOND_ACTIVITY    = "/koo/SecondActivity";
-    public final static String ROUTE_ACTIVITY_TAB_ACTIVITY       = "/koo/TabActivity";
-    public final static String ROUTE_ACTIVITY_LIST_ACTIVITY      = "/koo/ListActivity";
-    public final static String ROUTE_ACTIVITY_WEB                = "/koo/web";
-    public final static String ROUTE_ACTIVITY_LOGIN              = "/koo/login";
-    public final static String ROUTE_ACTIVITY_LOGIN_PLAY_ANDROID = "/koo/login/play_android";
-    public final static String ROUTE_ACTIVITY_ARTICLE_LIST       = "/koo/article_list";
-    public final static String ROUTE_ACTIVITY_BIG_IMAGE       = "/koo/big_image";
-    public final static String ROUTE_ACTIVITY_MOVIE_DETAIL       = "/koo/movie_detail";
-    public final static String ROUTE_ACTIVITY_PROJECT_HOME       = "/koo/project_home";
-    public final static String ROUTE_ACTIVITY_LOTTIE       = "/koo/lottie";
+    public final static String ROUTE_ACTIVITY_MAIN                    = "/koo/MainActivity";
+    public final static String ROUTE_ACTIVITY_SECOND_ACTIVITY         = "/koo/SecondActivity";
+    public final static String ROUTE_ACTIVITY_TAB_ACTIVITY            = "/koo/TabActivity";
+    public final static String ROUTE_ACTIVITY_LIST_ACTIVITY           = "/koo/ListActivity";
+    public final static String ROUTE_ACTIVITY_WEB                     = "/koo/web";
+    public final static String ROUTE_ACTIVITY_LOGIN                   = "/koo/login";
+    public final static String ROUTE_ACTIVITY_LOGIN_PLAY_ANDROID      = "/koo/login/play_android";
+    public final static String ROUTE_ACTIVITY_ARTICLE_LIST            = "/koo/article_list";
+    public final static String ROUTE_ACTIVITY_BIG_IMAGE               = "/koo/big_image";
+    public final static String ROUTE_ACTIVITY_MOVIE_DETAIL            = "/koo/movie_detail";
+    public final static String ROUTE_ACTIVITY_PROJECT_HOME            = "/koo/project_home";
+    public final static String ROUTE_ACTIVITY_LOTTIE                  = "/koo/lottie";
+    public final static String ROUTE_ACTIVITY_COLLECTION_ARTICLE_LIST = "/koo/collection_article_list";
 
 
     public static void buildWebWithAnimator(Context context, String title, String url) {
@@ -50,7 +51,7 @@ public class ArouteHelper {
                .navigation(context);
     }
 
-    public static void buildMovieDetail(Context context, MovieBriefInformation entity, View shareView){
+    public static void buildMovieDetail(Context context, MovieBriefInformation entity, View shareView) {
         ActivityOptionsCompat optionsCompat =
                 ActivityOptionsCompat.makeSceneTransitionAnimation((Activity) context, shareView, "movie_detail");
 

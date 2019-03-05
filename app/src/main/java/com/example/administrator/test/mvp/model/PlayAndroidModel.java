@@ -44,7 +44,7 @@ public class PlayAndroidModel implements PlayAndroidContract.Model {
     @Override
     public void unCollectArticle(int originId, int id, HttpCallback httpCallback) {
         Observable<ResponseBody> observable = Api.getPlayAndroidService()
-                                                 .unCollectArticle(id, originId);
+                                                 .unCollectArticleList(id, originId);
         Api.query(observable, httpCallback);
     }
 }
