@@ -44,7 +44,9 @@ public class AnimatorHelper {
                 return false;
             };
         }
-        v.setOnTouchListener(touchListener);
+        if (null != v) {
+            v.setOnTouchListener(touchListener);
+        }
     }
 
 

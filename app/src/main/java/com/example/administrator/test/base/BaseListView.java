@@ -23,6 +23,7 @@ import java.util.List;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * @param <T>
@@ -62,6 +63,8 @@ public abstract class BaseListView<T> extends LinearLayout {
     private void initView(Context context) {
         LayoutInflater layoutInflater = LayoutInflater.from(context);
         layoutInflater.inflate(R.layout.layout_base_list, this);
+        ButterKnife.bind(this);
+
         basePagerListRefreshLayout.setOnRefreshListener(refreshLayout -> refresh());
         basePagerListRefreshLayout.setOnLoadmoreListener(refreshLayout -> loadMore());
 

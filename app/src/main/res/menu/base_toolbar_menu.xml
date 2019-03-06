@@ -7,8 +7,7 @@
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/action_notification"
-        android:icon="@drawable/ic_launcher_background"
+        android:icon="@mipmap/ic_test"
         android:title="title1"
         app:showAsAction="ifRoom" />
-
 </menu>

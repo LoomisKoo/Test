@@ -6,6 +6,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -125,6 +126,13 @@ public class MainActivity extends BaseViewActivity {
     }
 
     @Override
+    public boolean onCreatePanelMenu(int featureId, Menu menu) {
+        super.onCreatePanelMenu(featureId, menu);
+        AnimatorHelper.setViewTouchListener(toolbar);
+        return true;
+    }
+
+    @Override
     protected IBasePresenter createPresenter() {
         return null;
     }
@@ -141,6 +149,8 @@ public class MainActivity extends BaseViewActivity {
                 ARouter.getInstance()
                        .build(ArouteHelper.ROUTE_ACTIVITY_TAB_ACTIVITY)
                        .withFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
+                       .withInt("x", AnimatorHelper.getDownX())
+                       .withInt("y", AnimatorHelper.getDownY())
                        .navigation();
                 break;
             case R.id.action_notification:
@@ -148,7 +158,10 @@ public class MainActivity extends BaseViewActivity {
 //                       .build(ArouteHelper.ROUTE_ACTIVITY_LIST_ACTIVITY)
                        .build(ArouteHelper.ROUTE_ACTIVITY_LOTTIE)
                        .withFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
+                       .withInt("x", AnimatorHelper.getDownX())
+                       .withInt("y", AnimatorHelper.getDownY())
                        .navigation();
+
                 break;
 
             default:

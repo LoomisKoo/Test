@@ -6,6 +6,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.LinearLayout;
@@ -13,15 +14,18 @@ import android.widget.TextView;
 
 import com.blankj.utilcode.util.BarUtils;
 import com.example.administrator.test.R;
+import com.example.administrator.test.animation.AnimatorHelper;
 import com.example.administrator.test.mvp.base.IBasePresenter;
 import com.example.administrator.test.util.OnMultiClickListener;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.annotation.ColorRes;
 import androidx.annotation.DrawableRes;
+import androidx.appcompat.widget.ActionMenuView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.view.GravityCompat;
+import androidx.core.view.MenuItemCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -40,9 +44,9 @@ import butterknife.ButterKnife;
  */
 public abstract class BaseViewActivity<P extends IBasePresenter> extends BaseAnimationActivity<P> implements View.OnClickListener {
     @BindView(R.id.base_root_title_tv)
-    TextView     baseRootTitleTv;
+    TextView baseRootTitleTv;
     @BindView(R.id.toolbar)
-    Toolbar      toolbar;
+    protected Toolbar toolbar;
     @BindView(R.id.base_root_top_layout_ll)
     LinearLayout baseRootTopLayoutLl;
     @BindView(R.id.content_layout_ll)
@@ -152,7 +156,6 @@ public abstract class BaseViewActivity<P extends IBasePresenter> extends BaseAni
             onMenuClickListener(menuItem.getItemId());
             return true;
         });
-
         toolbar.setBackgroundResource(R.color.tool_bar_base_background);
 
         toolbar.setNavigationOnClickListener(new OnMultiClickListener() {
@@ -242,11 +245,8 @@ public abstract class BaseViewActivity<P extends IBasePresenter> extends BaseAni
 
     @Override
     public boolean onCreatePanelMenu(int featureId, Menu menu) {
-        try {
+        if (0 != bindMenu()) {
             getMenuInflater().inflate(bindMenu(), menu);
-        }
-        catch (Resources.NotFoundException e) {
-            e.printStackTrace();
         }
         return true;
     }
@@ -462,5 +462,14 @@ public abstract class BaseViewActivity<P extends IBasePresenter> extends BaseAni
         else {
             baseRootDl.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
         }
+    }
+
+    protected View getMenuView(int id) {
+        final MenuItem item = toolbar.getMenu()
+                                     .findItem(id);
+        if (null == item) {
+            return null;
+        }
+        return item.getActionView();
     }
 }
