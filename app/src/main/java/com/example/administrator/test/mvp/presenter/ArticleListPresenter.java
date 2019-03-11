@@ -41,7 +41,12 @@ public class ArticleListPresenter implements ArticleListContract.Presenter {
                         view.onError("获取数据失败");
                     }
                     else {
-                        view.onSuccess(entity);
+                        if (entity.getErrorCode() >= 0) {
+                            view.onSuccess(entity);
+                        }
+                        else {
+                            view.onError(entity.getErrorMsg());
+                        }
                     }
                 }
                 catch (IOException e) {

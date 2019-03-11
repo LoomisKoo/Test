@@ -39,6 +39,7 @@ public class MovieDetailPresenter implements MovieDetailContract.Presenter {
                 try {
                     MovieDetailEntity entity = JSON.parseObject(result.string(), MovieDetailEntity.class);
                     view.onLoadSuccess(entity);
+
                 }
                 catch (IOException e) {
                     e.printStackTrace();

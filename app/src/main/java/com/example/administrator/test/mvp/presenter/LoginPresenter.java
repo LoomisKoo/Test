@@ -45,7 +45,7 @@ public class LoginPresenter implements LoginContract.Presenter {
                     String      strResult = result.string();
                     LoginEntity entity    = JSON.parseObject(strResult, LoginEntity.class);
 
-                    if (-1 == entity.getErrorCode()) {
+                    if (0 > entity.getErrorCode()) {
                         view.loginFail(entity.getErrorMsg());
                     }
                     else {

@@ -38,12 +38,17 @@ public class RecommendDailyPresenter implements RecommendDailyContract.Presenter
                 RecommendDailyEntity entity = null;
                 try {
                     entity = JSON.parseObject(result.string(), RecommendDailyEntity.class);
+                    if (entity.isError()) {
+                        view.onError("加载失败");
+                    }
+                    else {
+                        view.onSuccess(entity);
+                    }
                 }
                 catch (IOException e) {
                     view.onError("加载失败！");
                     e.printStackTrace();
                 }
-                view.onSuccess(entity);
             }
 
             @Override

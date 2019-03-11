@@ -39,7 +39,12 @@ public class KnowledgeSystemPresenter implements KnowledgeSystemContract.Present
                 KnowledgeSystemEntity entity = null;
                 try {
                     entity = JSON.parseObject(result.string(), KnowledgeSystemEntity.class);
-                    view.loadDataSuccess(entity);
+                    if (entity.getErrorCode() >= 0) {
+                        view.loadDataSuccess(entity);
+                    }
+                    else {
+                        view.loadDataFail(entity.getErrorMsg());
+                    }
                 }
                 catch (IOException e) {
                     view.loadDataFail("数据获取失败");

@@ -40,20 +40,26 @@ public class RecommendCustomPresenter implements RecommendCustomContract.Present
                 RecommendCustomEntity entity = null;
                 try {
                     entity = JSON.parseObject(result.string(), RecommendCustomEntity.class);
+                    if (entity.isError()) {
+                        view.onError("加载失败");
+                    }
+                    else {
+                        List<RecommendCustomEntity.CustomInfoEntity> dataList     = entity.getResults();
+                        int                                          dataListSize = dataList.size();
+                        //封装数据
+                        for (int i = 0; i < dataListSize; i++) {
+                            RecommendCustomEntity.CustomInfoEntity data             = dataList.get(i);
+                            BaseViewEntity                         customViewEntity = new BaseViewEntity(data, BaseViewEntity.RECOMMEND_CUSTOM_VIEW_TYPE_ARTICLE_LIST);
+                            view.onSuccess(customViewEntity);
+                        }
+                    }
                 }
                 catch (IOException e) {
                     e.printStackTrace();
                     view.onError("加载失败");
                 }
 
-                List<RecommendCustomEntity.CustomInfoEntity> dataList     = entity.getResults();
-                int                                          dataListSize = dataList.size();
-                //封装数据
-                for (int i = 0; i < dataListSize; i++) {
-                    RecommendCustomEntity.CustomInfoEntity data             = dataList.get(i);
-                    BaseViewEntity                         customViewEntity = new BaseViewEntity(data, BaseViewEntity.RECOMMEND_CUSTOM_VIEW_TYPE_ARTICLE_LIST);
-                    view.onSuccess(customViewEntity);
-                }
+
             }
 
             @Override

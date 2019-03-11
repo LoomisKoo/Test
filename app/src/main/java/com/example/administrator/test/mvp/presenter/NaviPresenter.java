@@ -38,8 +38,8 @@ public class NaviPresenter implements NaviContract.Presenter {
             public void onSuccess(ResponseBody result) {
                 try {
                     NaviEntity entity = JSON.parseObject(result.string(), NaviEntity.class);
-                    if (null == entity || -1 == entity.getErrorCode()) {
-                        view.getDataFail("获取失败");
+                    if (0 > entity.getErrorCode()) {
+                        view.getDataFail(entity.getErrorMsg());
                     }
                     else {
                         view.getDataSuccess(entity);

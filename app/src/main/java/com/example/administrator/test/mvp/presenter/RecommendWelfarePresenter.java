@@ -38,10 +38,18 @@ public class RecommendWelfarePresenter implements RecommendWelfareContract.Prese
                 RecommendWelfareEntity entity;
                 try {
                     entity = JSON.parseObject(result.string(), RecommendWelfareEntity.class);
-                    int entitySize = entity.getResults().size();
-                    for (int i = 0; i < entitySize; i++) {
-                       String url = entity.getResults().get(i).getUrl();
-                        view.onSuccess(url);
+                    if (entity.isError()) {
+                        view.onError("加载失败");
+                    }
+                    else {
+                        int entitySize = entity.getResults()
+                                               .size();
+                        for (int i = 0; i < entitySize; i++) {
+                            String url = entity.getResults()
+                                               .get(i)
+                                               .getUrl();
+                            view.onSuccess(url);
+                        }
                     }
                 }
                 catch (IOException e) {

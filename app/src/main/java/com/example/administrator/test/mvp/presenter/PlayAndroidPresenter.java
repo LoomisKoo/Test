@@ -35,12 +35,19 @@ public class PlayAndroidPresenter implements PlayAndroidContract.Presenter {
                 BannerEntity bannerEntity = null;
                 try {
                     bannerEntity = JSON.parseObject(result.string(), BannerEntity.class);
+
+                    if (bannerEntity.getErrorCode() < 0) {
+                        view.onError(bannerEntity.getErrorMsg());
+                    }
+                    else {
+                        viewEntity = new BaseViewEntity(bannerEntity, BaseViewEntity.PLAY_ANDROID_VIEW_TYPE_BANNER);
+                        view.onSuccess(viewEntity, 0);
+                    }
                 }
                 catch (IOException e) {
                     e.printStackTrace();
+                    view.onError("获取失败");
                 }
-                viewEntity = new BaseViewEntity(bannerEntity, BaseViewEntity.PLAY_ANDROID_VIEW_TYPE_BANNER);
-                view.onSuccess(viewEntity, 0);
             }
 
             @Override

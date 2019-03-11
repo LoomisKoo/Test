@@ -41,12 +41,12 @@ public class MovieTop250Presenter implements MovieTop250Contract.Presenter {
                 MovieTop250Entity entity = null;
                 try {
                     entity = JSON.parseObject(result.string(), MovieTop250Entity.class);
+                    view.onLoadSuccess(entity);
                 }
                 catch (IOException e) {
                     view.onLoadFailed("加载数据失败");
                     e.printStackTrace();
                 }
-                view.onLoadSuccess(entity);
             }
 
             @Override

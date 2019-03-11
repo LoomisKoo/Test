@@ -45,7 +45,11 @@ public class CollectionArticleListPresenter implements CollectionArticleListCont
                     e.printStackTrace();
                     view.onGetDataError("请求失败");
                 }
-                view.onGetDataSuccess(entity);
+                if (entity.getErrorCode() >= 0) {
+                    view.onGetDataSuccess(entity);
+                }else{
+                    view.onGetDataError(entity.getErrorMsg());
+                }
             }
 
             @Override

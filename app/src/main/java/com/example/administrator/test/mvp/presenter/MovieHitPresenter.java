@@ -39,12 +39,13 @@ public class MovieHitPresenter implements MovieHitContract.Presenter {
                 MoviewHitEntity entity = null;
                 try {
                     entity = JSON.parseObject(result.string(), MoviewHitEntity.class);
+                    view.onLoadSuccess(entity);
                 }
                 catch (IOException e) {
                     view.onLoadFailed("加载数据失败");
                     e.printStackTrace();
                 }
-                view.onLoadSuccess(entity);
+
             }
 
             @Override

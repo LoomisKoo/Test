@@ -61,10 +61,7 @@ public class LottieActivity extends BaseAnimationActivity {
         });
 
 
-        lottie.addAnimatorUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator animation) {
-            }
+        lottie.addAnimatorUpdateListener(animation -> {
         });
     }
 

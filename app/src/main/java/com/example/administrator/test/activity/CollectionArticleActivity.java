@@ -116,6 +116,7 @@ public class CollectionArticleActivity extends BaseListActivity<ArticleListEntit
     @Override
     public void onGetDataError(String msg) {
         stopRefresh();
+        showToast(msg);
     }
 
     @Override
