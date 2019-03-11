@@ -1,14 +1,11 @@
 package com.example.administrator.test.webview;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
-import android.text.TextUtils;
+import android.webkit.WebChromeClient;
 import android.webkit.WebView;
-import android.webkit.WebViewClient;
 
 import com.blankj.utilcode.util.AppUtils;
-import com.blankj.utilcode.util.NetworkUtils;
 import com.example.administrator.test.activity.WebActivity;
 
 /**
@@ -23,7 +20,7 @@ import com.example.administrator.test.activity.WebActivity;
  * @UpdateRemark: 更新说明
  * @Version: 1.0
  */
-public class CustomWebViewClient extends WebViewClient {
+public class CustomWebViewClient extends WebChromeClient {
 
     private IWebPageView mIWebPageView;
     private WebActivity  mActivity;
@@ -31,46 +28,60 @@ public class CustomWebViewClient extends WebViewClient {
     public CustomWebViewClient(IWebPageView mIWebPageView) {
         this.mIWebPageView = mIWebPageView;
         mActivity = (WebActivity) mIWebPageView;
-
     }
 
-    @SuppressWarnings("deprecation")
-    @Override
-    public boolean shouldOverrideUrlLoading(WebView view, String url) {
-//        DebugUtil.error("----url:"+url);
-        if (TextUtils.isEmpty(url)) {
-            return false;
-        }
-        if (url.startsWith("http:") || url.startsWith("https:")) {
-            // 可能有提示下载Apk文件
-            if (url.contains(".apk")) {
-                handleOtherwise(url);
-                return true;
-            }
-            return false;
-        }
-
-        handleOtherwise(url);
-        return true;
+    public CustomWebViewClient(IWebPageView mIWebPageView, CallBack callback) {
+        this.callBack = callback;
+        this.mIWebPageView = mIWebPageView;
+        mActivity = (WebActivity) mIWebPageView;
     }
 
-    @Override
-    public void onPageFinished(WebView view, String url) {
-        if (!NetworkUtils.isConnected()) {
-            mIWebPageView.hindProgressBar();
-        }
-        // html加载完成之后，添加监听图片的点击js函数
-        mIWebPageView.addImageClickListener();
-        super.onPageFinished(view, url);
-    }
+
+//    @SuppressWarnings("deprecation")
+//    @Override
+//    public boolean shouldOverrideUrlLoading(WebView view, String url) {
+////        DebugUtil.error("----url:"+url);
+//        if (TextUtils.isEmpty(url)) {
+//            return false;
+//        }
+//        if (url.startsWith("http:") || url.startsWith("https:")) {
+//            // 可能有提示下载Apk文件
+//            if (url.contains(".apk")) {
+//                handleOtherwise(url);
+//                return true;
+//            }
+//            return false;
+//        }
+//
+//        handleOtherwise(url);
+//        return true;
+//    }
+
+//    @Override
+//    public void onPageFinished(WebView view, String url) {
+//        if (!NetworkUtils.isConnected()) {
+//            mIWebPageView.hindProgressBar();
+//        }
+//        // html加载完成之后，添加监听图片的点击js函数
+//        mIWebPageView.addImageClickListener();
+//        super.onPageFinished(view, url);
+//    }
 
     // 视频全屏播放按返回页面被放大的问题
+//    @Override
+//    public void onScaleChanged(WebView view, float oldScale, float newScale) {
+//        super.onScaleChanged(view, oldScale, newScale);
+//        if (newScale - oldScale > 7) {
+//            //异常放大，缩回去。
+//            view.setInitialScale((int) (oldScale / newScale * 100));
+//        }
+//    }
+
     @Override
-    public void onScaleChanged(WebView view, float oldScale, float newScale) {
-        super.onScaleChanged(view, oldScale, newScale);
-        if (newScale - oldScale > 7) {
-            //异常放大，缩回去。
-            view.setInitialScale((int) (oldScale / newScale * 100));
+    public void onProgressChanged(WebView view, int newProgress) {
+        super.onProgressChanged(view, newProgress);
+        if (null != callBack) {
+            callBack.onProgressChanged(newProgress);
         }
     }
 
@@ -113,5 +124,15 @@ public class CustomWebViewClient extends WebViewClient {
         catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public CallBack callBack;
+
+    public interface CallBack {
+        void onProgressChanged(int newProgress);
+    }
+
+    public void setCallBack(CallBack callBack) {
+        this.callBack = callBack;
     }
 }

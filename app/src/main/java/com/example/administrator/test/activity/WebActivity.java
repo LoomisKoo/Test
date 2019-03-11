@@ -45,12 +45,17 @@ public class WebActivity extends BaseViewActivity implements IWebPageView {
     @BindView(R.id.video_fullView)
     FrameLayout videoFullView;
     @BindView(R.id.webview_detail)
-    WebView     webviewDetail;
+    WebView     webViewDetail;
     /**
      * 进度条
      */
     @BindView(R.id.pb_progress)
     ProgressBar pbProgress;
+
+    /**
+     * 网页加载进度完成值
+     */
+    private static final int PROGRESS_FINISH = 100;
 
     //TODO 加载视频相关
 //    private MyWebChromeClient mWebChromeClient;
@@ -105,7 +110,7 @@ public class WebActivity extends BaseViewActivity implements IWebPageView {
     public void initView(Bundle savedInstanceState) {
         initTitle();
         initWebView();
-        webviewDetail.loadUrl(url);
+        webViewDetail.loadUrl(url);
     }
 
     @Override
@@ -130,8 +135,8 @@ public class WebActivity extends BaseViewActivity implements IWebPageView {
 
     @Override
     protected void OnNavigationOnClick() {
-        if (webviewDetail.canGoBack()) {
-            webviewDetail.goBack();
+        if (webViewDetail.canGoBack()) {
+            webViewDetail.goBack();
         }
         else {
             finishActivity();
@@ -157,7 +162,7 @@ public class WebActivity extends BaseViewActivity implements IWebPageView {
     @SuppressLint("SetJavaScriptEnabled")
     private void initWebView() {
         pbProgress.setVisibility(View.VISIBLE);
-        WebSettings ws = webviewDetail.getSettings();
+        WebSettings ws = webViewDetail.getSettings();
         // 网页内容的宽度是否可大于WebView控件的宽度
         ws.setLoadWithOverviewMode(false);
         // 保存表单数据
@@ -174,7 +179,7 @@ public class WebActivity extends BaseViewActivity implements IWebPageView {
         // 设置此属性，可任意比例缩放。
         ws.setUseWideViewPort(true);
         // 不缩放
-        webviewDetail.setInitialScale(100);
+        webViewDetail.setInitialScale(100);
         // 告诉WebView启用JavaScript执行。默认的是false。
         ws.setJavaScriptEnabled(true);
         //  页面加载好以后，再放开图片
@@ -197,9 +202,17 @@ public class WebActivity extends BaseViewActivity implements IWebPageView {
 //        webView.setWebChromeClient(mWebChromeClient);
 //        // 与js交互
 //        webView.addJavascriptInterface(new ImageClickInterface(this), "injectedObject");
-        webviewDetail.setWebViewClient(new CustomWebViewClient(this));
-    }
 
+        CustomWebViewClient customWebViewClient = new CustomWebViewClient(this);
+        customWebViewClient.setCallBack(newProgress -> {
+            pbProgress.setVisibility(View.VISIBLE);
+            pbProgress.setProgress(newProgress);
+            if (PROGRESS_FINISH == newProgress) {
+                pbProgress.setVisibility(View.INVISIBLE);
+            }
+        });
+        webViewDetail.setWebChromeClient(customWebViewClient);
+    }
     //
 //    @Override
 //    public boolean onOptionsItemSelected(MenuItem item) {
@@ -255,8 +268,8 @@ public class WebActivity extends BaseViewActivity implements IWebPageView {
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         //点击回退键时，不会退出浏览器而是返回网页上一页
-        if ((keyCode == KEYCODE_BACK) && webviewDetail.canGoBack()) {
-            webviewDetail.goBack();
+        if ((keyCode == KEYCODE_BACK) && webViewDetail.canGoBack()) {
+            webViewDetail.goBack();
             return true;
         }
         return super.onKeyDown(keyCode, event);

@@ -1,7 +1,6 @@
 package com.example.administrator.test.base.activity;
 
 import android.content.pm.ActivityInfo;
-import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -14,18 +13,15 @@ import android.widget.TextView;
 
 import com.blankj.utilcode.util.BarUtils;
 import com.example.administrator.test.R;
-import com.example.administrator.test.animation.AnimatorHelper;
 import com.example.administrator.test.mvp.base.IBasePresenter;
 import com.example.administrator.test.util.OnMultiClickListener;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.annotation.ColorRes;
 import androidx.annotation.DrawableRes;
-import androidx.appcompat.widget.ActionMenuView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.view.GravityCompat;
-import androidx.core.view.MenuItemCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import butterknife.BindView;
 import butterknife.ButterKnife;

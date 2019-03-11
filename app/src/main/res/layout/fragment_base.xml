@@ -33,7 +33,6 @@
             android:id="@+id/base_pager_list_ll"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/white"
             android:orientation="vertical" />
         <!--footer style-->
         <com.scwang.smartrefresh.layout.footer.BallPulseFooter

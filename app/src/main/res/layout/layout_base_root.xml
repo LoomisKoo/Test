@@ -4,14 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/base_root_dl"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/white">
+    android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/base_root_cl"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/white">
+        android:layout_height="match_parent">
 
         <androidx.appcompat.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -26,14 +24,14 @@
             app:titleTextColor="@color/white">
 
             <TextView
-                android:layout_marginEnd="30dp"
-                android:ellipsize="marquee"
-                android:gravity="center"
-                android:singleLine="true"
                 android:id="@+id/base_root_title_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_marginEnd="30dp"
+                android:ellipsize="marquee"
+                android:gravity="center"
+                android:singleLine="true"
                 android:text=""
                 android:textColor="@color/white"
                 android:textSize="20sp"
@@ -46,9 +44,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/toolbar">
-
-        </LinearLayout>
+            app:layout_constraintTop_toBottomOf="@id/toolbar" />
 
         <LinearLayout
             android:id="@+id/content_layout_ll"
@@ -58,9 +54,7 @@
             app:layout_constraintBottom_toTopOf="@+id/base_root_bottom_layout_ll"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/base_root_top_layout_ll">
-
-        </LinearLayout>
+            app:layout_constraintTop_toBottomOf="@id/base_root_top_layout_ll" />
 
         <LinearLayout
             android:id="@+id/base_root_bottom_layout_ll"
@@ -78,5 +72,5 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:background="@color/white"/>
+        android:background="@color/white" />
 </androidx.drawerlayout.widget.DrawerLayout>
