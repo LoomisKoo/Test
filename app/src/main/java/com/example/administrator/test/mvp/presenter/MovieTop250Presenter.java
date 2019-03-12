@@ -2,10 +2,8 @@ package com.example.administrator.test.mvp.presenter;
 
 import com.alibaba.fastjson.JSON;
 import com.example.administrator.test.entity.MovieTop250Entity;
-import com.example.administrator.test.entity.MoviewHitEntity;
 import com.example.administrator.test.http.HttpCallback;
 import com.example.administrator.test.mvp.contract.MovieTop250Contract;
-import com.example.administrator.test.mvp.contract.MovieUpcomingContract;
 
 import java.io.IOException;
 

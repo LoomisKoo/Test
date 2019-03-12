@@ -1,26 +1,26 @@
 package com.example.administrator.test.webview;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
-import android.webkit.WebChromeClient;
+import android.text.TextUtils;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 
 import com.blankj.utilcode.util.AppUtils;
+import com.blankj.utilcode.util.NetworkUtils;
 import com.example.administrator.test.activity.WebActivity;
 
+
 /**
- * @ProjectName: Test
- * @Package: com.example.administrator.test.util
- * @ClassName: CustomWebViewClient
- * @Description: java类作用描述
- * @Author: koo
- * @CreateDate: 2019/1/8 11:33 AM
- * @UpdateUser:
- * @UpdateDate: 2019/1/8 11:33 AM
- * @UpdateRemark: 更新说明
- * @Version: 1.0
+ * Created by jingbin on 2016/11/17.
+ * 监听网页链接:
+ * - 优酷视频直接跳到自带浏览器
+ * - 根据标识:打电话、发短信、发邮件
+ * - 进度条的显示
+ * - 添加javascript监听
  */
-public class CustomWebViewClient extends WebChromeClient {
+public class CustomWebViewClient extends WebViewClient {
 
     private IWebPageView mIWebPageView;
     private WebActivity  mActivity;
@@ -28,67 +28,52 @@ public class CustomWebViewClient extends WebChromeClient {
     public CustomWebViewClient(IWebPageView mIWebPageView) {
         this.mIWebPageView = mIWebPageView;
         mActivity = (WebActivity) mIWebPageView;
+
     }
 
-    public CustomWebViewClient(IWebPageView mIWebPageView, CallBack callback) {
-        this.callBack = callback;
-        this.mIWebPageView = mIWebPageView;
-        mActivity = (WebActivity) mIWebPageView;
+    @SuppressWarnings("deprecation")
+    @Override
+    public boolean shouldOverrideUrlLoading(WebView view, String url) {
+//        DebugUtil.error("----url:"+url);
+        if (TextUtils.isEmpty(url)) {
+            return false;
+        }
+        if (url.startsWith("http:") || url.startsWith("https:")) {
+            // 可能有提示下载Apk文件
+            if (url.contains(".apk")) {
+                handleOtherwise(mActivity, url);
+                return true;
+            }
+            return false;
+        }
+
+        handleOtherwise(mActivity, url);
+        return true;
     }
-
-
-//    @SuppressWarnings("deprecation")
-//    @Override
-//    public boolean shouldOverrideUrlLoading(WebView view, String url) {
-////        DebugUtil.error("----url:"+url);
-//        if (TextUtils.isEmpty(url)) {
-//            return false;
-//        }
-//        if (url.startsWith("http:") || url.startsWith("https:")) {
-//            // 可能有提示下载Apk文件
-//            if (url.contains(".apk")) {
-//                handleOtherwise(url);
-//                return true;
-//            }
-//            return false;
-//        }
-//
-//        handleOtherwise(url);
-//        return true;
-//    }
-
-//    @Override
-//    public void onPageFinished(WebView view, String url) {
-//        if (!NetworkUtils.isConnected()) {
-//            mIWebPageView.hindProgressBar();
-//        }
-//        // html加载完成之后，添加监听图片的点击js函数
-//        mIWebPageView.addImageClickListener();
-//        super.onPageFinished(view, url);
-//    }
-
-    // 视频全屏播放按返回页面被放大的问题
-//    @Override
-//    public void onScaleChanged(WebView view, float oldScale, float newScale) {
-//        super.onScaleChanged(view, oldScale, newScale);
-//        if (newScale - oldScale > 7) {
-//            //异常放大，缩回去。
-//            view.setInitialScale((int) (oldScale / newScale * 100));
-//        }
-//    }
 
     @Override
-    public void onProgressChanged(WebView view, int newProgress) {
-        super.onProgressChanged(view, newProgress);
-        if (null != callBack) {
-            callBack.onProgressChanged(newProgress);
+    public void onPageFinished(WebView view, String url) {
+        if (NetworkUtils.isConnected()) {
+            mIWebPageView.hindProgressBar();
+        }
+        // html加载完成之后，添加监听图片的点击js函数
+        mIWebPageView.addImageClickListener();
+        super.onPageFinished(view, url);
+    }
+
+    // 视频全屏播放按返回页面被放大的问题
+    @Override
+    public void onScaleChanged(WebView view, float oldScale, float newScale) {
+        super.onScaleChanged(view, oldScale, newScale);
+        if (newScale - oldScale > 7) {
+            view.setInitialScale((int) (oldScale / newScale * 100)); //异常放大，缩回去。
         }
     }
 
     /**
      * 网页里可能唤起其他的app
      */
-    private void handleOtherwise(String url) {
+    private void handleOtherwise(Activity activity, String url) {
         String appPackageName = "";
         // 支付宝支付
         if (url.contains("alipays")) {
@@ -107,6 +92,7 @@ public class CustomWebViewClient extends WebChromeClient {
         else {
             startActivity(url);
         }
+
         if (AppUtils.isAppInstalled(appPackageName)) {
             startActivity(url);
         }
@@ -126,13 +112,4 @@ public class CustomWebViewClient extends WebChromeClient {
         }
     }
 
-    public CallBack callBack;
-
-    public interface CallBack {
-        void onProgressChanged(int newProgress);
-    }
-
-    public void setCallBack(CallBack callBack) {
-        this.callBack = callBack;
-    }
 }

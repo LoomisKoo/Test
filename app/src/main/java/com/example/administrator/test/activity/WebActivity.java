@@ -17,6 +17,7 @@ import com.example.administrator.test.R;
 import com.example.administrator.test.base.activity.BaseViewActivity;
 import com.example.administrator.test.mvp.base.IBasePresenter;
 import com.example.administrator.test.util.ArouteHelper;
+import com.example.administrator.test.webview.CustomWebChromeClient;
 import com.example.administrator.test.webview.CustomWebViewClient;
 import com.example.administrator.test.webview.IWebPageView;
 
@@ -203,15 +204,17 @@ public class WebActivity extends BaseViewActivity implements IWebPageView {
 //        // 与js交互
 //        webView.addJavascriptInterface(new ImageClickInterface(this), "injectedObject");
 
-        CustomWebViewClient customWebViewClient = new CustomWebViewClient(this);
-        customWebViewClient.setCallBack(newProgress -> {
+        CustomWebChromeClient customWebChromeClient = new CustomWebChromeClient(this);
+        customWebChromeClient.setCallBack(newProgress -> {
             pbProgress.setVisibility(View.VISIBLE);
             pbProgress.setProgress(newProgress);
             if (PROGRESS_FINISH == newProgress) {
                 pbProgress.setVisibility(View.INVISIBLE);
             }
         });
-        webViewDetail.setWebChromeClient(customWebViewClient);
+        webViewDetail.setWebChromeClient(customWebChromeClient);
+
+        webViewDetail.setWebViewClient(new CustomWebViewClient(this));
     }
     //
 //    @Override
