@@ -220,6 +220,9 @@ public abstract class BaseListActivity<T, P extends IBasePresenter> extends Base
     }
 
     protected void hideEmptyView() {
+        if (null == basePagerListEmptyTv) {
+            return;
+        }
         if (basePagerListEmptyTv.getVisibility() == View.VISIBLE) {
             basePagerListEmptyTv.setVisibility(View.INVISIBLE);
         }

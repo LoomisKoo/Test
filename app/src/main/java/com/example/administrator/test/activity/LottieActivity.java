@@ -1,18 +1,17 @@
 package com.example.administrator.test.activity;
 
 import android.animation.Animator;
-import android.animation.ValueAnimator;
 import android.os.Bundle;
+import android.view.View;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.example.administrator.test.R;
-import com.example.administrator.test.base.activity.BaseAnimationActivity;
+import com.example.administrator.test.base.activity.BaseViewActivity;
 import com.example.administrator.test.mvp.base.IBasePresenter;
 import com.example.administrator.test.util.ArouteHelper;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * @ProjectName: Test
@@ -27,15 +26,14 @@ import butterknife.ButterKnife;
  * @Version: 1.0
  */
 @Route(path = ArouteHelper.ROUTE_ACTIVITY_LOTTIE)
-public class LottieActivity extends BaseAnimationActivity {
+public class LottieActivity extends BaseViewActivity {
     @BindView(R.id.lottie)
     LottieAnimationView lottie;
 
     @Override
     public void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
-        setContentView(R.layout.layout_lottie);
-        ButterKnife.bind(this);
+//        ButterKnife.bind(this);
 
         lottie.loop(true);
         lottie.addAnimatorListener(new Animator.AnimatorListener() {
@@ -68,5 +66,40 @@ public class LottieActivity extends BaseAnimationActivity {
     @Override
     protected IBasePresenter createPresenter() {
         return null;
+    }
+
+    @Override
+    public void initParameter(Bundle parameter) {
+
+    }
+
+    @Override
+    public View bindView() {
+        return null;
+    }
+
+    @Override
+    public int bindContentLayout() {
+        return R.layout.layout_lottie;
+    }
+
+    @Override
+    public int bindTopLayout() {
+        return 0;
+    }
+
+    @Override
+    public int bindBottomLayout() {
+        return 0;
+    }
+
+    @Override
+    public int bindMenu() {
+        return 0;
+    }
+
+    @Override
+    public void onMenuClickListener(int menuId) {
+
     }
 }
