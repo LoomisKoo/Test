@@ -78,6 +78,8 @@ public class MovieDetailActivity extends BaseActivity<MovieDetailPresenter> impl
         movieID = movieBriefInformation.getId();
 
         presenter.getMovieDetail(movieID);
+        showDialog();
+
         movieInfoView.setData(movieBriefInformation);
 
         toolbar.setTitle(movieBriefInformation.getTitle());
@@ -115,6 +117,8 @@ public class MovieDetailActivity extends BaseActivity<MovieDetailPresenter> impl
         initMovieIntroduction(entity);
         movieInfoView.setRegion(entity.getCountries());
         actorsView.setData(entity);
+
+        dismissDialog();
     }
 
     @Override

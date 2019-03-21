@@ -215,6 +215,10 @@ public class LoginPlayAndroidActivity extends BaseViewActivity<LoginPresenter> i
      * @param isLogin
      */
     private void inputAnimator(boolean isLogin) {
+        if (null == cardView) {
+            return;
+        }
+
         LoginLayoutAnimatorSet = new AnimatorSet();
         ValueAnimator animator = ValueAnimator.ofFloat(0, cardView.getMeasuredWidth());
         animator.addUpdateListener(animation -> {
@@ -225,6 +229,7 @@ public class LoginPlayAndroidActivity extends BaseViewActivity<LoginPresenter> i
             params.rightMargin = (int) value;
             cardView.setLayoutParams(params);
         });
+
         ObjectAnimator animator2 = null;
         if (isLogin) {
             animator2 = ObjectAnimator.ofFloat(cardView,
@@ -311,6 +316,9 @@ public class LoginPlayAndroidActivity extends BaseViewActivity<LoginPresenter> i
      * 取消动画
      */
     private void cancelAnimator() {
+        if (null == cardView) {
+            return;
+        }
         if (null != LoginLayoutAnimatorSet && LoginLayoutAnimatorSet.isRunning()) {
             LoginLayoutAnimatorSet.cancel();
         }
@@ -318,7 +326,7 @@ public class LoginPlayAndroidActivity extends BaseViewActivity<LoginPresenter> i
             loadAnimator.cancel();
         }
         inputAnimator(false);
-        cardView.setVisibility(View.VISIBLE);
+
     }
 
     @Override

@@ -206,10 +206,12 @@ public class WebActivity extends BaseViewActivity implements IWebPageView {
 
         CustomWebChromeClient customWebChromeClient = new CustomWebChromeClient(this);
         customWebChromeClient.setCallBack(newProgress -> {
-            pbProgress.setVisibility(View.VISIBLE);
-            pbProgress.setProgress(newProgress);
-            if (PROGRESS_FINISH == newProgress) {
-                pbProgress.setVisibility(View.INVISIBLE);
+            if (null != pbProgress) {
+                pbProgress.setVisibility(View.VISIBLE);
+                pbProgress.setProgress(newProgress);
+                if (PROGRESS_FINISH == newProgress) {
+                    pbProgress.setVisibility(View.INVISIBLE);
+                }
             }
         });
         webViewDetail.setWebChromeClient(customWebChromeClient);
