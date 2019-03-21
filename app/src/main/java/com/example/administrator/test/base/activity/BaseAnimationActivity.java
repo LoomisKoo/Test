@@ -11,6 +11,8 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 import com.example.administrator.test.animation.AnimatorHelper;
 import com.example.administrator.test.mvp.base.IBasePresenter;
 
+import butterknife.ButterKnife;
+
 /**
  * @ProjectName: Test
  * @Package: com.example.administrator.test.base.activity
@@ -47,6 +49,13 @@ public abstract class BaseAnimationActivity<P extends IBasePresenter> extends Ba
         if (isAllowActivityAnimator) {
             startActivityAnimation();
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        ButterKnife.bind(this)
+                   .unbind();
+        super.onDestroy();
     }
 
     @Override

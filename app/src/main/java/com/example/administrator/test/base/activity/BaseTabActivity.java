@@ -129,6 +129,13 @@ public abstract class BaseTabActivity extends BaseViewActivity {
         ButterKnife.bind(this);
     }
 
+    @Override
+    protected void onDestroy() {
+        ButterKnife.bind(this)
+                   .unbind();
+        super.onDestroy();
+    }
+
     class BasePagerAdapter extends PagerAdapter {
 
         @Override

@@ -322,4 +322,11 @@ public abstract class BaseListActivity<T, P extends IBasePresenter> extends Base
         // TODO: add setContentView(...) invocation
         ButterKnife.bind(this);
     }
+
+    @Override
+    protected void onDestroy() {
+        ButterKnife.bind(this)
+                   .unbind();
+        super.onDestroy();
+    }
 }

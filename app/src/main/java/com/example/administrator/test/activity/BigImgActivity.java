@@ -171,4 +171,11 @@ public class BigImgActivity extends BaseViewActivity {
         // TODO: add setContentView(...) invocation
         ButterKnife.bind(this);
     }
+
+    @Override
+    protected void onDestroy() {
+        ButterKnife.bind(this)
+                   .unbind();
+        super.onDestroy();
+    }
 }

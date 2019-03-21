@@ -49,6 +49,13 @@ public class ProjectHomeActivity extends BaseAnimationActivity {
     }
 
     @Override
+    protected void onDestroy() {
+        ButterKnife.bind(this)
+                   .unbind();
+        super.onDestroy();
+    }
+
+    @Override
     protected IBasePresenter createPresenter() {
         return null;
     }

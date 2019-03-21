@@ -30,7 +30,7 @@ public abstract class BaseFragment<P> extends Fragment implements FragmentUserVi
     protected FragmentUserVisibleManager userVisibleManager;
 
     /**
-     * 是否已经加载数据
+     * 是否已经加载数据®
      */
     protected boolean isLoadData = false;
 
@@ -52,6 +52,9 @@ public abstract class BaseFragment<P> extends Fragment implements FragmentUserVi
     LinearLayout basePagerListBottomLay;
     @BindView(R.id.base_pager_list_root)
     protected ConstraintLayout basePagerListRoot;
+
+    View rootView;
+
 
     public BaseFragment() {
         userVisibleManager = new FragmentUserVisibleManager(this, this);
@@ -182,16 +185,16 @@ public abstract class BaseFragment<P> extends Fragment implements FragmentUserVi
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_base, container, false);
-        bingView(view);
-        return view;
+        rootView = inflater.inflate(R.layout.fragment_base, container, false);
+        bingView();
+        return rootView;
     }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initRootView(view);
-        bingView(view);
+        bingView();
         initView(basePagerListLl);
     }
 
@@ -201,6 +204,7 @@ public abstract class BaseFragment<P> extends Fragment implements FragmentUserVi
         presenter = getPresenter();
         userVisibleManager.activityCreated();
     }
+
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
@@ -276,6 +280,8 @@ public abstract class BaseFragment<P> extends Fragment implements FragmentUserVi
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        ButterKnife.bind(this, rootView)
+                   .unbind();
     }
 
     @Override
@@ -339,10 +345,10 @@ public abstract class BaseFragment<P> extends Fragment implements FragmentUserVi
     }
 
 
-    private void bingView(View view){
+    private void bingView() {
         //ButterKnife会先找该activity的子类的view进行绑定，但是子类的view还没inflate，此处会崩溃。因此需要try-catch
         try {
-            ButterKnife.bind(this, view);
+            ButterKnife.bind(this, rootView);
         }
         catch (Exception e) {
         }

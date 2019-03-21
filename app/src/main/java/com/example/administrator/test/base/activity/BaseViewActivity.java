@@ -99,6 +99,13 @@ public abstract class BaseViewActivity<P extends IBasePresenter> extends BaseAni
         }
     }
 
+    @Override
+    protected void onDestroy() {
+        ButterKnife.bind(this)
+                   .unbind();
+        super.onDestroy();
+    }
+
     /**
      * 初始化主布局
      */

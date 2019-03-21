@@ -103,13 +103,17 @@ public class MovieDetailActivity extends BaseActivity<MovieDetailPresenter> impl
         actorsView = new MovieDetailViewActors(this, getWindow().getDecorView());
     }
 
+    @Override
+    protected void onDestroy() {
+        ButterKnife.bind(this)
+                   .unbind();
+        super.onDestroy();
+    }
 
     @Override
     public void onLoadSuccess(MovieDetailEntity entity) {
         initMovieIntroduction(entity);
-
         movieInfoView.setRegion(entity.getCountries());
-
         actorsView.setData(entity);
     }
 
