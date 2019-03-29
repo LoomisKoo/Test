@@ -1,14 +1,17 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
-    
+
     repositories {
         google()
         jcenter()
+        maven { url 'http://maven.aliyun.com/nexus/content/repositories/releases/' }
+//        maven { url "http://maven.aliyun.com/nexus/content/repositories/releases" }
     }
     dependencies {
         //AOP
         classpath 'com.hujiang.aspectjx:gradle-android-plugin-aspectjx:2.0.0'
-
+        //阿里热修复
+        classpath 'com.aliyun.ams:emas-services:1.0.1'
         classpath 'com.android.tools.build:gradle:3.2.1'
     }
 }
@@ -20,6 +23,8 @@ allprojects {
         //xzing二维码库
         maven { url 'https://jitpack.io' }
         maven { url "https://maven.google.com" }
+        //阿里热修复
+        maven { url 'http://maven.aliyun.com/nexus/content/repositories/releases/' }
     }
 }
 

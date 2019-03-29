@@ -4,10 +4,9 @@ import android.app.Application;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.blankj.utilcode.util.Utils;
-import com.example.administrator.test.http.Api;
-import com.example.administrator.test.http.HttpUtil;
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
+import com.taobao.sophix.SophixManager;
 
 /**
  * @author koo
@@ -22,6 +21,7 @@ public class TestApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+
         instance = this;
         // 打印日志
         ARouter.openLog();
@@ -32,6 +32,8 @@ public class TestApplication extends Application {
 
         Utils.init(this);
         initLogger();
+
+        SophixManager.getInstance().queryAndLoadNewPatch();
     }
 
     private void initLogger() {

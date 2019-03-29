@@ -1,5 +1,5 @@
 apply plugin: 'com.android.application'
-
+apply plugin: 'com.aliyun.ams.emas-services'
 android {
     compileSdkVersion 28
     defaultConfig {
@@ -7,8 +7,8 @@ android {
         minSdkVersion 21
         targetSdkVersion 28
         buildToolsVersion "28.0.2"
-        versionCode 1
-        versionName "1.0"
+        versionCode 4
+        versionName "1.0.3"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         javaCompileOptions {
@@ -30,6 +30,9 @@ android {
     buildToolsVersion = '28.0.3'
 }
 
+repositories {
+    maven { url "http://maven.aliyun.com/nexus/content/repositories/releases" }
+}
 dependencies {
     annotationProcessor 'com.alibaba:arouter-compiler:1.1.4'
     implementation fileTree(include: ['*.jar'], dir: 'libs')
@@ -129,6 +132,12 @@ dependencies {
     implementation 'com.airbnb.android:lottie:1.0.1'
     //加载动画
     implementation 'com.zyao89:zloading:1.2.0'
+    //热修复
+    implementation 'com.aliyun.ams:alicloud-android-hotfix:3.2.8'
+    implementation 'com.android.support:multidex:1.0.3'
+//    implementation ('com.taobao.android:alisdk-hotfix:2.0.9') {
+//        exclude(module:'utdid4all')
+//    }
 
     //    implementation 'com.google.android.material:material:1.0.0+'
 

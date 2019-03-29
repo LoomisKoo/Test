@@ -105,11 +105,7 @@ public class BigImgActivity extends BaseViewActivity {
               .isAutoPlay(false)
               .start()
               .setCurPosition(curImgPosition)
-              .setOnBannerListener(position ->
-                                   {
-                                       finishAfterTransition();
-                                   }
-              );
+              .setOnBannerListener(position -> finishAfterTransition());
 
         banner.setOnLongClickListener(view -> {
             ArrayList<String> tips = new ArrayList<>();
