@@ -1,5 +1,6 @@
 package com.example.administrator.test.activity;
 
+import android.os.Bundle;
 import android.view.ViewGroup;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
@@ -28,7 +29,7 @@ import androidx.recyclerview.widget.RecyclerView;
  * @Package: com.example.administrator.test.activity
  * @ClassName: CollectionArticleActivity
  * @Description: java类作用描述
- * @Author: koo
+ * @Author: koom
  * @CreateDate: 2019/3/5 15:21
  * @UpdateUser:
  * @UpdateDate: 2019/3/5 15:21
@@ -90,6 +91,12 @@ public class CollectionArticleActivity extends BaseListActivity<ArticleListEntit
         };
     }
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        showCenterTitle(true);
+        setCenterTitle("我的收藏");
+        super.onCreate(savedInstanceState);
+    }
 
     @Override
     public int bindTopLayout() {
@@ -99,6 +106,11 @@ public class CollectionArticleActivity extends BaseListActivity<ArticleListEntit
     @Override
     public int bindBottomLayout() {
         return 0;
+    }
+
+    @Override
+    public void initView(Bundle savedInstanceState) {
+        super.initView(savedInstanceState);
     }
 
     @Override

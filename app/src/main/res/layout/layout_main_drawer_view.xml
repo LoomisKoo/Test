@@ -37,7 +37,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
             android:clickable="true"
-            android:text="LoomisKoo-1.0.3.1"
+            android:text="LoomisKoo-1.0.2"
             android:textColor="@color/white"
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="@id/top_view"

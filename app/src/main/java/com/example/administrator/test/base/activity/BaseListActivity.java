@@ -72,7 +72,7 @@ public abstract class BaseListActivity<T, P extends IBasePresenter> extends Base
 
     @Override
     public void widgetClick(View v) {
-
+        int a = 0;
     }
 
     @Override
@@ -108,7 +108,6 @@ public abstract class BaseListActivity<T, P extends IBasePresenter> extends Base
         if (getBottomLayId() != 0) {
             getLayoutInflater().inflate(getBottomLayId(), basePagerListBottomLay, true);
         }
-
         initRecycleView();
     }
 
@@ -322,7 +321,6 @@ public abstract class BaseListActivity<T, P extends IBasePresenter> extends Base
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
         ButterKnife.bind(this);
     }
 

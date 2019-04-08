@@ -123,6 +123,8 @@ public class MainActivity extends BaseViewActivity {
         setEnableGesture(false);
         //打开侧边栏手势滑动呼出
         lockDrawer(false);
+
+        ToastUtils.showShort("test12212891324534534522288815");
     }
 
     @Override

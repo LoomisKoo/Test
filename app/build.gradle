@@ -1,5 +1,7 @@
 apply plugin: 'com.android.application'
-apply plugin: 'com.aliyun.ams.emas-services'
+//apply plugin: 'com.aliyun.ams.emas-services'
+//apply plugin: 'com.antfortune.freeline'
+
 android {
     compileSdkVersion 28
     defaultConfig {
@@ -133,8 +135,8 @@ dependencies {
     //加载动画
     implementation 'com.zyao89:zloading:1.2.0'
     //热修复
-    implementation 'com.aliyun.ams:alicloud-android-hotfix:3.2.8'
-    implementation 'com.android.support:multidex:1.0.3'
+//    implementation 'com.aliyun.ams:alicloud-android-hotfix:3.2.8'
+//    implementation 'com.android.support:multidex:1.0.3'
 //    implementation ('com.taobao.android:alisdk-hotfix:2.0.9') {
 //        exclude(module:'utdid4all')
 //    }
